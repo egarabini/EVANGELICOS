@@ -1,0 +1,264 @@
+{
+  "main": {
+    "id": "956b42adb7511e75",
+    "type": "split",
+    "children": [
+      {
+        "id": "b7e021c47ca8d049",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "33fe66c16dc1af12",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "TEMPLATE_ESTUDO/estudo_dirigido/README.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
+            }
+          },
+          {
+            "id": "9f29e4c29f42c8bb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2026-07-07.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2026-07-07"
+            }
+          },
+          {
+            "id": "68a4b5b63c985e84",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Grudem_Doutrina_Biblica/estudo_dirigido/capitulo_01/plano-de-estudo.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "plano-de-estudo"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "dae1e2ea2fa44a1e",
+    "type": "split",
+    "children": [
+      {
+        "id": "053241becc6e8d21",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e0556d2c8aee131e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de arquivos"
+            }
+          },
+          {
+            "id": "5f43e3c688e9f081",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Procurar"
+            }
+          },
+          {
+            "id": "534c950e5ae04a9d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 242.5
+  },
+  "right": {
+    "id": "1f2d4a4e62cc4b4f",
+    "type": "split",
+    "children": [
+      {
+        "id": "6b7d0a7369819ed6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a3cb1f4cd39c8768",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "GSI_EBD/README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Links inversos para README"
+            }
+          },
+          {
+            "id": "dc5acd8d471e6577",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "GSI_EBD/README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Links de saída para README"
+            }
+          },
+          {
+            "id": "91d6c10dcfe42a0d",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "0b04a11abb79095c",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas as propriedades"
+            }
+          },
+          {
+            "id": "8dd5a146935366db",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "GSI_EBD/README.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Sumário de README"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir a troca rápida": false,
+      "graph:Abrir visualização em gráfico": false,
+      "canvas:Criar novo canvas": false,
+      "daily-notes:Abrir a nota de hoje": false,
+      "templates:Inserir modelo": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Criar nova base": false
+    }
+  },
+  "active": "9f29e4c29f42c8bb",
+  "lastOpenFiles": [
+    "2026-07-06.md",
+    "2026-07-07.md",
+    "Estrutura Plano Estudo.md",
+    "ESTUDOS_BIBLICOS.code-workspace",
+    "TEOLOGIA_SISTEMATICA/decks/apendices/references/Apendice_3_Bibliografia_Comentada.md",
+    "TEOLOGIA_SISTEMATICA/decks/apendices/references/Apendice_2_Glossario.md",
+    "TEOLOGIA_SISTEMATICA/decks/apendices/references/Apendice_1_Confissoes_de_Fe_Historicas.md",
+    "TEOLOGIA_SISTEMATICA/decks/apendices/references",
+    "TEOLOGIA_SISTEMATICA/decks/34-novos-ceus-nova-terra/references/Cap_34_Os_Novos_Ceus_e_a_Nova_Terra.md",
+    "TEOLOGIA_SISTEMATICA/decks/34-novos-ceus-nova-terra/references",
+    "TEOLOGIA_SISTEMATICA/decks/33-juizo-final-punicao-eterna/references/Cap_33_O_Juizo_Final_e_a_Punicao_Eterna.md",
+    "TEOLOGIA_SISTEMATICA/decks/33-juizo-final-punicao-eterna/references",
+    "TEOLOGIA_SISTEMATICA/decks/32-milenio/references/Cap_32_O_Milenio.md",
+    "TEOLOGIA_SISTEMATICA/decks/32-milenio/references",
+    "TEOLOGIA_SISTEMATICA/decks/31-volta-cristo-quando-como/references/Cap_31_A_Volta_de_Cristo_Quando_e_Como.md",
+    "TEOLOGIA_SISTEMATICA/decks/31-volta-cristo-quando-como/references",
+    "TEOLOGIA_SISTEMATICA/decks/30-dons-espirito-santo-2-dons-especificos/references/Cap_30_Os_Dons_do_Espirito_Santo_2_Dons_Especificos.md",
+    "TEOLOGIA_SISTEMATICA/decks/30-dons-espirito-santo-2-dons-especificos/references",
+    "TEOLOGIA_SISTEMATICA/decks/29-dons-espirito-santo-1-perguntas-gerais/references/Cap_29_Os_Dons_do_Espirito_Santo_1_Perguntas_Gerais.md",
+    "TEOLOGIA_SISTEMATICA/decks/29-dons-espirito-santo-1-perguntas-gerais/references",
+    "TEOLOGIA_SISTEMATICA/decks/28-ceia-senhor/references/Cap_28_A_Ceia_do_Senhor.md",
+    "TEOLOGIA_SISTEMATICA/decks/28-ceia-senhor/references",
+    "TEOLOGIA_SISTEMATICA/decks/27-batismo/references/Cap_27_O_Batismo.md",
+    "TEOLOGIA_SISTEMATICA/decks/27-batismo/references",
+    "TEOLOGIA_SISTEMATICA/decks/26-natureza-igreja/references/Cap_26_A_Natureza_da_Igreja.md",
+    "TEOLOGIA_SISTEMATICA/decks/25-morte-estado-intermediario-glorificacao/references/Cap_25_A_Morte_o_Estado_Intermediario_e_a_Glorificacao.md",
+    "TEOLOGIA_SISTEMATICA/decks/24-perseveranca-santos/references/Cap_24_A_Perseveranca_dos_Santos.md",
+    "TEOLOGIA_SISTEMATICA/decks/23-santificacao/references/Cap_23_A_Santificacao.md",
+    "TEOLOGIA_SISTEMATICA/decks/22-justificacao-adocao/references/Cap_22_A_Justificacao_e_a_Adocao.md",
+    "TEOLOGIA_SISTEMATICA/decks/21-conversao-fe-arrependimento/references/Cap_21_A_Conversao_Fe_e_Arrependimento.md",
+    "TEOLOGIA_SISTEMATICA/decks/20-regeneracao/references/Cap_20_A_Regeneracao.md",
+    "TEOLOGIA_SISTEMATICA/decks/19-chamado-evangelho/references/Cap_19_O_Chamado_do_Evangelho.md",
+    "TEOLOGIA_SISTEMATICA/decks/18-eleicao/references/Cap_18_A_Eleicao.md",
+    "TEOLOGIA_SISTEMATICA/decks/17-graca-comum/references/Cap_17_A_Graca_Comum.md",
+    "TEOLOGIA_SISTEMATICA/decks/16-ressurreicao-ascensao/references/Cap_16_A_Ressurreicao_e_a_Ascensao.md",
+    "TEOLOGIA_SISTEMATICA/decks/15-expiacao/references/Cap_15_A_Expiacao.md",
+    "DOUTRINAS_CRISTAS/decks/05-atributos-comunicaveis-de-deus/canal_sandeco_logo.png",
+    "DOUTRINAS_CRISTAS/decks/06-trindade/canal_sandeco_logo.png",
+    "DOUTRINAS_CRISTAS/decks/07-criacao/canal_sandeco_logo.png",
+    "DOUTRINAS_CRISTAS/decks/08-providencia-de-deus/canal_sandeco_logo.png",
+    "DOUTRINAS_CRISTAS/decks/09-oracao/canal_sandeco_logo.png",
+    "DOUTRINAS_CRISTAS/decks/10-anjos-satanas-e-demonios/canal_sandeco_logo.png",
+    "DOUTRINAS_CRISTAS/decks/11-criacao-do-homem/canal_sandeco_logo.png",
+    "DOUTRINAS_CRISTAS/decks/12-homem-como-homem-e-mulher/canal_sandeco_logo.png",
+    "DOUTRINAS_CRISTAS/decks/13-pecado/canal_sandeco_logo.png",
+    "DOUTRINAS_CRISTAS/decks/14-pessoa-de-cristo/canal_sandeco_logo.png"
+  ]
+}

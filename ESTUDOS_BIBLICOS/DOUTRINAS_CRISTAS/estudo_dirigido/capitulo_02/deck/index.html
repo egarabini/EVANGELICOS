@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Autoridade e Inerrância da Bíblia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mira-primary: #FF904D;
+            --mira-bg: #000000;
+            --mira-text: #ffffff;
+            --mira-text-soft: rgba(255, 255, 255, 0.70);
+            --mira-text-softer: rgba(255, 255, 255, 0.50);
+            --mira-card-bg: rgba(255, 255, 255, 0.05);
+            --mira-card-border: rgba(255, 255, 255, 0.10);
+            --mira-glow-soft: rgba(255, 144, 77, 0.15);
+            --mira-glow-strong: rgba(255, 144, 77, 0.25);
+            --mira-icon-bg: rgba(255, 144, 77, 0.15);
+            --mira-icon-border: rgba(255, 144, 77, 0.30);
+            --mira-pill-bg: rgba(255, 255, 255, 0.04);
+            --mira-pill-border: rgba(255, 255, 255, 0.08);
+            --mira-stage-glow: rgba(255, 144, 77, 0.06);
+            --mira-accent-2: #FFC766;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: #000000;
+            min-height: 100vh;
+            color: var(--mira-text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .primary-color { color: var(--mira-primary); }
+        .primary-bg { background: var(--mira-primary); }
+        .text-soft { color: var(--mira-text-soft); }
+        .text-softer { color: var(--mira-text-softer); }
+
+        .glass-card {
+            background: var(--mira-card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--mira-card-border);
+            box-shadow: 0 10px 30px var(--mira-glow-soft);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 36px var(--mira-glow-strong);
+        }
+
+        .icon-container {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--mira-icon-bg);
+            border: 1px solid var(--mira-icon-border);
+        }
+
+        .attribute-pill {
+            background: var(--mira-pill-bg);
+            border: 1px solid var(--mira-pill-border);
+            border-radius: 9999px;
+        }
+
+        .anim-stage {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            min-height: 360px;
+            background: radial-gradient(circle at 50% 50%, var(--mira-stage-glow), transparent 70%);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .anim-stage svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--mira-primary), var(--mira-accent-2), var(--mira-primary));
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(255, 144, 77, 0.4);
+            transition: width 0.1s linear;
+        }
+
+        #next-card {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--mira-primary);
+            color: var(--mira-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 9998;
+            box-shadow: 0 4px 20px var(--mira-glow-strong);
+            border: none;
+        }
+
+        #next-card.visible { opacity: 1; transform: translateY(0); }
+        #next-card:hover { transform: translateY(-3px) scale(1.08); }
+
+        .header-fallback {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 78%, rgba(255, 144, 77, 0.30), transparent 34%),
+                radial-gradient(circle at 80% 22%, rgba(255, 199, 102, 0.16), transparent 32%),
+                linear-gradient(135deg, rgba(255, 144, 77, 0.14), transparent 54%),
+                #000000;
+            animation: slowBreathe 8s ease-in-out infinite;
+        }
+
+        .truth-line {
+            background: linear-gradient(90deg, transparent, rgba(255, 144, 77, 0.18), transparent);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes slowBreathe {
+            0%, 100% { filter: saturate(1); transform: scale(1); }
+            50% { filter: saturate(1.3); transform: scale(1.03); }
+        }
+
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+    <div id="reading-progress"></div>
+    <button id="next-card" aria-label="Próximo card">
+        <i data-lucide="chevron-down" class="w-6 h-6" id="next-card-icon"></i>
+    </button>
+
+    <header class="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
+        <div class="header-fallback"></div>
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50">
+            <source src="header-bg.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 pointer-events-none"
+            style="background: linear-gradient(to bottom, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.34) 48%, rgba(0,0,0,0.84) 100%);">
+        </div>
+        <div id="hero-particles" class="absolute inset-0 pointer-events-none"></div>
+        <div class="text-center relative z-10 px-6" data-aos="fade-down">
+            <span class="inline-block primary-bg text-white text-sm font-bold px-6 py-2 rounded-full mb-8 tracking-widest uppercase">Capítulo 2</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">A Autoridade e<br><span class="primary-color">Inerrância da Bíblia</span></h1>
+            <p class="text-xl text-white/90 max-w-3xl mx-auto mb-10 drop-shadow-md">Como sabemos que a Bíblia é Palavra de Deus, e por que podemos confiar em tudo o que ela afirma?</p>
+            <div data-aos="fade-up" data-aos-delay="400" class="mt-6">
+                <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="h-10 mx-auto opacity-80 drop-shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:opacity-100 transition-opacity">
+            </div>
+        </div>
+        <button class="absolute bottom-8 right-8 flex flex-col items-center gap-2 cursor-pointer bg-transparent border-none group"
+            id="header-next-btn" aria-label="Ir para o primeiro card" style="animation: scroll-bounce 2s ease-in-out infinite;">
+            <span class="text-[10px] uppercase tracking-[4px] text-white/30 font-medium group-hover:primary-color transition-colors">Iniciar</span>
+            <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[rgba(255,144,77,0.20)] transition-all">
+                <i data-lucide="chevron-down" class="w-5 h-5 text-white/40 group-hover:primary-color transition-colors"></i>
+            </div>
+        </button>
+    </header>
+
+    <main class="container mx-auto px-4 py-20 flex flex-col items-center gap-[60vh]">
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="icon-container"><i data-lucide="book-open-check" class="w-6 h-6 primary-color"></i></div>
+                <div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer">Autoridade</p>
+                    <h3 class="text-4xl font-bold">Palavras de Deus</h3>
+                </div>
+            </div>
+            <p class="text-lg text-soft mb-6">A autoridade da Escritura significa que todas as palavras bíblicas são palavras de Deus. Descrer ou desobedecer a elas é descrer ou desobedecer ao próprio Deus.</p>
+            <!-- @MIRA:SIZE 3/10 -->
+            <div class="anim-stage" id="convergence-stage"></div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="heart-pulse" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Testemunho interno</p>
+                    <h3 class="text-4xl font-bold mb-4">A voz convence</h3>
+                    <p class="text-lg text-soft">O Espírito Santo nos convence à medida que ouvimos a voz do Pastor nas próprias palavras da Escritura.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="voice-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="200">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="icon-container"><i data-lucide="search-check" class="w-6 h-6 primary-color"></i></div>
+                <div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer">Evidências</p>
+                    <h3 class="text-4xl font-bold">Evidências ajudam</h3>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="attribute-pill p-5">
+                    <p class="text-xl font-bold mb-2">História</p>
+                    <p class="text-soft">A Bíblia fala com precisão sobre pessoas, lugares e eventos.</p>
+                </div>
+                <div class="attribute-pill p-5">
+                    <p class="text-xl font-bold mb-2">Coerência</p>
+                    <p class="text-soft">Suas partes se harmonizam em um testemunho único.</p>
+                </div>
+                <div class="attribute-pill p-5">
+                    <p class="text-xl font-bold mb-2">Profecia</p>
+                    <p class="text-soft">Promessas e cumprimentos removem obstáculos à fé.</p>
+                </div>
+                <div class="attribute-pill p-5">
+                    <p class="text-xl font-bold mb-2">Vida</p>
+                    <p class="text-soft">A Palavra transforma pessoas ao longo da história.</p>
+                </div>
+            </div>
+            <div class="truth-line rounded-lg p-5 mt-6 text-center text-lg text-white/85">
+                Elas são úteis, mas a plena certeza vem da obra interna do Espírito Santo.
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-10 text-center" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-container mx-auto mb-6"><i data-lucide="landmark" class="w-6 h-6 primary-color"></i></div>
+            <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Autoautenticação</p>
+            <h3 class="text-4xl font-bold mb-5">Autoridade final</h3>
+            <p class="text-xl text-soft max-w-3xl mx-auto mb-8">Se a Escritura precisasse de uma autoridade superior para ser provada, essa outra autoridade seria final. Por isso, a Palavra de Deus se autentica pela própria Palavra de Deus.</p>
+            <div class="inline-flex items-center gap-3 primary-bg text-black font-bold px-7 py-4 rounded-full">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+                Confiar na Palavra
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="400">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="icon-container"><i data-lucide="badge-check" class="w-6 h-6 primary-color"></i></div>
+                <div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer">Veracidade</p>
+                    <h3 class="text-4xl font-bold">Deus não mente</h3>
+                </div>
+            </div>
+            <p class="text-lg text-soft mb-6">Porque Deus é verdadeiro, suas palavras são verdadeiras. A confiabilidade da Escritura repousa no caráter daquele que fala.</p>
+            <!-- @MIRA:SIZE 3/10 -->
+            <div class="anim-stage" id="truth-stage"></div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="500">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="icon-container"><i data-lucide="scan-search" class="w-6 h-6 primary-color"></i></div>
+                <div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer">Definição</p>
+                    <h3 class="text-4xl font-bold">Inerrância com precisão</h3>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-5">
+                <div class="attribute-pill p-6">
+                    <p class="text-2xl font-bold mb-3">Sem erro real</p>
+                    <p class="text-soft">A Escritura não afirma nada contrário aos fatos quando interpretada corretamente.</p>
+                </div>
+                <div class="attribute-pill p-6">
+                    <p class="text-2xl font-bold mb-3">Linguagem comum</p>
+                    <p class="text-soft">A Bíblia fala como pessoas falam, sem exigir precisão artificial.</p>
+                </div>
+                <div class="attribute-pill p-6">
+                    <p class="text-2xl font-bold mb-3">Texto original</p>
+                    <p class="text-soft">A doutrina se refere aos autógrafos, preservados com alta confiança textual.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="600">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="icon-container"><i data-lucide="messages-square" class="w-6 h-6 primary-color"></i></div>
+                <div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer">Debate</p>
+                    <h3 class="text-4xl font-bold">Objeções respondidas</h3>
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg border border-white/10">
+                <table class="w-full text-left">
+                    <thead class="bg-white/5 text-white">
+                        <tr>
+                            <th class="p-4 text-sm uppercase tracking-[2px]">Objeção</th>
+                            <th class="p-4 text-sm uppercase tracking-[2px]">Resposta do capítulo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-soft">
+                        <tr class="border-t border-white/10">
+                            <td class="p-4 font-semibold text-white">Só fé e prática</td>
+                            <td class="p-4">O propósito principal não anula tudo o que Deus decidiu dizer.</td>
+                        </tr>
+                        <tr class="border-t border-white/10">
+                            <td class="p-4 font-semibold text-white">Não há autógrafos</td>
+                            <td class="p-4">As cópias preservam o texto com altíssima confiança prática.</td>
+                        </tr>
+                        <tr class="border-t border-white/10">
+                            <td class="p-4 font-semibold text-white">Acomodação ao erro</td>
+                            <td class="p-4">Deus condescende em linguagem humana, mas não mente.</td>
+                        </tr>
+                        <tr class="border-t border-white/10">
+                            <td class="p-4 font-semibold text-white">Textos difíceis</td>
+                            <td class="p-4">Dificuldade de leitura não é prova de erro bíblico.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="700">
+            <div class="grid md:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="triangle-alert" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Consequências</p>
+                    <h3 class="text-4xl font-bold mb-4">Negar custa caro</h3>
+                    <p class="text-lg text-soft">A negação da inerrância afeta a imitação de Deus, a confiança nele, o lugar da mente humana e a própria doutrina da Escritura.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="domino-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="800">
+            <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="written-stage"></div>
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="file-text" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Forma final</p>
+                    <h3 class="text-4xl font-bold mb-4">Permaneça no escrito</h3>
+                    <p class="text-lg text-soft">Reconstruções históricas podem ajudar, mas nunca substituem a Escritura escrita como autoridade final.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-10 text-center" data-aos="zoom-in" data-aos-delay="900">
+            <div class="icon-container mx-auto mb-6"><i data-lucide="quote" class="w-6 h-6 primary-color"></i></div>
+            <p class="text-sm uppercase tracking-[3px] text-softer mb-4">Memorização</p>
+            <h3 class="text-4xl font-bold mb-6">Soprada por Deus</h3>
+            <blockquote class="text-2xl md:text-3xl font-semibold leading-snug max-w-4xl mx-auto">
+                “Toda a Escritura é soprada por Deus e útil para o ensino, para a repreensão, para a correção e para a instrução na justiça.”
+            </blockquote>
+            <p class="text-soft mt-5">2Timóteo 3.16</p>
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+                <span class="attribute-pill px-5 py-3">autoridade</span>
+                <span class="attribute-pill px-5 py-3">verdade</span>
+                <span class="attribute-pill px-5 py-3">inerrância</span>
+                <span class="attribute-pill px-5 py-3">confiança</span>
+                <span class="attribute-pill px-5 py-3">obediência</span>
+            </div>
+        </div>
+    </main>
+
+    <div class="py-16 text-center">
+        <div class="flex justify-center">
+            <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="h-8 opacity-40 hover:opacity-70 transition-opacity">
+        </div>
+    </div>
+
+    <footer class="py-12 text-center text-white/60">
+        <p>&copy; 2026 - Canal Sandeco. Fonte: Capítulo 2, A Autoridade e Inerrância da Bíblia.</p>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 100 });
+        lucide.createIcons();
+
+        const cssVar = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        const PRIMARY = cssVar('--mira-primary');
+        const TEXT = cssVar('--mira-text');
+        const SOFT = cssVar('--mira-text-soft');
+
+        function setupHeroParticles() {
+            const host = d3.select('#hero-particles');
+            host.selectAll('*').remove();
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            const svg = host.append('svg').attr('viewBox', `0 0 ${w} ${h}`).attr('preserveAspectRatio', 'none');
+            const dots = d3.range(38).map(() => ({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                r: 1.4 + Math.random() * 3.4,
+                speed: 0.22 + Math.random() * 0.58
+            }));
+            const circles = svg.selectAll('circle').data(dots).join('circle')
+                .attr('fill', PRIMARY).attr('opacity', 0.28).attr('r', d => d.r);
+            d3.timer(() => {
+                circles.attr('cx', d => d.x)
+                    .attr('cy', d => {
+                        d.y -= d.speed;
+                        if (d.y < -10) d.y = h + 10;
+                        return d.y;
+                    });
+            });
+        }
+
+        function animateConvergence() {
+            clearInterval(window.__convergencePulse);
+            d3.select('#convergence-stage').selectAll('*').remove();
+            const svg = d3.select('#convergence-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const center = { x: 640, y: 360 };
+            const sources = [
+                { label: 'Profetas', x: 190, y: 170 },
+                { label: 'Lei', x: 210, y: 545 },
+                { label: 'Evangelhos', x: 1080, y: 170 },
+                { label: 'Apóstolos', x: 1060, y: 545 },
+                { label: 'Cristo', x: 640, y: 105 }
+            ];
+            sources.forEach((s, i) => {
+                svg.append('path')
+                    .attr('d', `M ${s.x} ${s.y} Q ${center.x} ${s.y} ${center.x} ${center.y}`)
+                    .attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.13)').attr('stroke-width', 3)
+                    .attr('stroke-dasharray', '8 10');
+                const g = svg.append('g').attr('transform', `translate(${s.x},${s.y})`).attr('opacity', 0);
+                g.append('circle').attr('r', 48).attr('fill', 'rgba(255,255,255,0.07)').attr('stroke', PRIMARY);
+                g.append('text').text(s.label).attr('text-anchor', 'middle').attr('dy', 6).attr('fill', TEXT).attr('font-size', 18).attr('font-weight', 800);
+                g.transition().delay(i * 130).duration(600).attr('opacity', 1);
+            });
+            const book = svg.append('g').attr('transform', `translate(${center.x},${center.y})`);
+            book.append('rect').attr('x', -120).attr('y', -78).attr('width', 240).attr('height', 156).attr('rx', 12)
+                .attr('fill', 'rgba(255,255,255,0.07)').attr('stroke', PRIMARY).attr('stroke-width', 4)
+                .attr('opacity', 0).transition().delay(650).duration(700).attr('opacity', 1);
+            book.append('line').attr('x1', 0).attr('x2', 0).attr('y1', -70).attr('y2', 70).attr('stroke', 'rgba(255,255,255,0.20)').attr('stroke-width', 2);
+            book.append('text').text('Escritura').attr('text-anchor', 'middle').attr('dy', 8).attr('fill', PRIMARY).attr('font-size', 32).attr('font-weight', 900)
+                .attr('opacity', 0).transition().delay(900).duration(500).attr('opacity', 1);
+            const seal = book.append('circle').attr('r', 96).attr('fill', 'none').attr('stroke', PRIMARY).attr('opacity', 0);
+            window.__convergencePulse = setInterval(() => {
+                seal.attr('r', 96).attr('opacity', 0.65)
+                    .transition().duration(1500).ease(d3.easeCubicOut).attr('r', 150).attr('opacity', 0);
+            }, 1700);
+        }
+
+        function animateVoice() {
+            clearInterval(window.__voiceLoop);
+            d3.select('#voice-stage').selectAll('*').remove();
+            const svg = d3.select('#voice-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            svg.append('rect').attr('x', 180).attr('y', 230).attr('width', 260).attr('height', 170).attr('rx', 14)
+                .attr('fill', 'rgba(255,255,255,0.07)').attr('stroke', PRIMARY).attr('stroke-width', 4);
+            svg.append('text').text('Palavra').attr('x', 310).attr('y', 327).attr('text-anchor', 'middle').attr('fill', PRIMARY).attr('font-size', 34).attr('font-weight', 900);
+            const heart = svg.append('path')
+                .attr('d', 'M 910 284 C 860 220 750 250 750 350 C 750 470 910 545 910 545 C 910 545 1070 470 1070 350 C 1070 250 960 220 910 284 Z')
+                .attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 4);
+            svg.append('text').text('coração').attr('x', 910).attr('y', 392).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 30).attr('font-weight', 800);
+            const waves = d3.range(4).map(i => svg.append('path')
+                .attr('d', `M 465 ${315 + i * 25} C 600 ${250 + i * 20} 710 ${250 + i * 20} 835 ${315 + i * 25}`)
+                .attr('fill', 'none').attr('stroke', PRIMARY).attr('stroke-width', 4).attr('stroke-linecap', 'round')
+                .attr('stroke-dasharray', '1 720').attr('opacity', 0.85));
+            function send() {
+                waves.forEach((w, i) => {
+                    w.attr('stroke-dasharray', '1 720').attr('opacity', 0.9)
+                        .transition().delay(i * 180).duration(1600).ease(d3.easeCubicInOut).attr('stroke-dasharray', '720 1')
+                        .transition().duration(500).attr('opacity', 0.15);
+                });
+                heart.transition().delay(1500).duration(350).attr('transform', 'translate(0,0) scale(1.03)')
+                    .transition().duration(350).attr('transform', 'translate(0,0) scale(1)');
+            }
+            send();
+            window.__voiceLoop = setInterval(send, 3000);
+        }
+
+        function animateTruth() {
+            clearInterval(window.__truthLoop);
+            d3.select('#truth-stage').selectAll('*').remove();
+            const svg = d3.select('#truth-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const claims = [
+                { label: 'ensino', x: 250 },
+                { label: 'história', x: 480 },
+                { label: 'doutrina', x: 710 },
+                { label: 'vida', x: 940 }
+            ];
+            svg.append('line').attr('x1', 140).attr('x2', 1140).attr('y1', 360).attr('y2', 360).attr('stroke', 'rgba(255,255,255,0.13)').attr('stroke-width', 12).attr('stroke-linecap', 'round');
+            const beam = svg.append('line').attr('x1', 140).attr('x2', 140).attr('y1', 360).attr('y2', 360).attr('stroke', PRIMARY).attr('stroke-width', 7).attr('stroke-linecap', 'round');
+            const nodes = svg.selectAll('g.claim').data(claims).join('g').attr('transform', d => `translate(${d.x},360)`);
+            nodes.append('circle').attr('r', 0).attr('fill', 'rgba(255,255,255,0.07)').attr('stroke', PRIMARY).attr('stroke-width', 3)
+                .transition().delay((d, i) => i * 160).duration(650).ease(d3.easeBackOut).attr('r', 62);
+            nodes.append('text').text(d => d.label).attr('text-anchor', 'middle').attr('dy', 7).attr('fill', TEXT).attr('font-size', 22).attr('font-weight', 800)
+                .attr('opacity', 0).transition().delay((d, i) => 350 + i * 160).attr('opacity', 1);
+            svg.append('text').text('Deus não mente').attr('x', 640).attr('y', 130).attr('text-anchor', 'middle').attr('fill', PRIMARY).attr('font-size', 38).attr('font-weight', 900);
+            function pass() {
+                beam.attr('x2', 140).attr('opacity', 1)
+                    .transition().duration(2200).ease(d3.easeCubicInOut).attr('x2', 1140)
+                    .transition().duration(500).attr('opacity', 0.25)
+                    .transition().duration(300).attr('opacity', 1);
+            }
+            pass();
+            window.__truthLoop = setInterval(pass, 3300);
+        }
+
+        function animateDomino() {
+            clearInterval(window.__dominoLoop);
+            d3.select('#domino-stage').selectAll('*').remove();
+            const svg = d3.select('#domino-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const items = [
+                { label: 'moral', x: 240 },
+                { label: 'confiança', x: 440 },
+                { label: 'mente', x: 640 },
+                { label: 'doutrina', x: 840 },
+                { label: 'obediência', x: 1040 }
+            ];
+            const blocks = svg.selectAll('g.domino').data(items).join('g')
+                .attr('transform', d => `translate(${d.x},360)`);
+            blocks.append('rect').attr('x', -58).attr('y', -115).attr('width', 116).attr('height', 230).attr('rx', 12)
+                .attr('fill', 'rgba(255,255,255,0.07)').attr('stroke', PRIMARY).attr('stroke-width', 3);
+            blocks.append('text').text(d => d.label).attr('text-anchor', 'middle').attr('y', 9).attr('fill', TEXT).attr('font-size', 20).attr('font-weight', 800);
+            svg.append('text').text('um erro de confiança se espalha').attr('x', 640).attr('y', 110).attr('text-anchor', 'middle').attr('fill', SOFT).attr('font-size', 26);
+            function cascade() {
+                blocks.transition().duration(350).attr('transform', d => `translate(${d.x},360) rotate(0)`)
+                    .transition().delay((d, i) => i * 250).duration(520).ease(d3.easeCubicIn).attr('transform', d => `translate(${d.x},360) rotate(15)`)
+                    .transition().delay(900).duration(700).ease(d3.easeBackOut).attr('transform', d => `translate(${d.x},360) rotate(0)`);
+            }
+            cascade();
+            window.__dominoLoop = setInterval(cascade, 4200);
+        }
+
+        function animateWritten() {
+            clearInterval(window.__writtenLoop);
+            d3.select('#written-stage').selectAll('*').remove();
+            const svg = d3.select('#written-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            svg.append('rect').attr('x', 250).attr('y', 455).attr('width', 780).attr('height', 62).attr('rx', 8).attr('fill', 'rgba(255,144,77,0.22)').attr('stroke', PRIMARY);
+            svg.append('text').text('Escritura escrita').attr('x', 640).attr('y', 496).attr('text-anchor', 'middle').attr('fill', PRIMARY).attr('font-size', 30).attr('font-weight', 900);
+            const pillars = ['fé', 'ensino', 'obediência', 'igreja'].map((label, i) => ({ label, x: 340 + i * 200 }));
+            const g = svg.selectAll('g.pillar').data(pillars).join('g').attr('transform', d => `translate(${d.x},455)`);
+            g.append('rect').attr('x', -42).attr('y', 0).attr('width', 84).attr('height', 0).attr('rx', 8).attr('fill', 'rgba(255,255,255,0.07)').attr('stroke', 'rgba(255,255,255,0.18)')
+                .transition().delay((d, i) => i * 160).duration(700).attr('y', -240).attr('height', 240);
+            g.append('text').text(d => d.label).attr('text-anchor', 'middle').attr('y', -110).attr('fill', TEXT).attr('font-size', 22).attr('font-weight', 800)
+                .attr('opacity', 0).transition().delay((d, i) => 500 + i * 160).attr('opacity', 1);
+            const glow = svg.append('rect').attr('x', 250).attr('y', 455).attr('width', 780).attr('height', 62).attr('rx', 8).attr('fill', 'none').attr('stroke', PRIMARY).attr('opacity', 0);
+            function pulse() {
+                glow.attr('opacity', 0.7).attr('stroke-width', 2)
+                    .transition().duration(1400).attr('opacity', 0).attr('stroke-width', 12);
+            }
+            pulse();
+            window.__writtenLoop = setInterval(pulse, 1900);
+        }
+
+        const animationSetups = [
+            { stage: document.getElementById('convergence-stage'), fn: animateConvergence },
+            { stage: document.getElementById('voice-stage'), fn: animateVoice },
+            { stage: document.getElementById('truth-stage'), fn: animateTruth },
+            { stage: document.getElementById('domino-stage'), fn: animateDomino },
+            { stage: document.getElementById('written-stage'), fn: animateWritten }
+        ].filter(item => item.stage);
+
+        function setupAnimationTriggers() {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const setup = animationSetups.find(item => item.stage === entry.target);
+                        if (setup) setup.fn();
+                    }
+                });
+            }, { threshold: 0.35 });
+            animationSetups.forEach(item => observer.observe(item.stage));
+        }
+
+        const cardSections = [];
+
+        function buildCardSections() {
+            cardSections.length = 0;
+            const wrappers = document.querySelectorAll('.fullscreen-wrapper');
+            if (wrappers.length > 0) {
+                wrappers.forEach(el => cardSections.push(el));
+            } else {
+                document.querySelectorAll('main > .glass-card, main > div:not(.glass-card)').forEach(el => cardSections.push(el));
+            }
+        }
+
+        function getCurrentSectionIndex() {
+            const scrollTop = window.scrollY + window.innerHeight * 0.3;
+            let idx = -1;
+            for (let i = 0; i < cardSections.length; i++) {
+                if (cardSections[i].offsetTop <= scrollTop) idx = i;
+            }
+            return idx;
+        }
+
+        function setupFullScreenWrappers() {
+            const main = document.querySelector('main');
+            if (!main) return;
+            main.classList.remove('py-20');
+            const children = Array.from(main.children);
+            children.forEach(child => {
+                if (child.tagName === 'DIV' && !child.classList.contains('fullscreen-wrapper')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'min-h-screen w-full flex items-center justify-center fullscreen-wrapper snap-start p-4';
+                    child.parentNode.insertBefore(wrapper, child);
+                    wrapper.appendChild(child);
+                }
+            });
+            buildCardSections();
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('reading-progress').style.width = progress + '%';
+            const btn = document.getElementById('next-card');
+            btn.classList.toggle('visible', scrollTop > 300);
+            const icon = document.getElementById('next-card-icon');
+            const atBottom = (scrollTop + window.innerHeight) >= (document.documentElement.scrollHeight - 100);
+            icon.setAttribute('data-lucide', atBottom ? 'chevron-up' : 'chevron-down');
+            lucide.createIcons();
+        });
+
+        document.getElementById('next-card').addEventListener('click', () => {
+            const atBottom = (window.scrollY + window.innerHeight) >= (document.documentElement.scrollHeight - 100);
+            if (atBottom) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            const nextIdx = getCurrentSectionIndex() + 1;
+            if (nextIdx < cardSections.length) {
+                cardSections[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeroParticles();
+            setupFullScreenWrappers();
+            setupAnimationTriggers();
+            const headerBtn = document.getElementById('header-next-btn');
+            if (headerBtn) {
+                headerBtn.addEventListener('click', () => {
+                    if (cardSections.length > 0) cardSections[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+            document.addEventListener('keydown', e => {
+                const idx = getCurrentSectionIndex();
+                if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(e.key)) {
+                    e.preventDefault();
+                    const nextIdx = idx + 1;
+                    if (nextIdx < cardSections.length) cardSections[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) {
+                    e.preventDefault();
+                    const prevIdx = idx - 1;
+                    if (prevIdx >= 0) cardSections[prevIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    else window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            setupHeroParticles();
+            setupFullScreenWrappers();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oração | Doutrina Bíblica</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --mira-primary: #FF904D;
+      --mira-primary-rgb: 255, 144, 77;
+      --mira-bg: #000000;
+      --mira-text: #f8fafc;
+      --mira-muted: #cbd5e1;
+      --mira-line: rgba(255, 144, 77, 0.24);
+      --mira-card: rgba(15, 23, 42, 0.68);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--mira-text);
+      background: #000000;
+      background-image:
+        radial-gradient(circle at 16% 12%, rgba(var(--mira-primary-rgb), 0.16), transparent 34rem),
+        radial-gradient(circle at 82% 20%, rgba(255,255,255,0.07), transparent 28rem),
+        linear-gradient(180deg, #000000 0%, #020617 48%, #000000 100%);
+      overflow-x: hidden;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 92vh;
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 6rem 1.5rem 7rem;
+    }
+
+    .hero video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.5;
+      filter: saturate(0.78) contrast(1.12);
+    }
+
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.34) 45%, rgba(0,0,0,0.94) 100%),
+        radial-gradient(circle at center, rgba(var(--mira-primary-rgb), 0.15), transparent 36rem);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1080px, 100%);
+      text-align: center;
+    }
+
+    .logo {
+      width: 92px;
+      height: auto;
+      margin: 0 auto 2rem;
+      opacity: 0.92;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .55rem .9rem;
+      border: 1px solid var(--mira-line);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.36);
+      color: var(--mira-primary);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: .76rem;
+      letter-spacing: .08em;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.2rem, 8vw, 8rem);
+      line-height: .9;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .hero-subtitle {
+      max-width: 880px;
+      margin: 1.5rem auto 0;
+      font-size: clamp(1.12rem, 2.05vw, 1.65rem);
+      color: var(--mira-muted);
+      line-height: 1.55;
+    }
+
+    .hero-question {
+      margin: 2.2rem auto 0;
+      max-width: 800px;
+      padding: 1.1rem 1.3rem;
+      border-top: 1px solid var(--mira-line);
+      border-bottom: 1px solid var(--mira-line);
+      color: #fff7ed;
+      font-size: clamp(1rem, 1.7vw, 1.24rem);
+      font-weight: 700;
+    }
+
+    .hero-next {
+      position: absolute;
+      z-index: 3;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid var(--mira-line);
+      background: rgba(0, 0, 0, 0.5);
+      color: var(--mira-primary);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .hero-next:hover { transform: translateX(-50%) translateY(-3px); background: rgba(var(--mira-primary-rgb), .14); }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 60vh;
+      padding: 10vh 1rem 18vh;
+    }
+
+    .glass-card {
+      width: min(100%, 64rem);
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: clamp(2rem, 4vw, 3.5rem);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.11);
+      background:
+        linear-gradient(145deg, rgba(15,23,42,.78), rgba(2,6,23,.74)),
+        radial-gradient(circle at top left, rgba(var(--mira-primary-rgb), .12), transparent 22rem);
+      box-shadow: 0 24px 90px rgba(0,0,0,.5);
+      backdrop-filter: blur(10px);
+      min-height: 520px;
+      display: grid;
+      align-content: center;
+    }
+
+    .card-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      color: var(--mira-primary);
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: clamp(2.1rem, 4.4vw, 4.2rem);
+      line-height: .98;
+      font-weight: 900;
+      margin: 0 0 1rem;
+      letter-spacing: 0;
+    }
+
+    .card-lead {
+      color: var(--mira-muted);
+      font-size: clamp(1.05rem, 1.65vw, 1.32rem);
+      line-height: 1.65;
+      max-width: 850px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, .95fr);
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
+    }
+
+    .icon-hero {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: var(--mira-primary);
+      background: rgba(var(--mira-primary-rgb), .11);
+      border: 1px solid var(--mira-line);
+      margin-bottom: 1.25rem;
+    }
+
+    .attribute-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 1.6rem;
+    }
+
+    .attribute-pills span, .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      min-height: 38px;
+      padding: .55rem .82rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: #fff7ed;
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .visual-stage {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      min-height: 340px;
+      border-radius: 22px;
+      border: 1px solid var(--mira-line);
+      background:
+        radial-gradient(circle at center, rgba(var(--mira-primary-rgb), .14), transparent 55%),
+        rgba(0,0,0,.28);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .visual-stage svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .grid-2, .grid-3, .grid-4 {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .mini-card {
+      min-height: 158px;
+      border-radius: 18px;
+      padding: 1.15rem;
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(255,255,255,.055);
+    }
+
+    .mini-card strong {
+      display: block;
+      color: #fff;
+      font-size: 1.05rem;
+      margin-bottom: .55rem;
+    }
+
+    .mini-card p {
+      color: var(--mira-muted);
+      line-height: 1.48;
+      margin: 0;
+      font-size: .94rem;
+    }
+
+    .quote {
+      font-size: clamp(1.55rem, 3vw, 3.05rem);
+      line-height: 1.22;
+      font-weight: 900;
+      color: #fff7ed;
+      margin: 1.2rem 0;
+    }
+
+    .reference {
+      color: var(--mira-primary);
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      min-height: 46vh;
+      display: grid;
+      place-items: center;
+      padding: 5rem 1rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: var(--mira-muted);
+      text-align: center;
+    }
+
+    footer img { width: 78px; margin: 0 auto 1rem; opacity: .9; }
+
+    #reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0%;
+      z-index: 90;
+      background: linear-gradient(90deg, var(--mira-primary), #ffffff);
+      box-shadow: 0 0 18px rgba(var(--mira-primary-rgb), .7);
+    }
+
+    #next-card {
+      position: fixed;
+      right: 1.2rem;
+      bottom: 1.2rem;
+      z-index: 80;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 1px solid var(--mira-line);
+      background: rgba(2,6,23,.82);
+      color: var(--mira-primary);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+      cursor: pointer;
+    }
+
+    .full-screen-wrapper { width: 100%; }
+    .svg-label { fill: #fff7ed; font-weight: 800; font-size: 15px; text-anchor: middle; }
+    .svg-small { fill: #cbd5e1; font-weight: 700; font-size: 11px; text-anchor: middle; }
+
+    @media (max-width: 900px) {
+      .split, .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .glass-card { min-height: auto; }
+      .visual-stage { min-height: 300px; }
+      main { gap: 38vh; }
+    }
+
+    @media (max-width: 520px) {
+      .hero { min-height: 88vh; padding-top: 4.5rem; }
+      .logo { width: 72px; }
+      .glass-card { border-radius: 18px; padding: 1.35rem; }
+      .mini-card { min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div id="reading-progress"></div>
+
+  <header class="hero" id="top">
+    <video src="header-bg.mp4" autoplay muted loop playsinline></video>
+    <div class="video-overlay"></div>
+    <div class="hero-inner" data-aos="fade-up">
+      <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="logo" />
+      <div class="eyebrow"><i data-lucide="message-circle-heart"></i> Doutrina Bíblica 09</div>
+      <h1>Oração</h1>
+      <p class="hero-subtitle">Oração é comunicação pessoal com Deus: confiança, comunhão, participação no Reino e glória ao Pai.</p>
+      <div class="hero-question">Por que Deus quer que oremos, e como podemos orar eficazmente?</div>
+    </div>
+    <button class="hero-next" id="header-next-btn" aria-label="Ir para o primeiro card"><i data-lucide="chevron-down"></i></button>
+  </header>
+
+  <main>
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="split">
+        <div>
+          <div class="icon-hero"><i data-lucide="heart-handshake"></i></div>
+          <div class="card-kicker">Comunhão</div>
+          <h2 class="card-title">Deus quer comunhão</h2>
+          <p class="card-lead">Não oramos para informar Deus. Oramos porque o Pai quer que confiemos nele, nos aproximemos dele e participemos da sua obra.</p>
+          <div class="attribute-pills">
+            <span>confiança</span>
+            <span>comunhão</span>
+            <span>glória</span>
+          </div>
+        </div>
+        <div class="visual-stage" id="anim-communion" data-anim="animateCommunion"><!-- @MIRA:SIZE 5/10 --></div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="split">
+        <div>
+          <div class="icon-hero"><i data-lucide="send"></i></div>
+          <div class="card-kicker">Eficácia</div>
+          <h2 class="card-title">A oração move a história</h2>
+          <p class="card-lead">A Escritura não apresenta a oração apenas como terapia interior. Deus responde, perdoa, abre portas e muda situações quando seu povo ora.</p>
+          <div class="attribute-pills">
+            <span>Tiago 4.2</span>
+            <span>Lucas 11.9</span>
+            <span>2Crônicas 7.14</span>
+          </div>
+        </div>
+        <div class="visual-stage" id="anim-response" data-anim="animateResponse"><!-- @MIRA:SIZE 5/10 --></div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="split">
+        <div>
+          <div class="icon-hero"><i data-lucide="door-open"></i></div>
+          <div class="card-kicker">Mediação</div>
+          <h2 class="card-title">Cristo abre o acesso</h2>
+          <p class="card-lead">Pecadores não entram na presença de Deus por mérito próprio. Jesus, nosso grande Sumo Sacerdote, nos conduz ao trono da graça.</p>
+          <div class="attribute-pills">
+            <span>1Timóteo 2.5</span>
+            <span>Hebreus 4.14</span>
+            <span>Hebreus 10.19</span>
+          </div>
+        </div>
+        <div class="visual-stage" id="anim-access" data-anim="animateAccess"><!-- @MIRA:SIZE 5/10 --></div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="card-kicker"><i data-lucide="badge-check"></i> Em nome de Jesus</div>
+      <h2 class="card-title">Não é fórmula mágica</h2>
+      <p class="card-lead">Orar em nome de Jesus não é anexar uma frase ao final. É aproximar-se sob sua autoridade, com base em sua obra e em harmonia com seu caráter.</p>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>Autoridade</strong>
+          <p>Não chegamos em nosso próprio nome.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Mediação</strong>
+          <p>Nosso acesso depende da obra de Cristo.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Caráter</strong>
+          <p>Pedimos de modo coerente com a vontade dele.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="card-kicker"><i data-lucide="triangle"></i> Direção da oração</div>
+      <h2 class="card-title">A quem oramos?</h2>
+      <p class="card-lead">O padrão principal é orar ao Pai por meio do Filho. Ainda assim, a Escritura também dá base para orar a Jesus, e nada torna impróprio pedir ao Espírito aquilo que pertence ao seu ministério.</p>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>Ao Pai</strong>
+          <p>O modelo dominante ensinado por Jesus.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Ao Filho</strong>
+          <p>Estêvão e a igreja invocam o Senhor Jesus.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Ao Espírito</strong>
+          <p>Ele é Deus, Consolador e digno de adoração.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="split">
+        <div>
+          <div class="icon-hero"><i data-lucide="book-open"></i></div>
+          <div class="card-kicker">Vontade de Deus</div>
+          <h2 class="card-title">Ore com a Palavra</h2>
+          <p class="card-lead">Quando a Escritura revela a vontade de Deus, oramos com confiança. Quando não sabemos, pedimos com sinceridade e submissão.</p>
+          <div class="attribute-pills">
+            <span>1João 5.14</span>
+            <span>Mateus 6.10</span>
+            <span>João 15.7</span>
+          </div>
+        </div>
+        <div class="visual-stage" id="anim-scripture" data-anim="animateScripture"><!-- @MIRA:SIZE 5/10 --></div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="card-kicker"><i data-lucide="anchor"></i> Fé</div>
+      <h2 class="card-title">Fé que descansa</h2>
+      <p class="card-lead">Fé bíblica não é pensamento positivo nem esforço emocional. É confiança real em Deus, fundada no que ele revelou e na certeza que ele mesmo concede.</p>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Não fabricada</strong>
+          <p>Não nasce de repetição frenética ou pressão psicológica.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Concedida</strong>
+          <p>Muitas vezes cresce quando esperamos calmamente diante de Deus.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="card-kicker"><i data-lucide="sparkles"></i> Caminhos da oração</div>
+      <h2 class="card-title">Obediência limpa o caminho</h2>
+      <p class="card-lead">A oração acontece dentro de um relacionamento. Por isso, pecado estimado, rancor, orgulho e desobediência enfraquecem nossa comunhão com Deus.</p>
+      <div class="grid-4">
+        <div class="mini-card">
+          <strong>Obedeça</strong>
+          <p>Deus ouve a oração dos justos.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Confesse</strong>
+          <p>Pecado oculto precisa ser levado à luz.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Perdoe</strong>
+          <p>Rancor interrompe a comunhão diária.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Humilhe-se</strong>
+          <p>Deus dá graça aos humildes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="split">
+        <div>
+          <div class="icon-hero"><i data-lucide="hourglass"></i></div>
+          <div class="card-kicker">Espera</div>
+          <h2 class="card-title">Quando Deus demora</h2>
+          <p class="card-lead">Orações não respondidas não significam abandono. Às vezes Deus espera, redireciona, sustenta ou responde de modo que ainda não compreendemos.</p>
+          <div class="attribute-pills">
+            <span>2Coríntios 12.9</span>
+            <span>1Pedro 5.7</span>
+            <span>perseverança</span>
+          </div>
+        </div>
+        <div class="visual-stage" id="anim-waiting" data-anim="animateWaiting"><!-- @MIRA:SIZE 5/10 --></div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="card-kicker"><i data-lucide="book-open-check"></i> Memorização</div>
+      <h2 class="card-title">Cheguemo-nos com confiança</h2>
+      <p class="quote">“Cheguemo-nos, pois, confiadamente ao trono da graça.”</p>
+      <p class="card-lead">A oração cristã nasce aqui: temos um Sumo Sacerdote que se compadece das nossas fraquezas e nos recebe com misericórdia.</p>
+      <div class="reference">Hebreus 4.14-16</div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <img src="canal_sandeco_logo.png" alt="Canal Sandeco" />
+      <p>Doutrina Bíblica, Capítulo 09</p>
+    </div>
+  </footer>
+
+  <button id="next-card" aria-label="Próximo card"><i data-lucide="chevron-down"></i></button>
+
+  <script>
+    AOS.init({ duration: 750, once: false, easing: "ease-out-cubic" });
+    lucide.createIcons();
+
+    const primary = "#FF904D";
+    const primarySoft = "rgba(255, 144, 77, 0.42)";
+
+    function fitSvg(container) {
+      const rect = container.getBoundingClientRect();
+      const size = Math.max(320, Math.min(rect.width || 420, rect.height || 420));
+      d3.select(container).selectAll("*").remove();
+      return d3.select(container).append("svg").attr("viewBox", `0 0 ${size} ${size}`).attr("preserveAspectRatio", "xMidYMid meet");
+    }
+
+    function animateCommunion(container) {
+      const svg = fitSvg(container);
+      const size = svg.attr("viewBox").split(" ").map(Number)[2];
+      const cx = size / 2, cy = size / 2;
+      const g = svg.append("g").attr("opacity", 0);
+      g.transition().duration(700).attr("opacity", 1);
+      g.append("circle").attr("cx", cx).attr("cy", cy - 105).attr("r", 46).attr("fill", "rgba(255,144,77,.15)").attr("stroke", primary);
+      g.append("text").attr("x", cx).attr("y", cy - 100).attr("class", "svg-label").text("Pai");
+      g.append("circle").attr("cx", cx).attr("cy", cy + 115).attr("r", 46).attr("fill", "rgba(255,255,255,.06)").attr("stroke", "rgba(255,255,255,.28)");
+      g.append("text").attr("x", cx).attr("y", cy + 120).attr("class", "svg-label").text("filho");
+      g.append("line").attr("x1", cx).attr("y1", cy + 70).attr("x2", cx).attr("y2", cy - 60).attr("stroke", primarySoft).attr("stroke-width", 3).attr("stroke-dasharray", "7 10");
+      const pulse = g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 8).attr("fill", primary);
+      function loop() {
+        pulse.attr("cy", cy + 70).attr("opacity", 1).transition().duration(1500).attr("cy", cy - 60).attr("opacity", .35)
+          .transition().duration(1500).attr("cy", cy + 70).attr("opacity", 1).on("end", loop);
+      }
+      loop();
+    }
+
+    function animateResponse(container) {
+      const svg = fitSvg(container);
+      const size = svg.attr("viewBox").split(" ").map(Number)[2];
+      const g = svg.append("g").attr("opacity", 0);
+      g.transition().duration(700).attr("opacity", 1);
+      const nodes = [
+        { label: "peça", x: size*.18, y: size*.62 },
+        { label: "busque", x: size*.42, y: size*.42 },
+        { label: "bata", x: size*.66, y: size*.62 },
+        { label: "abra", x: size*.82, y: size*.3 }
+      ];
+      nodes.forEach((n, i) => {
+        if (i < nodes.length - 1) g.append("line").attr("x1", n.x).attr("y1", n.y).attr("x2", nodes[i+1].x).attr("y2", nodes[i+1].y).attr("stroke", primarySoft).attr("stroke-width", 2).attr("stroke-dasharray", "6 8");
+        const node = g.append("g").attr("transform", `translate(${n.x},${n.y}) scale(.2)`).attr("opacity", 0);
+        node.transition().delay(i*150).duration(520).attr("transform", `translate(${n.x},${n.y}) scale(1)`).attr("opacity", 1);
+        node.append("circle").attr("r", 34).attr("fill", i === 3 ? "rgba(255,144,77,.16)" : "rgba(255,255,255,.06)").attr("stroke", i === 3 ? primary : "rgba(255,255,255,.25)");
+        node.append("text").attr("class", "svg-small").attr("y", 4).text(n.label);
+      });
+      const dot = g.append("circle").attr("r", 7).attr("fill", primary);
+      function travel() {
+        dot.attr("cx", nodes[0].x).attr("cy", nodes[0].y).attr("opacity", 1)
+          .transition().duration(2600).ease(d3.easeSinInOut).attr("cx", nodes[3].x).attr("cy", nodes[3].y)
+          .transition().duration(500).attr("opacity", 0).on("end", travel);
+      }
+      travel();
+    }
+
+    function animateAccess(container) {
+      const svg = fitSvg(container);
+      const size = svg.attr("viewBox").split(" ").map(Number)[2];
+      const cx = size / 2;
+      const g = svg.append("g").attr("opacity", 0);
+      g.transition().duration(700).attr("opacity", 1);
+      g.append("rect").attr("x", size*.18).attr("y", size*.2).attr("width", size*.64).attr("height", size*.12).attr("rx", 18).attr("fill", "rgba(255,144,77,.15)").attr("stroke", primary);
+      g.append("text").attr("x", cx).attr("y", size*.27).attr("class", "svg-label").text("trono da graça");
+      g.append("path").attr("d", `M${cx},${size*.82} C${size*.35},${size*.62} ${size*.38},${size*.48} ${cx},${size*.35} C${size*.62},${size*.48} ${size*.65},${size*.62} ${cx},${size*.82}`).attr("fill", "none").attr("stroke", primary).attr("stroke-width", 4).attr("stroke-dasharray", "9 10").attr("stroke-linecap", "round");
+      g.append("circle").attr("cx", cx).attr("cy", size*.58).attr("r", 34).attr("fill", "rgba(255,255,255,.06)").attr("stroke", "rgba(255,255,255,.28)");
+      g.append("text").attr("x", cx).attr("y", size*.585).attr("class", "svg-small").text("Cristo");
+      const pilgrim = g.append("circle").attr("r", 9).attr("fill", primary);
+      const pathNode = g.select("path").node();
+      function walk() {
+        pilgrim.transition().duration(4300).ease(d3.easeSinInOut).attrTween("transform", () => {
+          const l = pathNode.getTotalLength();
+          return t => {
+            const p = pathNode.getPointAtLength(t * l);
+            return `translate(${p.x},${p.y})`;
+          };
+        }).transition().duration(500).attr("opacity", 0).transition().duration(300).attr("opacity", 1).on("end", walk);
+      }
+      walk();
+    }
+
+    function animateScripture(container) {
+      const svg = fitSvg(container);
+      const size = svg.attr("viewBox").split(" ").map(Number)[2];
+      const cx = size / 2, cy = size / 2;
+      const g = svg.append("g").attr("opacity", 0);
+      g.transition().duration(700).attr("opacity", 1);
+      g.append("rect").attr("x", cx-84).attr("y", cy-60).attr("width", 168).attr("height", 120).attr("rx", 14).attr("fill", "rgba(255,255,255,.07)").attr("stroke", primary);
+      g.append("line").attr("x1", cx).attr("y1", cy-55).attr("x2", cx).attr("y2", cy+55).attr("stroke", primarySoft);
+      g.append("text").attr("x", cx).attr("y", cy+5).attr("class", "svg-label").text("Palavra");
+      const requests = d3.range(18).map((_, i) => ({ a: i * Math.PI * 2 / 18, r: 145 }));
+      const ring = g.append("g").attr("transform", `translate(${cx},${cy})`);
+      ring.selectAll("circle").data(requests).enter().append("circle").attr("cx", d => Math.cos(d.a)*d.r).attr("cy", d => Math.sin(d.a)*d.r).attr("r", 4).attr("fill", primary).attr("opacity", .75);
+      function spin() {
+        ring.transition().duration(9000).ease(d3.easeLinear).attrTween("transform", () => d3.interpolateString(`translate(${cx},${cy}) rotate(0)`, `translate(${cx},${cy}) rotate(360)`)).on("end", spin);
+      }
+      spin();
+    }
+
+    function animateWaiting(container) {
+      const svg = fitSvg(container);
+      const size = svg.attr("viewBox").split(" ").map(Number)[2];
+      const cx = size / 2, cy = size / 2;
+      const g = svg.append("g").attr("opacity", 0);
+      g.transition().duration(700).attr("opacity", 1);
+      g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 92).attr("fill", "rgba(255,255,255,.04)").attr("stroke", primary).attr("stroke-width", 3);
+      g.append("text").attr("x", cx).attr("y", cy + 5).attr("class", "svg-label").text("espera");
+      const hand = g.append("line").attr("x1", cx).attr("y1", cy).attr("x2", cx).attr("y2", cy - 70).attr("stroke", primary).attr("stroke-width", 4).attr("stroke-linecap", "round");
+      d3.range(10).forEach(i => {
+        g.append("circle").attr("cx", cx + Math.cos(i/10*Math.PI*2)*150).attr("cy", cy + Math.sin(i/10*Math.PI*2)*150).attr("r", 3).attr("fill", i % 2 ? "#fff" : primary).attr("opacity", .55);
+      });
+      function tick() {
+        hand.transition().duration(3600).ease(d3.easeLinear).attrTween("transform", () => d3.interpolateString(`rotate(0 ${cx} ${cy})`, `rotate(360 ${cx} ${cy})`)).on("end", tick);
+      }
+      tick();
+    }
+
+    const animationMap = { animateCommunion, animateResponse, animateAccess, animateScripture, animateWaiting };
+
+    function setupFullScreenWrappers() {
+      document.querySelectorAll(".visual-stage").forEach(stage => {
+        if (!stage.parentElement.classList.contains("full-screen-wrapper")) {
+          const wrapper = document.createElement("div");
+          wrapper.className = "full-screen-wrapper";
+          stage.parentNode.insertBefore(wrapper, stage);
+          wrapper.appendChild(stage);
+        }
+      });
+    }
+
+    function setupAnimationTriggers() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          if (el.dataset.started === "true") return;
+          const fn = animationMap[el.dataset.anim];
+          if (fn) {
+            el.dataset.started = "true";
+            fn(el);
+          }
+        });
+      }, { threshold: 0.45 });
+      document.querySelectorAll("[data-anim]").forEach(el => observer.observe(el));
+    }
+
+    function cards() {
+      return Array.from(document.querySelectorAll(".glass-card"));
+    }
+
+    function goNext() {
+      const all = cards();
+      const y = window.scrollY + window.innerHeight * .32;
+      const next = all.find(card => card.offsetTop > y);
+      if (next) next.scrollIntoView({ behavior: "smooth", block: "center" });
+      else window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function updateProgress() {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+      document.getElementById("reading-progress").style.width = `${pct}%`;
+    }
+
+    setupFullScreenWrappers();
+    setupAnimationTriggers();
+    document.getElementById("next-card").addEventListener("click", goNext);
+    document.getElementById("header-next-btn").addEventListener("click", () => {
+      const first = document.querySelector(".glass-card");
+      if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+  </script>
+</body>
+</html>

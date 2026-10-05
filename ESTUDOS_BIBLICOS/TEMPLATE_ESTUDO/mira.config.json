@@ -1,0 +1,57 @@
+{
+  "$schema": "https://raw.githubusercontent.com/eduardomira/mira/main/mira.config.schema.json",
+  "version": "1.0.0",
+  "projectName": "{NOME_DO_PROJETO}",
+  "description": "Template de estudo teológico baseado em TEMPLATE_ESTUDO",
+  "defaultTheme": "mira-dark",
+  "themes": [
+    "mira-dark",
+    "corporate-blue",
+    "light-minimal",
+    "neon-emerald"
+  ],
+  "sources": [
+    {
+      "name": "estudo",
+      "type": "folder",
+      "path": "./estudo",
+      "description": "Conteúdo principal do estudo (capítulos)"
+    },
+    {
+      "name": "docs",
+      "type": "folder",
+      "path": "./docs",
+      "description": "Documentação e referências"
+    }
+  ],
+  "decks": [],
+  "skills": [
+    "mira-new",
+    "mira-extract",
+    "mira-planner",
+    "mira-copywriter",
+    "mira-builder",
+    "mira-animator",
+    "mira-validator",
+    "mira-chart",
+    "mira-visuals",
+    "mira-3d",
+    "mira-qrcode",
+    "mira-image",
+    "mira-img-animator",
+    "mira-animated-metaphor",
+    "mira-squared",
+    "mira-vertical",
+    "mira-thirds",
+    "mira-transition-dissolve",
+    "mira-size-animator"
+  ],
+  "settings": {
+    "autoSave": true,
+    "loopAnimations": true,
+    "defaultDuration": 5000,
+    "cardTransition": "smooth"
+  },
+  "created": "2026-06-17",
+  "modified": "2026-06-17"
+}

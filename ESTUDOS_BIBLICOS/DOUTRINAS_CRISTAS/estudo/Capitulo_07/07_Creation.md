@@ -1,0 +1,298 @@
+# A Criação
+
+> **Capítulo 7**  
+> A Criação
+
+## Perguntas centrais
+
+- Por que, como e quando Deus criou o universo?
+
+## I. Explicação e Base Bíblica
+
+Como Deus criou o mundo? Ele criou diretamente cada tipo diferente de planta e de animal, ou usou algum tipo de processo evolutivo, guiando o desenvolvimento dos seres vivos do mais simples ao mais complexo? E com que rapidez Deus realizou a criação? Foi tudo completado em seis dias de 24 horas, ou ele usou milhares ou talvez milhões de anos? Qual é a idade da Terra e qual é a idade da raça humana?
+
+Essas perguntas nos confrontam ao tratarmos da doutrina da criação. Ao contrário da maior parte do material anterior neste livro, este capítulo aborda várias questões sobre as quais os cristãos evangélicos têm pontos de vista divergentes, às vezes defendidos com muita veemência.
+
+Este capítulo está organizado de modo a partir daqueles aspectos da criação que são mais claramente ensinados nas Escrituras e sobre os quais quase todos os evangélicos concordam (criação a partir do nada, criação especial de Adão e Eva, e a bondade do universo) para outros aspectos da criação a respeito dos quais os evangélicos têm divergido (se Deus usou um processo de evolução para realizar grande parte da criação, e qual é a idade da Terra e da raça humana).
+
+Podemos definir a doutrina da criação da seguinte forma:
+
+> **A doutrina da criação:** *Deus criou todo o universo a partir do nada; ele era originalmente muito bom; e ele o criou para glorificar a si mesmo.*
+
+### A. Deus Criou o Universo a partir do Nada
+
+#### 1. Evidência bíblica para a criação a partir do nada
+
+A Bíblia claramente exige que acreditemos que Deus criou o universo a partir do nada. (Às vezes a frase latina *ex nihilo*, "do nada", é usada; diz-se, então, que a Bíblia ensina a criação *ex nihilo*.) Isso significa que, antes de Deus começar a criar o universo, nada mais existia exceto o próprio Deus.
+
+Essa é a implicação de Gênesis 1:1, que diz: "No princípio, Deus criou os céus e a terra." A frase "os céus e a terra" inclui todo o universo. O Salmo 33 também nos diz: "Os céus foram feitos pela palavra do Senhor, e todo o exército deles pelo sopro da sua boca... Pois ele falou, e tudo se fez; ele ordenou, e tudo passou a existir" (Sl 33:6, 9). No Novo Testamento, encontramos uma declaração universal no início do Evangelho de João: "Todas as coisas foram feitas por intermédio dele, e sem ele nada do que foi feito se fez" (Jo 1:3). A frase "todas as coisas" é melhor entendida como referindo-se a todo o universo (cf. At 17:24; Hb 11:3). Paulo é bastante explícito em Colossenses 1 quando especifica todas as partes do universo, tanto as coisas visíveis quanto as invisíveis: "Nele foram criadas todas as coisas, nos céus e na terra, visíveis e invisíveis, sejam tronos, sejam dominações, sejam principados, sejam potestades — todas as coisas foram criadas por meio dele e para ele" (Cl 1:16).
+
+Hebreus 11:3 diz: "Pela fé, entendemos que os mundos foram preparados pela palavra de Deus, de modo que o que se vê não foi feito de coisas que são visíveis" (NASB). Essa tradução (assim como a da NVI) reflete com mais precisão o texto grego. Embora o texto não ensine propriamente a doutrina da criação a partir do nada, chega muito perto disso, pois afirma que Deus não criou o universo a partir de nada que fosse visível. A ideia um tanto estranha de que o universo poderia ter sido criado a partir de algo invisível provavelmente não está na mente do autor. Ele está contradizendo a ideia de criação a partir de matéria preexistente e, para esse propósito, o versículo é bastante claro.
+
+Como Deus criou todo o universo a partir do nada, nenhuma matéria no universo é eterna. Tudo o que vemos — as montanhas, os oceanos, as estrelas, a própria Terra — tudo passou a existir quando Deus o criou. Isso nos lembra que Deus governa sobre todo o universo e que nada na criação deve ser adorado em lugar de Deus ou além dele. No entanto, se negássemos a criação a partir do nada, teríamos de dizer que alguma matéria sempre existiu e que é eterna como Deus. Essa ideia desafiaria a independência de Deus, sua soberania e o fato de que a adoração é devida somente a ele. Se a matéria existisse separada de Deus, que direito inerente Deus teria de governá-la e usá-la para sua glória? E que confiança poderíamos ter de que cada aspecto do universo cumprirá os propósitos de Deus se algumas partes dele não foram criadas por ele?
+
+O aspecto positivo do fato de que Deus criou o universo a partir do nada é que a criação tem significado e propósito. Deus, em sua sabedoria, a criou com um propósito. Devemos tentar entender esse propósito e usar a criação de maneiras que se ajustem a ele, ou seja, para trazer glória ao próprio Deus.[^1] Além disso, sempre que a criação nos trouxer alegria (cf. 1Tm 6:17), devemos dar graças ao Deus que fez tudo.
+
+#### 2. A criação direta de Adão e Eva
+
+A Bíblia também ensina que Deus criou Adão e Eva de uma maneira especial e pessoal. "O Senhor Deus formou o homem do pó da terra e soprou em suas narinas o fôlego de vida; e o homem tornou-se um ser vivente" (Gn 2:7). Depois disso, Deus criou Eva do corpo de Adão: "Então o Senhor Deus fez cair um sono profundo sobre o homem, e enquanto ele dormia, tomou uma de suas costelas e fechou o lugar com carne; e da costela que o Senhor Deus havia tomado do homem, ele fez uma mulher e a trouxe ao homem" (Gn 2:21-22). Deus aparentemente fez Adão saber algo do que havia acontecido, pois Adão diz:
+
+> "Esta, afinal, é osso dos meus ossos  
+> e carne da minha carne;  
+> ela será chamada Mulher,  
+> porque foi tirada do Homem." (Gn 2:23)
+
+Como veremos adiante, os cristãos divergem sobre até que ponto desenvolvimentos evolutivos podem ter ocorrido após a criação, talvez (segundo alguns) levando ao desenvolvimento de organismos cada vez mais complexos. Embora existam diferenças de opinião sinceramente mantidas sobre essa questão entre os cristãos com respeito aos reinos vegetal e animal, esses textos são tão explícitos que seria muito difícil para alguém sustentar a completa veracidade das Escrituras e ainda assim defender que os seres humanos são o resultado de um longo processo evolutivo. Isso porque, quando a Escritura diz que o Senhor "formou o homem do pó da terra" (Gn 2:7), não parece possível entender que isso signifique que ele o fez por meio de um processo que levou milhões de anos e envolveu o desenvolvimento aleatório de milhares de organismos cada vez mais complexos. Ainda mais impossível de reconciliar com uma visão evolutiva é o fato de que esta narrativa retrata claramente Eva como não tendo mãe do sexo feminino; ela foi criada diretamente da costela de Adão enquanto ele dormia (Gn 2:21). Numa visão puramente evolutiva, contudo, isso não seria possível, pois até mesmo o primeiríssimo ser humano do sexo feminino teria descendido de alguma criatura quase humana que ainda era um animal.
+
+O Novo Testamento reafirma a historicidade dessa criação especial de Eva a partir de Adão quando Paulo diz: "Pois o homem não foi feito da mulher, mas a mulher, do homem. Nem o homem foi criado por causa da mulher, mas a mulher, por causa do homem" (1Co 11:8-9).
+
+A criação especial de Adão e Eva mostra que, embora possamos ser parecidos com os animais em muitos aspectos em nossos corpos físicos, somos, no entanto, muito diferentes deles. Fomos criados "à imagem de Deus", o ápice da criação divina, mais parecidos com Deus do que qualquer outra criatura, designados para governar sobre o resto da criação. Até mesmo a brevidade do relato da criação em Gênesis (em comparação com a história dos seres humanos no restante da Bíblia) coloca uma ênfase maravilhosa na importância do ser humano em distinção do resto do universo. Esse relato, assim, resiste às tendências modernas de ver o homem como insignificante diante da imensidão do universo.
+
+#### 3. A obra do Filho e do Espírito Santo na criação
+
+Deus Pai foi o agente principal na iniciação do ato da criação. Mas o Filho e o Espírito Santo também estavam ativos. O Filho é frequentemente descrito como aquele "por meio de" quem a criação veio a existir. "Todas as coisas foram feitas por intermédio dele, e sem ele nada do que foi feito se fez" (Jo 1:3). Paulo diz que há "um só Senhor, Jesus Cristo, por meio de quem são todas as coisas e por meio de quem existimos" (1Co 8:6), e que "todas as coisas foram criadas por meio dele e para ele" (Cl 1:16). Essas passagens apresentam um quadro consistente do Filho como o agente ativo que executa os planos e as orientações do Pai.
+
+O Espírito Santo também estava ativo na criação. Ele é geralmente retratado como aquele que completa, preenche e dá vida à criação de Deus. Em Gênesis 1:2, "o Espírito de Deus pairava sobre a face das águas", indicando uma função de preservação, sustento e governo. Jó diz: "O Espírito de Deus me fez, e o sopro do Todo-Poderoso me dá vida" (Jó 33:4). Em várias passagens do Antigo Testamento, é importante perceber que a mesma palavra hebraica (*rûach*) pode significar, em diferentes contextos, "espírito", "sopro" ou "vento". Mas, em muitos casos, não há muita diferença de significado, pois mesmo que se decidisse traduzir certas frases como "sopro de Deus" ou até mesmo "vento de Deus", ainda pareceria ser uma maneira figurada de se referir à atividade do Espírito Santo na criação. Assim, o salmista, ao falar da grande variedade de criaturas na terra e no mar, diz: "Envias o teu Espírito, eles são criados" (Sl 104:30; note também, sobre a obra do Espírito Santo, Jó 26:13; Is 40:13; 1Co 2:10).
+
+### B. A Criação é Distinta de Deus, mas Sempre Dependente Dele
+
+O ensino das Escrituras sobre o relacionamento entre Deus e a criação é único entre as religiões do mundo. A Bíblia ensina que Deus é distincto de sua criação. Ele não faz parte dela, pois a criou e governa sobre ela. O termo frequentemente usado para dizer que Deus é muito maior do que a criação é a palavra **transcendente**. Muito simplesmente, isso significa que Deus está muito "acima" da criação no sentido de que ele é maior do que ela e independente dela.
+
+Deus também está muito envolvido na criação, pois ela é continuamente dependente dele para sua existência e funcionamento. O termo técnico usado para falar do envolvimento de Deus na criação é a palavra **imanente**, que significa "permanecer em" ou "estar presente em" a criação. O Deus da Bíblia não é uma divindade abstrata, distante e desinteressada de sua criação. A Bíblia é a história do envolvimento de Deus com sua criação e, particularmente, com as pessoas que nela habitam. Jó afirma que até mesmo os animais e as plantas dependem de Deus: "Na sua mão está a vida de tudo o que vive, e o espírito de toda a carne humana" (Jó 12:10). No Novo Testamento, Paulo afirma que Deus "dá a todos a vida, a respiração e todas as coisas" e que "nele vivemos, e nos movemos, e existimos" (At 17:25, 28). De fato, em Cristo, "todas as coisas subsistem" (Cl 1:17), e ele está continuamente "sustentando todas as coisas pela palavra do seu poder" (Hb 1:3). A transcendência e a imanência de Deus são ambas afirmadas em um único versículo quando Paulo fala de "um só Deus e Pai de todos, o qual é sobre todos, e por todos, e em todos" (Ef 4:6).
+
+O fato de que a criação é distinta de Deus mas sempre dependente dele, de que Deus está muito acima da criação mas sempre envolvido nela (em resumo, que Deus é tanto transcendente quanto imanente), pode ser representado graficamente.
+
+[**Figura 7.1**]
+
+Essa visão é claramente distinta do **materialismo**, que é a filosofia mais comum dos incrédulos hoje e que nega terminantemente a existência de Deus. O materialismo afirma que o universo material é tudo o que existe. Ele pode ser representado graficamente.
+
+[**Figura 7.2**]
+
+Os cristãos hoje que concentram quase todo o esforço de suas vidas em ganhar mais dinheiro e adquirir mais bens tornam-se "materialistas práticos" em suas atividades, já que suas vidas não seriam muito diferentes se não acreditassem em Deus de forma alguma.
+
+O relato bíblico da relação de Deus com sua criação também é distinto do **panteísmo**. A palavra grega *pan* significa "todo" ou "tudo", e o panteísmo é a ideia de que tudo, o universo inteiro, é Deus ou faz parte de Deus. Isso pode ser representado graficamente.
+
+[**Figura 7.3**]
+
+O panteísmo nega vários aspectos essenciais do caráter de Deus. Se todo o universo é Deus, então Deus não possui uma personalidade distinta. Deus já não é imutável, porque, à medida que o universo muda, Deus também muda. Além disso, Deus não é mais santo, porque o mal no universo também faz parte de Deus. Outra dificuldade é que, em última análise, a maioria dos sistemas panteístas (como o budismo e muitas outras religiões orientais) acaba negando a importância das personalidades humanas individuais: já que tudo é Deus, o objetivo do indivíduo deve ser fundir-se com o universo e tornar-se cada vez mais unido a ele, perdendo assim sua individualidade distinta. Se o próprio Deus não tem uma identidade pessoal distinta separada do universo, certamente nós também não deveríamos nos esforçar para ter uma. Assim, o panteísmo destrói não apenas a identidade pessoal de Deus, mas também, no final das contas, a dos seres humanos.
+
+O relato bíblico também exclui o **dualismo**. Trata-se da ideia de que tanto Deus quanto o universo material existiram eternamente lado a lado. Assim, existem duas forças últimas no universo: Deus e a matéria. Isso pode ser representado graficamente.
+
+[**Figura 7.4**]
+
+O problema do dualismo é que ele indica um conflito eterno entre Deus e os aspectos maus do universo material. Será que Deus triunfará sobre o mal no universo? Não podemos ter certeza, porque tanto Deus quanto o mal aparentemente sempre existiram lado a lado. Essa filosofia negaria tanto o senhorio supremo de Deus sobre a criação quanto o fato de que a criação veio a existir pela vontade de Deus, de que deve ser usada exclusivamente para os propósitos dele e de que serve para glorificá-lo. Esse ponto de vista também negaria que todo o universo foi criado inerentemente bom (Gn 1:31) e encorajaria as pessoas a verem a realidade material como algo intrinsecamente mau, em contraste com o relato bíblico genuíno de uma criação que Deus fez para ser boa e sobre a qual ele governa para os seus propósitos.
+
+Um exemplo de dualismo na cultura moderna é a trilogia *Star Wars* (Guerra nas Estrelas), que postula a existência de uma "Força" universal que tem tanto um lado bom quanto um lado mau. Não existe o conceito de um Deus santo e transcendente que governa sobre tudo e que certamente triunfará sobre tudo. Quando os não cristãos hoje começam a tomar consciência de um aspecto espiritual no universo, eles frequentemente se tornam dualistas, simplesmente reconhecendo que existem aspectos bons e maus no mundo sobrenatural ou espiritual. A maior parte das religiões da Nova Era é dualista. Naturalmente, Satanás fica encantado quando as pessoas pensam que existe uma força maligna no universo que seja talvez igual ao próprio Deus.
+
+A visão cristã da criação também é distinta do ponto de vista do **deísmo**. O deísmo é a visão de que Deus não está atualmente envolvido de forma direta na criação. Ele pode ser representado graficamente.
+
+[**Figura 7.5**]
+
+O deísmo geralmente sustenta que Deus criou o universo e é muito maior do que ele (Deus é "transcendente"). Alguns deístas também concordam que Deus tem padrões morais e que finalmente responsabilizará as pessoas em um dia de julgamento. Mas eles negam o envolvimento presente de Deus no mundo, deixando, assim, de lado a sua imanência na ordem criada. Em vez disso, Deus é visto como um relojoeiro divino que deu corda no "relógio" da criação no início, mas depois o deixou funcionar por conta própria.
+
+Embora o deísmo afirme a transcendência de Deus de algumas maneiras, ele nega quase toda a história da Bíblia, que é a história do envolvimento ativo de Deus no mundo. Muitos cristãos "mornos" ou nominais hoje são, com efeito, deístas práticos, já que vivem vidas quase totalmente desprovidas de oração genuína, adoração, temor de Deus ou confiança momento a momento na providência divina para cuidar das necessidades que surgem.
+
+### C. Deus Criou o Universo para Mostrar Sua Glória
+
+É claro que Deus criou o seu povo para a sua própria glória, pois ele fala de seus filhos e filhas como aqueles "que criei para minha glória, que formei e fiz" (Is 43:7). Mas não são apenas os seres humanos que Deus criou para esse propósito. Toda a criação tem a intenção de manifestar a glória de Deus. Até a criação inanimada — as estrelas, o sol, a lua e o céu — testifica da grandeza de Deus: "Os céus proclamam a glória de Deus, e o firmamento anuncia a obra de suas mãos. Um dia discursa a outro dia, e uma noite revela conhecimento a outra noite" (Sl 19:1-2). O cântico de adoração celestial em Apocalipse 4 conecta a criação de todas as coisas por Deus com o fato de que ele é digno de receber glória delas:
+
+> "Digno és, Senhor, de receber glória, e honra, e poder;  
+> porque tu criaste todas as coisas,  
+> e por tua vontade são e foram criadas." (Ap 4:11)
+
+O que a criação mostra sobre Deus? Principalmente mostra o seu grande poder e sabedoria, muito acima de qualquer coisa que poderia ser imaginada por qualquer criatura.[^2] "Ele fez a terra pelo seu poder; ele estabeleceu o mundo por sua sabedoria e com o seu entendimento estendeu os céus" (Jr 10:12). Um olhar para o sol ou para as estrelas nos convence do poder infinito de Deus. E mesmo uma breve inspeção de qualquer folha em uma árvore, ou da maravilha da mão humana, ou de qualquer célula viva, nos convence da sua imensa sabedoria. Quem poderia fazer tudo isso? Quem poderia faz-lo a partir do nada? Quem poderia sustentá-lo dia após dia por anos intermináveis? Tal poder infinito, tal habilidade intrincada estão completamente além da nossa compreensão. Quando meditamos nisso, damos glória a Deus.
+
+Quando afirmamos que Deus criou o universo para mostrar a sua glória, é importante percebermos que ele não precisava criá-lo. Não devemos pensar que Deus precisava de mais glória do que a que já tinha dentro da Trindade por toda a eternidade, ou que ele era de alguma forma incompleto sem a glória que receberia do universo criado. Isso seria negar a independência de Deus e implicar que ele precisava do universo para ser plenamente Deus.[^3] Em vez disso, devemos afirmar que a criação do universo foi um ato totalmente livre de Deus. Não foi um ato necessário, mas algo que Deus escolheu fazer. "Tu criaste todas as coisas, e por tua vontade elas existiram e foram criadas" (Ap 4:11). Deus desejou criar o universo para demonstrar a sua excelência. A criação mostra a sua grande sabedoria e poder e, em última análise, revela todos os seus outros atributos também.[^4] Parece que Deus criou o universo, então, para ter prazer em sua criação, pois, à medida que a criação manifesta vários aspectos do caráter de Deus, ele tem prazer nela.
+
+Isso explica por que nós mesmos temos prazer espontâneo em todos os tipos de atividades criativas. Pessoas com habilidades artísticas, musicais ou literárias gostam de criar coisas e ver, ouvir ou contemplar seu trabalho criativo. Deus nos fez de tal maneira que gostamos de imitar, de uma maneira criatural, a sua atividade criativa. E um dos aspectos surpreendentes da humanidade — em distinção do resto da criação — é nossa capacidade de criar coisas novas. Isso também explica por que temos prazer em outros tipos de atividade "criativa": muitas pessoas gostam de cozinhar, decorar sua casa, de jardinagem, de trabalhar com madeira ou outros materiais, de produzir invenções científicas ou de conceber novas soluções para problemas na produção industrial. Até as crianças gostam de colorir figuras ou de construir casas com blocos. Em todas essas atividades, refletimos em pequena escala a atividade criativa de Deus, e devemos ter prazer nisso e agradecer-lhe por isso.
+
+### D. O Universo que Deus Criou Era "Muito Bom"
+
+Esse ponto decorre do anterior. Se Deus criou o universo para mostrar a sua glória, então esperaríamos que o universo cumprisse o propósito para o qual ele o criou. De fato, quando Deus terminou a sua obra de criação, ele teve prazer nela. Ao final de cada etapa da criação, Deus viu que o que havia feito era "bom" (Gn 1:4, 10, 12, 18, 21, 25). Então, ao final dos seis dias da criação, "Deus viu tudo o que havia feito, e eis que era muito bom" (Gn 1:31). Deus teve prazer na criação que havia feito, exatamente como havia proposto fazer.
+
+Mesmo que agora haja pecado no mundo, a criação material ainda é boa aos olhos de Deus e deve ser vista como "boa" por nós também. Esse conhecimento nos livrará de um falso ascetismo que vê o uso e o prazer da criação material como algo errado. Paulo diz que "tudo o que Deus criou é bom, e nada deve ser rejeitado, se for recebido com ações de graças; pois, pela palavra de Deus e pela oração, é santificado" (1Tm 4:4-5).
+
+Embora a ordem criada possa ser usada de maneiras pecaminosas ou egoístas e possa desviar as nossas afeições de Deus, não devemos permitir que o perigo do abuso da criação de Deus nos impeça de um uso positivo, agradecido e alegre dela para o nosso próprio desfrute e para o bem do seu Reino. Pouco depois de Paulo ter advertido contra o desejo de ser rico e o "amor ao dinheiro" (1Tm 6:9-10), ele afirma que é o próprio Deus "que tudo nos proporciona ricamente para nosso desfrute" (1Tm 6:17). Esse fato dá autorização para que os cristãos encorajem o desenvolvimento industrial e tecnológico adequado (juntamente com o cuidado com o meio ambiente) e o uso alegre e agradecido de todos os produtos da terra abundante que Deus criou — variedades incríveis de alimentos, roupas e moradias, bem como milhares de produtos modernos como automóveis, aviões, câmeras, telefones e computadores. Todas essas coisas podem ser supervalorizadas e mal utilizadas, mas, em si mesmas, não são más; são desenvolvimentos a partir da boa criação de Deus e devem ser vistas como bons dons de Deus.
+
+### E. A Relação entre as Escrituras e as Descobertas da Ciência Moderna
+
+Em vários momentos da história, os cristãos se viram discordando das descobertas aceitas pela ciência de sua época. Na grande maioria dos casos, a fé cristã sincera e a forte confiança na Bíblia levaram os cientistas à descoberta de novos fatos sobre o universo de Deus, e essas descobertas mudaram a opinião científica para toda a história subsequente. As vidas de Isaac Newton, Galileu Galilei, Johannes Kepler, Blaise Pascal, Robert Boyle, Michael Faraday, James Clerk Maxwell e muitos outros são exemplos disso.
+
+Por outro lado, houve momentos em que a opinião científica aceita entrou em conflito com a compreensão das pessoas sobre o que a Bíblia dizia. Por exemplo, quando o astrônomo italiano Galileu (1564-1642) começou a ensinar que a Terra não era o centro do universo, mas que a Terra e outros planetas giravam em torno do Sol (seguindo, assim, as teorias do astrônomo polonês Copérnico [1472-1543]), he foi criticado e, eventualmente, seus escritos foram condenados pela Igreja Católica Romana. Isso ocorreu porque muitas pessoas pensavam que a Bíblia ensinava que o Sol girava em torno da Terra. Na verdade, a Bíblia não ensina isso de forma alguma, mas foi a astronomia copernicana que fez com que as pessoas olhassem novamente para as Escrituras para verificar se elas realmente ensinavam o que pensavam que ensinavam. As descrições na Bíblia do nascer e do pôr do sol (Ec 1:5; et al.) meramente retratam os eventos como eles aparecem da perspectiva do observador humano e, sob esse ponto de vista, oferecem uma descrição precisa. A lição de Galileu, que foi forçado a retratar os seus ensinamentos e teve de viver em prisão domiciliar nos últimos anos de sua vida, deve nos lembrar que a observação cuidadosa do mundo natural pode nos fazer voltar às Escrituras e reexaminar se as Escrituras realmente ensinam o que pensamos que ensinam. Às vezes, após um exame mais atento do texto, podemos descobrir que nossas interpretações anteriores estavam incorretas.
+
+Na seção seguinte, listamos alguns princípios pelos quais a relação entre a criação e as descobertas da ciência moderna pode ser abordada.
+
+#### 1. Quando todos os fatos forem devidamente compreendidos, não haverá "conflito final" entre as Escrituras e a ciência natural
+
+A frase "conflito final" é tirada de um livro muito útil de Francis Schaeffer, *No Final Conflict*.[^5] Com relação a questões sobre a criação do universo, Schaeffer lista várias áreas onde, em seu julgamento, há espaço para discordância entre cristãos que creem na total veracidade das Escrituras. Entre essas áreas, ele inclui a possibilidade de que Deus criou um universo "adulto" (com aparência de idade), a possibilidade de uma lacuna entre Gênesis 1:1 e 1:2 ou entre 1:2 e 1:3, a possibilidade de um dia longo em Gênesis 1 e a possibilidade de que o dilúvio tenha afetado os dados geológicos. Schaeffer deixa claro que não está afirmando que nenhuma dessas posições seja a sua; apenas que elas são teoricamente possíveis. O ponto principal de Schaeffer é que, tanto em nossa compreensão do mundo natural quanto em nossa compreensão das Escrituras, nosso conhecimento não é perfeito. Mas podemos abordar tanto o estudo científico quanto o bíblico com a confiança de que, quando todos os fatos forem corretamente compreendidos e quando entendermos as Escrituras corretamente, nossas descobertas nunca estarão em conflito umas com as outras; não haverá "conflito final". Isso porque Deus, que fala nas Escrituras, conhece todos os fatos e não falou de uma maneira que contradiga qualquer fato verdadeiro no universo.
+
+#### 2. Algumas teorias sobre a criação parecem claramente inconsistentes com os ensinamentos das Escrituras
+
+Nesta seção, examinaremos três tipos de explicação da origem do universo que parecem claramente inconsistentes com as Escrituras.
+
+##### a. Teorias seculares
+
+Por uma questão de completude, mencionamos aqui apenas brevemente que quaisquer teorias puramente seculares da origem do universo seriam inaceitáveis para aqueles que creem nas Escrituras. Uma teoria "secular" é qualquer teoria sobre a origem do universo que não vê um Deus pessoal e infinito como responsável por criar o universo por meio de um design inteligente. Assim, a teoria do *big bang* (em uma forma secular na qual Deus é excluído) ou quaisquer teorias que sustentem que a matéria sempre existiu seriam inconsistentes com o ensino das Escrituras de que Deus criou o universo a partir do nada e que o fez para sua própria glória. (Quando a evolução darwiniana é concebida de forma totalmente materialista, como geralmente é, pertence também a essa categoria.)[^6]
+
+##### b. Evolução teísta
+
+Desde a publicação de *A Origem das Espécies por Meio da Seleção Natural*, de Charles Darwin (1859), alguns cristãos têm proposto que os organismos vivos surgiram pelo processo de evolução que Darwin propôs, mas que Deus guiou esse processo para que o resultado fosse exatamente o que ele queria. Essa visão é chamada de **evolução teísta** porque defende a crença em Deus (é 'teísta') e também na evolução. Muitos que aderem à evolução teísta propõem que Deus interveio no processo em alguns pontos cruciais, geralmente: (1) na criação da matéria no início, (2) na criação da forma de vida mais simples e (3) na criação do homem. Mas, com a possível exceção desses pontos de intervenção, os evolucionistas teístas sustentam que a evolução procedeu das maneiras agora descobertas pelos cientistas naturais e que foi o processo que Deus decidiu usar para permitir que todas as outras formas de vida na Terra se desenvolvessem. Eles acreditam que a mutação aleatória dos seres vivos levou à evolução de formas de vida superiores através do fato de que aqueles que tinham uma "vantagem adaptativa" (uma mutação que lhes permitia estar melhor adaptados para sobrevivir em seu ambiente) sobreviviam quando outros não.
+
+Um exame dos dados bíblicos revela que a evolução teísta está em desacordo com o relato bíblico da criação. O claro ensino das Escrituras de que há intencionalidade na obra de criação de Deus parece incompatível com a aleatoriedade exigida pela teoria evolutiva. Quando a Escritura relata que Deus disse: "Produza a terra seres viventes segundo as suas espécies: gado, répteis e animais selváticos segundo as suas espécies" (Gn 1:24), ela retrata Deus agindo intencionalmente e com um propósito para cada coisa que faz. Mas isso é o oposto de permitir que as mutações procedam de forma totalmente aleatória, sem propósito para os milhões de mutações que teriam de ocorrer, segundo a teoria evolutiva, antes que uma nova espécie pudesse surgir.
+
+A diferença fundamental entre uma visão bíblica da criação e a evolução teísta reside aqui: a força motriz que causa a mudança e o desenvolvimento de novas espécies em todos os esquemas evolutivos é a aleatoriedade. Sem a mutação aleatória de organismos, não há evolução no sentido científico moderno. A mutação aleatória é a força subjacente que causa o desenvolvimento eventual das formas de vida mais simples para as mais complexas. Mas a força motriz no desenvolvimento de novos organismos segundo as Escrituras é o design inteligente de Deus. "E fez Deus os animais selváticos segundo a sua espécie, e o gado segundo a sua espécie, e todo réptil da terra segundo a sua espécie. E viu Deus que era bom" (Gn 1:25). Essas declarações parecem inconsistentes com a ideia de Deus criando, dirigindo ou observando milhões de mutações aleatórias, nenhuma das quais era "muito boa" da maneira que ele pretendia, e nenhuma das quais realmente era o tipo de planta ou animal que ele queria ter na Terra. A visão da evolução teísta tem de entender que os eventos ocorreram mais ou menos assim: "E Deus disse: «Produza a terra seres viventes segundo as suas espécies». E após trezentas e oitenta e sete milhões, quatrocentas e noventa e duas mil, oitocentas e setenta e uma tentativas, Deus finalmente fez um camundongo que funcionou."
+
+Isso pode parecer uma explicação estranha, mas é precisamente o que o evolucionista teísta deve postular para cada uma das centenas de milhares de diferentes espécies de plantas e animais na Terra: todas se desenvolveram através de um processo de mutação aleatória ao longo de milhões de anos, gradualmente aumentando em complexidade à medida que a grande maioria das mutações era prejudicial, mas mutações ocasionais acabavam sendo vantajosas para a criatura.
+
+Um evolucionista teísta pode objetar que Deus interveio no processo e o guiou em muitos pontos na direção que queria. Mas, uma vez que isso é permitido, há propósito e design inteligente no processo — e já não temos mais evolução, porque não há mais mutação aleatória (nos pontos de interação divina, que são os pontos que realmente produzem os resultados).
+
+A evolução teísta também parece incompatível com a imagem bíblica da palavra criativa de Deus como trazendo resposta imediata. Quando a Bíblia fala sobre a palavra criativa de Deus, ela enfatiza o poder de sua palavra e sua capacidade de cumprir seu propósito.
+
+> "Pela palavra do Senhor foram feitos os céus,  
+> e todo o exército deles pelo sopro da sua boca.  
+> ... Pois ele falou, e tudo se fez;  
+> ele ordenou, e tudo passou a existir." (Sl 33:6, 9)
+
+Este tipo de declaração parece estar em desacordo com a ideia de que Deus falou e, após milhões de anos e milhões de mutações aleatórias nos seres vivos, seu poder produziu o resultado que ele havia ordenado. Em vez disso, tão logo Deus diz: "Produza a terra relva", a próxima frase nos diz: "E assim foi" (Gn 1:11).
+
+O papel ativo presente de Deus em criar ou formar cada ser vivo que agora vem a existir também é difícil de reconciliar com o distante tipo de supervisão "sem intervenção" da evolução que é proposto pela evolução teísta. Davi pode confessar: "Pois tu formaste o meu interior, tu me teceste no ventre de minha mãe" (Sl 139:13). E Deus disse a Moisés: "Quem fez a boca do homem? Ou quem faz o mudo, ou o surdo, ou o que vê, ou o cego? Não sou eu, o Senhor?" (Êx 4:11). Deus faz a erva crescer (Sl 104:14; Mt 6:30), alimenta as aves (Mt 6:26) e as outras criaturas da floresta (Sl 104:21, 27-30). Se Deus está tão envolvido em causar o crescimento e desenvolvimento de cada passo de cada ser vivo ainda hoje, parece consistente com as Escrituras dizer que essas formas de vida foram originalmente produzidas por um processo evolutivo dirigido por mutações aleatórias, em vez da criação direta e intencional de Deus?
+
+Finalmente, a criação especial de Adão, e de Eva a partir dele, é uma forte razão para romper com a evolução teísta. Aqueles evolucionistas teístas que argumentam por uma criação especial de Adão e Eva por causa das declarações em Gênesis 1–2 realmente romperam com a teoria evolutiva no ponto que é de maior preocupação para os seres humanos de qualquer forma. Mas se, com base nas Escrituras, insistimos na intervenção especial de Deus no ponto da criação de Adão e Eva, então o que impede de admitir que Deus interveio, de maneira semelhante, na criação de outros organismos vivos?
+
+Devemos perceber que a criação especial de Adão e Eva, como registrada nas Escrituras, mostra que eles eram muito diferentes das criaturas que os evolucionistas diriam que foram os primeiros humanos, ou seja, criaturas primitivas e minimamente habilidosas que descendiam de criaturas não humanas altamente desenvolvidas e eram apenas ligeiramente superiores a elas. A Escritura retrata o primeiro homem e a primeira mulher, Adão e Eva, como possuindo habilidades linguísticas, morais e espirituais altamente desenvolvidas desde o momento em que foram criados. Eles podem conversar entre si. Eles podem até conversar com Deus. Eles são muito diferentes dos primeiros humanos semi-animais da teoria evolutiva, que teriam descendido de criaturas símias não humanas.
+
+Parece mais apropriado concluir com as palavras do geólogo Davis A. Young: "A posição do evolucionismo teísta, como expressa por alguns de seus proponentes, não é uma posição consistentemente cristã. Não é uma posição verdadeiramente bíblica, pois é baseada, em parte, em princípios que são importados para o cristianismo."[^7]
+
+Segundo Louis Berkhof, "a evolução teísta é realmente uma filha do embaraço, que chama Deus em intervalos periódicos para ajudar a natureza a superar os abismos que se abrem a seus pés. Não é nem a doutrina bíblica da criação, nem uma teoria consistente da evolução."[^8]
+
+##### c. Notas sobre a teoria darwiniana da evolução
+
+###### (1) Desafios atuais à evolução
+
+A palavra *evolução* pode ser usada de diferentes maneiras. Às vezes é usada para se referir à "**microevolução**" — pequenos desenvolvimentos dentro de uma espécie, de modo que vemos moscas ou mosquitos se tornando imunes a inseticidas, ou seres humanos se tornando mais altos, ou diferentes cores e variedades de rosas sendo desenvolvidas. Inúmeros exemplos de tal microevolução são evidentes hoje, e ninguém nega que eles existam. Mas esse não é o sentido em que a palavra evolução é geralmente usada quando se discutem teorias da criação e evolução.
+
+O termo *evolução* é mais comumente usado para se referir à **macroevolução** — isto é, a "teoria geral da evolução" ou a visão de que "uma substância não viva deu origem ao primeiro material vivo, que subsequentemente se reproduziu e se diversificou para produzir todos os organismos extintos e existentes".[^9] Neste capítulo, quando usamos a palavra evolução, ela se refere à macroevolução ou à teoria geral da evolução. Na teoria evolutiva darwiniana moderna, a história do desenvolvimento da vida começou quando uma mistura de produtos químicos presentes na Terra produziu espontaneamente uma forma de vida muito simples, provavelmente unicelular. Essa célula viva se reproduziu e, eventualmente, houve algumas mutações ou diferenças nas novas células produzidas. Essas mutações levaram ao desenvolvimento de formas de vida mais complexas. Um ambiente hostil significava que muitas delas pereceriam, mas aquelas que estavam melhor adaptadas ao seu ambiente sobreviveriam e se multiplicariam. Assim, a natureza exerceu um processo de "**seleção natural**" no qual os organismos diferentes mais adaptados ao ambiente sobreviveram. Mais e mais mutações eventualmente se desenvolveram em mais e mais variedades de seres vivos, de modo que, a partir do organismo mais simples, todas as formas de vida complexas na Terra eventualmente se desenvolveram através desse processo de mutação e seleção natural.
+
+Desde que Charles Darwin publicou *A Origem das Espécies por Meio da Seleção Natural* em 1859, houve desafios à sua teoria tanto por parte de cristãos quanto de não cristãos. Críticos modernos estão produzindo críticas cada vez mais devastadoras da teoria evolutiva, demonstrando pontos como os seguintes:[^10]
+
+- **(a)** Após mais de cem anos de reprodução experimental de vários tipos de animais e plantas, a quantidade de variação que pode ser produzida (mesmo com reprodução intencional, não aleatória) é extremamente limitada, devido ao alcance limitado de variação genética em cada tipo de ser vivo.[^11] Cães que são criados seletivamente por gerações ainda são cães; moscas-das-frutas ainda são moscas-das-frutas, e assim por diante.
+- **(b)** As vastas e complexas mutações necessárias para produzir órgãos complexos como um olho ou uma asa de ave (ou centenas de outros órgãos) não poderiam ter ocorrido em pequenas mutações acumuladas ao longo de milhares de gerações, porque as partes individuais do órgão são inúteis (e não trazem nenhuma 'vantagem') a menos que o órgão inteiro esteja funcionando. (As centenas de partes necessárias para um olho ou uma asa de pássaro funcionarem têm de estar todas presentes, ou as outras partes são inúteis e não conferem vantagem adaptativa.) Mas a probabilidade matemática de centenas de tais mutações aleatórias acontecerem juntas em uma única geração é efetivamente zero.
+- **(c)** Os 130 anos subsequentes de intensa atividade arqueológica desde o tempo de Darwin ainda não produziram sequer um exemplo convincente de um 'tipo intermediário (ou de transição)' necessário, ou seja, um fóssil que mostraria algumas características de um animal e algumas características do próximo tipo de desenvolvimento, o que seria necessário para preencher as lacunas no registro fóssil entre tipos distintos de animais.[^12]
+- **(d)** Os avanços na biologia molecular revelam cada vez mais a incrível complexidade até mesmo dos organismos mais simples, e nenhuma explicação satisfatória para a origem dessas diferenças foi dada.[^13]
+- **(e)** Provavelmente a maior dificuldade de todas para a teoria evolutiva é explicar como qualquer vida poderia ter começado em primeiro lugar. A geração espontânea até mesmo do organismo vivo mais simples capaz de vida independente (a célula bacteriana procariótica) a partir de materiais inorgânicos na Terra não poderia acontecer por mistura aleatória de produtos químicos; requer design inteligente e habilidade tão complexa que nenhum laboratório científico avançado no mundo conseguiu realizá-la.
+
+É importante notar que os cinco argumentos anteriores não são baseados em 'a Bíblia versus a ciência' (que a comunidade científica secular descarta regularmente como mera superstição ou irracionalismo), mas são baseados em 'ciência versus ciência' — isto é, os argumentos estão simplesmente examinando as evidências encontradas no mundo natural e perguntando para onde as evidências levam. Se as evidências levam em uma direção (por exemplo, se dão forte evidência de design inteligente) e o compromisso filosófico de um cientista com uma explicação materialista e naturalista da origem da vida leva em outra direção, então o que o cientista fará? Ele continuará insistindo que a vida deve ter uma explicação naturalista, não porque os fatos científicos a provam, mas porque ele tem um compromisso prévio com a explicação de tudo de uma maneira naturalista? Então devemos perguntar: seu compromisso com o naturalismo como metodologia é fundado em alguma evidência que ele viu ao investigar o mundo, ou é baseado em algumas ideias filosóficas que ele adotou por outras razões?
+
+Phillip Johnson cita Richard Lewontin, um eminente biólogo de Harvard, que afirma claramente que sempre escolherá uma explicação naturalista em tal situação:
+
+> "Tomamos o partido da ciência apesar da patente absurdidade de alguns de seus construtos, apesar de seu fracasso em cumprir muitas de suas promessas extravagantes de saúde e vida, apesar da tolerância da comunidade científica por histórias infundadas de «era assim», porque temos um compromisso prévio, um compromisso com o materialismo. Não é que os métodos e instituições da ciência de alguma forma nos obriguem a aceitar uma explicação material do mundo fenomênico, mas, ao contrário, que somos forçados por nossa adesão a priori a causas materiais a criar um aparato de investigação e um conjunto de conceitos que produzem explicações materiais, por mais contraintuitivas, por mais misteriosas para os não iniciados. Além disso, esse materialismo é absoluto, pois não podemos permitir que um Pé Divino entre pela porta."[^14]
+
+Numerosos desafios à teoria da evolução continuam a ser publicados. No entanto, é trágico que a opinião comum, perpetuada em muitos livros didáticos de ciência hoje, de que a evolução é um 'fato' estabelecido, tenha continuado a persuadir muitas pessoas de que não deveriam considerar a total veracidade da Bíblia como um ponto de vista intelectualmente aceitável para indivíduos responsáveis e pensantes sustentarem hoje. Só podemos esperar que não demore muito para que a comunidade científica reconheça publicamente a implausibilidade da teoria evolutiva, e que os livros didáticos escritos para estudantes do ensino médio e universitários reconheçam abertamente que a evolução simplesmente não é uma explicação satisfatória para a origem da vida na Terra.
+
+###### (2) As influências destrutivas da teoria evolutiva no pensamento moderno
+
+É importante entender as influências incrivelmente destrutivas que a teoria evolutiva teve no pensamento moderno. Se de fato a vida não foi criada por Deus, e se os seres humanos em particular não são criados por Deus nem responsáveis perante ele, mas são simplesmente o resultado de ocorrências aleatórias no universo, então qual é o significado da vida humana? Somos meramente o produto de matéria mais tempo mais acaso, e então pensar que temos qualquer importância eterna, ou realmente qualquer importância diante de um universo imenso, é simplesmente nos iludir. A reflexão honesta sobre essa noção deve levar as pessoas a um profundo senso de desespero.
+
+Além disso, se toda a vida pode ser explicada pela teoria evolutiva independentemente de Deus, e se não há Deus que nos criou (ou pelo menos se não podemos saber nada sobre ele com certeza), então não há um Juiz supremo para nos responsabilizar moralmente. Portanto, não há absolutos morais na vida humana, e as ideias morais das pessoas são apenas preferências subjetivas, boas para elas talvez, mas não para serem impostas a outros. Na verdade, em tal caso, a única coisa proibida é dizer que se sabe que certas coisas são certas e certas coisas são erradas.
+
+Há outra consequência ominosa da teoria evolutiva: se os processos inevitáveis da seleção natural continuam a trazer melhoria nas formas de vida na Terra através da sobrevivência do mais apto, então por que deveríamos impedir este processo cuidando daqueles que são fracos ou menos capazes de se defender? Não deveríamos, em vez disso, permitir que morressem sem se reproduzir, para que pudéssemos avançar em direção a uma nova forma superior de humanidade, até mesmo uma 'raça superior'? De fato, Marx, Nietzsche e Hitler todos justificaram a guerra com base nisso.
+
+Além disso, se os seres humanos estão evoluindo continuamente para melhor, a sabedoria das gerações anteriores (e particularmente das crenças religiosas anteriores) provavelmente não é tão valiosa quanto o pensamento moderno. Além disso, o efeito da evolução darwiniana nas opiniões das pessoas sobre a confiabilidade das Escrituras tem sido muito negativo.
+
+Teorias sociológicas e psicológicas contemporâneas que veem os seres humanos como simplesmente formas superiores de animais são outro resultado do pensamento evolutivo. E os extremos do movimento moderno de 'direitos dos animais' que se opõem a toda matança de animais (para alimentação, casacos de couro ou pesquisa médica, por exemplo) também fluem naturalmente do pensamento evolutivo.
+
+#### 3. A idade da Terra
+
+Até este ponto, as discussões neste capítulo defenderam conclusões que esperamos encontrar ampla aceitação entre os cristãos evangélicos. A questão da idade da Terra, no entanto, é uma questão perplexa sobre a qual cristãos que creem na Bíblia têm diferido por muitos anos, às vezes muito fortemente. As duas opções principais para escolher uma data para a Terra são a posição da '**terra antiga**', que concorda com o consenso da ciência moderna de que a Terra tem 4,5 bilhões de anos, e a posição da '**terra jovem**', que diz que a Terra tem 10.000 a 20.000 anos, e que os esquemas de datação científica secular estão incorretos.
+
+Aqueles que defendem teorias da Terra antiga da criação propõem que os seis "dias" da criação em Gênesis 1 referem-se não a períodos de 24 horas, mas sim a longos períodos de tempo, milhões de anos, durante os quais Deus realizou as atividades criativas descritas em Gênesis 1.[^15] Eles apontam que a palavra hebraica traduzida como "dia" às vezes é usada para se referir não a um dia literal de 24 horas, mas a um período mais longo de tempo (a mesma palavra hebraica é usada, por exemplo, em Gn 2:4; Êx 20:12; Jó 20:28; Pv 24:10; 25:13; Ec 7:14; et al.). Outros fatores que apoiam a visão da Terra antiga incluem o fato de que as genealogias da Bíblia contêm lacunas e não se destinam a ser usadas para calcular a idade da Terra, e as evidências de antiguidade no universo (como evidências da deriva continental, a formação prolongada de recifes de coral, medições astronômicas e vários tipos de datação radiométrica).
+
+Aqueles que defendem teorias da 'terra jovem' da criação argumentam que os 'dias' em Gênesis 1 representam períodos literais de 24 horas, apontando para o fato de que cada um dos dias de Gênesis 1 termina com uma expressão como: "E houve tarde e manhã — o primeiro dia" (Gn 1:5 NVI). Alguns defensores da posição da Terra jovem sugerem que a criação original deve ter tido uma 'aparência de idade' desde o primeiro dia. Aqueles que defendem esta posição frequentemente a combinam com certas objeções aos processos científicos atuais de datação, questionando a confiabilidade da datação radiométrica e as suposições sobre as taxas de decaimento de certos elementos. Outros defensores da Terra jovem afirmam que as tremendas forças naturais desencadeadas pelo dilúvio no tempo de Noé (Gn 6–9) alteraram significativamente a face da Terra, exercendo pressões extremamente altas sobre a Terra e depositando fósseis em camadas de sedimento incrivelmente espesso em toda a superfície da Terra.
+
+Embora os vários argumentos para as duas visões básicas da idade da Terra sejam complexos e nossas conclusões sejam provisórias, neste ponto de nosso entendimento, as Escrituras parecem ser mais facilmente entendidas para sugerir (mas não exigir) uma visão de Terra jovem, enquanto os fatos observáveis da criação parecem cada vez mais favorecer uma visão de Terra antiga. Talvez esta situação mude nos próximos anos, à medida que os cristãos examinarem tanto a Bíblia quanto as evidências na natureza mais profundamente. É teoricamente possível que os defensores da Terra jovem possam avançar argumentos mais detalhados das Escrituras mostrando não apenas que os versículos são facilmente lidos de uma maneira de Terra jovem, mas que as palavras das Escrituras realmente nos exigem sustentar uma visão de Terra jovem (essas são duas afirmações muito diferentes, pois em várias outras passagens — como aquelas sobre o nascer e o pôr do sol — nossa primeira leitura casual das Escrituras não é a correta). Por outro lado, é possível que mais investigação dos fatos do universo forneça uma avalanche crescente de dados de um lado ou de outro — seja reversões surpreendentes nas alegações científicas modernas sobre a antiguidade da Terra, ou evidências adicionais avassaladoras de que a Terra é de fato extremamente antiga. É provável que a pesquisa científica nos próximos dez ou vinte anos incline o peso da evidência decisivamente para uma visão de Terra jovem ou de Terra antiga, e o peso da opinião acadêmica cristã (tanto de estudiosos bíblicos quanto de cientistas) começará a mudar decisivamente em uma direção ou outra. Isso não deve causar alarme aos defensores de qualquer posição, porque a veracidade das Escrituras não está ameaçada (nossas interpretações de Gênesis 1 têm incerteza suficiente para que qualquer posição seja possível).
+
+No entanto, deve-se dizer neste ponto que, com a informação que temos agora, não é nada fácil decidir esta questão com certeza. A possibilidade deve ser deixada em aberto de que Deus escolheu não nos dar informação suficiente para chegar a uma decisão clara sobre esta questão, e o verdadeiro teste de fidelidade a ele pode ser o grau em que podemos agir caridosamente para com aqueles que, em boa consciência e plena crença na Palavra de Deus, sustentam uma posição diferente sobre esta questão. Ambas as visões são possíveis, mas nenhuma delas me parece certa agora. Dada esta situação, pareceria melhor: (1) admitir que Deus pode não nos permitir encontrar uma solução clara para esta questão antes do retorno de Cristo, e (2) encorajar cientistas e teólogos evangélicos que se enquadram nos campos da Terra jovem e da Terra antiga a começarem a trabalhar juntos com muito menos arrogância, muito mais humildade e um senso muito maior de cooperação em um propósito comum maior.
+
+### F. Aplicação
+
+A doutrina da criação tem muitas aplicações para os cristãos hoje. Ela nos faz perceber que o universo material é bom em si mesmo, pois Deus o criou bom e quer que o usemos de maneiras que lhe agradem. Portanto, devemos procurar ser como os primeiros cristãos, que "participavam do alimento com alegria e singeleza de coração" (At 2:46), sempre com ações de graças a Deus e confiança em suas provisões. Uma apreciação saudável da criação nos manterá longe do falso ascetismo que nega a bondade da criação e as bênçãos que vêm a nós através dela. Também encorajará alguns cristãos a fazer pesquisa científica e tecnológica para descobrir mais da bondade da abundante criação de Deus, ou a apoiar tal pesquisa. A doutrina da criação também nos capacitará a reconhecer mais claramente que o estudo científico e tecnológico em si glorifica a Deus, pois nos permite descobrir quão incrivelmente sábio, poderoso e habilidoso Deus foi em sua obra de criação. "Grandes são as obras do Senhor, procuradas por todos os que nelas se deleitam" (Sl 111:2).
+
+A doutrina da criação também nos lembra que Deus é soberano sobre o universo que criou. Ele fez tudo e é Senhor de tudo. Devemos tudo o que somos e temos a ele, e podemos ter completa confiança de que ele finalmente derrotará todos os seus inimigos e será manifestado como Rei soberano para ser adorado para sempre. Além disso, o tamanho incrível do universo e a complexidade surpreendente de cada coisa criada nos levarão, se nossos corações estiverem certos, continuamente a adorá-lo e louvá-lo por sua grandeza.
+
+Finalmente, como indicamos acima, podemos desfrutar de todo coração de atividades criativas (artísticas, musicais, atléticas, domésticas, literárias, etc.) com uma atitude de gratidão por nosso Deus Criador nos permitir imitá-lo em nossa criatividade.
+
+---
+
+## II. Perguntas de Revisão
+
+1. Defina a doutrina da criação.
+2. Como a descrição bíblica da criação dá significado especial à criação do homem?
+3. Distinga entre o ensino da Bíblia sobre a relação de Deus com a criação e cada uma das seguintes filosofias:
+   - Materialismo
+   - Panteísmo
+   - Dualismo
+   - Deísmo
+4. Por que Deus criou o universo? Era necessário que ele o fizesse?
+5. Por que a teoria da evolução teísta é inconsistente com o ensino bíblico sobre a criação?
+6. Liste quatro argumentos científicos contra a teoria da evolução.
+
+---
+
+## III. Perguntas para Aplicação Pessoal
+
+1. Há maneiras pelas quais você poderia ser mais grato a Deus pela excelência de sua criação? Olhe ao seu redor e dê alguns exemplos da bondade da criação que Deus permitiu que você desfrutasse. Há maneiras pelas quais você poderia ser um melhor mordomo das partes da criação de Deus que ele confiou aos seus cuidados?
+2. A bondade de tudo o que Deus criou poderia encorajá-lo a experimentar diferentes tipos de alimentos além daqueles que você normalmente prefere? As crianças podem ser ensinadas a agradecer a Deus pela variedade nas coisas que Deus nos deu para comer?
+3. Para entender algo do desespero sentido pelos não-cristãos contemporâneos, tente imaginar por um momento que você acredita que não há Deus e que você é apenas um produto de matéria mais tempo mais acaso, o resultado espontâneo de variação aleatória em organismos ao longo de milhões de anos. Como você se sentiria diferente sobre si mesmo? Sobre outras pessoas? Sobre o futuro? Sobre o certo e o errado?
+4. Por que sentimos alegria quando somos capazes de "sujeitar" até mesmo uma parte da terra e torná-la útil para nos servir — seja cultivando vegetais, desenvolvendo um tipo melhor de plástico ou metal, ou usando lã para tricotar uma peça de roupa? Devemos sentir alegria nesses momentos? Que outras atitudes de coração devemos sentir ao fazê-las?
+5. Quando você pensa na imensidão das estrelas, e que Deus as colocou no lugar para nos mostrar seu poder e glória, como isso faz você se sentir sobre seu lugar no universo? Isso é diferente da maneira como um não-cristão se sentiria?
+
+---
+
+## IV. Termos Especiais
+
+- **ascetismo**
+- **criação**
+- **criação *ex nihilo***
+- **deísmo**
+- **design inteligente**
+- **dualismo**
+- **evolução teísta**
+- **imanente**
+- **macroevolução**
+- **materialismo**
+- **microevolução**
+- **mutação aleatória**
+- **panteísmo**
+- **seleção natural**
+- **teoria da terra antiga**
+- **teoria da terra jovem**
+- **tipos de transição**
+- **transcendente**
+
+---
+
+## V. Passagem de Memorização das Escrituras
+
+### Neemias 9:6
+
+> E Esdras disse: "Tu és o Senhor, só tu; fizeste o céu, o céu dos céus, com todo o seu exército, a terra e tudo o que nela há, os mares e tudo o que neles há; e tu preservas a todos eles; e o exército dos céus te adora."
+
+---
+
+## Notas
+
+[^1]: Veja a seção C abaixo (pp. 130-31) sobre o propósito de Deus para a criação.
+[^2]: Veja o cap. 3, pp. 54-58, para uma discussão sobre a necessidade das Escrituras se quisermos interpretar a criação corretamente.
+[^3]: Veja a discussão da independência de Deus no cap. 4, pp. 71-73, e sua liberdade no cap. 5, pp. 95-99.
+[^4]: Veja a discussão no cap. 4, p. 68, sobre as maneiras pelas quais toda a criação revela vários aspectos do caráter de Deus.
+[^5]: Downers Grove, Ill.: InterVarsity Press, 1975.
+[^6]: Veja pp. 135-38 abaixo, para uma discussão da evolução darwiniana.
+[^7]: Davis A. Young, *Creation and the Flood: An Alternative to Flood Geology and Theistic Evolution* (Grand Rapids: Baker, 1977), p. 38. Young inclui uma discussão das visões de Richard H. Bube, um importante proponente da evolução teísta (pp. 33-35).
+[^8]: Louis Berkhof, *Introduction to Systematic Theology* (Grand Rapids: Eerdmans, 1932; reprint, Grand Rapids: Baker, 1979), pp. 139-40.
+[^9]: Wayne Frair e Percival Davis, *A Case for Creation*, 3d ed. (Norcross, Ga.: CRS Books, 1983), p. 25.
+[^10]: Estes pontos são extraídos de Phillip E. Johnson, *Darwin on Trial* (Downers Grove, Ill.: InterVarsity Press, 1991). Veja também seu *Reason in the Balance: The Case Against Naturalism in Science, Law, and Education* (Downers Grove, Ill.: InterVarsity Press, 1995), e *Defeating Darwinism by Opening Minds* (Downers Grove, Ill.: InterVarsity Press, 1997).
+[^11]: Johnson, *Darwin on Trial*, pp. 15-20.
+[^12]: Ibid., pp. 73-85, discute os dois exemplos às vezes reivindicados de talvez 100 milhões de fósseis que foram descobertos, *Archaeopteryx* (uma ave com algumas características que se assemelham às de répteis), e alguns exemplos símios considerados hominídeos pré-humanos. *Archaeopteryx* ainda é muito uma ave, não um quase réptil. O estudo das características dos fósseis supostamente pré-humanos inclui grandes quantidades de especulação subjetiva, resultando em fortes diferenças entre especialistas que os examinaram.
+[^13]: Ibid., pp. 86-99. Um argumento especialmente forte de complexidade irredutível em células vivas que só pode ser explicada por design inteligente é encontrado em Michael Behe, *Darwin's Black Box: The Biochemical Challenge to Evolution* (New York: Free Press, 1996).
+[^14]: Phillip E. Johnson, "The Unraveling of Scientific Materialism," in *First Things* 77 (November 1997), p. 22.
+[^15]: Uma visão alternativa entre alguns defensores da "terra antiga" é que os seis dias de Gênesis 1 não se destinam a indicar uma sequência cronológica de eventos, mas são antes uma "estrutura" literária, que o autor usa para nos ensinar sobre a atividade criativa de Deus.

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introdução à Teologia Sistemática</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mira-primary: #FF904D;
+            --mira-bg: #000000;
+            --mira-text: #ffffff;
+            --mira-text-soft: rgba(255, 255, 255, 0.70);
+            --mira-text-softer: rgba(255, 255, 255, 0.50);
+            --mira-card-bg: rgba(255, 255, 255, 0.05);
+            --mira-card-border: rgba(255, 255, 255, 0.10);
+            --mira-glow-soft: rgba(255, 144, 77, 0.15);
+            --mira-glow-strong: rgba(255, 144, 77, 0.25);
+            --mira-icon-bg: rgba(255, 144, 77, 0.15);
+            --mira-icon-border: rgba(255, 144, 77, 0.30);
+            --mira-pill-bg: rgba(255, 255, 255, 0.04);
+            --mira-pill-border: rgba(255, 255, 255, 0.08);
+            --mira-stage-glow: rgba(255, 144, 77, 0.06);
+            --mira-accent-2: #FFC766;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: #000000;
+            min-height: 100vh;
+            color: var(--mira-text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .primary-color { color: var(--mira-primary); }
+        .primary-bg { background: var(--mira-primary); }
+        .text-soft { color: var(--mira-text-soft); }
+        .text-softer { color: var(--mira-text-softer); }
+
+        .glass-card {
+            background: var(--mira-card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--mira-card-border);
+            box-shadow: 0 10px 30px var(--mira-glow-soft);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 36px var(--mira-glow-strong);
+        }
+
+        .icon-container {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--mira-icon-bg);
+            border: 1px solid var(--mira-icon-border);
+        }
+
+        .attribute-pill {
+            background: var(--mira-pill-bg);
+            border: 1px solid var(--mira-pill-border);
+            border-radius: 9999px;
+        }
+
+        .anim-stage {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            min-height: 360px;
+            background: radial-gradient(circle at 50% 50%, var(--mira-stage-glow), transparent 70%);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .anim-stage svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--mira-primary), var(--mira-accent-2), var(--mira-primary));
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(255, 144, 77, 0.4);
+            transition: width 0.1s linear;
+        }
+
+        #next-card {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--mira-primary);
+            color: var(--mira-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 9998;
+            box-shadow: 0 4px 20px var(--mira-glow-strong);
+            border: none;
+        }
+
+        #next-card.visible { opacity: 1; transform: translateY(0); }
+        #next-card:hover { transform: translateY(-3px) scale(1.08); }
+
+        .header-fallback {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 22% 78%, rgba(255, 144, 77, 0.28), transparent 34%),
+                radial-gradient(circle at 78% 20%, rgba(255, 199, 102, 0.18), transparent 32%),
+                linear-gradient(135deg, rgba(255, 144, 77, 0.12), transparent 52%),
+                #000000;
+            animation: slowBreathe 8s ease-in-out infinite;
+        }
+
+        .scripture-line {
+            background: linear-gradient(90deg, transparent, rgba(255, 144, 77, 0.18), transparent);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes slowBreathe {
+            0%, 100% { filter: saturate(1); transform: scale(1); }
+            50% { filter: saturate(1.3); transform: scale(1.03); }
+        }
+
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        @keyframes softPulse {
+            0%, 100% { opacity: 0.65; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.04); }
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+    <div id="reading-progress"></div>
+    <button id="next-card" aria-label="Próximo card">
+        <i data-lucide="chevron-down" class="w-6 h-6" id="next-card-icon"></i>
+    </button>
+
+    <header class="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
+        <div class="header-fallback"></div>
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50">
+            <source src="header-bg.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 pointer-events-none"
+            style="background: linear-gradient(to bottom, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.36) 48%, rgba(0,0,0,0.82) 100%);">
+        </div>
+        <div id="hero-particles" class="absolute inset-0 pointer-events-none"></div>
+        <div class="text-center relative z-10 px-6" data-aos="fade-down">
+            <span class="inline-block primary-bg text-white text-sm font-bold px-6 py-2 rounded-full mb-8 tracking-widest uppercase">Aula de introdução</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">Introdução à<br><span class="primary-color">Teologia Sistemática</span></h1>
+            <p class="text-xl text-white/90 max-w-3xl mx-auto mb-10 drop-shadow-md">A pergunta que organiza a fé: o que a Bíblia inteira nos ensina hoje?</p>
+            <div data-aos="fade-up" data-aos-delay="400" class="mt-6">
+                <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="h-10 mx-auto opacity-80 drop-shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:opacity-100 transition-opacity">
+            </div>
+        </div>
+        <button class="absolute bottom-8 right-8 flex flex-col items-center gap-2 cursor-pointer bg-transparent border-none group"
+            id="header-next-btn" aria-label="Ir para o primeiro card" style="animation: scroll-bounce 2s ease-in-out infinite;">
+            <span class="text-[10px] uppercase tracking-[4px] text-white/30 font-medium group-hover:primary-color transition-colors">Iniciar</span>
+            <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[rgba(255,144,77,0.20)] transition-all">
+                <i data-lucide="chevron-down" class="w-5 h-5 text-white/40 group-hover:primary-color transition-colors"></i>
+            </div>
+        </button>
+    </header>
+
+    <main class="container mx-auto px-4 py-20 flex flex-col items-center gap-[60vh]">
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="icon-container"><i data-lucide="orbit" class="w-6 h-6 primary-color"></i></div>
+                <div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer">Definição central</p>
+                    <h3 class="text-4xl font-bold">A Bíblia inteira responde</h3>
+                </div>
+            </div>
+            <p class="text-lg text-soft mb-6">Teologia sistemática reúne passagens relevantes, compreende seu ensino e resume com clareza aquilo que devemos crer sobre cada tema.</p>
+            <!-- @MIRA:SIZE 3/10 -->
+            <div class="anim-stage" id="orbital-stage"></div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="grid md:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="sparkles" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Método</p>
+                    <h3 class="text-4xl font-bold mb-4">Do caos à clareza</h3>
+                    <p class="text-lg text-soft">O estudo formal não inventa a fé. Ele organiza, aprofunda, formula com precisão e trata todas as passagens relevantes com justiça.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="clarity-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="200">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="icon-container"><i data-lucide="git-compare" class="w-6 h-6 primary-color"></i></div>
+                <div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer">Fronteiras</p>
+                    <h3 class="text-4xl font-bold">Fronteiras bem traçadas</h3>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="attribute-pill p-5">
+                    <p class="text-xl font-bold mb-2">Histórica</p>
+                    <p class="text-soft">Observa como a igreja entendeu doutrinas ao longo do tempo.</p>
+                </div>
+                <div class="attribute-pill p-5">
+                    <p class="text-xl font-bold mb-2">Filosófica</p>
+                    <p class="text-soft">Usa a razão para examinar temas teológicos e pressupostos.</p>
+                </div>
+                <div class="attribute-pill p-5">
+                    <p class="text-xl font-bold mb-2">Apologética</p>
+                    <p class="text-soft">Defende a veracidade da fé diante de objeções.</p>
+                </div>
+            </div>
+            <div class="scripture-line rounded-lg p-5 mt-6 text-center text-lg text-white/85">
+                A teologia sistemática conversa com todas elas, mas a Escritura tem a palavra final.
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="300">
+            <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="bridge-stage"></div>
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="bridge" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Doutrina</p>
+                    <h3 class="text-4xl font-bold mb-4">Doutrina ganha forma</h3>
+                    <p class="text-lg text-soft mb-5">Doutrina é o que a Bíblia inteira nos ensina hoje sobre um assunto específico.</p>
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="attribute-pill p-3">Escritura</div>
+                        <div class="attribute-pill p-3">Crença</div>
+                        <div class="attribute-pill p-3">Vida</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-10 text-center" data-aos="zoom-in" data-aos-delay="400">
+            <div class="icon-container mx-auto mb-6"><i data-lucide="send" class="w-6 h-6 primary-color"></i></div>
+            <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Grande Comissão</p>
+            <h3 class="text-4xl font-bold mb-5">Estude para ensinar</h3>
+            <p class="text-xl text-soft max-w-3xl mx-auto mb-8">Ensinar tudo o que Cristo ordenou exige compreender o ensino da Bíblia inteira e transmiti-lo com fidelidade.</p>
+            <div class="inline-flex items-center gap-3 primary-bg text-black font-bold px-7 py-4 rounded-full">
+                <i data-lucide="book-open-check" class="w-5 h-5"></i>
+                Voltar ao texto bíblico
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="500">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="icon-container"><i data-lucide="sprout" class="w-6 h-6 primary-color"></i></div>
+                <div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer">Benefícios</p>
+                    <h3 class="text-4xl font-bold">O estudo muda você</h3>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-5">
+                <div class="attribute-pill p-6">
+                    <i data-lucide="eraser" class="w-8 h-8 primary-color mb-4"></i>
+                    <p class="text-2xl font-bold mb-3">Corrige ideias</p>
+                    <p class="text-soft">O peso total da Escritura confronta inclinações erradas.</p>
+                </div>
+                <div class="attribute-pill p-6">
+                    <i data-lucide="compass" class="w-8 h-8 primary-color mb-4"></i>
+                    <p class="text-2xl font-bold mb-3">Orienta decisões</p>
+                    <p class="text-soft">Novas perguntas são avaliadas pela coerência bíblica.</p>
+                </div>
+                <div class="attribute-pill p-6">
+                    <i data-lucide="heart" class="w-8 h-8 primary-color mb-4"></i>
+                    <p class="text-2xl font-bold mb-3">Forma maturidade</p>
+                    <p class="text-soft">Conhecer Deus aprofunda confiança, louvor e obediência.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="600">
+            <div class="grid md:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="scale" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Discernimento</p>
+                    <h3 class="text-4xl font-bold mb-4">Maiores e menores</h3>
+                    <p class="text-lg text-soft">Uma doutrina maior impacta outras doutrinas ou o modo de viver. Uma menor tem impacto limitado e permite diferenças fraternas.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="scale-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="700">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="icon-container"><i data-lucide="refresh-cw" class="w-6 h-6 primary-color"></i></div>
+                <div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer">Prática espiritual</p>
+                    <h3 class="text-4xl font-bold">Seis atitudes de estudo</h3>
+                </div>
+            </div>
+            <!-- @MIRA:SIZE 3/10 -->
+            <div class="anim-stage" id="cycle-stage"></div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-10 text-center" data-aos="zoom-in" data-aos-delay="800">
+            <div class="icon-container mx-auto mb-6"><i data-lucide="quote" class="w-6 h-6 primary-color"></i></div>
+            <p class="text-sm uppercase tracking-[3px] text-softer mb-4">Clímax devocional</p>
+            <h3 class="text-4xl font-bold mb-6">Termina em louvor</h3>
+            <blockquote class="text-2xl md:text-3xl font-semibold leading-snug max-w-4xl mx-auto">
+                “Porque dele, e por meio dele, e para ele são todas as coisas. A ele, pois, a glória eternamente.”
+            </blockquote>
+            <p class="text-soft mt-5">Romanos 11.36</p>
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+                <span class="attribute-pill px-5 py-3">oração</span>
+                <span class="attribute-pill px-5 py-3">humildade</span>
+                <span class="attribute-pill px-5 py-3">razão</span>
+                <span class="attribute-pill px-5 py-3">comunhão</span>
+                <span class="attribute-pill px-5 py-3">Escritura</span>
+                <span class="attribute-pill px-5 py-3">louvor</span>
+            </div>
+        </div>
+    </main>
+
+    <div class="py-16 text-center">
+        <div class="flex justify-center">
+            <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="h-8 opacity-40 hover:opacity-70 transition-opacity">
+        </div>
+    </div>
+
+    <footer class="py-12 text-center text-white/60">
+        <p>&copy; 2026 - Canal Sandeco. Fonte: Capítulo 1, Introdução à Teologia Sistemática.</p>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 100 });
+        lucide.createIcons();
+
+        const cssVar = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        const PRIMARY = cssVar('--mira-primary');
+        const TEXT = cssVar('--mira-text');
+        const SOFT = cssVar('--mira-text-soft');
+
+        function setupHeroParticles() {
+            const host = d3.select('#hero-particles');
+            host.selectAll('*').remove();
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            const svg = host.append('svg').attr('viewBox', `0 0 ${w} ${h}`).attr('preserveAspectRatio', 'none');
+            const dots = d3.range(34).map(() => ({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                r: 1.5 + Math.random() * 3,
+                speed: 0.25 + Math.random() * 0.55
+            }));
+            const circles = svg.selectAll('circle').data(dots).join('circle')
+                .attr('fill', PRIMARY).attr('opacity', 0.28).attr('r', d => d.r);
+            d3.timer(() => {
+                circles.attr('cx', d => d.x)
+                    .attr('cy', d => {
+                        d.y -= d.speed;
+                        if (d.y < -10) d.y = h + 10;
+                        return d.y;
+                    });
+            });
+        }
+
+        function animateOrbital() {
+            clearInterval(window.__orbitalPulse);
+            d3.select('#orbital-stage').selectAll('*').remove();
+            const svg = d3.select('#orbital-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const cx = 640, cy = 360;
+            const topics = [
+                { label: 'oração', a: 0 },
+                { label: 'Cristo', a: 1.05 },
+                { label: 'igreja', a: 2.1 },
+                { label: 'futuro', a: 3.15 },
+                { label: 'redenção', a: 4.2 },
+                { label: 'vida', a: 5.25 }
+            ];
+            svg.append('ellipse').attr('cx', cx).attr('cy', cy).attr('rx', 410).attr('ry', 210)
+                .attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.13)').attr('stroke-width', 2).attr('stroke-dasharray', '8 10');
+            const core = svg.append('g').attr('transform', `translate(${cx},${cy})`);
+            core.append('rect').attr('x', -85).attr('y', -58).attr('width', 170).attr('height', 116).attr('rx', 12)
+                .attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3)
+                .attr('opacity', 0).transition().duration(700).attr('opacity', 1);
+            core.append('text').text('Bíblia').attr('text-anchor', 'middle').attr('fill', PRIMARY).attr('font-size', 34).attr('font-weight', 900).attr('dy', 10)
+                .attr('opacity', 0).transition().delay(350).duration(600).attr('opacity', 1);
+            const pulse = core.append('circle').attr('r', 84).attr('fill', 'none').attr('stroke', PRIMARY).attr('opacity', 0);
+            window.__orbitalPulse = setInterval(() => {
+                pulse.attr('r', 84).attr('opacity', 0.65)
+                    .transition().duration(1500).ease(d3.easeCubicOut).attr('r', 145).attr('opacity', 0);
+            }, 1700);
+            const sats = svg.selectAll('g.topic').data(topics).join('g').attr('class', 'topic');
+            sats.append('circle').attr('r', 0).attr('fill', 'rgba(255,255,255,0.08)').attr('stroke', PRIMARY)
+                .transition().delay((d, i) => 600 + i * 120).duration(550).ease(d3.easeBackOut.overshoot(1.1)).attr('r', 48);
+            sats.append('text').text(d => d.label).attr('text-anchor', 'middle').attr('dy', 5).attr('fill', TEXT).attr('font-size', 18).attr('font-weight', 700)
+                .attr('opacity', 0).transition().delay((d, i) => 850 + i * 120).attr('opacity', 1);
+            d3.timer(() => {
+                sats.attr('transform', d => {
+                    d.a += 0.004;
+                    return `translate(${cx + Math.cos(d.a) * 410},${cy + Math.sin(d.a) * 210})`;
+                });
+            });
+        }
+
+        function animateClarity() {
+            clearInterval(window.__clarityLoop);
+            d3.select('#clarity-stage').selectAll('*').remove();
+            const svg = d3.select('#clarity-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const fragments = d3.range(36).map((_, i) => ({
+                x: 120 + Math.random() * 250,
+                y: 100 + Math.random() * 520,
+                tx: 610 + (i % 6) * 82,
+                ty: 150 + Math.floor(i / 6) * 78
+            }));
+            svg.append('text').text('leituras soltas').attr('x', 150).attr('y', 76).attr('fill', SOFT).attr('font-size', 22);
+            svg.append('text').text('síntese organizada').attr('x', 705).attr('y', 76).attr('fill', SOFT).attr('font-size', 22);
+            const nodes = svg.selectAll('rect.fragment').data(fragments).join('rect')
+                .attr('class', 'fragment').attr('x', d => d.x).attr('y', d => d.y).attr('width', 48).attr('height', 18).attr('rx', 4)
+                .attr('fill', 'rgba(255,255,255,0.16)').attr('stroke', 'rgba(255,255,255,0.18)');
+            function organize() {
+                nodes.transition().duration(900).ease(d3.easeCubicInOut)
+                    .attr('x', d => d.tx).attr('y', d => d.ty).attr('fill', 'rgba(255,144,77,0.22)').attr('stroke', PRIMARY)
+                    .transition().delay(1200).duration(900).ease(d3.easeCubicInOut)
+                    .attr('x', d => d.x).attr('y', d => d.y).attr('fill', 'rgba(255,255,255,0.16)').attr('stroke', 'rgba(255,255,255,0.18)');
+            }
+            organize();
+            window.__clarityLoop = setInterval(organize, 3600);
+        }
+
+        function animateBridge() {
+            clearInterval(window.__bridgeLoop);
+            d3.select('#bridge-stage').selectAll('*').remove();
+            const svg = d3.select('#bridge-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const nodes = [
+                { label: 'Escritura', x: 220, y: 360 },
+                { label: 'Crença', x: 640, y: 250 },
+                { label: 'Vida', x: 1060, y: 360 }
+            ];
+            const line = d3.line().curve(d3.curveCatmullRom).x(d => d.x).y(d => d.y);
+            svg.append('path').datum(nodes).attr('d', line).attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.15)').attr('stroke-width', 10).attr('stroke-linecap', 'round');
+            const lit = svg.append('path').datum(nodes).attr('d', line).attr('fill', 'none').attr('stroke', PRIMARY).attr('stroke-width', 5).attr('stroke-linecap', 'round').attr('stroke-dasharray', '1 900').attr('stroke-dashoffset', 0);
+            const g = svg.selectAll('g.bridge-node').data(nodes).join('g').attr('transform', d => `translate(${d.x},${d.y})`);
+            g.append('circle').attr('r', 0).attr('fill', 'rgba(255,255,255,0.07)').attr('stroke', PRIMARY).attr('stroke-width', 3)
+                .transition().delay((d, i) => i * 180).duration(650).ease(d3.easeBackOut).attr('r', 70);
+            g.append('text').text(d => d.label).attr('text-anchor', 'middle').attr('dy', 7).attr('fill', TEXT).attr('font-size', 25).attr('font-weight', 800)
+                .attr('opacity', 0).transition().delay((d, i) => 450 + i * 180).attr('opacity', 1);
+            function flow() {
+                lit.attr('stroke-dasharray', '1 900').attr('stroke-dashoffset', 0)
+                    .transition().duration(2300).ease(d3.easeCubicInOut).attr('stroke-dasharray', '900 1')
+                    .transition().duration(500).attr('opacity', 0.2)
+                    .transition().duration(300).attr('opacity', 1);
+            }
+            flow();
+            window.__bridgeLoop = setInterval(flow, 3400);
+        }
+
+        function animateScale() {
+            clearInterval(window.__scaleLoop);
+            d3.select('#scale-stage').selectAll('*').remove();
+            const svg = d3.select('#scale-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const beam = svg.append('g').attr('transform', 'translate(640,330)');
+            svg.append('line').attr('x1', 640).attr('x2', 640).attr('y1', 190).attr('y2', 510).attr('stroke', 'rgba(255,255,255,0.22)').attr('stroke-width', 5);
+            svg.append('circle').attr('cx', 640).attr('cy', 330).attr('r', 18).attr('fill', PRIMARY);
+            beam.append('line').attr('x1', -360).attr('x2', 360).attr('y1', 0).attr('y2', 0).attr('stroke', PRIMARY).attr('stroke-width', 7).attr('stroke-linecap', 'round');
+            const left = beam.append('g').attr('transform', 'translate(-290,120)');
+            const right = beam.append('g').attr('transform', 'translate(290,80)');
+            [left, right].forEach((side, i) => {
+                side.append('line').attr('x1', 0).attr('x2', 0).attr('y1', -120 + i * -40).attr('y2', -20).attr('stroke', 'rgba(255,255,255,0.28)').attr('stroke-width', 3);
+                side.append('rect').attr('x', -115).attr('y', -20).attr('width', 230).attr('height', 84).attr('rx', 12).attr('fill', 'rgba(255,255,255,0.07)').attr('stroke', i ? 'rgba(255,255,255,0.24)' : PRIMARY);
+                side.append('text').text(i ? 'doutrina menor' : 'doutrina maior').attr('text-anchor', 'middle').attr('y', 16).attr('fill', TEXT).attr('font-size', 22).attr('font-weight', 800);
+                side.append('text').text(i ? 'impacto limitado' : 'impacto amplo').attr('text-anchor', 'middle').attr('y', 44).attr('fill', SOFT).attr('font-size', 16);
+            });
+            function swing() {
+                beam.transition().duration(1400).ease(d3.easeCubicInOut).attr('transform', 'translate(640,330) rotate(-5)')
+                    .transition().duration(1400).ease(d3.easeCubicInOut).attr('transform', 'translate(640,330) rotate(4)')
+                    .transition().duration(900).ease(d3.easeCubicInOut).attr('transform', 'translate(640,330) rotate(0)');
+            }
+            swing();
+            window.__scaleLoop = setInterval(swing, 4200);
+        }
+
+        function animateCycle() {
+            clearInterval(window.__cycleLoop);
+            d3.select('#cycle-stage').selectAll('*').remove();
+            const svg = d3.select('#cycle-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const cx = 640, cy = 360, r = 245;
+            const items = ['oração', 'humildade', 'razão', 'ajuda', 'passagens', 'louvor'].map((label, i) => ({
+                label,
+                a: -Math.PI / 2 + i * Math.PI * 2 / 6
+            }));
+            svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', r).attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.11)').attr('stroke-width', 3).attr('stroke-dasharray', '8 12');
+            const stations = svg.selectAll('g.station').data(items).join('g')
+                .attr('transform', d => `translate(${cx + Math.cos(d.a) * r},${cy + Math.sin(d.a) * r})`);
+            stations.append('circle').attr('r', 0).attr('fill', 'rgba(255,255,255,0.07)').attr('stroke', PRIMARY).attr('stroke-width', 2)
+                .transition().delay((d, i) => i * 120).duration(600).ease(d3.easeBackOut).attr('r', 56);
+            stations.append('text').text(d => d.label).attr('text-anchor', 'middle').attr('dy', 6).attr('fill', TEXT).attr('font-size', 19).attr('font-weight', 800)
+                .attr('opacity', 0).transition().delay((d, i) => 350 + i * 120).attr('opacity', 1);
+            svg.append('text').text('estudar bem').attr('x', cx).attr('y', cy + 8).attr('text-anchor', 'middle').attr('fill', PRIMARY).attr('font-size', 34).attr('font-weight', 900);
+            const marker = svg.append('circle').attr('r', 13).attr('fill', PRIMARY).style('filter', `drop-shadow(0 0 12px ${PRIMARY})`);
+            let t = 0;
+            window.__cycleLoop = setInterval(() => { t += 0.018; }, 16);
+            d3.timer(() => {
+                const a = -Math.PI / 2 + t;
+                marker.attr('cx', cx + Math.cos(a) * r).attr('cy', cy + Math.sin(a) * r);
+            });
+        }
+
+        const animationSetups = [
+            { stage: document.getElementById('orbital-stage'), fn: animateOrbital },
+            { stage: document.getElementById('clarity-stage'), fn: animateClarity },
+            { stage: document.getElementById('bridge-stage'), fn: animateBridge },
+            { stage: document.getElementById('scale-stage'), fn: animateScale },
+            { stage: document.getElementById('cycle-stage'), fn: animateCycle }
+        ].filter(item => item.stage);
+
+        function setupAnimationTriggers() {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const setup = animationSetups.find(item => item.stage === entry.target);
+                        if (setup) setup.fn();
+                    }
+                });
+            }, { threshold: 0.35 });
+            animationSetups.forEach(item => observer.observe(item.stage));
+        }
+
+        const cardSections = [];
+
+        function buildCardSections() {
+            cardSections.length = 0;
+            const wrappers = document.querySelectorAll('.fullscreen-wrapper');
+            if (wrappers.length > 0) {
+                wrappers.forEach(el => cardSections.push(el));
+            } else {
+                document.querySelectorAll('main > .glass-card, main > div:not(.glass-card)').forEach(el => cardSections.push(el));
+            }
+        }
+
+        function getCurrentSectionIndex() {
+            const scrollTop = window.scrollY + window.innerHeight * 0.3;
+            let idx = -1;
+            for (let i = 0; i < cardSections.length; i++) {
+                if (cardSections[i].offsetTop <= scrollTop) idx = i;
+            }
+            return idx;
+        }
+
+        function setupFullScreenWrappers() {
+            const main = document.querySelector('main');
+            if (!main) return;
+            main.classList.remove('py-20');
+            const children = Array.from(main.children);
+            children.forEach(child => {
+                if (child.tagName === 'DIV' && !child.classList.contains('fullscreen-wrapper')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'min-h-screen w-full flex items-center justify-center fullscreen-wrapper snap-start p-4';
+                    child.parentNode.insertBefore(wrapper, child);
+                    wrapper.appendChild(child);
+                }
+            });
+            buildCardSections();
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('reading-progress').style.width = progress + '%';
+            const btn = document.getElementById('next-card');
+            btn.classList.toggle('visible', scrollTop > 300);
+            const icon = document.getElementById('next-card-icon');
+            const atBottom = (scrollTop + window.innerHeight) >= (document.documentElement.scrollHeight - 100);
+            icon.setAttribute('data-lucide', atBottom ? 'chevron-up' : 'chevron-down');
+            lucide.createIcons();
+        });
+
+        document.getElementById('next-card').addEventListener('click', () => {
+            const atBottom = (window.scrollY + window.innerHeight) >= (document.documentElement.scrollHeight - 100);
+            if (atBottom) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            const nextIdx = getCurrentSectionIndex() + 1;
+            if (nextIdx < cardSections.length) {
+                cardSections[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeroParticles();
+            setupFullScreenWrappers();
+            setupAnimationTriggers();
+            const headerBtn = document.getElementById('header-next-btn');
+            if (headerBtn) {
+                headerBtn.addEventListener('click', () => {
+                    if (cardSections.length > 0) cardSections[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+            document.addEventListener('keydown', e => {
+                const idx = getCurrentSectionIndex();
+                if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(e.key)) {
+                    e.preventDefault();
+                    const nextIdx = idx + 1;
+                    if (nextIdx < cardSections.length) cardSections[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) {
+                    e.preventDefault();
+                    const prevIdx = idx - 1;
+                    if (prevIdx >= 0) cardSections[prevIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    else window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            setupHeroParticles();
+            setupFullScreenWrappers();
+        });
+    </script>
+</body>
+
+</html>

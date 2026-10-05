@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVID — Em Homenagem a David Livingstone · CarePlanner</title>
+  <meta name="description" content="O agente de voz DAVID, batizado em honra de David Livingstone, missionário cristão e explorador que dedicou sua vida ao cuidado do próximo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:    #0B1120;
+      --navy-2:  #0F1A2E;
+      --navy-3:  #162040;
+      --gold:    #D4A853;
+      --gold-lt: #E8C97A;
+      --gold-dk: #A07830;
+      --cream:   #F5EDD8;
+      --cream-2: #DDD0B3;
+      --white:   #FFFFFF;
+      --text:    #CBD5E0;
+      --text-dim:#8896AA;
+      --border:  rgba(212,168,83,.18);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dk); border-radius: 3px; }
+
+    /* Utilities */
+    .gold       { color: var(--gold); }
+    .cream      { color: var(--cream); }
+    .serif      { font-family: 'Cormorant Garamond', serif; }
+    .section    { padding: 100px 24px; }
+    .container  { max-width: 1100px; margin: 0 auto; }
+    .divider    { width: 60px; height: 2px; background: var(--gold); margin: 28px auto; border-radius: 2px; }
+    .divider.left { margin-left: 0; }
+    .tag {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.delay-1 { transition-delay: .15s; }
+    .reveal.delay-2 { transition-delay: .30s; }
+    .reveal.delay-3 { transition-delay: .45s; }
+    .reveal.delay-4 { transition-delay: .60s; }
+
+    /* ═══ NAV ═══════════════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      background: rgba(11,17,32,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(212,168,83,.10);
+      transition: padding .3s;
+    }
+    nav.scrolled { padding: 12px 40px; }
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      color: var(--cream);
+    }
+    .nav-brand span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      font-size: .85rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+    }
+    .nav-links a { color: var(--text-dim); transition: color .25s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-badge {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--navy);
+      background: var(--gold);
+      padding: 6px 18px;
+      border-radius: 999px;
+      letter-spacing: .04em;
+    }
+
+    /* ═══ HERO ═══════════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(11,17,32,.55) 0%, rgba(11,17,32,.92) 70%, var(--navy) 100%),
+        radial-gradient(ellipse at 50% 30%, rgba(212,168,83,.12) 0%, transparent 70%);
+    }
+    .stars {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 15% 20%, rgba(245,237,216,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 72% 8%,  rgba(245,237,216,.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 38% 35%, rgba(245,237,216,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 25%, rgba(245,237,216,.5) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 52% 12%, rgba(212,168,83,.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 28% 45%, rgba(245,237,216,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 91% 40%, rgba(245,237,216,.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 5%,  rgba(212,168,83,.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 8% 50%,  rgba(245,237,216,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 44% 18%, rgba(245,237,216,.5) 0%, transparent 100%);
+    }
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .hero-glow::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(212,168,83,.07) 0%, transparent 70%);
+      animation: glow-pulse 5s ease-in-out infinite;
+    }
+    @keyframes glow-pulse {
+      0%,100% { opacity: .6; }
+      50% { opacity: 1; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 24px;
+    }
+    .hero-year {
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      animation: fadeUp .9s ease both;
+      animation-delay: .2s;
+    }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: .04em;
+      color: var(--cream);
+      margin-bottom: 6px;
+      animation: fadeUp .9s ease both;
+      animation-delay: .4s;
+    }
+    .hero-name strong {
+      font-weight: 700;
+      color: var(--gold);
+      display: block;
+    }
+    .hero-dates {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text-dim);
+      margin-bottom: 40px;
+      animation: fadeUp .9s ease both;
+      animation-delay: .6s;
+    }
+    .hero-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--cream-2);
+      line-height: 1.6;
+      max-width: 620px;
+      margin: 0 auto 52px;
+      animation: fadeUp .9s ease both;
+      animation-delay: .8s;
+    }
+    .hero-quote cite {
+      display: block;
+      font-style: normal;
+      font-size: .83rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 16px;
+    }
+    .hero-scroll {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      animation: fadeUp .9s ease both;
+      animation-delay: 1.1s;
+    }
+    .hero-scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(180deg, var(--gold) 0%, transparent 100%);
+      animation: scroll-line 2s ease-in-out infinite;
+    }
+    @keyframes scroll-line {
+      0%,100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(.5); opacity: .3; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══ TRIBUTE ════════════════════════════════════════════ */
+    .tribute {
+      background: var(--navy-2);
+      position: relative;
+      overflow: hidden;
+    }
+    .tribute::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .tribute-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .tribute-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+    .tribute-text h2 em { color: var(--gold); font-style: italic; }
+    .tribute-text p {
+      font-size: .97rem;
+      color: var(--text);
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+    .tribute-text p strong { color: var(--cream); }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 36px;
+    }
+    .pillar {
+      background: rgba(212,168,83,.06);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 14px;
+      text-align: center;
+      transition: background .3s, border-color .3s, transform .3s;
+    }
+    .pillar:hover {
+      background: rgba(212,168,83,.12);
+      border-color: rgba(212,168,83,.4);
+      transform: translateY(-3px);
+    }
+    .pillar-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .pillar-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .pillar-desc { font-size: .82rem; color: var(--text-dim); }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 1px;
+      background: linear-gradient(180deg, var(--gold), rgba(212,168,83,.1));
+    }
+    .timeline-item { position: relative; margin-bottom: 30px; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -33px; top: 7px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--navy-2);
+      box-shadow: 0 0 0 3px rgba(212,168,83,.2);
+    }
+    .timeline-year {
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .timeline-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.18rem;
+      color: var(--cream);
+      line-height: 1.5;
+    }
+    .timeline-sub { font-size: .84rem; color: var(--text-dim); margin-top: 2px; }
+
+    /* ═══ BRIDGE ═════════════════════════════════════════════ */
+    .bridge {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--navy-3);
+    }
+    .bridge::before, .bridge::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .bridge::before { top: 0; }
+    .bridge::after  { bottom: 0; }
+
+    .bridge-ornament {
+      width: 96px; height: 96px;
+      margin: 0 auto 36px;
+    }
+    .bridge-ring {
+      width: 100%; height: 100%;
+      border: 1px solid rgba(212,168,83,.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: spin 20s linear infinite;
+    }
+    .bridge-inner {
+      width: 66px; height: 66px;
+      border: 1px solid rgba(212,168,83,.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(212,168,83,.06);
+      font-size: 1.9rem;
+      animation: spin-r 15s linear infinite;
+    }
+    @keyframes spin   { to { transform: rotate(360deg);  } }
+    @keyframes spin-r { to { transform: rotate(-360deg); } }
+
+    .bridge h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .bridge h2 strong { color: var(--gold); font-weight: 700; }
+    .lead {
+      font-size: 1.05rem;
+      color: var(--text);
+      max-width: 680px;
+      margin: 0 auto 56px;
+      line-height: 1.85;
+    }
+
+    .bridge-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      text-align: left;
+    }
+    .bridge-card {
+      background: rgba(11,17,32,.8);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 22px;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+    .bridge-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212,168,83,.45);
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    }
+    .bridge-card-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(212,168,83,.1);
+      border: 1px solid rgba(212,168,83,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+    .bridge-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.22rem;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .bc-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .bc-label.then { color: var(--gold); }
+    .bc-label.now  { color: var(--text-dim); margin-top: 14px; }
+    .bridge-card p { font-size: .87rem; color: var(--text-dim); line-height: 1.7; }
+    .bridge-card .now-text { font-size: .87rem; color: var(--text); line-height: 1.7; }
+
+    /* ═══ AGENT ══════════════════════════════════════════════ */
+    .agent-section { background: var(--navy); }
+    .agent-header { text-align: center; margin-bottom: 64px; }
+    .agent-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .agent-header h2 span { color: var(--gold); }
+    .agent-header p { font-size: 1rem; color: var(--text-dim); max-width: 560px; margin: 0 auto; }
+
+    .agent-acronym {
+      display: flex;
+      justify-content: center;
+      max-width: 680px;
+      margin: 40px auto 72px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .acro-letter {
+      flex: 1;
+      text-align: center;
+      padding: 24px 8px;
+      border-right: 1px solid var(--border);
+      transition: background .3s;
+    }
+    .acro-letter:last-child { border-right: none; }
+    .acro-letter:hover { background: rgba(212,168,83,.06); }
+    .acro-char {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .acro-word {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      display: block;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 26px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transition: transform .4s ease;
+    }
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 70px rgba(0,0,0,.45);
+      border-color: rgba(212,168,83,.35);
+    }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 18px;
+      display: block;
+    }
+    .feature-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      margin-bottom: 10px;
+    }
+    .feature-desc { font-size: .87rem; color: var(--text-dim); line-height: 1.75; }
+
+    /* ═══ VOICE DEMO ═════════════════════════════════════════ */
+    .voice-section {
+      background: var(--navy-2);
+      position: relative;
+      overflow: hidden;
+    }
+    .voice-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .voice-header { text-align: center; margin-bottom: 60px; }
+    .voice-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 14px;
+    }
+    .voice-header p { font-size: .95rem; color: var(--text-dim); }
+
+    .voice-demo {
+      max-width: 720px;
+      margin: 0 auto;
+      background: rgba(11,17,32,.9);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    }
+    .voice-demo-bar {
+      background: rgba(212,168,83,.08);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .voice-demo-label {
+      font-size: .77rem;
+      color: var(--text-dim);
+      letter-spacing: .07em;
+      flex: 1;
+      text-align: center;
+    }
+    .voice-demo-body { padding: 30px 26px; }
+
+    .exchange { margin-bottom: 24px; }
+    .exchange:last-child { margin-bottom: 0; }
+    .msg {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .msg-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+      flex-shrink: 0;
+    }
+    .msg-avatar.user  { background: rgba(212,168,83,.15); border: 1px solid rgba(212,168,83,.3); }
+    .msg-avatar.david { background: rgba(22,32,64,.8);     border: 1px solid rgba(212,168,83,.2); }
+    .msg-bubble {
+      flex: 1;
+      padding: 11px 15px;
+      border-radius: 12px;
+      font-size: .88rem;
+      line-height: 1.6;
+    }
+    .msg-bubble.user {
+      background: rgba(212,168,83,.08);
+      border: 1px solid rgba(212,168,83,.15);
+      color: var(--cream-2);
+      font-style: italic;
+    }
+    .msg-bubble.david {
+      background: rgba(15,26,46,.8);
+      border: 1px solid rgba(212,168,83,.1);
+      color: var(--text);
+    }
+    .msg-bubble.david strong { color: var(--gold); }
+    .exchange-divider {
+      border: none;
+      border-top: 1px dashed rgba(212,168,83,.12);
+      margin: 22px 0;
+    }
+
+    .waveform { display: flex; align-items: center; gap: 3px; height: 20px; }
+    .wave-bar {
+      width: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      animation: wave 1.2s ease-in-out infinite;
+    }
+    .wave-bar:nth-child(1){height:6px;  animation-delay:0s;}
+    .wave-bar:nth-child(2){height:14px; animation-delay:.1s;}
+    .wave-bar:nth-child(3){height:10px; animation-delay:.2s;}
+    .wave-bar:nth-child(4){height:18px; animation-delay:.3s;}
+    .wave-bar:nth-child(5){height:8px;  animation-delay:.4s;}
+    .wave-bar:nth-child(6){height:14px; animation-delay:.5s;}
+    .wave-bar:nth-child(7){height:6px;  animation-delay:.6s;}
+    @keyframes wave {
+      0%,100%{transform:scaleY(1);}
+      50%{transform:scaleY(1.8);}
+    }
+    .voice-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .77rem;
+      color: var(--gold);
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.4);}
+      50%{box-shadow:0 0 0 8px rgba(74,222,128,0);}
+    }
+
+    /* ═══ MEMORIAL ═══════════════════════════════════════════ */
+    .memorial {
+      background: var(--navy-3);
+      text-align: center;
+      padding: 90px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .memorial::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .memorial-cross { font-size: 2.5rem; color: var(--gold); margin-bottom: 24px; opacity: .7; }
+    .memorial h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+    .memorial-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text-dim);
+      max-width: 560px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+    .memorial-quote cite {
+      display: block;
+      font-style: normal;
+      font-size: .77rem;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+      margin-top: 10px;
+    }
+
+    /* ═══ FOOTER ═════════════════════════════════════════════ */
+    footer {
+      background: rgba(6,10,20,1);
+      border-top: 1px solid rgba(212,168,83,.08);
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .77rem;
+      color: var(--text-dim);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .f-brand { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--cream); }
+    .f-brand span { color: var(--gold); }
+
+    /* ═══ RESPONSIVE ═════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .tribute-grid  { grid-template-columns: 1fr; gap: 48px; }
+      .bridge-cards  { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .pillars       { grid-template-columns: 1fr 1fr; }
+      nav            { padding: 14px 20px; }
+      .nav-links     { display: none; }
+    }
+    @media (max-width: 600px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .agent-acronym { flex-wrap: wrap; }
+      .acro-letter   { flex: 0 0 50%; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+      .acro-letter:nth-child(2n) { border-right: none; }
+      footer         { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-brand"><span>DAVID</span> &middot; CarePlanner</div>
+    <ul class="nav-links">
+      <li><a href="#tribute">Homenagem</a></li>
+      <li><a href="#bridge">A Missao</a></li>
+      <li><a href="#agent">O Agente</a></li>
+      <li><a href="#voice">Voz da Ala</a></li>
+    </ul>
+    <span class="nav-badge">Agente de Voz &middot; POA</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="stars"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-year">Homenagem &middot; 1813 &mdash; 1873</p>
+      <h1 class="hero-name">
+        David<br>
+        <strong>Livingstone</strong>
+      </h1>
+      <p class="hero-dates">Missionario &middot; Medico &middot; Explorador &middot; Cristao</p>
+      <blockquote class="hero-quote">
+        &ldquo;I am prepared to go anywhere, provided it be forward.&rdquo;
+        <cite>&mdash; David Livingstone</cite>
+      </blockquote>
+      <div class="hero-scroll">
+        <div class="hero-scroll-line"></div>
+        <span>Descobrir</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRIBUTE -->
+  <section class="tribute section" id="tribute">
+    <div class="container">
+      <div class="tribute-grid">
+
+        <div class="tribute-text reveal">
+          <span class="tag">O Homem</span>
+          <h2>Um Servo que <em>mudou</em> o mundo</h2>
+          <div class="divider left"></div>
+          <p>
+            David Livingstone nasceu em <strong>Blantyre, Escocia</strong>, numa familia humilde de operarios. Desde crianca trabalhou 14 horas por dia numa fabrica, mas estudava a noite com determinacao inabalavel.
+          </p>
+          <p>
+            Movido por uma fe profunda e pelo chamado cristao ao servico, tornou-se medico e missionario, partindo para a Africa com a missao de levar <strong>o Evangelho, a medicina e a dignidade</strong> a povos que o mundo ignorava.
+          </p>
+          <p>
+            Livingstone explorou regioes jamais vistas por ocidentais, mapeou o rio Zambezi e lutou incansavelmente contra o comercio de escravos &mdash; nao com espadas, mas com <strong>compaixao, conhecimento e presenca</strong>.
+          </p>
+          <p>
+            Morreu de joelhos em oracao em <strong>Chitambo, atual Zambia</strong>, em 1873. Seus servos africanos, em ato de devocao sublime, carregaram seu corpo por meses ate a costa para que fosse devolvido a Inglaterra.
+          </p>
+
+          <div class="pillars">
+            <div class="pillar reveal delay-1">
+              <div class="pillar-icon">&#10013;</div>
+              <div class="pillar-label">Fe</div>
+              <div class="pillar-desc">Missionario cristao da London Missionary Society</div>
+            </div>
+            <div class="pillar reveal delay-2">
+              <div class="pillar-icon">&#9877;</div>
+              <div class="pillar-label">Medicina</div>
+              <div class="pillar-desc">Medico que tratou povos sem acesso a qualquer cuidado</div>
+            </div>
+            <div class="pillar reveal delay-3">
+              <div class="pillar-icon">&#9751;</div>
+              <div class="pillar-label">Exploracao</div>
+              <div class="pillar-desc">Mapeou o interior da Africa para a ciencia e o bem</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal delay-1">
+          <span class="tag">Linha do Tempo</span>
+          <br><br>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-year">1813</div>
+              <div class="timeline-text">Nasce em Blantyre, Escocia</div>
+              <div class="timeline-sub">Familia operaria. Trabalho e estudo desde a infancia.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1836</div>
+              <div class="timeline-text">Conversao e chamado missionario</div>
+              <div class="timeline-sub">Decide dedicar sua vida a servir na Africa como medico e pregador.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1840</div>
+              <div class="timeline-text">Parte para a Africa pela primeira vez</div>
+              <div class="timeline-sub">Chega a Africa do Sul. Inicia sua missao com Robert Moffat.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1855</div>
+              <div class="timeline-text">Descobre as Cataratas Victoria</div>
+              <div class="timeline-sub">&ldquo;Fumaça que troveja.&rdquo; Nomeia-as em honra da Rainha Victoria.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1866&ndash;72</div>
+              <div class="timeline-text">Expedicao as nascentes do Nilo</div>
+              <div class="timeline-sub">Desaparecido por anos. Stanley o encontra: &ldquo;Dr. Livingstone, I presume?&rdquo;</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1873</div>
+              <div class="timeline-text">Encontrado em oracao &mdash; falece em Chitambo</div>
+              <div class="timeline-sub">Seus servos carregam seu corpo 1.500 km ate a costa. Sepultado em Westminster Abbey.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BRIDGE -->
+  <section class="bridge section" id="bridge">
+    <div class="container">
+
+      <div class="bridge-ornament reveal">
+        <div class="bridge-ring">
+          <div class="bridge-inner">&#10013;</div>
+        </div>
+      </div>
+
+      <span class="tag reveal">A Missao Continua</span>
+      <h2 class="reveal delay-1">O mesmo espirito,<br><strong>uma nova voz</strong></h2>
+      <p class="lead reveal delay-2">
+        Livingstone nao carregou tecnologia &mdash; carregou <em>proposito</em>.
+        O agente <strong>DAVID</strong> herda esse proposito: levar cuidado, clareza
+        e acao ao coracao da ala hospitalar, onde cada segundo conta e cada
+        decisao importa.
+      </p>
+
+      <div class="bridge-cards">
+        <div class="bridge-card reveal delay-1">
+          <div class="bridge-card-icon">&#127758;</div>
+          <div class="bc-label then">Livingstone &middot; Sec. XIX</div>
+          <h3>Ir onde ninguem vai</h3>
+          <p>Chegou a regioes da Africa que nenhum ocidental havia alcancado, levando medicina e esperanca onde havia apenas isolamento.</p>
+          <div class="bc-label now">DAVID &middot; Sec. XXI</div>
+          <div class="now-text">Chega ao momento em que o enfermeiro esta de maos ocupadas, de luvas, sem poder tocar na tela &mdash; levando a informacao exatamente onde ela precisa estar.</div>
+        </div>
+        <div class="bridge-card reveal delay-2">
+          <div class="bridge-card-icon">&#9877;</div>
+          <div class="bc-label then">Livingstone &middot; Sec. XIX</div>
+          <h3>Cuidado sem burocracia</h3>
+          <p>Recusou-se a deixar que fronteiras politicas ou obstaculos logisticos impedissem o cuidado ao proximo. Seguia em frente.</p>
+          <div class="bc-label now">DAVID &middot; Sec. XXI</div>
+          <div class="now-text">Remove friccao operacional: a voz substitui cliques, navegacoes e esperas &mdash; deixando o profissional livre para cuidar, nao para operar sistemas.</div>
+        </div>
+        <div class="bridge-card reveal delay-3">
+          <div class="bridge-card-icon">&#10013;</div>
+          <div class="bc-label then">Livingstone &middot; Sec. XIX</div>
+          <h3>Servir com proposito</h3>
+          <p>Nao explorou a Africa por gloria ou riqueza. Serviu movido por uma conveccao profunda: o ser humano tem valor inalienavel.</p>
+          <div class="bc-label now">DAVID &middot; Sec. XXI</div>
+          <div class="now-text">Nao e tecnologia por tecnologia. E inteligencia a servico da vida &mdash; para que cada leito seja gerido com a dignidade que todo paciente merece.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AGENT -->
+  <section class="agent-section section" id="agent">
+    <div class="container">
+
+      <div class="agent-header">
+        <span class="tag reveal">O Agente</span>
+        <h2 class="reveal delay-1">Conheca o <span>DAVID</span></h2>
+        <p class="reveal delay-2">
+          <em>Dynamic Agentic Voice for Inpatient Decisions</em> &mdash;
+          o agente de voz da Plataforma CarePlanner para o Painel de Operacao de Ala.
+        </p>
+      </div>
+
+      <div class="agent-acronym reveal">
+        <div class="acro-letter">
+          <span class="acro-char">D</span>
+          <span class="acro-word">Dynamic</span>
+        </div>
+        <div class="acro-letter">
+          <span class="acro-char">A</span>
+          <span class="acro-word">Agentic</span>
+        </div>
+        <div class="acro-letter">
+          <span class="acro-char">V</span>
+          <span class="acro-word">Voice</span>
+        </div>
+        <div class="acro-letter">
+          <span class="acro-char">I</span>
+          <span class="acro-word">Inpatient</span>
+        </div>
+        <div class="acro-letter">
+          <span class="acro-char">D</span>
+          <span class="acro-word">Decisions</span>
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal delay-1">
+          <span class="feature-icon">&#127897;</span>
+          <div class="feature-title">Voz Natural em Portugues</div>
+          <p class="feature-desc">Compreende o portugues hospitalar brasileiro com precisao &mdash; termos tecnicos, nomes de leitos, siglas clinicas. Responde de forma direta e objetiva.</p>
+        </div>
+        <div class="feature-card reveal delay-2">
+          <span class="feature-icon">&#128716;</span>
+          <div class="feature-title">Controle Operacional de Leitos</div>
+          <p class="feature-desc">Dispara acoes diretamente no motor MCP: iniciar limpeza, confirmar saida, programar alta, bloquear leito &mdash; tudo por voz, com confirmacao de seguranca.</p>
+        </div>
+        <div class="feature-card reveal delay-3">
+          <span class="feature-icon">&#128202;</span>
+          <div class="feature-title">Relatorio de Huddle Instantaneo</div>
+          <p class="feature-desc">Sintetiza os casos criticos da ala em segundos: NEWS elevado, barreiras de alta, leitos com SLA excedido. O Huddle comeca com o DAVID.</p>
+        </div>
+        <div class="feature-card reveal delay-1">
+          <span class="feature-icon">&#128276;</span>
+          <div class="feature-title">Alertas Proativos por Voz</div>
+          <p class="feature-desc">Nao espera ser perguntado. Notifica o enfermeiro quando o NEWS sobe, a higienizacao excede o SLA ou uma alta vence sem desfecho registrado.</p>
+        </div>
+        <div class="feature-card reveal delay-2">
+          <span class="feature-icon">&#128274;</span>
+          <div class="feature-title">Seguranca CBAC Completa</div>
+          <p class="feature-desc">Valida identidade, papel ativo e lotacao na ala antes de qualquer acao. O DAVID so opera onde o profissional esta autorizado &mdash; via JWT Keycloak.</p>
+        </div>
+        <div class="feature-card reveal delay-3">
+          <span class="feature-icon">&#9881;</span>
+          <div class="feature-title">Integrado ao Nucleo MCP v2.0</div>
+          <p class="feature-desc">Toda intencao passa pelo Policy Gate. O DAVID e uma Dumb Voice UI: sem logica de negocio propria, sem atalhos &mdash; puro contrato JSON-RPC.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VOICE DEMO -->
+  <section class="voice-section section" id="voice">
+    <div class="container">
+
+      <div class="voice-header">
+        <span class="tag reveal">A Voz da Ala</span>
+        <h2 class="reveal delay-1">Como o DAVID fala</h2>
+        <p class="reveal delay-2">Exemplos reais de sessoes de voz no Painel de Operacao de Ala.</p>
+      </div>
+
+      <div class="voice-demo reveal delay-2">
+        <div class="voice-demo-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <div class="voice-demo-label">DAVID Voice Agent &middot; ALA A &middot; Turno Manha</div>
+        </div>
+        <div class="voice-demo-body">
+
+          <div class="exchange">
+            <div class="msg">
+              <div class="msg-avatar user">&#128105;&#8205;&#9877;&#65039;</div>
+              <div class="msg-bubble user">&ldquo;DAVID, bom dia. Resumo da ala para o Huddle.&rdquo;</div>
+            </div>
+            <div class="msg">
+              <div class="msg-avatar david">&#128266;</div>
+              <div class="msg-bubble david">
+                Bom dia! Resumo da ALA A para o Huddle.<br>
+                Temos <strong>18 leitos ocupados</strong>, 3 vagos e 1 em higienizacao.<br>
+                <strong>Dois casos criticos:</strong> leito sete &mdash; NEWS seis, barreira: aguardando autorizacao do convenio. Leito quatorze &mdash; NEWS oito, alta prevista para hoje sem confirmacao medica.<br>
+                O leito onze esta em higienizacao ha <strong>1 hora e 15 minutos</strong>.
+              </div>
+            </div>
+          </div>
+
+          <hr class="exchange-divider" />
+
+          <div class="exchange">
+            <div class="msg">
+              <div class="msg-avatar user">&#128105;&#8205;&#9877;&#65039;</div>
+              <div class="msg-bubble user">&ldquo;Programa alta do leito quatorze para hoje.&rdquo;</div>
+            </div>
+            <div class="msg">
+              <div class="msg-avatar david">&#128266;</div>
+              <div class="msg-bubble david">
+                Confirmar: programar alta do leito quatorze, Maria Pereira, para hoje? Diga <strong>confirmar</strong> ou cancelar.
+              </div>
+            </div>
+            <div class="msg">
+              <div class="msg-avatar user">&#128105;&#8205;&#9877;&#65039;</div>
+              <div class="msg-bubble user">&ldquo;Confirmar.&rdquo;</div>
+            </div>
+            <div class="msg">
+              <div class="msg-avatar david">&#128266;</div>
+              <div class="msg-bubble david">
+                Alta programada para o leito quatorze. O NIR foi notificado. Status atualizado: <strong>Ocupado com Programacao de Alta</strong>.
+              </div>
+            </div>
+          </div>
+
+          <hr class="exchange-divider" />
+
+          <div class="exchange">
+            <div class="msg">
+              <div class="msg-avatar user">&#128104;&#8205;&#9877;&#65039;</div>
+              <div class="msg-bubble user">&ldquo;DAVID, qual o diagnostico do paciente do leito 8?&rdquo;</div>
+            </div>
+            <div class="msg">
+              <div class="msg-avatar david">&#128266;</div>
+              <div class="msg-bubble david">
+                Nao tenho acesso ao diagnostico clinico &mdash; isso esta no prontuario eletronico do Tasy. Posso te ajudar com o <strong>status operacional do leito</strong>, NEWS, barreiras ou previsao de alta.
+              </div>
+            </div>
+          </div>
+
+          <div class="voice-status">
+            <div class="status-dot"></div>
+            <div class="waveform">
+              <div class="wave-bar"></div><div class="wave-bar"></div>
+              <div class="wave-bar"></div><div class="wave-bar"></div>
+              <div class="wave-bar"></div><div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+            </div>
+            <span>DAVID ativo &middot; Escutando &middot; ALA A</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MEMORIAL -->
+  <section class="memorial" id="memorial">
+    <div class="container">
+      <div class="memorial-cross reveal">&#10013;</div>
+      <h3 class="reveal delay-1">In Memoriam &middot; David Livingstone</h3>
+      <div class="divider reveal delay-1"></div>
+      <blockquote class="memorial-quote reveal delay-2">
+        &ldquo;Enviado por Deus para servir o proximo &mdash; atravessou continentes, nao por conquista, mas por amor. O DAVID carrega seu nome e seu espirito: ir a qualquer lugar onde a vida precise de cuidado.&rdquo;
+        <cite>&mdash; CarePlanner &middot; 2026</cite>
+      </blockquote>
+      <blockquote class="memorial-quote reveal delay-3">
+        &ldquo;Fear God and work hard.&rdquo;
+        <cite>&mdash; David Livingstone, 1813&ndash;1873</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-brand"><span>DAVID</span> &middot; CarePlanner Platform</div>
+    <span>Agente de Voz &middot; Painel de Operacao de Ala &middot; MCP v2.0</span>
+    <span>Em honra de David Livingstone &middot; 1813&ndash;1873</span>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(r => obs.observe(r));
+
+    window.addEventListener('scroll', () => {
+      const stars = document.querySelector('.stars');
+      if (stars) stars.style.transform = `translateY(${window.scrollY * 0.2}px)`;
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atributos Incomunicáveis de Deus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mira-primary: #FF904D;
+            --mira-bg: #000000;
+            --mira-text: #ffffff;
+            --mira-text-soft: rgba(255, 255, 255, 0.70);
+            --mira-text-softer: rgba(255, 255, 255, 0.50);
+            --mira-card-bg: rgba(255, 255, 255, 0.05);
+            --mira-card-border: rgba(255, 255, 255, 0.10);
+            --mira-glow-soft: rgba(255, 144, 77, 0.15);
+            --mira-glow-strong: rgba(255, 144, 77, 0.25);
+            --mira-icon-bg: rgba(255, 144, 77, 0.15);
+            --mira-icon-border: rgba(255, 144, 77, 0.30);
+            --mira-pill-bg: rgba(255, 255, 255, 0.04);
+            --mira-pill-border: rgba(255, 255, 255, 0.08);
+            --mira-stage-glow: rgba(255, 144, 77, 0.06);
+            --mira-accent-2: #FFC766;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: #000000;
+            min-height: 100vh;
+            color: var(--mira-text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .primary-color { color: var(--mira-primary); }
+        .primary-bg { background: var(--mira-primary); }
+        .text-soft { color: var(--mira-text-soft); }
+        .text-softer { color: var(--mira-text-softer); }
+
+        .glass-card {
+            background: var(--mira-card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--mira-card-border);
+            box-shadow: 0 10px 30px var(--mira-glow-soft);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 36px var(--mira-glow-strong);
+        }
+
+        .icon-container {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--mira-icon-bg);
+            border: 1px solid var(--mira-icon-border);
+        }
+
+        .attribute-pill {
+            background: var(--mira-pill-bg);
+            border: 1px solid var(--mira-pill-border);
+            border-radius: 9999px;
+        }
+
+        .anim-stage {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            min-height: 360px;
+            background: radial-gradient(circle at 50% 50%, var(--mira-stage-glow), transparent 70%);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .anim-stage svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--mira-primary), var(--mira-accent-2), var(--mira-primary));
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(255, 144, 77, 0.4);
+            transition: width 0.1s linear;
+        }
+
+        #next-card {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--mira-primary);
+            color: var(--mira-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 9998;
+            box-shadow: 0 4px 20px var(--mira-glow-strong);
+            border: none;
+        }
+
+        #next-card.visible { opacity: 1; transform: translateY(0); }
+        #next-card:hover { transform: translateY(-3px) scale(1.08); }
+
+        .header-fallback {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 25% 78%, rgba(255, 144, 77, 0.30), transparent 34%),
+                radial-gradient(circle at 78% 22%, rgba(255, 199, 102, 0.16), transparent 32%),
+                linear-gradient(135deg, rgba(255, 144, 77, 0.14), transparent 54%),
+                #000000;
+            animation: slowBreathe 8s ease-in-out infinite;
+        }
+
+        .soft-band {
+            background: linear-gradient(90deg, transparent, rgba(255, 144, 77, 0.18), transparent);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes slowBreathe {
+            0%, 100% { filter: saturate(1); transform: scale(1); }
+            50% { filter: saturate(1.3); transform: scale(1.03); }
+        }
+
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+    <div id="reading-progress"></div>
+    <button id="next-card" aria-label="Próximo card">
+        <i data-lucide="chevron-down" class="w-6 h-6" id="next-card-icon"></i>
+    </button>
+
+    <header class="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
+        <div class="header-fallback"></div>
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50">
+            <source src="header-bg.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 pointer-events-none"
+            style="background: linear-gradient(to bottom, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.34) 48%, rgba(0,0,0,0.84) 100%);">
+        </div>
+        <div id="hero-particles" class="absolute inset-0 pointer-events-none"></div>
+        <div class="text-center relative z-10 px-6" data-aos="fade-down">
+            <span class="inline-block primary-bg text-white text-sm font-bold px-6 py-2 rounded-full mb-8 tracking-widest uppercase">Capítulo 4</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">Atributos Incomunicáveis<br><span class="primary-color">de Deus</span></h1>
+            <p class="text-xl text-white/90 max-w-3xl mx-auto mb-10 drop-shadow-md">O Deus que existe por si mesmo, permanece o mesmo, reina sobre tempo e espaço, e ainda se dá a conhecer.</p>
+            <div data-aos="fade-up" data-aos-delay="400" class="mt-6">
+                <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="h-10 mx-auto opacity-80 drop-shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:opacity-100 transition-opacity">
+            </div>
+        </div>
+        <button class="absolute bottom-8 right-8 flex flex-col items-center gap-2 cursor-pointer bg-transparent border-none group"
+            id="header-next-btn" aria-label="Ir para o primeiro card" style="animation: scroll-bounce 2s ease-in-out infinite;">
+            <span class="text-[10px] uppercase tracking-[4px] text-white/30 font-medium group-hover:primary-color transition-colors">Iniciar</span>
+            <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[rgba(255,144,77,0.20)] transition-all">
+                <i data-lucide="chevron-down" class="w-5 h-5 text-white/40 group-hover:primary-color transition-colors"></i>
+            </div>
+        </button>
+    </header>
+
+    <main class="container mx-auto px-4 py-20 flex flex-col items-center gap-[60vh]">
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="sparkles" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Ponto de partida</p>
+                    <h3 class="text-4xl font-bold mb-4">Deus se dá a conhecer</h3>
+                    <p class="text-lg text-soft">O capítulo começa lembrando que Deus não é uma ideia inventada por nós. Ele deixou testemunho na consciência, na criação e nas Escrituras.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="revelation-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="horizon-stage"></div>
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="telescope" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Cognoscibilidade</p>
+                    <h3 class="text-4xl font-bold mb-4">Verdadeiro, mas nunca exaustivo</h3>
+                    <p class="text-lg text-soft">Deus é infinito, e nós somos finitos. Por isso, nunca o compreendemos por completo. Mesmo assim, tudo o que Ele revelou sobre si é verdadeiro.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="200">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="icon-container"><i data-lucide="columns-3" class="w-6 h-6 primary-color"></i></div>
+                <div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer">Mapa dos atributos</p>
+                    <h3 class="text-4xl font-bold">Uma classificacao util</h3>
+                </div>
+            </div>
+            <p class="text-lg text-soft mb-6">A divisão entre comunicáveis e incomunicáveis ajuda o estudo, mas não é absoluta. Todo atributo de Deus é perfeito nele e apenas refletido em nós de modo limitado.</p>
+            <div class="grid md:grid-cols-2 gap-5">
+                <div class="attribute-pill p-6 rounded-lg">
+                    <p class="text-2xl font-bold mb-3">Mais compartilhados</p>
+                    <p class="text-soft">Amor, conhecimento, misericórdia e justiça aparecem em Deus e também em nós, de modo finito e derivado.</p>
+                </div>
+                <div class="attribute-pill p-6 rounded-lg">
+                    <p class="text-2xl font-bold mb-3">Menos compartilhados</p>
+                    <p class="text-soft">Independência, imutabilidade, eternidade, onipresença e unidade pertencem a Deus de modo singular.</p>
+                </div>
+            </div>
+            <div class="soft-band rounded-lg p-5 mt-6 text-center text-lg text-white/85">
+                A categoria nos ajuda a estudar, mas Deus nunca cabe dentro da categoria.
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="300">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="flame-kindling" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Independência</p>
+                    <h3 class="text-4xl font-bold mb-4">Sem necessidade, cheio de amor</h3>
+                    <p class="text-lg text-soft">Deus não precisa da criação para existir, ser feliz ou ser completo. Ainda assim, Ele escolheu criar, sustentar e receber glória de tudo que fez.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="aseity-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-10 text-center" data-aos="zoom-in" data-aos-delay="400">
+            <div class="icon-container mx-auto mb-6"><i data-lucide="anchor" class="w-6 h-6 primary-color"></i></div>
+            <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Aseidade</p>
+            <h3 class="text-4xl font-bold mb-5">A criação importa porque Deus quis que importasse</h3>
+            <p class="text-xl text-soft max-w-3xl mx-auto mb-8">Nossa dignidade não nasce de uma carência divina. Nasce da vontade livre de Deus, que nos criou para sua glória e alegria.</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="attribute-pill px-5 py-3">Deus existe por si</span>
+                <span class="attribute-pill px-5 py-3">tudo vem dele</span>
+                <span class="attribute-pill px-5 py-3">tudo e para ele</span>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="500">
+            <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="immutability-stage"></div>
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="mountain" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Imutabilidade</p>
+                    <h3 class="text-4xl font-bold mb-4">O mesmo Deus</h3>
+                    <p class="text-lg text-soft">Deus não muda em seu ser, perfeições, propósitos ou promessas. Ele age na história, mas seu caráter não oscila com a história.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="600">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="hourglass" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Eternidade</p>
+                    <h3 class="text-4xl font-bold mb-4">Senhor do tempo</h3>
+                    <p class="text-lg text-soft">Deus não tem princípio, fim ou sucessão de momentos em si mesmo. Ele vê toda a história com igual vivacidade e age no tempo como Senhor do tempo.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="eternity-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="700">
+            <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="presence-stage"></div>
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="scan-search" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Onipresença</p>
+                    <h3 class="text-4xl font-bold mb-4">Todo Deus, em todo lugar</h3>
+                    <p class="text-lg text-soft">Deus não possui tamanho ou dimensões espaciais. Ele está presente com todo o seu ser em cada ponto do espaço, mas age de maneiras diferentes em lugares diferentes.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="800">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="gem" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Unidade</p>
+                    <h3 class="text-4xl font-bold mb-4">Deus não é feito de partes</h3>
+                    <p class="text-lg text-soft">Deus é inteiramente amoroso, justo, santo, sábio e verdadeiro. Nenhum atributo concorre com outro, porque cada atributo descreve o Deus inteiro.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="unity-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-10 text-center" data-aos="zoom-in" data-aos-delay="900">
+            <div class="icon-container mx-auto mb-6"><i data-lucide="quote" class="w-6 h-6 primary-color"></i></div>
+            <p class="text-sm uppercase tracking-[3px] text-softer mb-4">Memorização</p>
+            <h3 class="text-4xl font-bold mb-6">Tu permaneces</h3>
+            <blockquote class="text-2xl md:text-3xl font-semibold leading-snug max-w-4xl mx-auto">
+                “Eles perecerão, mas tu permaneces; todos eles se desgastarão como uma veste. Tu os trocarás como a um manto, e eles passarão; mas tu és o mesmo, e os teus anos não terão fim.”
+            </blockquote>
+            <p class="text-soft mt-5">Salmo 102.26-27</p>
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+                <span class="attribute-pill px-5 py-3">adoração</span>
+                <span class="attribute-pill px-5 py-3">humildade</span>
+                <span class="attribute-pill px-5 py-3">confiança</span>
+                <span class="attribute-pill px-5 py-3">descanso</span>
+            </div>
+        </div>
+    </main>
+
+    <div class="py-16 text-center">
+        <div class="flex justify-center">
+            <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="h-8 opacity-40 hover:opacity-70 transition-opacity">
+        </div>
+    </div>
+
+    <footer class="py-12 text-center text-white/60">
+        <p>&copy; 2026 - Canal Sandeco. Fonte: Capítulo 4, Atributos Incomunicáveis de Deus.</p>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 100 });
+        lucide.createIcons();
+
+        const cssVar = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        const PRIMARY = cssVar('--mira-primary');
+        const TEXT = cssVar('--mira-text');
+        const SOFT = cssVar('--mira-text-soft');
+        const ACCENT = cssVar('--mira-accent-2');
+
+        function setupHeroParticles() {
+            const host = d3.select('#hero-particles');
+            host.selectAll('*').remove();
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            const svg = host.append('svg').attr('viewBox', `0 0 ${w} ${h}`).attr('preserveAspectRatio', 'none');
+            const dots = d3.range(46).map(() => ({ x: Math.random() * w, y: Math.random() * h, r: 1.2 + Math.random() * 3.8, speed: 0.18 + Math.random() * 0.62 }));
+            const circles = svg.selectAll('circle').data(dots).join('circle').attr('fill', PRIMARY).attr('opacity', 0.28).attr('r', d => d.r);
+            d3.timer(() => {
+                circles.attr('cx', d => d.x).attr('cy', d => {
+                    d.y -= d.speed;
+                    if (d.y < -10) d.y = h + 10;
+                    return d.y;
+                });
+            });
+        }
+
+        function animateRevelation() {
+            d3.select('#revelation-stage').selectAll('*').remove();
+            const svg = d3.select('#revelation-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const center = { x: 640, y: 360 };
+            const nodes = [
+                { label: 'consciência', x: 290, y: 220, icon: 'interior' },
+                { label: 'criação', x: 250, y: 500, icon: 'natureza' },
+                { label: 'Escrituras', x: 990, y: 360, icon: 'Palavra' }
+            ];
+            svg.append('circle').attr('cx', center.x).attr('cy', center.y).attr('r', 0).attr('fill', 'rgba(255,144,77,0.16)').attr('stroke', PRIMARY).attr('stroke-width', 4)
+                .transition().duration(700).ease(d3.easeBackOut).attr('r', 105);
+            svg.append('text').text('Deus existe').attr('x', center.x).attr('y', center.y + 8).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 30).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(450).duration(500).attr('opacity', 1);
+            nodes.forEach((n, i) => {
+                svg.append('line').attr('x1', n.x).attr('y1', n.y).attr('x2', n.x).attr('y2', n.y).attr('stroke', 'rgba(255,255,255,0.14)').attr('stroke-width', 4).attr('stroke-dasharray', '9 12')
+                    .transition().delay(250 + i * 150).duration(700).attr('x2', center.x).attr('y2', center.y);
+            });
+            const g = svg.selectAll('g.rev-node').data(nodes).join('g').attr('transform', d => `translate(${d.x},${d.y})`).attr('opacity', 0);
+            g.transition().delay((d, i) => 200 + i * 160).duration(500).attr('opacity', 1);
+            g.append('circle').attr('r', 70).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3);
+            g.append('text').text(d => d.label).attr('text-anchor', 'middle').attr('y', -4).attr('fill', TEXT).attr('font-size', 21).attr('font-weight', 900);
+            g.append('text').text(d => d.icon).attr('text-anchor', 'middle').attr('y', 25).attr('fill', SOFT).attr('font-size', 16);
+            const mover = svg.append('circle').attr('r', 9).attr('fill', PRIMARY).style('filter', `drop-shadow(0 0 12px ${PRIMARY})`);
+            const routes = nodes.map(n => ({ x1: n.x, y1: n.y, x2: center.x, y2: center.y }));
+            let idx = 0;
+            function pulse() {
+                const r = routes[idx % routes.length];
+                mover.attr('cx', r.x1).attr('cy', r.y1).attr('opacity', 1)
+                    .transition().duration(900).ease(d3.easeCubicInOut).attr('cx', r.x2).attr('cy', r.y2)
+                    .transition().duration(250).attr('opacity', 0);
+                idx += 1;
+            }
+            pulse();
+            clearInterval(window.__revelationLoop);
+            window.__revelationLoop = setInterval(pulse, 1200);
+        }
+
+        function animateHorizon() {
+            d3.select('#horizon-stage').selectAll('*').remove();
+            const svg = d3.select('#horizon-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            svg.append('path').attr('d', 'M 120 460 Q 640 120 1160 460').attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.16)').attr('stroke-width', 5);
+            const horizon = svg.append('path').attr('d', 'M 120 460 Q 640 120 1160 460').attr('fill', 'none').attr('stroke', PRIMARY).attr('stroke-width', 8).attr('stroke-dasharray', '24 22').attr('opacity', 0);
+            horizon.transition().duration(800).attr('opacity', 0.8);
+            svg.append('rect').attr('x', 470).attr('y', 290).attr('width', 340).attr('height', 245).attr('rx', 18).attr('fill', 'rgba(255,255,255,0.07)').attr('stroke', PRIMARY).attr('stroke-width', 4);
+            svg.append('text').text('revelação real').attr('x', 640).attr('y', 395).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 32).attr('font-weight', 900);
+            svg.append('text').text('conhecimento verdadeiro').attr('x', 640).attr('y', 435).attr('text-anchor', 'middle').attr('fill', SOFT).attr('font-size', 21);
+            const beams = d3.range(9).map(i => ({ a: -0.8 + i * 0.2 }));
+            const lines = svg.selectAll('line.beam').data(beams).join('line').attr('x1', 640).attr('y1', 178).attr('x2', 640).attr('y2', 178).attr('stroke', 'rgba(255,144,77,0.24)').attr('stroke-width', 4).attr('stroke-linecap', 'round');
+            function breathe() {
+                lines.transition().duration(1200).ease(d3.easeCubicInOut)
+                    .attr('x2', d => 640 + Math.sin(d.a) * 300).attr('y2', 535)
+                    .transition().duration(1200).ease(d3.easeCubicInOut).attr('x2', 640).attr('y2', 178)
+                    .on('end', (d, i) => { if (i === 0) breathe(); });
+                horizon.transition().duration(2400).ease(d3.easeLinear).attr('stroke-dashoffset', -90).transition().duration(1).attr('stroke-dashoffset', 0);
+            }
+            breathe();
+        }
+
+        function animateAseity() {
+            d3.select('#aseity-stage').selectAll('*').remove();
+            const svg = d3.select('#aseity-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const cx = 640, cy = 360;
+            svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 0).attr('fill', 'rgba(255,144,77,0.16)').attr('stroke', PRIMARY).attr('stroke-width', 5)
+                .transition().duration(700).ease(d3.easeBackOut).attr('r', 96);
+            svg.append('text').text('EU SOU').attr('x', cx).attr('y', cy + 10).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 36).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(420).duration(500).attr('opacity', 1);
+            const particles = d3.range(44).map((_, i) => ({ a: i * Math.PI * 2 / 44, r: 110 + Math.random() * 210, s: 0.00045 + Math.random() * 0.00045 }));
+            const dots = svg.selectAll('circle.flow').data(particles).join('circle').attr('class', 'flow').attr('r', 4).attr('fill', PRIMARY).attr('opacity', 0);
+            dots.transition().delay((d, i) => i * 18).duration(600).attr('opacity', 0.75);
+            d3.timer(elapsed => {
+                dots.attr('cx', d => cx + Math.cos(d.a + elapsed * d.s) * d.r).attr('cy', d => cy + Math.sin(d.a + elapsed * d.s) * (d.r * 0.68));
+            });
+            const noFeed = svg.append('text').text('nada o abastece').attr('x', cx).attr('y', 605).attr('text-anchor', 'middle').attr('fill', SOFT).attr('font-size', 24).attr('font-weight', 700).attr('opacity', 0);
+            noFeed.transition().delay(700).duration(600).attr('opacity', 1);
+        }
+
+        function animateImmutability() {
+            d3.select('#immutability-stage').selectAll('*').remove();
+            const svg = d3.select('#immutability-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const cx = 640, cy = 360;
+            const rings = [150, 220, 290].map((r, i) => svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', r).attr('fill', 'none').attr('stroke', i === 1 ? PRIMARY : 'rgba(255,255,255,0.16)').attr('stroke-width', 4).attr('stroke-dasharray', i === 1 ? '22 18' : '10 18').attr('opacity', 0));
+            rings.forEach((ring, i) => ring.transition().delay(i * 160).duration(650).attr('opacity', 0.75));
+            svg.append('path').attr('d', 'M 560 465 L 720 465 L 785 345 L 710 235 L 590 235 L 495 350 Z').attr('fill', 'rgba(255,144,77,0.16)').attr('stroke', PRIMARY).attr('stroke-width', 5).attr('opacity', 0)
+                .transition().delay(400).duration(700).attr('opacity', 1);
+            svg.append('text').text('imutavel').attr('x', cx).attr('y', cy + 8).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 36).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(650).duration(500).attr('opacity', 1);
+            const labels = [
+                { t: 'ser', x: 315, y: 180 },
+                { t: 'perfeições', x: 970, y: 180 },
+                { t: 'propósitos', x: 310, y: 570 },
+                { t: 'promessas', x: 970, y: 570 }
+            ];
+            svg.selectAll('text.imm-label').data(labels).join('text').attr('class', 'imm-label').text(d => d.t).attr('x', d => d.x).attr('y', d => d.y).attr('text-anchor', 'middle').attr('fill', SOFT).attr('font-size', 22).attr('font-weight', 800).attr('opacity', 0)
+                .transition().delay((d, i) => 800 + i * 120).duration(500).attr('opacity', 1);
+            d3.timer(elapsed => {
+                rings.forEach((ring, i) => ring.attr('stroke-dashoffset', (i % 2 === 0 ? 1 : -1) * elapsed / 35));
+            });
+        }
+
+        function animateEternity() {
+            d3.select('#eternity-stage').selectAll('*').remove();
+            const svg = d3.select('#eternity-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            svg.append('line').attr('x1', 150).attr('x2', 1130).attr('y1', 500).attr('y2', 500).attr('stroke', 'rgba(255,255,255,0.18)').attr('stroke-width', 5).attr('stroke-linecap', 'round');
+            const events = ['criação', 'queda', 'cruz', 'igreja', 'glória'].map((t, i) => ({ t, x: 220 + i * 210 }));
+            const g = svg.selectAll('g.event').data(events).join('g').attr('transform', d => `translate(${d.x},500)`).attr('opacity', 0);
+            g.transition().delay((d, i) => i * 130).duration(500).attr('opacity', 1);
+            g.append('circle').attr('r', 12).attr('fill', PRIMARY);
+            g.append('text').text(d => d.t).attr('y', 45).attr('text-anchor', 'middle').attr('fill', SOFT).attr('font-size', 18).attr('font-weight', 800);
+            const arc = svg.append('path').attr('d', 'M 250 340 C 380 120 900 120 1030 340 C 900 560 380 560 250 340 Z').attr('fill', 'none').attr('stroke', PRIMARY).attr('stroke-width', 7).attr('stroke-dasharray', '28 22').attr('opacity', 0);
+            arc.transition().duration(800).attr('opacity', 0.8);
+            svg.append('text').text('eternidade').attr('x', 640).attr('y', 350).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 40).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(450).duration(500).attr('opacity', 1);
+            const marker = svg.append('circle').attr('r', 11).attr('fill', ACCENT).style('filter', `drop-shadow(0 0 12px ${ACCENT})`);
+            function travel() {
+                marker.attr('cx', 150).attr('cy', 500).attr('opacity', 1)
+                    .transition().duration(3500).ease(d3.easeLinear).attr('cx', 1130)
+                    .transition().duration(250).attr('opacity', 0).on('end', travel);
+            }
+            travel();
+            d3.timer(elapsed => arc.attr('stroke-dashoffset', -elapsed / 32));
+        }
+
+        function animatePresence() {
+            d3.select('#presence-stage').selectAll('*').remove();
+            const svg = d3.select('#presence-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const points = [];
+            for (let y = 160; y <= 560; y += 80) {
+                for (let x = 180; x <= 1100; x += 115) points.push({ x, y });
+            }
+            svg.selectAll('line.grid-x').data([160,240,320,400,480,560]).join('line').attr('x1', 180).attr('x2', 1100).attr('y1', d => d).attr('y2', d => d).attr('stroke', 'rgba(255,255,255,0.07)');
+            svg.selectAll('line.grid-y').data(d3.range(180, 1101, 115)).join('line').attr('x1', d => d).attr('x2', d => d).attr('y1', 160).attr('y2', 560).attr('stroke', 'rgba(255,255,255,0.07)');
+            const dots = svg.selectAll('circle.presence-dot').data(points).join('circle').attr('class', 'presence-dot').attr('cx', d => d.x).attr('cy', d => d.y).attr('r', 5).attr('fill', 'rgba(255,255,255,0.28)');
+            svg.append('text').text('não há lugar fora da sua presença').attr('x', 640).attr('y', 95).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 30).attr('font-weight', 900);
+            let cycle = 0;
+            function wave() {
+                const origin = cycle % 2 === 0 ? { x: 180, y: 160 } : { x: 1100, y: 560 };
+                dots.transition().duration(220).attr('r', 5).attr('fill', 'rgba(255,255,255,0.28)')
+                    .transition().delay(d => Math.hypot(d.x - origin.x, d.y - origin.y) * 1.7).duration(420)
+                    .attr('r', 13).attr('fill', PRIMARY)
+                    .transition().duration(600).attr('r', 5).attr('fill', 'rgba(255,255,255,0.28)');
+                cycle += 1;
+            }
+            wave();
+            clearInterval(window.__presenceLoop);
+            window.__presenceLoop = setInterval(wave, 2400);
+        }
+
+        function animateUnity() {
+            d3.select('#unity-stage').selectAll('*').remove();
+            const svg = d3.select('#unity-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const cx = 640, cy = 360;
+            const attrs = [
+                { t: 'amor', a: -1.9 },
+                { t: 'justiça', a: -1.1 },
+                { t: 'santidade', a: -0.25 },
+                { t: 'sabedoria', a: 0.55 },
+                { t: 'poder', a: 1.35 },
+                { t: 'verdade', a: 2.15 }
+            ];
+            const rays = svg.selectAll('line.ray').data(attrs).join('line').attr('class', 'ray').attr('x1', cx).attr('y1', cy).attr('x2', cx).attr('y2', cy).attr('stroke', PRIMARY).attr('stroke-width', 6).attr('stroke-linecap', 'round').attr('opacity', 0.72);
+            rays.transition().delay((d, i) => i * 120).duration(700).attr('x2', d => cx + Math.cos(d.a) * 330).attr('y2', d => cy + Math.sin(d.a) * 210);
+            svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 0).attr('fill', 'rgba(255,144,77,0.18)').attr('stroke', PRIMARY).attr('stroke-width', 5)
+                .transition().duration(650).ease(d3.easeBackOut).attr('r', 92);
+            svg.append('text').text('Deus inteiro').attr('x', cx).attr('y', cy + 8).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 31).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(450).duration(500).attr('opacity', 1);
+            svg.selectAll('text.attr').data(attrs).join('text').attr('class', 'attr').text(d => d.t).attr('x', cx).attr('y', cy).attr('text-anchor', 'middle').attr('fill', SOFT).attr('font-size', 22).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay((d, i) => 500 + i * 120).duration(700)
+                .attr('x', d => cx + Math.cos(d.a) * 390).attr('y', d => cy + Math.sin(d.a) * 250).attr('opacity', 1);
+            d3.timer(elapsed => {
+                rays.attr('opacity', 0.50 + Math.sin(elapsed / 500) * 0.18);
+            });
+        }
+
+        const animationSetups = [
+            { stage: document.getElementById('revelation-stage'), fn: animateRevelation },
+            { stage: document.getElementById('horizon-stage'), fn: animateHorizon },
+            { stage: document.getElementById('aseity-stage'), fn: animateAseity },
+            { stage: document.getElementById('immutability-stage'), fn: animateImmutability },
+            { stage: document.getElementById('eternity-stage'), fn: animateEternity },
+            { stage: document.getElementById('presence-stage'), fn: animatePresence },
+            { stage: document.getElementById('unity-stage'), fn: animateUnity }
+        ].filter(item => item.stage);
+
+        function setupAnimationTriggers() {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const setup = animationSetups.find(item => item.stage === entry.target);
+                        if (setup) setup.fn();
+                    }
+                });
+            }, { threshold: 0.35 });
+            animationSetups.forEach(item => observer.observe(item.stage));
+        }
+
+        const cardSections = [];
+
+        function buildCardSections() {
+            cardSections.length = 0;
+            const wrappers = document.querySelectorAll('.fullscreen-wrapper');
+            if (wrappers.length > 0) wrappers.forEach(el => cardSections.push(el));
+            else document.querySelectorAll('main > .glass-card, main > div:not(.glass-card)').forEach(el => cardSections.push(el));
+        }
+
+        function getCurrentSectionIndex() {
+            const scrollTop = window.scrollY + window.innerHeight * 0.3;
+            let idx = -1;
+            for (let i = 0; i < cardSections.length; i++) {
+                if (cardSections[i].offsetTop <= scrollTop) idx = i;
+            }
+            return idx;
+        }
+
+        function setupFullScreenWrappers() {
+            const main = document.querySelector('main');
+            if (!main) return;
+            main.classList.remove('py-20');
+            const children = Array.from(main.children);
+            children.forEach(child => {
+                if (child.tagName === 'DIV' && !child.classList.contains('fullscreen-wrapper')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'min-h-screen w-full flex items-center justify-center fullscreen-wrapper snap-start p-4';
+                    child.parentNode.insertBefore(wrapper, child);
+                    wrapper.appendChild(child);
+                }
+            });
+            buildCardSections();
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('reading-progress').style.width = progress + '%';
+            const btn = document.getElementById('next-card');
+            btn.classList.toggle('visible', scrollTop > 300);
+            const icon = document.getElementById('next-card-icon');
+            const atBottom = (scrollTop + window.innerHeight) >= (document.documentElement.scrollHeight - 100);
+            icon.setAttribute('data-lucide', atBottom ? 'chevron-up' : 'chevron-down');
+            lucide.createIcons();
+        });
+
+        document.getElementById('next-card').addEventListener('click', () => {
+            const atBottom = (window.scrollY + window.innerHeight) >= (document.documentElement.scrollHeight - 100);
+            if (atBottom) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            const nextIdx = getCurrentSectionIndex() + 1;
+            if (nextIdx < cardSections.length) cardSections[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeroParticles();
+            setupFullScreenWrappers();
+            setupAnimationTriggers();
+            const headerBtn = document.getElementById('header-next-btn');
+            if (headerBtn) {
+                headerBtn.addEventListener('click', () => {
+                    if (cardSections.length > 0) cardSections[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+            document.addEventListener('keydown', e => {
+                const idx = getCurrentSectionIndex();
+                if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(e.key)) {
+                    e.preventDefault();
+                    const nextIdx = idx + 1;
+                    if (nextIdx < cardSections.length) cardSections[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) {
+                    e.preventDefault();
+                    const prevIdx = idx - 1;
+                    if (prevIdx >= 0) cardSections[prevIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    else window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            setupHeroParticles();
+            setupFullScreenWrappers();
+        });
+    </script>
+</body>
+
+</html>

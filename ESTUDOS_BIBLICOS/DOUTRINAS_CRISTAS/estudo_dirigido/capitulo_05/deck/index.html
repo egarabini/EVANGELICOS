@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atributos Comunicáveis de Deus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mira-primary: #FF904D;
+            --mira-bg: #000000;
+            --mira-text: #ffffff;
+            --mira-text-soft: rgba(255, 255, 255, 0.70);
+            --mira-text-softer: rgba(255, 255, 255, 0.50);
+            --mira-card-bg: rgba(255, 255, 255, 0.05);
+            --mira-card-border: rgba(255, 255, 255, 0.10);
+            --mira-glow-soft: rgba(255, 144, 77, 0.15);
+            --mira-glow-strong: rgba(255, 144, 77, 0.25);
+            --mira-icon-bg: rgba(255, 144, 77, 0.15);
+            --mira-icon-border: rgba(255, 144, 77, 0.30);
+            --mira-pill-bg: rgba(255, 255, 255, 0.04);
+            --mira-pill-border: rgba(255, 255, 255, 0.08);
+            --mira-stage-glow: rgba(255, 144, 77, 0.06);
+            --mira-accent-2: #FFC766;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: #000000;
+            min-height: 100vh;
+            color: var(--mira-text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .primary-color { color: var(--mira-primary); }
+        .primary-bg { background: var(--mira-primary); }
+        .text-soft { color: var(--mira-text-soft); }
+        .text-softer { color: var(--mira-text-softer); }
+
+        .glass-card {
+            background: var(--mira-card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--mira-card-border);
+            box-shadow: 0 10px 30px var(--mira-glow-soft);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 36px var(--mira-glow-strong);
+        }
+
+        .icon-container {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--mira-icon-bg);
+            border: 1px solid var(--mira-icon-border);
+        }
+
+        .attribute-pill {
+            background: var(--mira-pill-bg);
+            border: 1px solid var(--mira-pill-border);
+            border-radius: 9999px;
+        }
+
+        .anim-stage {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            min-height: 360px;
+            background: radial-gradient(circle at 50% 50%, var(--mira-stage-glow), transparent 70%);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .anim-stage svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--mira-primary), var(--mira-accent-2), var(--mira-primary));
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(255, 144, 77, 0.4);
+            transition: width 0.1s linear;
+        }
+
+        #next-card {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--mira-primary);
+            color: var(--mira-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 9998;
+            box-shadow: 0 4px 20px var(--mira-glow-strong);
+            border: none;
+        }
+
+        #next-card.visible { opacity: 1; transform: translateY(0); }
+        #next-card:hover { transform: translateY(-3px) scale(1.08); }
+
+        .header-fallback {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 25% 78%, rgba(255, 144, 77, 0.30), transparent 34%),
+                radial-gradient(circle at 78% 22%, rgba(255, 199, 102, 0.16), transparent 32%),
+                linear-gradient(135deg, rgba(255, 144, 77, 0.14), transparent 54%),
+                #000000;
+            animation: slowBreathe 8s ease-in-out infinite;
+        }
+
+        .soft-band {
+            background: linear-gradient(90deg, transparent, rgba(255, 144, 77, 0.18), transparent);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes slowBreathe {
+            0%, 100% { filter: saturate(1); transform: scale(1); }
+            50% { filter: saturate(1.3); transform: scale(1.03); }
+        }
+
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+    <div id="reading-progress"></div>
+    <button id="next-card" aria-label="Próximo card">
+        <i data-lucide="chevron-down" class="w-6 h-6" id="next-card-icon"></i>
+    </button>
+
+    <header class="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
+        <div class="header-fallback"></div>
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50">
+            <source src="header-bg.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 pointer-events-none"
+            style="background: linear-gradient(to bottom, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.34) 48%, rgba(0,0,0,0.84) 100%);">
+        </div>
+        <div id="hero-particles" class="absolute inset-0 pointer-events-none"></div>
+        <div class="text-center relative z-10 px-6" data-aos="fade-down">
+            <span class="inline-block primary-bg text-white text-sm font-bold px-6 py-2 rounded-full mb-8 tracking-widest uppercase">Capítulo 5</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">Atributos Comunicáveis<br><span class="primary-color">de Deus</span></h1>
+            <p class="text-xl text-white/90 max-w-3xl mx-auto mb-10 drop-shadow-md">O caráter de Deus refletido em nós de modo real, limitado e dependente.</p>
+            <div data-aos="fade-up" data-aos-delay="400" class="mt-6">
+                <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="h-10 mx-auto opacity-80 drop-shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:opacity-100 transition-opacity">
+            </div>
+        </div>
+        <button class="absolute bottom-8 right-8 flex flex-col items-center gap-2 cursor-pointer bg-transparent border-none group"
+            id="header-next-btn" aria-label="Ir para o primeiro card" style="animation: scroll-bounce 2s ease-in-out infinite;">
+            <span class="text-[10px] uppercase tracking-[4px] text-white/30 font-medium group-hover:primary-color transition-colors">Iniciar</span>
+            <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[rgba(255,144,77,0.20)] transition-all">
+                <i data-lucide="chevron-down" class="w-5 h-5 text-white/40 group-hover:primary-color transition-colors"></i>
+            </div>
+        </button>
+    </header>
+
+    <main class="container mx-auto px-4 py-20 flex flex-col items-center gap-[60vh]">
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="orbit" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Mapa do capítulo</p>
+                    <h3 class="text-4xl font-bold mb-4">Cinco famílias do caráter</h3>
+                    <p class="text-lg text-soft">Os atributos comunicáveis são agrupados em ser, mente, moralidade, propósito e atributos sumários. Eles mostram como Deus é e como devemos refletir seu caráter.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="families-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="spirit-stage"></div>
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="flame" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Ser de Deus</p>
+                    <h3 class="text-4xl font-bold mb-4">Deus é espírito</h3>
+                    <p class="text-lg text-soft">Deus não é feito de matéria, não possui partes físicas e não pode ser reduzido a imagem alguma. Mesmo invisível, Ele se revela de modo verdadeiro.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="200">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="brain" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Atributos mentais</p>
+                    <h3 class="text-4xl font-bold mb-4">Deus pensa perfeitamente</h3>
+                    <p class="text-lg text-soft">Ele conhece todas as coisas reais e possíveis, sempre escolhe os melhores fins e meios, e suas palavras são o padrão final da verdade.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="mind-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-10 text-center" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-container mx-auto mb-6"><i data-lucide="shield-check" class="w-6 h-6 primary-color"></i></div>
+            <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Veracidade e fidelidade</p>
+            <h3 class="text-4xl font-bold mb-5">A verdade tem um padrão</h3>
+            <p class="text-xl text-soft max-w-3xl mx-auto mb-8">A essência da fé é receber a Palavra de Deus como verdadeira e descansar no Deus que sempre cumpre o que prometeu.</p>
+            <div class="inline-flex items-center gap-3 primary-bg text-black font-bold px-7 py-4 rounded-full">
+                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                confiar porque Deus falou
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="400">
+            <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="moral-stage"></div>
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="heart" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Atributos morais</p>
+                    <h3 class="text-4xl font-bold mb-4">Santidade que ama</h3>
+                    <p class="text-lg text-soft">Bondade, amor, santidade, justiça, ciúme e ira não competem entre si. Cada um expressa o mesmo Deus moralmente perfeito.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="500">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="icon-container"><i data-lucide="flame-kindling" class="w-6 h-6 primary-color"></i></div>
+                <div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer">Zelo santo</p>
+                    <h3 class="text-4xl font-bold">Ciúme e ira santos</h3>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-5">
+                <div class="attribute-pill p-6 rounded-lg">
+                    <p class="text-2xl font-bold mb-3">Ciúme</p>
+                    <p class="text-soft">Deus zela legitimamente pela honra do seu nome, porque somente Ele é digno de adoração suprema.</p>
+                </div>
+                <div class="attribute-pill p-6 rounded-lg">
+                    <p class="text-2xl font-bold mb-3">Ira</p>
+                    <p class="text-soft">Deus odeia o pecado com oposição santa, sem capricho, injustiça ou perda de controle.</p>
+                </div>
+            </div>
+            <div class="soft-band rounded-lg p-5 mt-6 text-center text-lg text-white/85">
+                O amor de Deus não enfraquece sua justiça, e sua justiça não diminui seu amor.
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="600">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="route" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Propósito</p>
+                    <h3 class="text-4xl font-bold mb-4">Deus realiza sua vontade</h3>
+                    <p class="text-lg text-soft">A vontade de Deus inclui seus mandamentos revelados e seus decretos secretos. Sua onipotência é o poder de realizar toda a sua santa vontade.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="purpose-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="700">
+            <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="summary-stage"></div>
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="gem" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Atributos sumários</p>
+                    <h3 class="text-4xl font-bold mb-4">A soma do desejável</h3>
+                    <p class="text-lg text-soft">Deus é perfeito, plenamente bem-aventurado e belo. Tudo que é legitimamente desejável encontra nele sua fonte e sua plenitude.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="800">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="footprints" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Aplicação</p>
+                    <h3 class="text-4xl font-bold mb-4">Imitadores de Deus</h3>
+                    <p class="text-lg text-soft">Não imitamos Deus como rivais, mas como filhos amados. Refletimos seu caráter em santidade, amor, verdade, misericórdia, sabedoria e justiça.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="imitation-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-10 text-center" data-aos="zoom-in" data-aos-delay="900">
+            <div class="icon-container mx-auto mb-6"><i data-lucide="quote" class="w-6 h-6 primary-color"></i></div>
+            <p class="text-sm uppercase tracking-[3px] text-softer mb-4">Memorização</p>
+            <h3 class="text-4xl font-bold mb-6">O nome revelado</h3>
+            <blockquote class="text-2xl md:text-3xl font-semibold leading-snug max-w-4xl mx-auto">
+                “Senhor, Senhor Deus compassivo, clemente e longânimo e grande em misericórdia e fidelidade.”
+            </blockquote>
+            <p class="text-soft mt-5">Êxodo 34.6</p>
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+                <span class="attribute-pill px-5 py-3">compaixão</span>
+                <span class="attribute-pill px-5 py-3">graça</span>
+                <span class="attribute-pill px-5 py-3">paciência</span>
+                <span class="attribute-pill px-5 py-3">misericórdia</span>
+                <span class="attribute-pill px-5 py-3">fidelidade</span>
+            </div>
+        </div>
+    </main>
+
+    <div class="py-16 text-center">
+        <div class="flex justify-center">
+            <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="h-8 opacity-40 hover:opacity-70 transition-opacity">
+        </div>
+    </div>
+
+    <footer class="py-12 text-center text-white/60">
+        <p>&copy; 2026 - Canal Sandeco. Fonte: Capítulo 5, Atributos Comunicáveis de Deus.</p>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 100 });
+        lucide.createIcons();
+
+        const cssVar = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        const PRIMARY = cssVar('--mira-primary');
+        const TEXT = cssVar('--mira-text');
+        const SOFT = cssVar('--mira-text-soft');
+        const ACCENT = cssVar('--mira-accent-2');
+
+        function setupHeroParticles() {
+            const host = d3.select('#hero-particles');
+            host.selectAll('*').remove();
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            const svg = host.append('svg').attr('viewBox', `0 0 ${w} ${h}`).attr('preserveAspectRatio', 'none');
+            const dots = d3.range(50).map(() => ({ x: Math.random() * w, y: Math.random() * h, r: 1.2 + Math.random() * 3.8, speed: 0.18 + Math.random() * 0.62 }));
+            const circles = svg.selectAll('circle').data(dots).join('circle').attr('fill', PRIMARY).attr('opacity', 0.28).attr('r', d => d.r);
+            d3.timer(() => {
+                circles.attr('cx', d => d.x).attr('cy', d => {
+                    d.y -= d.speed;
+                    if (d.y < -10) d.y = h + 10;
+                    return d.y;
+                });
+            });
+        }
+
+        function animateFamilies() {
+            d3.select('#families-stage').selectAll('*').remove();
+            window.__familiesGen = (window.__familiesGen || 0) + 1;
+            const myGen = window.__familiesGen;
+            const svg = d3.select('#families-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const cx = 640, cy = 360;
+            const items = [
+                { t: 'ser', a: -1.6 },
+                { t: 'mente', a: -0.35 },
+                { t: 'moralidade', a: 0.85 },
+                { t: 'propósito', a: 2.05 },
+                { t: 'sumários', a: 3.3 }
+            ];
+            svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 0).attr('fill', 'rgba(255,144,77,0.16)').attr('stroke', PRIMARY).attr('stroke-width', 5)
+                .transition().duration(700).ease(d3.easeBackOut).attr('r', 105);
+            svg.append('text').text('imitadores').attr('x', cx).attr('y', cy + 8).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 32).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(420).duration(500).attr('opacity', 1);
+            const rays = svg.selectAll('line.family-ray').data(items).join('line').attr('class', 'family-ray').attr('x1', cx).attr('y1', cy).attr('x2', cx).attr('y2', cy).attr('stroke', 'rgba(255,255,255,0.15)').attr('stroke-width', 4).attr('stroke-dasharray', '10 12');
+            rays.transition().delay((d, i) => i * 120).duration(650).attr('x2', d => cx + Math.cos(d.a) * 360).attr('y2', d => cy + Math.sin(d.a) * 230);
+            const nodes = svg.selectAll('g.family').data(items).join('g').attr('transform', d => `translate(${cx + Math.cos(d.a) * 360},${cy + Math.sin(d.a) * 230})`).attr('opacity', 0);
+            nodes.transition().delay((d, i) => 350 + i * 120).duration(500).attr('opacity', 1);
+            nodes.append('circle').attr('r', 66).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3);
+            nodes.append('text').text(d => d.t).attr('text-anchor', 'middle').attr('dy', 7).attr('fill', TEXT).attr('font-size', 22).attr('font-weight', 900);
+            d3.timer(elapsed => {
+                if (myGen !== window.__familiesGen) return true;
+                nodes.attr('transform', d => {
+                    const pulse = Math.sin(elapsed / 700 + d.a) * 8;
+                    return `translate(${cx + Math.cos(d.a) * (360 + pulse)},${cy + Math.sin(d.a) * (230 + pulse)})`;
+                });
+                rays.attr('stroke-dashoffset', -elapsed / 35);
+            });
+        }
+
+        function animateSpirit() {
+            d3.select('#spirit-stage').selectAll('*').remove();
+            window.__spiritGen = (window.__spiritGen || 0) + 1;
+            const myGen = window.__spiritGen;
+            const svg = d3.select('#spirit-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const frames = [260, 440, 620, 800, 980];
+            svg.selectAll('rect.frame').data(frames).join('rect').attr('class', 'frame').attr('x', d => d - 58).attr('y', 195).attr('width', 116).attr('height', 330).attr('rx', 16).attr('fill', 'rgba(255,255,255,0.04)').attr('stroke', 'rgba(255,255,255,0.14)').attr('stroke-width', 3).attr('opacity', 0)
+                .transition().delay((d, i) => i * 120).duration(550).attr('opacity', 1);
+            const core = svg.append('circle').attr('cx', 640).attr('cy', 360).attr('r', 0).attr('fill', 'rgba(255,144,77,0.18)').attr('stroke', PRIMARY).attr('stroke-width', 5);
+            core.transition().duration(700).ease(d3.easeBackOut).attr('r', 80);
+            svg.append('text').text('Deus é espírito').attr('x', 640).attr('y', 610).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 32).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(550).duration(500).attr('opacity', 1);
+            const beams = d3.range(12).map(i => ({ a: i * Math.PI * 2 / 12 }));
+            const lines = svg.selectAll('line.beam').data(beams).join('line').attr('x1', 640).attr('y1', 360).attr('x2', 640).attr('y2', 360).attr('stroke', 'rgba(255,144,77,0.28)').attr('stroke-width', 4).attr('stroke-linecap', 'round');
+            lines.transition().delay((d, i) => i * 55).duration(800).attr('x2', d => 640 + Math.cos(d.a) * 430).attr('y2', d => 360 + Math.sin(d.a) * 210);
+            d3.timer(elapsed => {
+                if (myGen !== window.__spiritGen) return true;
+                core.attr('r', 78 + Math.sin(elapsed / 450) * 8);
+                lines.attr('stroke-opacity', 0.35 + Math.sin(elapsed / 500) * 0.22);
+            });
+        }
+
+        function animateMind() {
+            d3.select('#mind-stage').selectAll('*').remove();
+            clearInterval(window.__mindLoop);
+            window.__mindGen = (window.__mindGen || 0) + 1;
+            const myGen = window.__mindGen;
+            const svg = d3.select('#mind-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const nodes = [
+                { t: 'conhecimento', x: 330, y: 360 },
+                { t: 'sabedoria', x: 640, y: 210 },
+                { t: 'verdade', x: 950, y: 360 }
+            ];
+            const center = { x: 640, y: 455 };
+            const all = [...nodes, { t: 'fé', x: center.x, y: center.y }];
+            [[0,1],[1,2],[2,3],[3,0],[0,2]].forEach(pair => {
+                const a = all[pair[0]], b = all[pair[1]];
+                svg.append('line').attr('x1', a.x).attr('y1', a.y).attr('x2', a.x).attr('y2', a.y).attr('stroke', 'rgba(255,255,255,0.13)').attr('stroke-width', 4).attr('stroke-dasharray', '8 10')
+                    .transition().duration(650).attr('x2', b.x).attr('y2', b.y);
+            });
+            const g = svg.selectAll('g.mind').data(all).join('g').attr('transform', d => `translate(${d.x},${d.y})`).attr('opacity', 0);
+            g.transition().delay((d, i) => 250 + i * 120).duration(500).attr('opacity', 1);
+            g.append('circle').attr('r', d => d.t === 'fé' ? 52 : 66).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3);
+            g.append('text').text(d => d.t).attr('text-anchor', 'middle').attr('dy', 7).attr('fill', TEXT).attr('font-size', d => d.t === 'fé' ? 21 : 22).attr('font-weight', 900);
+            const mover = svg.append('circle').attr('r', 10).attr('fill', PRIMARY).style('filter', `drop-shadow(0 0 12px ${PRIMARY})`);
+            const path = [nodes[0], nodes[1], nodes[2], center, nodes[0]];
+            function travel() {
+                if (myGen !== window.__mindGen) return;
+                mover.attr('cx', path[0].x).attr('cy', path[0].y).attr('opacity', 1);
+                let t = mover.transition().duration(300);
+                path.slice(1).forEach(p => {
+                    t = t.transition().duration(650).ease(d3.easeCubicInOut).attr('cx', p.x).attr('cy', p.y);
+                });
+                t.transition().duration(250).attr('opacity', 0).on('end', travel);
+            }
+            travel();
+        }
+
+        function animateMoral() {
+            d3.select('#moral-stage').selectAll('*').remove();
+            window.__moralGen = (window.__moralGen || 0) + 1;
+            const myGen = window.__moralGen;
+            const svg = d3.select('#moral-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const cx = 640, cy = 360;
+            const attrs = ['bondade', 'amor', 'santidade', 'justiça', 'ciúme', 'ira'].map((t, i) => ({ t, a: i * Math.PI * 2 / 6 }));
+            svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 0).attr('fill', 'rgba(255,144,77,0.16)').attr('stroke', PRIMARY).attr('stroke-width', 5)
+                .transition().duration(700).ease(d3.easeBackOut).attr('r', 94);
+            svg.append('text').text('um só caráter').attr('x', cx).attr('y', cy + 8).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 28).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(450).duration(500).attr('opacity', 1);
+            const orbit = svg.append('ellipse').attr('cx', cx).attr('cy', cy).attr('rx', 330).attr('ry', 215).attr('fill', 'none').attr('stroke', PRIMARY).attr('stroke-width', 5).attr('stroke-dasharray', '24 22').attr('opacity', 0);
+            orbit.transition().duration(700).attr('opacity', 0.72);
+            const g = svg.selectAll('g.moral').data(attrs).join('g').attr('opacity', 0);
+            g.transition().delay((d, i) => 600 + i * 100).duration(450).attr('opacity', 1);
+            g.append('circle').attr('r', 52).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 2.5);
+            g.append('text').text(d => d.t).attr('text-anchor', 'middle').attr('dy', 7).attr('fill', TEXT).attr('font-size', 19).attr('font-weight', 850);
+            d3.timer(elapsed => {
+                if (myGen !== window.__moralGen) return true;
+                orbit.attr('stroke-dashoffset', -elapsed / 35);
+                g.attr('transform', d => {
+                    const a = d.a + elapsed / 5200;
+                    return `translate(${cx + Math.cos(a) * 330},${cy + Math.sin(a) * 215})`;
+                });
+            });
+        }
+
+        function animatePurpose() {
+            d3.select('#purpose-stage').selectAll('*').remove();
+            clearInterval(window.__purposeLoop);
+            window.__purposeGen = (window.__purposeGen || 0) + 1;
+            const myGen = window.__purposeGen;
+            const svg = d3.select('#purpose-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const steps = [
+                { t: 'vontade', x: 250, y: 360 },
+                { t: 'liberdade', x: 520, y: 250 },
+                { t: 'poder', x: 780, y: 250 },
+                { t: 'realização', x: 1030, y: 360 }
+            ];
+            const line = d3.line().curve(d3.curveCatmullRom).x(d => d.x).y(d => d.y);
+            svg.append('path').attr('d', line(steps)).attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.14)').attr('stroke-width', 6).attr('stroke-linecap', 'round');
+            const activePath = svg.append('path').attr('d', line(steps)).attr('fill', 'none').attr('stroke', PRIMARY).attr('stroke-width', 6).attr('stroke-dasharray', '28 22').attr('opacity', 0);
+            activePath.transition().duration(700).attr('opacity', 0.8);
+            const g = svg.selectAll('g.step').data(steps).join('g').attr('transform', d => `translate(${d.x},${d.y})`).attr('opacity', 0);
+            g.transition().delay((d, i) => i * 160).duration(500).attr('opacity', 1);
+            g.append('circle').attr('r', 58).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3);
+            g.append('text').text(d => d.t).attr('text-anchor', 'middle').attr('dy', 7).attr('fill', TEXT).attr('font-size', 20).attr('font-weight', 900);
+            svg.append('text').text('toda a sua santa vontade').attr('x', 640).attr('y', 560).attr('text-anchor', 'middle').attr('fill', SOFT).attr('font-size', 26).attr('font-weight', 800).attr('opacity', 0)
+                .transition().delay(700).duration(500).attr('opacity', 1);
+            const orb = svg.append('circle').attr('r', 11).attr('fill', ACCENT).style('filter', `drop-shadow(0 0 14px ${ACCENT})`);
+            function travel() {
+                if (myGen !== window.__purposeGen) return;
+                orb.attr('cx', steps[0].x).attr('cy', steps[0].y).attr('opacity', 1);
+                let t = orb.transition().duration(350);
+                steps.slice(1).forEach(p => {
+                    t = t.transition().duration(680).ease(d3.easeCubicInOut).attr('cx', p.x).attr('cy', p.y);
+                });
+                t.transition().duration(280).attr('opacity', 0).on('end', travel);
+            }
+            travel();
+            d3.timer(elapsed => {
+                if (myGen !== window.__purposeGen) return true;
+                activePath.attr('stroke-dashoffset', -elapsed / 34);
+            });
+        }
+
+        function animateSummary() {
+            d3.select('#summary-stage').selectAll('*').remove();
+            window.__summaryGen = (window.__summaryGen || 0) + 1;
+            const myGen = window.__summaryGen;
+            const svg = d3.select('#summary-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const cx = 610, cy = 350;
+            svg.append('polygon').attr('points', '560,240 710,350 560,460').attr('fill', 'rgba(255,255,255,0.08)').attr('stroke', PRIMARY).attr('stroke-width', 4).attr('opacity', 0)
+                .transition().duration(700).attr('opacity', 1);
+            const incoming = svg.append('line').attr('x1', 160).attr('y1', cy).attr('x2', 160).attr('y2', cy).attr('stroke', PRIMARY).attr('stroke-width', 8).attr('stroke-linecap', 'round');
+            incoming.transition().duration(900).attr('x2', 560);
+            const rays = [
+                { t: 'perfeição', x: 1060, y: 210 },
+                { t: 'alegria', x: 1085, y: 350 },
+                { t: 'beleza', x: 1060, y: 500 }
+            ];
+            const rayLines = svg.selectAll('line.summary-ray').data(rays).join('line').attr('x1', 710).attr('y1', cy).attr('x2', 710).attr('y2', cy).attr('stroke', PRIMARY).attr('stroke-width', 7).attr('stroke-linecap', 'round').attr('opacity', 0.72);
+            rayLines.transition().delay((d, i) => 700 + i * 140).duration(700).attr('x2', d => d.x - 110).attr('y2', d => d.y);
+            svg.selectAll('text.summary-label').data(rays).join('text').attr('class', 'summary-label').text(d => d.t).attr('x', d => d.x).attr('y', d => d.y + 8).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 25).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay((d, i) => 1050 + i * 120).duration(500).attr('opacity', 1);
+            d3.timer(elapsed => {
+                if (myGen !== window.__summaryGen) return true;
+                rayLines.attr('opacity', 0.50 + Math.sin(elapsed / 480) * 0.20);
+                incoming.attr('stroke-width', 8 + Math.sin(elapsed / 520) * 2);
+            });
+        }
+
+        function animateImitation() {
+            d3.select('#imitation-stage').selectAll('*').remove();
+            clearInterval(window.__imitationLoop);
+            window.__imitationGen = (window.__imitationGen || 0) + 1;
+            const myGen = window.__imitationGen;
+            const svg = d3.select('#imitation-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const steps = ['ver', 'adorar', 'confiar', 'imitar'].map((t, i) => ({ t, x: 260 + i * 250, y: 520 - i * 95 }));
+            svg.selectAll('rect.step-box').data(steps).join('rect').attr('x', d => d.x - 85).attr('y', d => d.y - 42).attr('width', 170).attr('height', 84).attr('rx', 12).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3).attr('opacity', 0)
+                .transition().delay((d, i) => i * 170).duration(520).attr('opacity', 1);
+            svg.selectAll('text.step-label').data(steps).join('text').text(d => d.t).attr('x', d => d.x).attr('y', d => d.y + 8).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 24).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay((d, i) => 350 + i * 170).duration(450).attr('opacity', 1);
+            for (let i = 0; i < steps.length - 1; i++) {
+                svg.append('line').attr('x1', steps[i].x + 92).attr('y1', steps[i].y).attr('x2', steps[i].x + 92).attr('y2', steps[i].y).attr('stroke', 'rgba(255,255,255,0.14)').attr('stroke-width', 4).attr('stroke-dasharray', '8 10')
+                    .transition().delay(600 + i * 170).duration(450).attr('x2', steps[i + 1].x - 92).attr('y2', steps[i + 1].y);
+            }
+            const orb = svg.append('circle').attr('r', 12).attr('fill', PRIMARY).style('filter', `drop-shadow(0 0 12px ${PRIMARY})`);
+            function climb() {
+                if (myGen !== window.__imitationGen) return;
+                orb.attr('cx', steps[0].x).attr('cy', steps[0].y).attr('opacity', 1);
+                let t = orb.transition().duration(350);
+                steps.slice(1).forEach(p => {
+                    t = t.transition().duration(700).ease(d3.easeCubicInOut).attr('cx', p.x).attr('cy', p.y);
+                });
+                t.transition().delay(350).duration(300).attr('opacity', 0).on('end', climb);
+            }
+            setTimeout(climb, 900);
+        }
+
+        const animationSetups = [
+            { stage: document.getElementById('families-stage'), fn: animateFamilies },
+            { stage: document.getElementById('spirit-stage'), fn: animateSpirit },
+            { stage: document.getElementById('mind-stage'), fn: animateMind },
+            { stage: document.getElementById('moral-stage'), fn: animateMoral },
+            { stage: document.getElementById('purpose-stage'), fn: animatePurpose },
+            { stage: document.getElementById('summary-stage'), fn: animateSummary },
+            { stage: document.getElementById('imitation-stage'), fn: animateImitation }
+        ].filter(item => item.stage);
+
+        function setupAnimationTriggers() {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const setup = animationSetups.find(item => item.stage === entry.target);
+                        if (setup) setup.fn();
+                    }
+                });
+            }, { threshold: 0.35 });
+            animationSetups.forEach(item => observer.observe(item.stage));
+        }
+
+        const cardSections = [];
+
+        function buildCardSections() {
+            cardSections.length = 0;
+            const wrappers = document.querySelectorAll('.fullscreen-wrapper');
+            if (wrappers.length > 0) wrappers.forEach(el => cardSections.push(el));
+            else document.querySelectorAll('main > .glass-card, main > div:not(.glass-card)').forEach(el => cardSections.push(el));
+        }
+
+        function getCurrentSectionIndex() {
+            const scrollTop = window.scrollY + window.innerHeight * 0.3;
+            let idx = -1;
+            for (let i = 0; i < cardSections.length; i++) {
+                if (cardSections[i].offsetTop <= scrollTop) idx = i;
+            }
+            return idx;
+        }
+
+        function setupFullScreenWrappers() {
+            const main = document.querySelector('main');
+            if (!main) return;
+            main.classList.remove('py-20');
+            const children = Array.from(main.children);
+            children.forEach(child => {
+                if (child.tagName === 'DIV' && !child.classList.contains('fullscreen-wrapper')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'min-h-screen w-full flex items-center justify-center fullscreen-wrapper snap-start p-4';
+                    child.parentNode.insertBefore(wrapper, child);
+                    wrapper.appendChild(child);
+                }
+            });
+            buildCardSections();
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('reading-progress').style.width = progress + '%';
+            const btn = document.getElementById('next-card');
+            btn.classList.toggle('visible', scrollTop > 300);
+            const icon = document.getElementById('next-card-icon');
+            const atBottom = (scrollTop + window.innerHeight) >= (document.documentElement.scrollHeight - 100);
+            icon.setAttribute('data-lucide', atBottom ? 'chevron-up' : 'chevron-down');
+            lucide.createIcons();
+        });
+
+        document.getElementById('next-card').addEventListener('click', () => {
+            const atBottom = (window.scrollY + window.innerHeight) >= (document.documentElement.scrollHeight - 100);
+            if (atBottom) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            const nextIdx = getCurrentSectionIndex() + 1;
+            if (nextIdx < cardSections.length) cardSections[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeroParticles();
+            setupFullScreenWrappers();
+            setupAnimationTriggers();
+            const headerBtn = document.getElementById('header-next-btn');
+            if (headerBtn) {
+                headerBtn.addEventListener('click', () => {
+                    if (cardSections.length > 0) cardSections[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+            document.addEventListener('keydown', e => {
+                const idx = getCurrentSectionIndex();
+                if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(e.key)) {
+                    e.preventDefault();
+                    const nextIdx = idx + 1;
+                    if (nextIdx < cardSections.length) cardSections[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) {
+                    e.preventDefault();
+                    const prevIdx = idx - 1;
+                    if (prevIdx >= 0) cardSections[prevIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    else window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            setupHeroParticles();
+            setupFullScreenWrappers();
+        });
+    </script>
+</body>
+
+</html>

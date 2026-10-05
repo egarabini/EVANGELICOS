@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Trindade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mira-primary: #FF904D;
+            --mira-bg: #000000;
+            --mira-text: #ffffff;
+            --mira-text-soft: rgba(255, 255, 255, 0.70);
+            --mira-text-softer: rgba(255, 255, 255, 0.50);
+            --mira-card-bg: rgba(255, 255, 255, 0.05);
+            --mira-card-border: rgba(255, 255, 255, 0.10);
+            --mira-glow-soft: rgba(255, 144, 77, 0.15);
+            --mira-glow-strong: rgba(255, 144, 77, 0.25);
+            --mira-icon-bg: rgba(255, 144, 77, 0.15);
+            --mira-icon-border: rgba(255, 144, 77, 0.30);
+            --mira-pill-bg: rgba(255, 255, 255, 0.04);
+            --mira-pill-border: rgba(255, 255, 255, 0.08);
+            --mira-stage-glow: rgba(255, 144, 77, 0.06);
+            --mira-accent-2: #FFC766;
+            --mira-danger: #FF6464;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: #000000;
+            min-height: 100vh;
+            color: var(--mira-text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .primary-color { color: var(--mira-primary); }
+        .primary-bg { background: var(--mira-primary); }
+        .text-soft { color: var(--mira-text-soft); }
+        .text-softer { color: var(--mira-text-softer); }
+
+        .glass-card {
+            background: var(--mira-card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--mira-card-border);
+            box-shadow: 0 10px 30px var(--mira-glow-soft);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 36px var(--mira-glow-strong);
+        }
+
+        .icon-container {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--mira-icon-bg);
+            border: 1px solid var(--mira-icon-border);
+        }
+
+        .attribute-pill {
+            background: var(--mira-pill-bg);
+            border: 1px solid var(--mira-pill-border);
+            border-radius: 9999px;
+        }
+
+        .anim-stage {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            min-height: 360px;
+            background: radial-gradient(circle at 50% 50%, var(--mira-stage-glow), transparent 70%);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .anim-stage svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--mira-primary), var(--mira-accent-2), var(--mira-primary));
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(255, 144, 77, 0.4);
+            transition: width 0.1s linear;
+        }
+
+        #next-card {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--mira-primary);
+            color: var(--mira-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 9998;
+            box-shadow: 0 4px 20px var(--mira-glow-strong);
+            border: none;
+        }
+
+        #next-card.visible { opacity: 1; transform: translateY(0); }
+        #next-card:hover { transform: translateY(-3px) scale(1.08); }
+
+        .header-fallback {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 25% 78%, rgba(255, 144, 77, 0.30), transparent 34%),
+                radial-gradient(circle at 78% 22%, rgba(255, 199, 102, 0.16), transparent 32%),
+                linear-gradient(135deg, rgba(255, 144, 77, 0.14), transparent 54%),
+                #000000;
+            animation: slowBreathe 8s ease-in-out infinite;
+        }
+
+        .soft-band {
+            background: linear-gradient(90deg, transparent, rgba(255, 144, 77, 0.18), transparent);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes slowBreathe {
+            0%, 100% { filter: saturate(1); transform: scale(1); }
+            50% { filter: saturate(1.3); transform: scale(1.03); }
+        }
+
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+    <div id="reading-progress"></div>
+    <button id="next-card" aria-label="Próximo card">
+        <i data-lucide="chevron-down" class="w-6 h-6" id="next-card-icon"></i>
+    </button>
+
+    <header class="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
+        <div class="header-fallback"></div>
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50">
+            <source src="header-bg.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 pointer-events-none"
+            style="background: linear-gradient(to bottom, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.34) 48%, rgba(0,0,0,0.84) 100%);">
+        </div>
+        <div id="hero-particles" class="absolute inset-0 pointer-events-none"></div>
+        <div class="text-center relative z-10 px-6" data-aos="fade-down">
+            <span class="inline-block primary-bg text-white text-sm font-bold px-6 py-2 rounded-full mb-8 tracking-widest uppercase">Capítulo 6</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">A <span class="primary-color">Trindade</span></h1>
+            <p class="text-xl text-white/90 max-w-3xl mx-auto mb-10 drop-shadow-md">Deus existe eternamente como Pai, Filho e Espírito Santo, três pessoas, um só Deus.</p>
+            <div data-aos="fade-up" data-aos-delay="400" class="mt-6">
+                <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="h-10 mx-auto opacity-80 drop-shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:opacity-100 transition-opacity">
+            </div>
+        </div>
+        <button class="absolute bottom-8 right-8 flex flex-col items-center gap-2 cursor-pointer bg-transparent border-none group"
+            id="header-next-btn" aria-label="Ir para o primeiro card" style="animation: scroll-bounce 2s ease-in-out infinite;">
+            <span class="text-[10px] uppercase tracking-[4px] text-white/30 font-medium group-hover:primary-color transition-colors">Iniciar</span>
+            <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[rgba(255,144,77,0.20)] transition-all">
+                <i data-lucide="chevron-down" class="w-5 h-5 text-white/40 group-hover:primary-color transition-colors"></i>
+            </div>
+        </button>
+    </header>
+
+    <main class="container mx-auto px-4 py-20 flex flex-col items-center gap-[60vh]">
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="scroll-text" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Revelação</p>
+                    <h3 class="text-4xl font-bold mb-4">A Bíblia revela progressivamente</h3>
+                    <p class="text-lg text-soft">O Antigo Testamento sugere uma pluralidade em Deus. O Novo Testamento revela com clareza Pai, Filho e Espírito Santo agindo juntos.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="revelation-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="triangle-stage"></div>
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="triangle" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Definição</p>
+                    <h3 class="text-4xl font-bold mb-4">Três pessoas, um Deus</h3>
+                    <p class="text-lg text-soft">Deus existe eternamente como Pai, Filho e Espírito Santo. Cada pessoa é plenamente Deus, e há um só Deus.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="200">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="columns-3" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Síntese bíblica</p>
+                    <h3 class="text-4xl font-bold mb-4">Três afirmações inseparáveis</h3>
+                    <p class="text-lg text-soft">A doutrina permanece fiel à Escritura quando sustenta simultaneamente: Deus é três pessoas, cada pessoa é Deus, e há um só Deus.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="claims-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="300">
+            <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="baptism-stage"></div>
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="waves" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Mateus 3</p>
+                    <h3 class="text-4xl font-bold mb-4">O batismo revela o Deus trino</h3>
+                    <p class="text-lg text-soft">O Filho é batizado, o Espírito desce como pomba, e o Pai fala dos céus. Pessoas distintas aparecem em um mesmo evento.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-10 text-center" data-aos="zoom-in" data-aos-delay="400">
+            <div class="icon-container mx-auto mb-6"><i data-lucide="shield-alert" class="w-6 h-6 primary-color"></i></div>
+            <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Discernimento</p>
+            <h3 class="text-4xl font-bold mb-5">Cuidado com atalhos</h3>
+            <p class="text-xl text-soft max-w-3xl mx-auto mb-8">Toda tentativa de tornar a Trindade simples demais acaba negando alguma parte essencial do ensino bíblico.</p>
+            <div class="inline-flex items-center gap-3 primary-bg text-black font-bold px-7 py-4 rounded-full">
+                <i data-lucide="route-off" class="w-5 h-5"></i>
+                preserve as três afirmações
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="500">
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="attribute-pill p-5 rounded-lg">
+                    <p class="text-xl font-bold mb-2">Modalismo</p>
+                    <p class="text-soft text-sm">Nega pessoas distintas e reduz Deus a modos de manifestação.</p>
+                </div>
+                <div class="attribute-pill p-5 rounded-lg">
+                    <p class="text-xl font-bold mb-2">Arianismo</p>
+                    <p class="text-soft text-sm">Nega que o Filho seja plenamente Deus.</p>
+                </div>
+                <div class="attribute-pill p-5 rounded-lg">
+                    <p class="text-xl font-bold mb-2">Subordinacionismo</p>
+                    <p class="text-soft text-sm">Nega igualdade de ser entre as pessoas.</p>
+                </div>
+                <div class="attribute-pill p-5 rounded-lg">
+                    <p class="text-xl font-bold mb-2">Triteísmo</p>
+                    <p class="text-soft text-sm">Nega a unidade divina e transforma Deus em três deuses.</p>
+                </div>
+            </div>
+            <div class="soft-band rounded-lg p-5 mt-6 text-center text-lg text-white/85">
+                O mistério não é contradição. É verdade revelada que excede nossa compreensão completa.
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="600">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="workflow" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Relações e funções</p>
+                    <h3 class="text-4xl font-bold mb-4">Iguais em ser, distintos em função</h3>
+                    <p class="text-lg text-soft">Pai, Filho e Espírito Santo possuem a mesma divindade. As distinções aparecem nos relacionamentos eternos e nas obras de criação e redenção.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="economy-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="700">
+            <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="being-stage"></div>
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="circle-dot" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Pessoa e ser</p>
+                    <h3 class="text-4xl font-bold mb-4">Todo Deus em cada pessoa</h3>
+                    <p class="text-lg text-soft">O Pai não é um terço de Deus. O Filho não é um terço de Deus. O Espírito não é um terço de Deus. Cada pessoa possui plenamente o ser divino.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-8" data-aos="fade-up" data-aos-delay="800">
+            <div class="grid md:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+                <div>
+                    <div class="icon-container mb-6"><i data-lucide="network" class="w-6 h-6 primary-color"></i></div>
+                    <p class="text-sm uppercase tracking-[3px] text-softer mb-3">Aplicação</p>
+                    <h3 class="text-4xl font-bold mb-4">Unidade que preserva diversidade</h3>
+                    <p class="text-lg text-soft">Família, igreja e povos redimidos refletem algo da unidade e diversidade do Deus trino quando muitos cooperam em um só propósito.</p>
+                </div>
+                <!-- @MIRA:SIZE 3/10 -->
+                <div class="anim-stage" id="unity-stage"></div>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-5xl p-10 text-center" data-aos="zoom-in" data-aos-delay="900">
+            <div class="icon-container mx-auto mb-6"><i data-lucide="quote" class="w-6 h-6 primary-color"></i></div>
+            <p class="text-sm uppercase tracking-[3px] text-softer mb-4">Memorização</p>
+            <h3 class="text-4xl font-bold mb-6">Este é o meu Filho amado</h3>
+            <blockquote class="text-2xl md:text-3xl font-semibold leading-snug max-w-4xl mx-auto">
+                “Viu o Espírito de Deus descendo como pomba e vindo sobre ele; e eis que uma voz dos céus dizia: Este é o meu Filho amado.”
+            </blockquote>
+            <p class="text-soft mt-5">Mateus 3.16-17</p>
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+                <span class="attribute-pill px-5 py-3">Pai fala</span>
+                <span class="attribute-pill px-5 py-3">Filho é batizado</span>
+                <span class="attribute-pill px-5 py-3">Espírito desce</span>
+                <span class="attribute-pill px-5 py-3">um só Deus</span>
+            </div>
+        </div>
+    </main>
+
+    <div class="py-16 text-center">
+        <div class="flex justify-center">
+            <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="h-8 opacity-40 hover:opacity-70 transition-opacity">
+        </div>
+    </div>
+
+    <footer class="py-12 text-center text-white/60">
+        <p>&copy; 2026 - Canal Sandeco. Fonte: Capítulo 6, A Trindade.</p>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 100 });
+        lucide.createIcons();
+
+        const cssVar = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        const PRIMARY = cssVar('--mira-primary');
+        const TEXT = cssVar('--mira-text');
+        const SOFT = cssVar('--mira-text-soft');
+        const ACCENT = cssVar('--mira-accent-2');
+
+        function setupHeroParticles() {
+            const host = d3.select('#hero-particles');
+            host.selectAll('*').remove();
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            const svg = host.append('svg').attr('viewBox', `0 0 ${w} ${h}`).attr('preserveAspectRatio', 'none');
+            const dots = d3.range(54).map(() => ({ x: Math.random() * w, y: Math.random() * h, r: 1.1 + Math.random() * 3.7, speed: 0.18 + Math.random() * 0.62 }));
+            const circles = svg.selectAll('circle').data(dots).join('circle').attr('fill', PRIMARY).attr('opacity', 0.28).attr('r', d => d.r);
+            d3.timer(() => {
+                circles.attr('cx', d => d.x).attr('cy', d => {
+                    d.y -= d.speed;
+                    if (d.y < -10) d.y = h + 10;
+                    return d.y;
+                });
+            });
+        }
+
+        function animateRevelation() {
+            d3.select('#revelation-stage').selectAll('*').remove();
+            window.__revelationGen = (window.__revelationGen || 0) + 1;
+            const myGen = window.__revelationGen;
+            const svg = d3.select('#revelation-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const points = [
+                { t: 'Gn 1.26', s: 'indícios', x: 220 },
+                { t: 'Sl 110.1', s: 'Senhor e Senhor', x: 440 },
+                { t: 'Mt 3.16-17', s: 'três pessoas', x: 680 },
+                { t: 'Mt 28.19', s: 'um nome', x: 910 },
+                { t: '2Co 13.14', s: 'bênção trina', x: 1100 }
+            ];
+            svg.append('line').attr('x1', 150).attr('x2', 1130).attr('y1', 360).attr('y2', 360).attr('stroke', 'rgba(255,255,255,0.16)').attr('stroke-width', 5).attr('stroke-linecap', 'round');
+            const g = svg.selectAll('g.rev').data(points).join('g').attr('transform', d => `translate(${d.x},360)`).attr('opacity', 0);
+            g.transition().delay((d, i) => i * 140).duration(520).attr('opacity', 1);
+            g.append('circle').attr('r', 0).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3)
+                .transition().delay((d, i) => i * 140).duration(620).ease(d3.easeBackOut).attr('r', 58);
+            g.append('text').text(d => d.t).attr('text-anchor', 'middle').attr('dy', -4).attr('fill', TEXT).attr('font-size', 20).attr('font-weight', 900);
+            g.append('text').text(d => d.s).attr('text-anchor', 'middle').attr('dy', 25).attr('fill', SOFT).attr('font-size', 15);
+            const marker = svg.append('circle').attr('r', 11).attr('fill', ACCENT).style('filter', `drop-shadow(0 0 14px ${ACCENT})`);
+            function travel() {
+                if (myGen !== window.__revelationGen) return;
+                marker.attr('cx', 150).attr('cy', 360).attr('opacity', 1)
+                    .transition().duration(3600).ease(d3.easeLinear).attr('cx', 1130)
+                    .transition().duration(250).attr('opacity', 0).on('end', travel);
+            }
+            travel();
+        }
+
+        function animateTriangle() {
+            d3.select('#triangle-stage').selectAll('*').remove();
+            window.__triangleGen = (window.__triangleGen || 0) + 1;
+            const myGen = window.__triangleGen;
+            const svg = d3.select('#triangle-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const nodes = [
+                { t: 'Pai', x: 640, y: 155 },
+                { t: 'Filho', x: 360, y: 540 },
+                { t: 'Espírito', x: 920, y: 540 }
+            ];
+            const center = { x: 640, y: 405 };
+            svg.append('path').attr('d', `M${nodes[0].x},${nodes[0].y} L${nodes[1].x},${nodes[1].y} L${nodes[2].x},${nodes[2].y} Z`).attr('fill', 'none').attr('stroke', PRIMARY).attr('stroke-width', 6).attr('stroke-dasharray', '28 22').attr('opacity', 0)
+                .transition().duration(800).attr('opacity', 0.75);
+            svg.append('circle').attr('cx', center.x).attr('cy', center.y).attr('r', 0).attr('fill', 'rgba(255,144,77,0.14)').attr('stroke', PRIMARY).attr('stroke-width', 4)
+                .transition().delay(350).duration(650).ease(d3.easeBackOut).attr('r', 95);
+            svg.append('text').text('um só Deus').attr('x', center.x).attr('y', center.y + 8).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 30).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(650).duration(500).attr('opacity', 1);
+            const g = svg.selectAll('g.person').data(nodes).join('g').attr('transform', d => `translate(${d.x},${d.y})`).attr('opacity', 0);
+            g.transition().delay((d, i) => 500 + i * 140).duration(500).attr('opacity', 1);
+            g.append('circle').attr('r', 70).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3);
+            g.append('text').text(d => d.t).attr('text-anchor', 'middle').attr('dy', 8).attr('fill', TEXT).attr('font-size', 26).attr('font-weight', 900);
+            d3.timer(elapsed => {
+                if (myGen !== window.__triangleGen) return true;
+                svg.select('path').attr('stroke-dashoffset', -elapsed / 34);
+                g.selectAll('circle').attr('r', 70 + Math.sin(elapsed / 620) * 5);
+            });
+        }
+
+        function animateClaims() {
+            d3.select('#claims-stage').selectAll('*').remove();
+            window.__claimsGen = (window.__claimsGen || 0) + 1;
+            const myGen = window.__claimsGen;
+            const svg = d3.select('#claims-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const claims = [
+                { t: 'três pessoas', x: 310, y: 360 },
+                { t: 'cada pessoa é Deus', x: 640, y: 250 },
+                { t: 'um só Deus', x: 970, y: 360 }
+            ];
+            const center = { x: 640, y: 470 };
+            claims.forEach(c => {
+                svg.append('line').attr('x1', center.x).attr('y1', center.y).attr('x2', center.x).attr('y2', center.y).attr('stroke', 'rgba(255,255,255,0.14)').attr('stroke-width', 4).attr('stroke-dasharray', '8 10')
+                    .transition().duration(650).attr('x2', c.x).attr('y2', c.y);
+            });
+            const g = svg.selectAll('g.claim').data(claims).join('g').attr('transform', d => `translate(${d.x},${d.y})`).attr('opacity', 0);
+            g.transition().delay((d, i) => 220 + i * 140).duration(500).attr('opacity', 1);
+            g.append('circle').attr('r', 72).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3);
+            g.append('text').text(d => d.t).attr('text-anchor', 'middle').attr('dy', 7).attr('fill', TEXT).attr('font-size', 20).attr('font-weight', 900);
+            svg.append('text').text('inseparáveis').attr('x', center.x).attr('y', center.y + 8).attr('text-anchor', 'middle').attr('fill', PRIMARY).attr('font-size', 30).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(600).duration(500).attr('opacity', 1);
+            d3.timer(elapsed => {
+                if (myGen !== window.__claimsGen) return true;
+                g.selectAll('circle').attr('stroke-width', 3 + Math.sin(elapsed / 450) * 1.5);
+            });
+        }
+
+        function animateBaptism() {
+            d3.select('#baptism-stage').selectAll('*').remove();
+            clearInterval(window.__baptismLoop);
+            window.__baptismGen = (window.__baptismGen || 0) + 1;
+            const myGen = window.__baptismGen;
+            const svg = d3.select('#baptism-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            svg.append('path').attr('d', 'M 120 520 Q 260 470 400 520 T 680 520 T 960 520 T 1240 520').attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.18)').attr('stroke-width', 8);
+            svg.append('text').text('Pai').attr('x', 640).attr('y', 92).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 30).attr('font-weight', 900);
+            svg.append('text').text('Este é o meu Filho amado').attr('x', 640).attr('y', 130).attr('text-anchor', 'middle').attr('fill', SOFT).attr('font-size', 22);
+            svg.append('circle').attr('cx', 640).attr('cy', 410).attr('r', 0).attr('fill', 'rgba(255,144,77,0.16)').attr('stroke', PRIMARY).attr('stroke-width', 4)
+                .transition().duration(700).ease(d3.easeBackOut).attr('r', 76);
+            svg.append('text').text('Filho').attr('x', 640).attr('y', 420).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 28).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(420).duration(500).attr('opacity', 1);
+            const spirit = svg.append('g').attr('transform', 'translate(640,200)').attr('opacity', 0);
+            spirit.append('path').attr('d', 'M 0 -22 C -30 -6 -35 22 -6 18 C -4 46 28 32 18 4 C 42 -10 28 -36 0 -22 Z').attr('fill', 'rgba(255,255,255,0.10)').attr('stroke', PRIMARY).attr('stroke-width', 4);
+            spirit.append('text').text('Espírito').attr('x', 0).attr('y', -42).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 22).attr('font-weight', 900);
+            spirit.transition().delay(650).duration(800).attr('opacity', 1).attr('transform', 'translate(640,255)');
+            function descend() {
+                if (myGen !== window.__baptismGen) return;
+                spirit.transition().duration(1200).ease(d3.easeCubicInOut).attr('transform', 'translate(640,300)')
+                    .transition().duration(1200).ease(d3.easeCubicInOut).attr('transform', 'translate(640,245)')
+                    .on('end', descend);
+            }
+            setTimeout(descend, 1500);
+        }
+
+        function animateEconomy() {
+            d3.select('#economy-stage').selectAll('*').remove();
+            window.__economyGen = (window.__economyGen || 0) + 1;
+            const myGen = window.__economyGen;
+            const svg = d3.select('#economy-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const steps = [
+                { t: 'Pai', s: 'origem', x: 250, y: 360 },
+                { t: 'Filho', s: 'por meio dele', x: 640, y: 250 },
+                { t: 'Espírito', s: 'aplica e vivifica', x: 1030, y: 360 }
+            ];
+            const line = d3.line().curve(d3.curveCatmullRom).x(d => d.x).y(d => d.y);
+            svg.append('path').attr('d', line(steps)).attr('fill', 'none').attr('stroke', 'rgba(255,255,255,0.14)').attr('stroke-width', 6).attr('stroke-linecap', 'round');
+            const active = svg.append('path').attr('d', line(steps)).attr('fill', 'none').attr('stroke', PRIMARY).attr('stroke-width', 6).attr('stroke-dasharray', '28 22').attr('opacity', 0);
+            active.transition().duration(700).attr('opacity', 0.8);
+            const g = svg.selectAll('g.econ').data(steps).join('g').attr('transform', d => `translate(${d.x},${d.y})`).attr('opacity', 0);
+            g.transition().delay((d, i) => i * 180).duration(500).attr('opacity', 1);
+            g.append('circle').attr('r', 66).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3);
+            g.append('text').text(d => d.t).attr('text-anchor', 'middle').attr('dy', -5).attr('fill', TEXT).attr('font-size', 24).attr('font-weight', 900);
+            g.append('text').text(d => d.s).attr('text-anchor', 'middle').attr('dy', 25).attr('fill', SOFT).attr('font-size', 15);
+            const orb = svg.append('circle').attr('r', 11).attr('fill', ACCENT).style('filter', `drop-shadow(0 0 14px ${ACCENT})`);
+            function travel() {
+                if (myGen !== window.__economyGen) return;
+                orb.attr('cx', steps[0].x).attr('cy', steps[0].y).attr('opacity', 1);
+                let t = orb.transition().duration(300);
+                steps.slice(1).forEach(p => {
+                    t = t.transition().duration(900).ease(d3.easeCubicInOut).attr('cx', p.x).attr('cy', p.y);
+                });
+                t.transition().duration(260).attr('opacity', 0).on('end', travel);
+            }
+            travel();
+            d3.timer(elapsed => {
+                if (myGen !== window.__economyGen) return true;
+                active.attr('stroke-dashoffset', -elapsed / 34);
+            });
+        }
+
+        function animateBeing() {
+            d3.select('#being-stage').selectAll('*').remove();
+            window.__beingGen = (window.__beingGen || 0) + 1;
+            const myGen = window.__beingGen;
+            const svg = d3.select('#being-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const cx = 640, cy = 360;
+            const persons = [
+                { t: 'Pai', a: -Math.PI / 2 },
+                { t: 'Filho', a: Math.PI * 5 / 6 },
+                { t: 'Espírito', a: Math.PI / 6 }
+            ];
+            svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 0).attr('fill', 'rgba(255,144,77,0.10)').attr('stroke', PRIMARY).attr('stroke-width', 6).attr('stroke-dasharray', '30 24')
+                .transition().duration(800).ease(d3.easeBackOut).attr('r', 235);
+            svg.append('text').text('ser único e indiviso').attr('x', cx).attr('y', cy + 8).attr('text-anchor', 'middle').attr('fill', TEXT).attr('font-size', 31).attr('font-weight', 900).attr('opacity', 0)
+                .transition().delay(520).duration(500).attr('opacity', 1);
+            const g = svg.selectAll('g.being').data(persons).join('g').attr('opacity', 0);
+            g.transition().delay((d, i) => 650 + i * 140).duration(500).attr('opacity', 1);
+            g.append('circle').attr('r', 58).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3);
+            g.append('text').text(d => d.t).attr('text-anchor', 'middle').attr('dy', 7).attr('fill', TEXT).attr('font-size', 22).attr('font-weight', 900);
+            d3.timer(elapsed => {
+                if (myGen !== window.__beingGen) return true;
+                svg.select('circle').attr('stroke-dashoffset', -elapsed / 32);
+                g.attr('transform', d => {
+                    const a = d.a + elapsed / 6200;
+                    return `translate(${cx + Math.cos(a) * 235},${cy + Math.sin(a) * 235})`;
+                });
+            });
+        }
+
+        function animateUnity() {
+            d3.select('#unity-stage').selectAll('*').remove();
+            clearInterval(window.__unityLoop);
+            window.__unityGen = (window.__unityGen || 0) + 1;
+            const myGen = window.__unityGen;
+            const svg = d3.select('#unity-stage').append('svg').attr('viewBox', '0 0 1280 720');
+            const nodes = [
+                { t: 'família', x: 300, y: 260 },
+                { t: 'igreja', x: 640, y: 210 },
+                { t: 'povos', x: 980, y: 260 },
+                { t: 'um propósito', x: 640, y: 500 }
+            ];
+            [[0,1],[1,2],[0,3],[1,3],[2,3]].forEach(pair => {
+                const a = nodes[pair[0]], b = nodes[pair[1]];
+                svg.append('line').attr('x1', a.x).attr('y1', a.y).attr('x2', a.x).attr('y2', a.y).attr('stroke', 'rgba(255,255,255,0.14)').attr('stroke-width', 4).attr('stroke-dasharray', '8 10')
+                    .transition().duration(700).attr('x2', b.x).attr('y2', b.y);
+            });
+            const g = svg.selectAll('g.unity').data(nodes).join('g').attr('transform', d => `translate(${d.x},${d.y})`).attr('opacity', 0);
+            g.transition().delay((d, i) => i * 140).duration(500).attr('opacity', 1);
+            g.append('circle').attr('r', d => d.t === 'um propósito' ? 72 : 62).attr('fill', 'rgba(255,255,255,0.06)').attr('stroke', PRIMARY).attr('stroke-width', 3);
+            g.append('text').text(d => d.t).attr('text-anchor', 'middle').attr('dy', 7).attr('fill', TEXT).attr('font-size', 20).attr('font-weight', 900);
+            const pulse = svg.append('circle').attr('r', 9).attr('fill', PRIMARY).style('filter', `drop-shadow(0 0 12px ${PRIMARY})`);
+            const path = [nodes[0], nodes[1], nodes[2], nodes[3], nodes[0]];
+            function travel() {
+                if (myGen !== window.__unityGen) return;
+                pulse.attr('cx', path[0].x).attr('cy', path[0].y).attr('opacity', 1);
+                let t = pulse.transition().duration(250);
+                path.slice(1).forEach(p => {
+                    t = t.transition().duration(620).ease(d3.easeCubicInOut).attr('cx', p.x).attr('cy', p.y);
+                });
+                t.transition().duration(250).attr('opacity', 0).on('end', travel);
+            }
+            travel();
+        }
+
+        const animationSetups = [
+            { stage: document.getElementById('revelation-stage'), fn: animateRevelation },
+            { stage: document.getElementById('triangle-stage'), fn: animateTriangle },
+            { stage: document.getElementById('claims-stage'), fn: animateClaims },
+            { stage: document.getElementById('baptism-stage'), fn: animateBaptism },
+            { stage: document.getElementById('economy-stage'), fn: animateEconomy },
+            { stage: document.getElementById('being-stage'), fn: animateBeing },
+            { stage: document.getElementById('unity-stage'), fn: animateUnity }
+        ].filter(item => item.stage);
+
+        function setupAnimationTriggers() {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const setup = animationSetups.find(item => item.stage === entry.target);
+                        if (setup) setup.fn();
+                    }
+                });
+            }, { threshold: 0.35 });
+            animationSetups.forEach(item => observer.observe(item.stage));
+        }
+
+        const cardSections = [];
+
+        function buildCardSections() {
+            cardSections.length = 0;
+            const wrappers = document.querySelectorAll('.fullscreen-wrapper');
+            if (wrappers.length > 0) wrappers.forEach(el => cardSections.push(el));
+            else document.querySelectorAll('main > .glass-card, main > div:not(.glass-card)').forEach(el => cardSections.push(el));
+        }
+
+        function getCurrentSectionIndex() {
+            const scrollTop = window.scrollY + window.innerHeight * 0.3;
+            let idx = -1;
+            for (let i = 0; i < cardSections.length; i++) {
+                if (cardSections[i].offsetTop <= scrollTop) idx = i;
+            }
+            return idx;
+        }
+
+        function setupFullScreenWrappers() {
+            const main = document.querySelector('main');
+            if (!main) return;
+            main.classList.remove('py-20');
+            const children = Array.from(main.children);
+            children.forEach(child => {
+                if (child.tagName === 'DIV' && !child.classList.contains('fullscreen-wrapper')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'min-h-screen w-full flex items-center justify-center fullscreen-wrapper snap-start p-4';
+                    child.parentNode.insertBefore(wrapper, child);
+                    wrapper.appendChild(child);
+                }
+            });
+            buildCardSections();
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('reading-progress').style.width = progress + '%';
+            const btn = document.getElementById('next-card');
+            btn.classList.toggle('visible', scrollTop > 300);
+            const icon = document.getElementById('next-card-icon');
+            const atBottom = (scrollTop + window.innerHeight) >= (document.documentElement.scrollHeight - 100);
+            icon.setAttribute('data-lucide', atBottom ? 'chevron-up' : 'chevron-down');
+            lucide.createIcons();
+        });
+
+        document.getElementById('next-card').addEventListener('click', () => {
+            const atBottom = (window.scrollY + window.innerHeight) >= (document.documentElement.scrollHeight - 100);
+            if (atBottom) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            const nextIdx = getCurrentSectionIndex() + 1;
+            if (nextIdx < cardSections.length) cardSections[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeroParticles();
+            setupFullScreenWrappers();
+            setupAnimationTriggers();
+            const headerBtn = document.getElementById('header-next-btn');
+            if (headerBtn) {
+                headerBtn.addEventListener('click', () => {
+                    if (cardSections.length > 0) cardSections[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+            document.addEventListener('keydown', e => {
+                const idx = getCurrentSectionIndex();
+                if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(e.key)) {
+                    e.preventDefault();
+                    const nextIdx = idx + 1;
+                    if (nextIdx < cardSections.length) cardSections[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) {
+                    e.preventDefault();
+                    const prevIdx = idx - 1;
+                    if (prevIdx >= 0) cardSections[prevIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    else window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            setupHeroParticles();
+            setupFullScreenWrappers();
+        });
+    </script>
+</body>
+
+</html>

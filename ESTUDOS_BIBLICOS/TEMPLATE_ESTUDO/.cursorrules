@@ -1,0 +1,195 @@
+You are assisting Eduardo with a theological study project called {NOME_DO_ESTUDO}.
+
+# LANGUAGE AND TONE
+
+- Language: Portuguese (Brazil) with perfect accentuation (á, é, í, ó, ú, ã, õ, â, ê, î, ô, û, à, ç)
+- Tone: Academic, respectful, accessible
+- User name: Eduardo
+
+# PROJECT STRUCTURE
+
+This project follows TEMPLATE_ESTUDO structure:
+
+```
+{NOME_DO_PROJETO}/
+├── estudo/              ← Main content (chapters)
+├── decks/               ← Mira animated slides
+├── estudo_dirigido/     ← Study plans
+├── docs/                ← Documentation and references
+├── mira-templates/      ← Mira templates
+└── plano-template-estudo/ ← Planning templates
+```
+
+# CRITICAL RULES
+
+## File Editing Rules
+
+1. NEVER edit *_EN.md files (original English content)
+2. NEVER edit *_PT.md files (preserved translations)
+3. ONLY edit *_PT_v1.md files (corrected versions)
+
+## Chapter Format (_PT_v1.md)
+
+Each chapter in estudo/capitulo_XX/ follows this structure:
+
+```markdown
+# Título do Capítulo em Português
+
+> **Capítulo N** — Título Original em Inglês
+
+## Perguntas centrais
+
+- q1. Pergunta 1?
+- q2. Pergunta 2?
+- q3. Pergunta 3?
+
+## I. Explicação e Base Bíblica
+
+### A. Primeira seção principal
+
+#### 1. Subseção
+
+Conteúdo...
+
+> **Definição**: Termo teológico em blockquote
+
+## Notas
+
+[^1]: Nota de rodapé
+```
+
+# BIBLE ABBREVIATIONS (Portuguese)
+
+Always use Portuguese abbreviations:
+
+## Old Testament
+Gn, Êx, Lv, Nm, Dt, Js, Jz, Rt, 1Sm, 2Sm, 1Rs, 2Rs, 1Cr, 2Cr, Ed, Ne, Et, Jó, Sl, Pv, Ec, Ct, Is, Jr, Lm, Ez, Dn, Os, Jl, Am, Ob, Jn, Mq, Na, Hc, Sf, Ag, Zc, Ml
+
+## New Testament
+Mt, Mc, Lc, Jo, At, Rm, 1Co, 2Co, Gl, Ef, Fp, Cl, 1Ts, 2Ts, 1Tm, 2Tm, Tt, Fm, Hb, Tg, 1Pe, 2Pe, 1Jo, 2Jo, 3Jo, Jd, Ap
+
+# MIRA (ANIMATED SLIDES)
+
+## Pipeline
+
+1. /mira-extract → Extract chapter content
+2. /mira-planner → Plan slide structure
+3. /mira-copywriter → Refine slide texts
+4. /mira-builder → Build HTML slides
+5. /mira-animator → Add D3.js animations
+6. /mira-validator → Validate generated slides
+
+## Animation Rules
+
+- ALL animations must enter with choreography AND THEN continue in internal loop
+- Static animation is FORBIDDEN
+- Always use CSS theme variables: var(--mira-primary), var(--mira-secondary), etc.
+- Default theme: mira-dark
+
+## Slide Structure
+
+```html
+<div class="mira-card">
+  <div class="card-header">
+    <h2 class="card-title">Título do Slide</h2>
+  </div>
+  <div class="card-canvas">
+    <svg id="animacao"></svg>
+  </div>
+  <div class="card-base">
+    <p class="card-description">Descrição ou legenda</p>
+    <div class="card-pills">
+      <span class="pill">Pílula 1</span>
+      <span class="pill">Pílula 2</span>
+    </div>
+  </div>
+</div>
+```
+
+# STUDY PLANS (estudo_dirigido/)
+
+## 6-Stage Structure
+
+Each study plan must include:
+
+1. **🔥 Stage 1 — Warm-up**: 3 trigger questions (before reading)
+2. **📖 Stage 2 — Guided reading**: Focused readings
+3. **🧠 Stage 3 — Key concepts**: Definitions to memorize
+4. **✍️ Stage 4 — Understanding test**: Objective and essay questions
+5. **💭 Stage 5 — Personal reflection**: Life application
+6. **🏁 Stage 6 — Consolidation**: Synthesis and final traffic light
+
+## Required Elements
+
+- Checkboxes: `- [ ]`
+- Answer spaces: `> _Resposta:_`
+- Self-assessment rubric (0–5)
+- Final traffic light: 🟢 mastered · 🟡 review · 🔴 reread
+- Link to next chapter
+
+# NAMING CONVENTIONS
+
+## Chapter Folders
+- Format: `capitulo_XX/` (XX = two digits, zero-padded)
+- Examples: `capitulo_01/`, `capitulo_02/`, `capitulo_34/`
+
+## Chapter Files
+- `XX_Titulo_EN.md` — Original English (never edit)
+- `XX_Titulo_PT.md` — Preserved translation (never edit)
+- `XX_Titulo_PT_v1.md` — Corrected version (only edit this)
+
+## Decks
+- Folder format: `xx-nome-do-capitulo/` (kebab-case, zero-padded)
+- Files: `index.html`, `briefing.md`, `plano-refinado.md`, `validacao.md`
+
+# DOCUMENTATION (docs/)
+
+## Subfolders
+
+- `docs/diversos/` — General project documents
+- `docs/referencias/` — Bibliographic references
+- `docs/videos/` — Video links and metadata
+- `docs/imagens/` — Figures and diagrams
+- `docs/audios/` — Audio resources
+
+# QUALITY CHECKLIST
+
+Before considering any task complete:
+
+- [ ] Perfect accentuation (100% correct)
+- [ ] Followed naming conventions
+- [ ] Did NOT edit _EN.md or _PT.md files
+- [ ] Used correct _PT_v1.md format
+- [ ] Animations have internal loop (if applicable)
+- [ ] Study plan has 6 complete stages
+- [ ] Documentation is in docs/
+- [ ] Used CSS theme variables (Mira)
+- [ ] Bible references follow standard format
+
+# PRIORITY
+
+1. Don't lose data — Preserve original files
+2. Maintain consistency — Follow established conventions
+3. Quality over quantity — Better done right than fast
+4. Communicate clearly — Explain what you're doing
+
+# BIBLE REFERENCE FORMAT
+
+Format: `Livro Capítulo:Versículo`
+
+Examples:
+- `Rm 3.23` — Romanos 3:23
+- `1Co 13.4-7` — 1 Coríntios 13:4-7
+- `Sl 23.1-6` — Salmos 23:1-6
+
+# DEFINITION QUOTES
+
+Use blockquote for theological definitions:
+
+```markdown
+> **Justificação**: Um ato legal de Deus pelo qual ele declara justos aqueles que colocaram sua fé em Jesus Cristo.
+```
+
+Remember: You are assisting Eduardo in a theological study project. Prioritize quality, clarity, and consistency in all tasks.
+
+> *"Toda a Escritura é soprada por Deus e útil para o ensino, para a repreensão, para a correção e para a instrução na justiça."* — 2 Timóteo 3.16

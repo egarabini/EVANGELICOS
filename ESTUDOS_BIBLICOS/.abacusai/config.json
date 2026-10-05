@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /B PASTOR_IA\\fases & echo --- & dir /B PASTOR_IA\\fases\\fase-0-fundacao 2>nul & echo --- & dir /B GSI_EBD\\gsi_ebd)",
+      "Bash(dir /B Diagnostico & echo === PASTOR_IA === & dir /B PASTOR_IA\\Diagnostico 2>nul & echo === GSI_EBD === & dir /B GSI_EBD…)",
+      "Bash(dir /B /S GSI_EBD\\alembic\\versions 2>nul)",
+      "Bash(python *)",
+      "Bash(.venvScriptspython.exe *)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe -m pytest tests/ -q 2>&1)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe -m pytest tests/ -q 2>&1)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe -c \"from gsi_ebd.models import Turma, TurmaMembro; print('OK'…)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe -c \"\nimport sqlmodel\nfrom sqlmodel import Session, create_eng…)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe -c \"\nfrom sqlmodel import Session, create_engine, select\nfrom…)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe _tmp_check.py)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe -c \"import sqlite3; c=sqlite3.connect('test_turma.db'); print…)",
+      "Bash(del *)",
+      "Bash(set *)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && dir /B *.db 2>nul)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe -c \"import alembic; print('ok')\" 2>&1)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe -c \"import uuid; print(uuid.uuid4().hex[:12])\")",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && set DATABASE_URL=sqlite:///test_alembic.db && .venv\\Scripts\\python.exe -m alembic upgr…)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe _tmp_check_alembic.py)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe -m pytest tests/ -q)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && set PYTHONIOENCODING=utf-8 && .venv\\Scripts\\python.exe _tmp_import_check.py)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && set PYTHONIOENCODING=utf-8 && .venv\\Scripts\\python.exe -m reflex compile 2>&1)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe -m pytest tests/ -q)",
+      "Bash(cd f:\\ESTUDOS_BIBLICOS\\GSI_EBD && .venv\\Scripts\\python.exe -m pytest tests/ -q 2>&1)"
+    ]
+  }
+}

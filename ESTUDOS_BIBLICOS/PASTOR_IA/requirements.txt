@@ -1,0 +1,32 @@
+# DAVID Pastoral -- Dependencias Python
+# Fase 0: Pipeline + RAG + Hermes base
+# Compativel com Python 3.14+
+
+# -- Pillow (fixado para Python 3.14) -----------------------------------------
+Pillow>=11.0.0             # marker-pdf depende disso; 12.x tem wheels para Python 3.14
+
+# -- Conversao PDF -> Markdown -------------------------------------------------
+pymupdf>=1.24.0            # Conversor principal em CPU-only (PyMuPDF)
+pypandoc>=1.13             # Conversao auxiliar DOCX/EPUB -> MD
+# marker-pdf               # OPCIONAL: melhor qualidade mas exige build nativo
+#                          # Instalar manualmente se necessario:
+#                          # pip install marker-pdf
+
+# -- RAG e Embeddings ----------------------------------------------------------
+chromadb>=0.5.0            # Vector store local
+sentence-transformers>=3.0.0  # Embeddings multilingues (CPU-friendly)
+# Modelo: paraphrase-multilingual-MiniLM-L12-v2 (118MB, CPU-only)
+
+# -- LLM Client (Ollama via API OpenAI-compativel) -----------------------------
+openai>=1.35.0             # Cliente compativel com Ollama /v1
+
+# -- Validacao e dados ---------------------------------------------------------
+jsonschema>=4.22.0         # Validacao do estudo_estruturado.json
+pydantic>=2.7.0            # Modelos de dados tipados
+python-dotenv>=1.0.0       # Carrega .env
+
+# -- Utilitarios ---------------------------------------------------------------
+rich>=13.7.0               # Output bonito no terminal
+typer>=0.12.0              # CLI para os scripts do pipeline
+httpx>=0.27.0              # Requests async para API Ollama
+tqdm>=4.66.0               # Progress bar para indexacao da Biblia

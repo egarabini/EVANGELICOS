@@ -1,0 +1,118 @@
+# Cursor Rules — Teologia Sistemática
+
+> **Regras para o GitHub Cursor/Copilot trabalhar neste projeto**
+
+---
+
+## Identidade do Projeto
+
+- **Nome**: Teologia Sistemática — Wayne Grudem
+- **Tipo**: Estudo teológico sistemático
+- **Base**: TEMPLATE_ESTUDO v1.0
+- **Idioma**: Português brasileiro (pt-BR)
+
+---
+
+## Regras Fundamentais
+
+### 1. NUNCA Edite o TEMPLATE_ESTUDO
+
+O TEMPLATE em `f:/ESTUDOS_BIBLICOS/TEMPLATE_ESTUDO/` é IMUTÁVEL.
+
+- ❌ **NUNCA** edite arquivos no TEMPLATE
+- ✅ **SEMPRE** trabalhe apenas neste projeto
+
+### 2. Preserve a Estrutura
+
+Mantenha a organização por Partes (I-VII):
+
+```
+docs/base/
+├── 00_Preliminares/
+├── Introducao/
+├── Parte_01_A_Doutrina_da_Palavra_de_Deus/
+├── Parte_02_A_Doutrina_de_Deus/
+├── Parte_03_A_Doutrina_do_Homem/
+├── Parte_04_A_Doutrina_de_Cristo/
+├── Parte_05_A_Doutrina_da_Aplicacao_da_Redencao/
+├── Parte_06_A_Doutrina_da_Igreja/
+├── Parte_07_A_Doutrina_do_Futuro/
+└── Apendices/
+```
+
+---
+
+## Convenções de Nomenclatura
+
+### Capítulos
+
+- `Cap_XX_Titulo.md` — Use prefixo `Cap_` com número de dois dígitos
+- Exemplo: `Cap_06_A_Trindade.md`
+
+### Decks
+
+- `xx-nome-do-capitulo/` — kebab-case
+- Exemplo: `06-a-trindade/`
+
+---
+
+## Abreviações Bíblicas
+
+Sempre use abreviações em português:
+
+**Antigo Testamento**: Gn, Êx, Lv, Nm, Dt, Js, Jz, Rt, 1Sm, 2Sm, 1Rs, 2Rs, 1Cr, 2Cr, Ed, Ne, Et, Jó, Sl, Pv, Ec, Ct, Is, Jr, Lm, Ez, Dn, Os, Jl, Am, Ob, Jn, Mq, Na, Hc, Sf, Ag, Zc, Ml
+
+**Novo Testamento**: Mt, Mc, Lc, Jo, At, Rm, 1Co, 2Co, Gl, Ef, Fp, Cl, 1Ts, 2Ts, 1Tm, 2Tm, Tt, Fm, Hb, Tg, 1Pe, 2Pe, 1Jo, 2Jo, 3Jo, Jd, Ap
+
+---
+
+## Mira — Slides Animados
+
+### Pipeline Padrão
+
+```
+1. /mira-extract    → Extrair contexto do capítulo
+2. /mira-planner    → Planejar estrutura dos slides
+3. /mira-copywriter → Refinar textos dos slides
+4. /mira-builder    → Construir slides HTML
+5. /mira-animator   → Adicionar animações D3.js
+6. /mira-validator  → Validar slides gerados
+```
+
+### Regras de Animação
+
+- **TODA animação** entra com coreografia
+- **DEPOIS** continua em loop interno perpétuo
+- Animação estática é **PROIBIDA**
+- Use CSS variables: `var(--mira-primary)`, etc.
+
+---
+
+## CSS Variables do Tema
+
+Sempre use variáveis do tema:
+
+```css
+var(--mira-primary)      /* Laranja primário */
+var(--mira-secondary)    /* Azul secundário */
+var(--mira-accent)       /* Verde de destaque */
+var(--mira-bg-primary)   /* Fundo principal */
+var(--mira-bg-card)      /* Fundo dos cards */
+var(--mira-bg-glass)     /* Fundo glassmorphism */
+var(--mira-text-primary) /* Texto principal */
+var(--mira-text-muted)   /* Texto secundário */
+```
+
+---
+
+## Checklist de Qualidade
+
+- [ ] Acentuação 100% correta
+- [ ] Seguiu convenções de nomenclatura
+- [ ] Preservou estrutura de partes e capítulos
+- [ ] Animações têm loop interno
+- [ ] Usou CSS variables do tema
+
+---
+
+> *"Toda a Escritura é soprada por Deus e útil para o ensino, para a repreensão, para a correção e para a instrução na justiça."* — 2 Timóteo 3.16

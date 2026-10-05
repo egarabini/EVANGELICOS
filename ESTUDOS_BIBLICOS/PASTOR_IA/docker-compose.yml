@@ -1,0 +1,65 @@
+version: "3.9"
+
+# DAVID Pastoral -- Docker Compose (Fase 0 - CPU-only)
+# Portas ajustadas para nao conflitar com intellicare e hermes
+
+services:
+
+  # PostgreSQL na porta 5433 (5432 ja usada pelo intellicare-postgres)
+  postgres:
+    image: postgres:16-alpine
+    container_name: david_postgres
+    environment:
+      POSTGRES_DB: david_pastoral
+      POSTGRES_USER: david
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-david_dev_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U david -d david_pastoral"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ChromaDB na porta 8001 (8000 pode conflitar com outros servicos)
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: david_chromadb
+    volumes:
+      - chroma_data:/chroma/.chroma/index
+    ports:
+      - "8001:8000"
+    environment:
+      ANONYMIZED_TELEMETRY: "false"
+      CHROMA_SERVER_HOST: "0.0.0.0"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # NOTA: Nao subimos Ollama proprio -- reusamos o intellicare-ollama
+  # ja rodando na porta 11434!
+  # Se quiser Ollama isolado, descomente abaixo e use porta 11435:
+  #
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: david_ollama
+  #   volumes:
+  #     - ollama_models:/root/.ollama
+  #   ports:
+  #     - "11435:11434"
+  #   environment:
+  #     OLLAMA_NUM_PARALLEL: "2"
+  #     OLLAMA_MAX_LOADED_MODELS: "1"
+  #   restart: unless-stopped
+
+volumes:
+  postgres_data:
+    name: david_postgres_data
+  chroma_data:
+    name: david_chroma_data

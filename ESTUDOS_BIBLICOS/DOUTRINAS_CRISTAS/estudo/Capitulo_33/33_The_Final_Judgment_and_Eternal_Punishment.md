@@ -1,0 +1,201 @@
+# O Juízo Final e a Punição Eterna
+
+> **Capítulo 33**
+> O Juízo Final e a Punição Eterna
+
+## Perguntas centrais
+
+- Quem será julgado?
+- O que é o inferno?
+
+## I. Explicação e Base Bíblica
+
+### A. O Fato do Juízo Final
+
+As Escrituras afirmam com frequência que haverá um grande juízo final de crentes e incrédulos. Eles estarão diante do tribunal de Cristo em corpos ressuscitados e ouvirão a proclamação de seu destino eterno.
+
+O juízo final é retratado de forma vívida na visão de João em Apocalipse:
+
+> *Vi um grande trono branco e aquele que nele se assentava; de diante dele fugiram a terra e o céu, e não se achou lugar para eles. Vi também os mortos, grandes e pequenos, postos em pé diante do trono. Então, se abriram livros. Ainda outro livro, o livro da vida, foi aberto. E os mortos foram julgados segundo as suas obras, conforme o que estava escrito nos livros. O mar entregou os mortos que nele estavam; a morte e o além entregaram os mortos que neles estavam; e foram julgados, cada um segundo as suas obras. Então, a morte e o além foram lançados para dentro do lago de fogo. Esta é a segunda morte, o lago de fogo. E, se alguém não foi achado inscrito no livro da vida, esse foi lançado para dentro do lago de fogo.* (Ap 20.11–15)
+
+Muitas outras passagens ensinam este juízo final. Paulo diz aos filósofos gregos em Atenas que Deus "agora [...] notifica a todos os homens em toda parte que se arrependam; porquanto estabeleceu um dia em que há de julgar o mundo com justiça, por meio de um varão que destinou e acreditou diante de todos, ressuscitando-o dentre os mortos" (At 17.30–31). De modo semelhante, Paulo fala sobre "o dia da ira, quando se manifestar o justo juízo de Deus" (Rm 2.5). Outras passagens falam claramente de um vindouro dia de juízo (veja Mt 10.15; 11.22, 24; 12.36; 25.31–46; 1Co 4.5; Hb 6.2; 2Pe 2.4; Jd 6; et al.).
+
+Este juízo final é a culminação de muitos precursores nos quais Deus recompensou a justiça ou puniu a injustiça ao longo da história. Enquanto trouxe bênção e livramento do perigo àqueles que lhe foram fiéis — incluindo Abel, Noé, Abraão, Isaque, Jacó, Moisés, Davi e os fiéis entre o povo de Israel —, também, de tempos em tempos, trouxe juízo sobre aqueles que persistiram na desobediência e na incredulidade. Seus juízos incluíram o dilúvio, a dispersão do povo na torre de Babel, os juízos sobre Sodoma e Gomorra, e contínuos juízos ao longo da história, tanto sobre indivíduos (Rm 1.18–32) quanto sobre nações (Is 13–23; et al.) que persistiram no pecado. Além disso, no reino espiritual invisível, trouxe juízo sobre os anjos que pecaram (2Pe 2.4). Pedro nos lembra que os juízos de Deus têm sido executados periodicamente e com certeza, o que nos recorda que um juízo final ainda está por vir, pois "o Senhor sabe livrar da provação os piedosos e conservar os injustos sob castigo para o dia do juízo, especialmente aqueles que, seguindo a carne, andam em imundas paixões e menosprezam qualquer governo" (2Pe 2.9–10).
+
+### B. O Tempo do Juízo Final
+
+O juízo final ocorrerá após o milênio e a rebelião que acontece ao seu fim. João retrata o reino milenar e a remoção de Satanás da influência sobre a terra em Ap 20.1–6 (veja discussão no cap. 32) e, em seguida, diz que "quando, porém, se completarem os mil anos, Satanás será solto da sua prisão e sairá a seduzir as nações [...] a fim de reuni-las para a peleja" (Ap 20.7–8). Depois que Deus derrota decisivamente esta rebelião final (Ap 20.9–10), João nos diz que o julgamento se seguirá: "Vi um grande trono branco e aquele que nele se assentava" (v. 11).
+
+### C. A Natureza do Juízo Final
+
+#### 1. Jesus Cristo será o Juiz
+
+Paulo fala de "Jesus Cristo, que há de julgar vivos e mortos" (2Tm 4.1). Pedro diz que Jesus Cristo "é quem foi constituído por Deus Juiz de vivos e de mortos" (At 10.42; cf. 17.31; Mt 25.31–33). Este direito de agir como juiz sobre todo o universo é algo que o Pai concedeu ao Filho: "O Pai [...] lhe deu autoridade para julgar, porque é o Filho do Homem" (Jo 5.26–27).
+
+#### 2. Os incrédulos serão julgados
+
+É claro que todos os incrédulos estarão diante de Cristo para julgamento, pois este julgamento inclui "os mortos, grandes e pequenos" (Ap 20.12), e Paulo diz que "no dia da ira, quando se manifestar o justo juízo de Deus", "retribuirá a cada um segundo o seu procedimento [...] para os que são facciosos e não obedecem à verdade, antes obedecem à injustiça, haverá ira e indignação" (Rm 2.5–8).
+
+Este julgamento dos incrédulos incluirá graus de punição, pois lemos que os mortos foram julgados "segundo as suas obras" (Ap 20.12, 13), e este julgamento de acordo com o que as pessoas fizeram deve, portanto, envolver uma avaliação das obras realizadas.[^1] De modo semelhante, Jesus diz: "Aquele servo que soube a vontade do seu senhor e não se preparou, nem fez segundo a sua vontade, será castigado com muitos açoites; aquele, porém, que não soube e fez coisas dignas de açoites, será castigado com poucos açoites" (Lc 12.47–48). Quando Jesus diz às cidades de Corazim e Betsaida: "Haverá menos rigor para Tiro e Sidom, no dia do juízo, do que para vós" (Mt 11.22; cf. v. 24), ou quando diz que os escribas "receberão maior condenação" (Lc 20.47), ele indica que haverá graus de punição no último dia.
+
+Na verdade, cada má ação cometida será lembrada e levada em conta na punição que for imposta naquele dia, porque "no dia do juízo os homens darão conta de toda palavra frívola que proferirem" (Mt 12.36). Cada palavra falada, cada ação praticada será trazida à luz e receberá julgamento: "Porque Deus há de trazer a juízo todas as obras, até as que estão escondidas, quer sejam boas, quer sejam más" (Ec 12.14).
+
+Como esses versículos indicam, no dia do juízo os segredos dos corações das pessoas serão revelados e tornados públicos. Paulo fala do dia quando "Deus, por meio de Cristo Jesus, julgará os segredos dos homens" (Rm 2.16; cf. Lc 8.17). "Nada há encoberto que não venha a ser revelado, e oculto que não venha a ser conhecido. Porque tudo o que dissestes nas trevas será ouvido em plena luz; e o que dissestes aos ouvidos no interior da casa será proclamado dos eirados" (Lc 12.2–3).
+
+#### 3. Os crentes serão julgados
+
+Ao escrever aos cristãos, Paulo diz: "Todos estaremos diante do tribunal de Deus. [...] Assim, pois, cada um de nós dará contas de si mesmo a Deus" (Rm 14.10–12). Ele também diz aos coríntios: "Porque importa que todos nós compareçamos diante do tribunal de Cristo, para que cada um receba segundo o bem ou o mal que tiver feito por meio do corpo" (2Co 5.10; cf. Rm 2.6–11; Ap 20.12, 15). Além disso, a imagem do juízo final em Mt 25.31–46 inclui Cristo separando as ovelhas dos bodes e recompensando aqueles que recebem sua bênção.
+
+É importante perceber que este julgamento dos crentes será um julgamento para avaliar e conferir diferentes graus de recompensa (veja abaixo), mas o fato de que enfrentarão tal julgamento jamais deve fazer os crentes temerem que serão eternamente condenados. Jesus diz: "Quem ouve a minha palavra e crê naquele que me enviou tem a vida eterna, não entra em juízo, mas já passou da morte para a vida" (Jo 5.24). Aqui, "juízo" deve ser entendido no sentido de condenação eterna e morte, pois é contrastado com passar da morte para a vida. No dia do juízo final, mais do que em qualquer outro momento, é de suma importância que "agora, pois, nenhuma condenação há para os que estão em Cristo Jesus" (Rm 8.1). Assim, o dia do juízo pode ser descrito como aquele em que os crentes são recompensados e os incrédulos são punidos: "Na verdade, as nações se enfureceram; chegou, porém, a tua ira, e o tempo determinado para serem julgados os mortos, para dares a recompensa aos teus servos, os profetas, aos santos e aos que temem o teu nome, tanto pequenos como grandes, e para destruíres os que destroem a terra" (Ap 11.18).
+
+Será que todas as palavras e ações secretas dos crentes, e todos os seus pecados, também serão revelados naquele último dia? Poderíamos pensar inicialmente que sim, porque ao escrever aos crentes sobre o dia do juízo, Paulo diz que quando o Senhor vier, ele "trará à plena luz as coisas ocultas das trevas e manifestará os desígnios do coração; e, então, cada um receberá o seu louvor da parte de Deus" (1Co 4.5; cf. Cl 3.25). Por outro lado, este é um contexto que fala de "louvor" ou "comendação" (gr. *epainos*) que vem de Deus, de modo que pode não se referir a pecados. E outros versículos sugerem que Deus nunca mais chamará nossos pecados à memória: "Lançarás todos os nossos pecados nas profundezas do mar" (Mq 7.19); "Quanto dista o oriente do ocidente, assim afasta de nós as nossas transgressões" (Sl 103.12); "Eu, eu mesmo, sou o que apago as tuas transgressões por amor de mim, e dos teus pecados não me lembro" (Is 43.25); "Porque eu perdoarei as suas iniquidades e dos seus pecados jamais me lembrarei" (Hb 8.12; cf. 10.17).[^2]
+
+De qualquer forma, o fato de que compareceremos diante de Deus para que nossas vidas sejam avaliadas deve fornecer um motivo para uma vida piedosa. Paulo o usa dessa maneira em 2Co 5.9–10: "Também nos esforçamos para lhe ser agradáveis. Porque importa que todos nós compareçamos diante do tribunal de Cristo." Mas esta perspectiva jamais deve causar terror ou alarme aos crentes, porque mesmo os pecados que forem tornados públicos naquele dia serão tornados públicos como pecados que foram perdoados, e serão, assim, ocasião para dar glória a Deus pela riqueza de sua graça.
+
+As Escrituras também ensinam que haverá graus de recompensa para os crentes. Paulo encoraja os coríntios a ter cuidado em como constroem a igreja sobre o fundamento que já foi lançado — o próprio Jesus Cristo:
+
+> *Se alguém edifica sobre o fundamento com ouro, prata, pedras preciosas, madeira, feno, palha, a obra de cada um se manifestará; pois o Dia a demonstrará, porque será revelada pelo fogo, e o fogo provará qual seja a obra de cada um. Se a obra que alguém edificou permanecer, esse receberá galardão; se a obra de alguém se queimar, sofrerá dano; mas esse mesmo será salvo, todavia como que através do fogo.* (1Co 3.12–15)
+
+Paulo de modo semelhante diz dos cristãos que "importa que todos nós compareçamos diante do tribunal de Cristo, para que cada um receba segundo o bem ou o mal que tiver feito por meio do corpo" (2Co 5.10), implicando novamente graus de recompensa pelo que fizemos nesta vida. Da mesma forma, na parábola das minas, aquele que fez mais dez minas foi informado: "Pois te será dada autoridade sobre dez cidades", e aquele cuja mina rendera mais cinco minas foi informado: "E tu, sê autoridade sobre cinco cidades" (Lc 19.17, 19). Muitas outras passagens ensinam ou implicam igualmente graus de recompensa para os crentes no juízo final.[^3]
+
+Devemos, porém, guardar-nos contra equívocos nesse ponto: embora haja graus de recompensa no céu, a alegria de cada pessoa será plena e completa por toda a eternidade. Se perguntarmos como isso é possível quando há diferentes graus de recompensa, isso simplesmente revela que nossa percepção de felicidade está baseada na suposição de que ela depende do que possuímos, do status ou do poder que detemos. Na realidade, porém, nossa verdadeira felicidade consiste em deleitar-nos em Deus e regozijarmo-nos no status e no reconhecimento que ele nos concedeu. A tolice de pensar que somente aqueles que foram muito recompensados e receberam grande status serão plenamente felizes no céu fica evidente quando percebemos que, não importa quão grande seja a recompensa recebida, sempre haverá quem tenha recompensas maiores ou status e autoridade mais elevados, incluindo os apóstolos, as criaturas celestiais, e o próprio Jesus Cristo e Deus. Portanto, se o mais alto status fosse essencial para que as pessoas fossem plenamente felizes, ninguém além de Deus seria plenamente feliz no céu — o que é certamente uma ideia equivocada. Além disso, aqueles com maior recompensa e honra no céu, os mais próximos do trono de Deus, deleitam-se não em seu status, mas apenas no privilégio de prostrar-se diante do trono de Deus para adorá-lo (veja Ap 4.10–11).
+
+Seria moral e espiritualmente benéfico para nós ter uma consciência mais viva deste claro ensino do Novo Testamento sobre graus de recompensa celestial. Em vez de nos tornar competitivos entre si, isso nos levaria a ajudar e encorajar uns aos outros para que todos pudéssemos aumentar nossa recompensa celestial, pois Deus tem capacidade infinita de trazer bênção a todos nós, e somos todos membros uns dos outros (cf. 1Co 12.26–27). Atenderíamos com mais diligência à exortação do autor de Hebreus: "Consideremo-nos também uns aos outros, para nos estimularmos ao amor e às boas obras, não deixando de congregar-nos, como é costume de alguns; antes, admoestemo-nos uns aos outros, e tanto mais quanto vedes que o Dia se aproxima" (Hb 10.24–25). Além disso, em nossas próprias vidas, a busca sincera da futura recompensa celestial nos motivaria a trabalhar de todo coração para o Senhor em qualquer tarefa a que ele nos chame, seja grande ou pequena, remunerada ou não. Isso também nos faria ansiar por sua aprovação em vez de riqueza ou sucesso. E nos motivaria a trabalhar na edificação da igreja sobre o único fundamento, que é Jesus Cristo (1Co 3.10–15).
+
+#### 4. Os anjos serão julgados
+
+Pedro diz que os anjos rebeldes foram lançados em abismos de trevas "para serem reservados para juízo" (2Pe 2.4), e Judas diz que os anjos rebeldes têm sido guardados por Deus "para o juízo do grande dia" (Jd 6). Isso significa que pelo menos os anjos rebeldes — ou demônios — também estarão sujeitos a julgamento naquele último dia.
+
+As Escrituras não indicam claramente se os anjos justos passarão por algum tipo de avaliação de seu serviço, mas é possível que estejam incluídos na afirmação de Paulo: "Não sabeis que havemos de julgar os próprios anjos?" (1Co 6.3). É provável que isso inclua anjos justos, pois não há indicação no contexto de que Paulo esteja falando de demônios ou anjos caídos, e a palavra *anjos* sem qualificação adicional, no Novo Testamento, normalmente se refere a anjos justos. O texto, no entanto, não é suficientemente explícito para nos dar certeza.
+
+### D. A Necessidade do Juízo Final
+
+Visto que os crentes passam imediatamente para a presença de Deus quando morrem, e os incrédulos passam para um estado de separação de Deus e suportam punição quando morrem,[^4] podemos nos perguntar por que Deus estabeleceu um tempo de juízo final. Berkhof sabiamente aponta que o juízo final não tem como propósito permitir que Deus descubra a condição de nossos corações ou o padrão de conduta de nossas vidas, pois ele já conhece tudo isso em cada detalhe. Berkhof, antes, diz sobre o juízo final:
+
+> *Servirá ao propósito de exibir perante todas as criaturas racionais a glória declarativa de Deus num ato formal e forense, que engrandece, por um lado, sua santidade e justiça, e, por outro lado, sua graça e misericórdia. Além disso, deve-se ter em mente que o julgamento no último dia diferirá do da morte de cada indivíduo em mais de um aspecto. Não será secreto, mas público; não pertencerá somente à alma, mas também ao corpo; não terá referência a um único indivíduo, mas a todos os homens.*[^5]
+
+### E. A Justiça de Deus no Juízo Final
+
+As Escrituras afirmam claramente que Deus será inteiramente justo em seu julgamento e ninguém poderá reclamar contra ele naquele dia. Deus é aquele que "julga imparcialmente segundo as obras de cada um" (1Pe 1.17), e "Deus não trata as pessoas com parcialidade" (Rm 2.11; cf. Cl 3.25). Por esta razão, no último dia, "toda boca" será "silenciada", e todo o mundo estará "sujeito ao juízo de Deus" (Rm 3.19), sem que ninguém possa reclamar de ter sido tratado injustamente por Deus. Na verdade, uma das grandes bênçãos do juízo final será que os santos e os anjos verão demonstrada a absolutamente pura justiça de Deus, e isso será fonte de louvor a ele por toda a eternidade. Por ocasião do julgamento, haverá grande louvor no céu, pois João diz: "Ouvi uma como voz de numerosa multidão no céu, exclamando: Aleluia! A salvação, a glória e o poder são do nosso Deus, porque verdadeiros e justos são os seus juízos [...]" (Ap 19.1–2).
+
+### F. A Aplicação Moral do Juízo Final
+
+A doutrina do juízo final exerce várias influências morais positivas em nossas vidas.
+
+#### 1. A doutrina do juízo final satisfaz nosso senso interior de necessidade de justiça no mundo
+
+O fato de que haverá um juízo final nos assegura que, em última análise, o universo de Deus é justo, pois Deus está no controle, mantém registros precisos e profere julgamento justo. Quando Paulo diz aos escravos que sejam submissos a seus senhores, ele os assegura: "Aquele que faz injustiça receberá em troco a injustiça que fez; e nisto não há parcialidade" (Cl 3.25). Quando a descrição de um juízo final menciona o fato de que "livros foram abertos" (Ap 20.12; cf. Ml 3.16), isso nos lembra — quer os livros sejam literais ou simbólicos — que um registro permanente e preciso de todas as nossas ações foi mantido por Deus, e que, em última análise, todas as contas serão acertadas e tudo será endireitado.
+
+#### 2. A doutrina do juízo final nos capacita a perdoar os outros livremente
+
+Percebemos que não nos cabe vingar-nos daqueles que nos fizeram mal, nem mesmo desejar fazê-lo, porque Deus reservou esse direito para si mesmo. "Amados, nunca vos vingueis a vós mesmos, mas dai lugar à ira de Deus, porque está escrito: Minha é a vingança; eu retribuirei, diz o Senhor" (Rm 12.19). Dessa forma, sempre que formos injustiçados, podemos entregar nas mãos de Deus qualquer desejo de prejudicar ou retribuir à pessoa que nos fez mal, sabendo que toda injustiça no universo será finalmente paga — ou se descobrirá que foi paga por Cristo quando ele morreu na cruz (se o malfeitor se tornar cristão), ou será paga no juízo final (para aqueles que não confiam em Cristo para a salvação). Em ambos os casos, podemos entregar a situação nas mãos de Deus e orar para que o malfeitor confie em Cristo para a salvação e assim receba o perdão de seus pecados. Este pensamento deve nos impedir de abrigar amargura ou ressentimento em nossos corações por injustiças que sofremos e não foram corrigidas: Deus é justo, e podemos deixar essas situações em suas mãos, sabendo que ele um dia corrigirá todas as injustiças e dará recompensas e punições absolutamente justas. Assim, estamos seguindo o exemplo de Cristo, que "quando ultrajado, não revidava com ultraje; quando maltratado, não fazia ameaças, mas entregava-se àquele que julga retamente" (1Pe 2.22–23). Ele também orou: "Pai, perdoa-lhes, porque não sabem o que fazem" (Lc 23.34; cf. At 7.60, onde Estêvão seguiu o exemplo de Jesus ao orar por aqueles que o matavam).
+
+#### 3. A doutrina do juízo final fornece um motivo para uma vida justa
+
+Para os crentes, o juízo final é um incentivo à fidelidade e às boas obras — não como meio de ganhar o perdão dos pecados, mas como meio de obter maior recompensa eterna. Este é um motivo saudável e bom para nós — Jesus nos diz: "Ajuntai para vós outros tesouros no céu" (Mt 6.20) —, embora vá contra as visões populares de nossa cultura secular, uma cultura que genuinamente não crê no céu nem em recompensas eternas.
+
+Para os incrédulos, a doutrina do juízo final ainda fornece alguma restrição moral em suas vidas. Se numa sociedade há amplo reconhecimento geral de que todos darão contas um dia ao Criador do universo por suas vidas, algum "temor de Deus" caracterizará a vida de muitas pessoas. Em contraste, aqueles que não têm consciência profunda do juízo final entregam-se a males cada vez maiores, demonstrando que "não há temor de Deus diante de seus olhos" (Rm 3.18). Aqueles que negam o juízo final, diz Pedro, serão "escarnecedores" que "nos últimos dias, aparecerão escarnecendo, andando segundo as suas próprias paixões e dizendo: Onde está a promessa da sua vinda?" (2Pe 3.3–4). A consciência do juízo final é tanto um conforto para os crentes quanto uma advertência aos incrédulos para não continuarem em seus maus caminhos.
+
+#### 4. A doutrina do juízo final fornece um grande motivo para o evangelismo
+
+As decisões tomadas pelas pessoas nesta vida afetarão seu destino por toda a eternidade, e é justo que nossos corações sintam e nossas bocas ecoem o sentimento do apelo de Deus por meio de Ezequiel: "Convertei-vos, convertei-vos dos vossos maus caminhos; pois por que razão morreríeis, ó casa de Israel?" (Ez 33.11). Na verdade, Pedro indica que a demora da volta do Senhor se deve ao fato de que Deus "é longânimo para convosco, não querendo que nenhum pereça, senão que todos cheguem ao arrependimento" (2Pe 3.9).
+
+### G. O Inferno
+
+É apropriado discutir a doutrina do inferno em conexão com a doutrina do juízo final. Podemos definir inferno da seguinte forma:
+
+> **O inferno é um lugar de punição consciente eterna para os ímpios.**
+
+As Escrituras ensinam em várias passagens que tal lugar existe. No final da parábola dos talentos, o senhor diz: "Lançai, pois, o servo inútil para fora, nas trevas; ali haverá choro e ranger de dentes" (Mt 25.30). Esta é uma entre várias indicações de que haverá consciência de punição após o juízo final. De modo semelhante, no julgamento, o rei dirá a alguns: "Apartai-vos de mim, malditos, para o fogo eterno, preparado para o diabo e seus anjos" (Mt 25.41), e Jesus diz que aqueles assim condenados "irão para o castigo eterno, porém os justos, para a vida eterna" (Mt 25.46). Neste texto, o paralelismo entre "vida eterna" e "castigo eterno" indica que ambos os estados serão sem fim.
+
+Jesus refere-se ao inferno como "o fogo inextinguível" (Mc 9.43) e diz que o inferno é um lugar "onde o seu verme não morre, e o fogo não se apaga" (Mc 9.48). A história do rico e Lázaro também indica uma horrível consciência de punição: "Morreu também o rico e foi sepultado; no Hades, estando em tormentos, levantou os olhos e viu Abraão ao longe e Lázaro no seu seio. Então, clamando, disse: Pai Abraão, tem misericórdia de mim! E manda que Lázaro molhe a ponta do dedo em água e me refresque a língua, porque estou atormentado nesta chama" (Lc 16.22–24). Ele então implora a Abraão que envie Lázaro à casa de seu pai, "porque tenho cinco irmãos, para que lhes dê testemunho, a fim de que não venham também para este lugar de tormento" (Lc 16.28).
+
+Quando nos voltamos para o Apocalipse, as descrições dessa punição eterna são igualmente muito explícitas:
+
+> *Se alguém adora a besta e a sua imagem e recebe a sua marca na fronte ou sobre a mão, também esse beberá do vinho da cólera de Deus, preparado, sem mistura, do cálice da sua ira, e será atormentado com fogo e enxofre, diante dos santos anjos e na presença do Cordeiro. A fumaça do seu tormento sobe pelos séculos dos séculos; e não têm descanso, nem de dia nem de noite, os adoradores da besta e da sua imagem, e quem quer que receba a marca do seu nome.* (Ap 14.9–11)
+
+Esta passagem afirma de forma muito clara a ideia de punição consciente eterna dos incrédulos.
+
+Com respeito ao julgamento sobre a cidade ímpia da Babilônia, uma grande multidão no céu clama: "Aleluia! A fumaça dela sobe pelos séculos dos séculos" (Ap 19.3). Depois que a rebelião final de Satanás é esmagada, lemos: "O diabo, que os seduzia, foi lançado para dentro do lago de fogo e enxofre, onde já se encontram não só a besta como também o falso profeta; e serão atormentados de dia e de noite, pelos séculos dos séculos" (Ap 20.10). Esta passagem é também significativa em conexão com Mt 25.41, em que os incrédulos são enviados "para o fogo eterno, preparado para o diabo e seus anjos". Esses versículos devem nos fazer perceber a imensidão do mal que se encontra no pecado e na rebelião contra Deus, e a magnitude da santidade e da justiça de Deus que exigem esse tipo de punição.
+
+A ideia de que haverá punição consciente eterna dos incrédulos tem sido negada recentemente até mesmo por alguns teólogos evangélicos. Foi negada anteriormente pela Igreja Adventista do Sétimo Dia e por vários indivíduos ao longo da história da igreja. Aqueles que negam a punição consciente eterna frequentemente defendem o **aniquilacionismo** — um ensino de que, depois que os ímpios sofrerem a penalidade da ira de Deus por um tempo, Deus os "aniquilará" para que não mais existam. Muitos que creem no aniquilacionismo também defendem a realidade do juízo final e da punição pelo pecado, mas argumentam que depois que os pecadores sofrerem por um certo período de tempo, suportando a ira de Deus contra seu pecado, finalmente deixarão de existir. A punição será, portanto, "consciente", mas não será "eterna".
+
+Os argumentos apresentados a favor do aniquilacionismo são: (1) as referências bíblicas à destruição dos ímpios, que, segundo alguns, implicam que eles não mais existirão depois de destruídos (Fp 3.19; 1Ts 5.3; 2Ts 1.9; 2Pe 3.7; et al.); (2) a aparente inconsistência da punição consciente eterna com o amor de Deus; (3) a aparente injustiça envolvida na desproporção entre pecados cometidos no tempo e uma punição que é eterna; e (4) o fato de que a presença contínua de criaturas más no universo de Deus macularia eternamente a perfeição de um universo que Deus criou para refletir sua glória.
+
+Em resposta: (1) deve-se dizer que as passagens que falam de destruição (tais como Fp 3.19; 1Ts 5.3; 2Ts 1.9; 2Pe 3.7) não implicam necessariamente a cessação da existência, pois nestas passagens os termos usados para "destruição" não implicam necessariamente um deixar de existir ou algum tipo de aniquilação, podendo ser simplesmente formas de se referir aos efeitos prejudiciais e destrutivos do juízo final sobre os incrédulos.[^6]
+
+(2) Com respeito ao argumento do amor de Deus, a mesma dificuldade de reconciliar o amor de Deus com a punição eterna pareceria estar presente na tentativa de reconciliar o amor de Deus com a ideia de punição divina em absoluto. E, inversamente, se (como as Escrituras abundantemente testificam) é consistente que Deus puna os ímpios por um certo período de tempo após o último julgamento, não parece haver razão necessária pela qual seria inconsistente da parte de Deus infligir a mesma punição por um período interminável de tempo.
+
+Esse raciocínio pode levar algumas pessoas a adotar outro tipo de aniquilacionismo, um no qual não há sofrimento consciente algum, nem mesmo por um breve tempo, e a única punição é que os incrédulos cessam de existir depois que morrem. Mas, em resposta, pode-se questionar se esse tipo de aniquilação imediata pode realmente ser chamado de punição, já que não haveria consciência de dor. Na verdade, a garantia de que haveria uma cessação da existência pareceria a muitas pessoas — especialmente àquelas que estão sofrendo e em dificuldade nesta vida — ser, de certa forma, uma alternativa desejável. E se não houvesse punição alguma dos incrédulos, mesmo pessoas como Hitler e Stalin não teriam nada a sofrer, e não haveria justiça última no universo, dando às pessoas grande incentivo para serem tão más quanto possível nesta vida.
+
+(3) O argumento de que a punição eterna é injusta (porque há uma desproporção entre o pecado temporário e a punição eterna) pressupõe erroneamente que conhecemos a extensão do mal cometido quando os pecadores se rebelam contra Deus. David Kingdon observa que "o pecado contra o Criador é hediondo a um grau totalmente além da [capacidade de] nossa imaginação corrompida pelo pecado de conceber. [...] Quem teria a temeridade de sugerir a Deus qual deveria ser a punição [...]?"[^7] Ele também responde a essa objeção sugerindo que os incrédulos no inferno podem continuar pecando e recebendo punição por seu pecado, sem nunca se arrependendo, e observa que Ap 22.11 aponta nesta direção: "Continue o injusto na injustiça, e continue o imundo na imundícia."[^8]
+
+(4) A respeito do quarto argumento, embora o mal que permanece impune detraia da glória de Deus no universo, também devemos perceber que quando Deus pune o mal e triunfa sobre ele, a glória de sua justiça, retidão e poder para triunfar sobre toda oposição será manifestada (veja Rm 9.17, 22–24). A profundidade das riquezas da misericórdia de Deus também então será revelada, pois todos os pecadores redimidos reconhecerão que igualmente merecem tal punição de Deus e a evitaram somente pela graça de Deus por meio de Jesus Cristo (cf. Rm 9.23–24).
+
+No entanto, depois de tudo isso ter sido dito, temos de admitir que a resolução final das profundezas desta questão está muito além de nossa capacidade de entender e permanece oculta nos conselhos de Deus. Não fossem as passagens bíblicas citadas acima, que tão claramente afirmam a punição consciente eterna, o aniquilacionismo poderia parecer-nos uma opção atraente. Embora o aniquilacionismo possa ser combatido por argumentos teológicos, é em última análise a clareza e a força das próprias passagens que nos convencem de que o aniquilacionismo está equivocado e que as Escrituras de fato ensinam a punição consciente eterna dos ímpios.
+
+O que devemos pensar desta doutrina? É difícil — e deve ser difícil — para nós pensar nesta doutrina hoje. Se nossos corações nunca são movidos com profunda tristeza ao contemplarmos esta doutrina, então há uma grave deficiência em nossas sensibilidades espirituais e emocionais. Quando Paulo pensa na perdição de seus compatriotas judeus, ele diz: "Tenho grande tristeza e contínua dor no coração" (Rm 9.2). Isso é coerente com o que Deus nos diz de sua própria tristeza pela morte do ímpio: "Tão certo como eu vivo, diz o SENHOR Deus, não tenho prazer na morte do perverso, mas em que o perverso se converta do seu caminho e viva. Convertei-vos, convertei-vos dos vossos maus caminhos; pois por que razão morreríeis, ó casa de Israel?" (Ez 33.11). E a agonia de Jesus é evidente quando ele clama: "Jerusalém, Jerusalém, que matas os profetas e apedrejas os que te foram enviados! Quantas vezes quis eu reunir os teus filhos, como a galinha ajunta os seus pintinhos debaixo das asas, e vós não o quisestes! Eis que a vossa casa vos ficará deserta" (Mt 23.37–38; cf. Lc 19.41–42).
+
+A razão pela qual é difícil para nós pensar na doutrina do inferno é porque Deus colocou em nossos corações uma porção de seu próprio amor pelas pessoas criadas à sua imagem — até mesmo seu amor pelos pecadores que se rebelam contra ele. Enquanto estamos nesta vida e vemos e pensamos sobre outros que precisam ouvir o evangelho e confiar em Cristo para a salvação, isso deve nos causar grande angústia e agonia de espírito ao pensarmos sobre a punição eterna. No entanto, também devemos perceber que tudo o que Deus em sua sabedoria ordenou e ensinou nas Escrituras é justo e reto. Portanto, devemos ter cuidado para não odiar esta doutrina nem nos rebelar contra ela, mas devemos buscar, na medida do possível, chegar ao ponto em que reconhecemos que a punição eterna é boa e justa, porque em Deus não há injustiça alguma.
+
+Pode ajudar-nos perceber que se Deus não executasse a punição eterna, então, aparentemente, sua justiça não seria satisfeita e sua glória não seria promovida da maneira que ele considera sábia. E talvez também nos ajude perceber que, da perspectiva do mundo vindouro, há um reconhecimento muito maior da necessidade e da justeza da punição eterna. João ouve crentes mártires no céu clamarem: "Até quando, ó Soberano Senhor, santo e verdadeiro, não julgas, nem vingas o nosso sangue dos que habitam sobre a terra?" (Ap 6.10). Além disso, na destruição final da Babilônia, a voz de uma grande multidão no céu clama em louvor a Deus pela retidão de seu julgamento, ao finalmente verem a natureza hedionda do mal tal como ele realmente é: "Aleluia! A salvação, a glória e o poder são do nosso Deus, porque verdadeiros e justos são os seus juízos; pois ele julgou a grande meretriz que corrompia a terra com a sua prostituição e das mãos dela vingou o sangue dos seus servos. [...] Aleluia! A fumaça dela sobe pelos séculos dos séculos" (Ap 19.1–3). Assim que isso aconteceu, "os vinte e quatro anciãos e os quatro seres viventes prostraram-se e adoraram a Deus que se encontra sentado no trono, dizendo: Amém! Aleluia!" (Ap 19.4). Não podemos dizer que esta grande multidão de redimidos e os seres viventes no céu têm juízo moral equivocado quando louvam a Deus por executar justiça sobre o mal, pois todos estão livres do pecado e seus juízos morais são agradáveis a Deus. Eles devem ver muito mais claramente do que nós quão terrível o pecado realmente é.
+
+Nesta presente era, porém, só devemos nos aproximar de tal celebração da punição do mal quando meditamos sobre a punição eterna dada a Satanás e seus demônios. Quando pensamos neles, não os amamos instintivamente, embora também tenham sido criados por Deus. Mas agora estão totalmente devotados ao mal e além do alcance da redenção. Portanto, não podemos ansiar por sua salvação como ansiamos pela redenção de toda a humanidade. Devemos crer que a punição eterna é verdadeira e justa, mas também devemos ansiar que mesmo aqueles que perseguem mais severamente a igreja cheguem à fé em Cristo e assim escapem da condenação eterna.
+
+---
+
+## II. Perguntas para Revisão
+
+1. Forneça três evidências bíblicas para o juízo final.
+2. Quando ocorrerá o juízo final?
+3. Como o julgamento dos crentes será diferente do dos incrédulos? O julgamento dos crentes afetará sua posição legal diante de Deus? Explique.
+4. Nomeie quatro influências morais que a doutrina do juízo final deve ter em nossas vidas.
+5. Defina inferno e forneça apoio bíblico para sua existência.
+6. O que é "aniquilacionismo"? Este ensino é bíblico? Como você responderia a este ensino?
+
+---
+
+## III. Perguntas para Aplicação Pessoal
+
+1. Você já pensou que haverá um juízo final para os crentes? Como você pensa sobre isso agora? Como a consciência de que todos estaremos diante do tribunal de Cristo afeta sua vida hoje? O que você acha que sentirá ao ter todas as suas palavras e ações tornadas públicas naquele último dia? Há um elemento de temor ao contemplar aquele dia? Em caso afirmativo, medite em 1Jo 4.16–18.
+2. Você já pensou muito sobre ajuntar tesouros no céu ou sobre obter maior recompensa celestial? Se você realmente crê nesta doutrina, que tipo de efeito você acha que ela deveria ter em sua vida?
+3. Pense em alguns de seus amigos cristãos em sua igreja. Como você acha que se sentirá ao vê-los estar diante de Cristo no juízo final? Como eles se sentirão em relação a você naquele momento? A contemplação deste juízo futuro afeta a maneira como você pensa sobre sua comunhão uns com os outros como irmãos e irmãs em Cristo hoje? A doutrina do juízo final ajuda você a ser mais capaz de perdoar as pessoas?
+4. Você está satisfeito com o fato de que haverá um juízo final tanto de crentes quanto de incrédulos? Isso lhe dá um senso da justiça de Deus, ou você percebe alguma injustiça em toda a ideia?
+5. Você está convencido de que as Escrituras ensinam que haverá punição consciente eterna dos ímpios? Quando você pensa nessa ideia em relação a Satanás e aos demônios, você sente que é justa?
+
+---
+
+## IV. Termos Especiais
+
+- **aniquilacionismo**
+- **punição consciente eterna**
+- **juízo final**
+- **inferno**
+
+---
+
+## V. Passagem de Memorização das Escrituras
+
+**Apocalipse 20.11–13**
+
+> *Vi um grande trono branco e aquele que nele se assentava; de diante dele fugiram a terra e o céu, e não se achou lugar para eles. Vi também os mortos, grandes e pequenos, postos em pé diante do trono. Então, se abriram livros. Ainda outro livro, o livro da vida, foi aberto. E os mortos foram julgados segundo as suas obras, conforme o que estava escrito nos livros. O mar entregou os mortos que nele estavam; a morte e o além entregaram os mortos que neles estavam; e foram julgados, cada um segundo as suas obras.*
+
+---
+
+## Notas
+
+[^1]: O fato de que haverá graus de punição para os incrédulos de acordo com suas obras não significa que os incrédulos possam jamais fazer o bastante para merecer a aprovação de Deus ou ganhar a salvação, pois a salvação só vem como dom gratuito àqueles que confiam em Cristo: "Quem nele crê não é julgado; o que não crê já está julgado, porquanto não crê no nome do unigênito Filho de Deus" (Jo 3.18). Para uma discussão do fato de que não haverá "segunda chance" para as pessoas aceitarem Cristo depois que morrerem, veja cap. 25, pp. 355–56.
+
+[^2]: Eu havia negligenciado esta ênfase bíblica sobre o esquecimento de Deus de nossos pecados em minha *Teologia Sistemática* (p. 1144), mas ela foi chamada à minha atenção por meus alunos no Trinity Evangelical Divinity School. Este parágrafo é, portanto, uma revisão de minha posição anterior.
+
+[^3]: O ensino da Bíblia sobre graus de recompensa no céu é mais extenso do que os cristãos normalmente percebem: veja também Dn 12.2; Mt 6.20–21; 19.21; Lc 6.22–23; 12.18–21, 32, 42–48; 14.13–14; 1Co 3.8; 9.18; 13.3; 15.19, 29–32, 58; Gl 6.9–10; Ef 6.7–8; Cl 3.23–24; 1Tm 6.18; Hb 10.34, 35; 11.10, 14–16, 26, 35; 1Pe 1.4; 2Jo 8; Ap 11.18; 22.12; cf. também Mt 5.46; 6.2–6, 16–18, 24; Lc 6.35.
+
+[^4]: Veja cap. 25, pp. 352–55, para evidências que sustentam a ideia de que os crentes vão imediatamente para a presença de Deus quando morrem e os incrédulos vão imediatamente para um lugar de punição, separados de Deus. (Veja também Lc 16.24–26; Hb 9.27.)
+
+[^5]: Louis Berkhof, *Introduction to Systematic Theology* (Grand Rapids: Eerdmans, 1932; reimpressão, Grand Rapids: Baker, 1979), p. 731.
+
+[^6]: Em Fp 3.19 e 2Pe 3.7, o termo para "destruição" é *apōleia*, que é a mesma palavra usada pelos discípulos em Mt 26.8 para falar do "desperdício" (na visão deles) do ungüento que havia sido derramado sobre a cabeça de Jesus. Ora, o ungüento não deixou de existir; era muito evidente na cabeça de Jesus. Mas havia sido "destruído" no sentido de que não podia mais ser usado em outra pessoa, ou vendido. Em 1Ts 5.3 e 2Ts 1.9, outra palavra, *olethros*, é usada para a destruição dos ímpios, mas também esta palavra não implica que algo deixará de existir, pois é usada em 1Co 5.5 sobre entregar um homem a Satanás (colocá-lo fora da igreja) para a destruição da carne — mas certamente sua carne não deixou de existir quando foi colocado fora da igreja, mesmo que possa ter sofrido em seu corpo (isso seria verdade quer tomemos "carne" como significando seu corpo físico ou sua natureza pecaminosa).
+
+[^7]: David Kingdon, "Annihilationism: Gain or Loss?" (Março de 1992; artigo não publicado obtido do autor), p. 9.
+
+[^8]: Ibid., pp. 9–10.

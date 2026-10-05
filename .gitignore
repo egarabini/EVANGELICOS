@@ -1,0 +1,46 @@
+# ============================================================
+# EVANGELICOS — o que NAO deve ser versionado
+# Conteudo proprio protegido: ver backup EVANGELICOS-backup-*.zip
+# ============================================================
+
+# --- Dependencias e ambientes virtuais (regeneraveis) ---
+.venv/
+venv/
+env/
+node_modules/
+
+# --- Caches e artefatos de build ---
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Reflex ---
+.web/
+.states/
+*.db
+
+# --- Segredos (NUNCA versionar) ---
+.env
+.env.*
+!.env.example
+
+# --- Corpus biblico de terceiros (378 MB) ---
+# Clone publico: github.com/ameisehaufen/BibleMarkdown
+# Re-obtenivel; preservado no backup .zip
+ESTUDOS_BIBLICOS/PASTOR_IA/rag/biblia/sources/BibleMarkdown/
+
+# --- Videos de fundo vazios (0 bytes) ---
+ESTUDOS_BIBLICOS/*/decks/*/header-bg.mp4
+ESTUDOS_BIBLICOS/*/estudo_dirigido/*/deck/header-bg.mp4
+
+# --- Backups locais e lixeira do Obsidian ---
+EVANGELICOS-backup-*.zip
+.obsidian/workspace.json
+.trash/
+
+# --- Sistema operacional ---
+Thumbs.db
+desktop.ini
+.DS_Store

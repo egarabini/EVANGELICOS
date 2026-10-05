@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Providência de Deus | Doutrina Bíblica</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --mira-primary: #FF904D;
+      --mira-primary-rgb: 255, 144, 77;
+      --mira-bg: #000000;
+      --mira-text: #f8fafc;
+      --mira-muted: #cbd5e1;
+      --mira-line: rgba(255, 144, 77, 0.24);
+      --mira-card: rgba(15, 23, 42, 0.68);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--mira-text);
+      background: #000000;
+      background-image:
+        radial-gradient(circle at 16% 12%, rgba(var(--mira-primary-rgb), 0.16), transparent 34rem),
+        radial-gradient(circle at 82% 20%, rgba(255,255,255,0.07), transparent 28rem),
+        linear-gradient(180deg, #000000 0%, #020617 48%, #000000 100%);
+      overflow-x: hidden;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 92vh;
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 6rem 1.5rem 7rem;
+    }
+
+    .hero video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.5;
+      filter: saturate(0.78) contrast(1.12);
+    }
+
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.34) 45%, rgba(0,0,0,0.94) 100%),
+        radial-gradient(circle at center, rgba(var(--mira-primary-rgb), 0.15), transparent 36rem);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1080px, 100%);
+      text-align: center;
+    }
+
+    .logo {
+      width: 92px;
+      height: auto;
+      margin: 0 auto 2rem;
+      opacity: 0.92;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .55rem .9rem;
+      border: 1px solid var(--mira-line);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.36);
+      color: var(--mira-primary);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: .76rem;
+      letter-spacing: .08em;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.1rem, 7.4vw, 7.4rem);
+      line-height: .92;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .hero-subtitle {
+      max-width: 880px;
+      margin: 1.5rem auto 0;
+      font-size: clamp(1.12rem, 2.05vw, 1.65rem);
+      color: var(--mira-muted);
+      line-height: 1.55;
+    }
+
+    .hero-question {
+      margin: 2.2rem auto 0;
+      max-width: 800px;
+      padding: 1.1rem 1.3rem;
+      border-top: 1px solid var(--mira-line);
+      border-bottom: 1px solid var(--mira-line);
+      color: #fff7ed;
+      font-size: clamp(1rem, 1.7vw, 1.24rem);
+      font-weight: 700;
+    }
+
+    .hero-next {
+      position: absolute;
+      z-index: 3;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid var(--mira-line);
+      background: rgba(0, 0, 0, 0.5);
+      color: var(--mira-primary);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .hero-next:hover { transform: translateX(-50%) translateY(-3px); background: rgba(var(--mira-primary-rgb), .14); }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 60vh;
+      padding: 10vh 1rem 18vh;
+    }
+
+    .glass-card {
+      width: min(100%, 64rem);
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: clamp(2rem, 4vw, 3.5rem);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.11);
+      background:
+        linear-gradient(145deg, rgba(15,23,42,.78), rgba(2,6,23,.74)),
+        radial-gradient(circle at top left, rgba(var(--mira-primary-rgb), .12), transparent 22rem);
+      box-shadow: 0 24px 90px rgba(0,0,0,.5);
+      backdrop-filter: blur(10px);
+      min-height: 520px;
+      display: grid;
+      align-content: center;
+    }
+
+    .card-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      color: var(--mira-primary);
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: clamp(2.1rem, 4.4vw, 4.2rem);
+      line-height: .98;
+      font-weight: 900;
+      margin: 0 0 1rem;
+      letter-spacing: 0;
+    }
+
+    .card-lead {
+      color: var(--mira-muted);
+      font-size: clamp(1.05rem, 1.65vw, 1.32rem);
+      line-height: 1.65;
+      max-width: 850px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, .95fr);
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
+    }
+
+    .icon-hero {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: var(--mira-primary);
+      background: rgba(var(--mira-primary-rgb), .11);
+      border: 1px solid var(--mira-line);
+      margin-bottom: 1.25rem;
+    }
+
+    .attribute-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 1.6rem;
+    }
+
+    .attribute-pills span, .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      min-height: 38px;
+      padding: .55rem .82rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: #fff7ed;
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .visual-stage {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      min-height: 340px;
+      border-radius: 22px;
+      border: 1px solid var(--mira-line);
+      background:
+        radial-gradient(circle at center, rgba(var(--mira-primary-rgb), .14), transparent 55%),
+        rgba(0,0,0,.28);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .visual-stage svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .grid-2, .grid-3 {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .mini-card {
+      min-height: 158px;
+      border-radius: 18px;
+      padding: 1.15rem;
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(255,255,255,.055);
+    }
+
+    .mini-card strong {
+      display: block;
+      color: #fff;
+      font-size: 1.05rem;
+      margin-bottom: .55rem;
+    }
+
+    .mini-card p {
+      color: var(--mira-muted);
+      line-height: 1.48;
+      margin: 0;
+      font-size: .94rem;
+    }
+
+    .quote {
+      font-size: clamp(1.55rem, 3vw, 3.05rem);
+      line-height: 1.22;
+      font-weight: 900;
+      color: #fff7ed;
+      margin: 1.2rem 0;
+    }
+
+    .reference {
+      color: var(--mira-primary);
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      min-height: 46vh;
+      display: grid;
+      place-items: center;
+      padding: 5rem 1rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: var(--mira-muted);
+      text-align: center;
+    }
+
+    footer img { width: 78px; margin: 0 auto 1rem; opacity: .9; }
+
+    #reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0%;
+      z-index: 90;
+      background: linear-gradient(90deg, var(--mira-primary), #ffffff);
+      box-shadow: 0 0 18px rgba(var(--mira-primary-rgb), .7);
+    }
+
+    #next-card {
+      position: fixed;
+      right: 1.2rem;
+      bottom: 1.2rem;
+      z-index: 80;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 1px solid var(--mira-line);
+      background: rgba(2,6,23,.82);
+      color: var(--mira-primary);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+      cursor: pointer;
+    }
+
+    .full-screen-wrapper { width: 100%; }
+    .svg-label { fill: #fff7ed; font-weight: 800; font-size: 15px; text-anchor: middle; }
+    .svg-small { fill: #cbd5e1; font-weight: 700; font-size: 11px; text-anchor: middle; }
+
+    @media (max-width: 900px) {
+      .split, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .glass-card { min-height: auto; }
+      .visual-stage { min-height: 300px; }
+      main { gap: 38vh; }
+    }
+
+    @media (max-width: 520px) {
+      .hero { min-height: 88vh; padding-top: 4.5rem; }
+      .logo { width: 72px; }
+      .glass-card { border-radius: 18px; padding: 1.35rem; }
+      .mini-card { min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div id="reading-progress"></div>
+
+  <header class="hero" id="top">
+    <video src="header-bg.mp4" autoplay muted loop playsinline></video>
+    <div class="video-overlay"></div>
+    <div class="hero-inner" data-aos="fade-up">
+      <img src="canal_sandeco_logo.png" alt="Canal Sandeco" class="logo" />
+      <div class="eyebrow"><i data-lucide="route"></i> Doutrina Bíblica 08</div>
+      <h1>A Providência de Deus</h1>
+      <p class="hero-subtitle">Deus preserva, coopera e governa tudo o que criou, sem apagar a realidade das nossas escolhas e responsabilidades.</p>
+      <div class="hero-question">Se Deus controla todas as coisas, como nossas ações ainda têm significado real?</div>
+    </div>
+    <button class="hero-next" id="header-next-btn" aria-label="Ir para o primeiro card"><i data-lucide="chevron-down"></i></button>
+  </header>
+
+  <main>
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="split">
+        <div>
+          <div class="icon-hero"><i data-lucide="hand"></i></div>
+          <div class="card-kicker">Preservação</div>
+          <h2 class="card-title">Deus sustenta tudo</h2>
+          <p class="card-lead">A criação não segue existindo por inércia. Cristo conduz continuamente todas as coisas pela palavra do seu poder.</p>
+          <div class="attribute-pills">
+            <span>Hebreus 1.3</span>
+            <span>Colossenses 1.17</span>
+            <span>Atos 17.28</span>
+          </div>
+        </div>
+        <div class="visual-stage" id="anim-preservation" data-anim="animatePreservation"><!-- @MIRA:SIZE 5/10 --></div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="card-kicker"><i data-lucide="list-checks"></i> Definição</div>
+      <h2 class="card-title">Três verbos da providência</h2>
+      <p class="card-lead">Providência resume o relacionamento contínuo de Deus com sua criação. Não é distância, nem improviso, nem acaso.</p>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>Preserva</strong>
+          <p>Deus mantém todas as coisas existindo com suas propriedades criadas.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Coopera</strong>
+          <p>Deus age em cada ação por meio das causas criadas.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Governa</strong>
+          <p>Deus dirige todas as coisas para seus propósitos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="split">
+        <div>
+          <div class="icon-hero"><i data-lucide="git-branch"></i></div>
+          <div class="card-kicker">Concorrência</div>
+          <h2 class="card-title">Deus age por meios</h2>
+          <p class="card-lead">A chuva tem causas naturais reais. A grama cresce por processos reais. Ainda assim, a Escritura afirma que Deus faz essas coisas acontecerem.</p>
+          <div class="attribute-pills">
+            <span>causa primária</span>
+            <span>causas secundárias</span>
+            <span>100% e 100%</span>
+          </div>
+        </div>
+        <div class="visual-stage" id="anim-concurrence" data-anim="animateConcurrence"><!-- @MIRA:SIZE 5/10 --></div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="split">
+        <div>
+          <div class="icon-hero"><i data-lucide="globe-2"></i></div>
+          <div class="card-kicker">Governo</div>
+          <h2 class="card-title">Nada cai fora</h2>
+          <p class="card-lead">Natureza, animais, sorte, nações, passos, talentos e decisões aparecem sob o cuidado providencial de Deus.</p>
+          <div class="attribute-pills">
+            <span>Salmo 104</span>
+            <span>Provérbios 16.33</span>
+            <span>Efésios 1.11</span>
+          </div>
+        </div>
+        <div class="visual-stage" id="anim-government" data-anim="animateGovernment"><!-- @MIRA:SIZE 5/10 --></div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="card-kicker"><i data-lucide="shield-alert"></i> O mal</div>
+      <h2 class="card-title">O mal não vence</h2>
+      <p class="card-lead">A história de José mostra a tensão bíblica sem dissolvê-la: pessoas pecam de verdade, Deus não é culpado pelo mal, e seu propósito bom prevalece.</p>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Vocês intentaram o mal</strong>
+          <p>A responsabilidade humana permanece intacta diante de Deus.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Deus o tornou em bem</strong>
+          <p>A soberania divina governa até aquilo que criaturas fazem contra sua vontade revelada.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="card-kicker"><i data-lucide="footprints"></i> Aplicação</div>
+      <h2 class="card-title">Responsabilidade permanece real</h2>
+      <p class="card-lead">Providência não cancela obediência, prudência, trabalho, estudo, arrependimento e coragem. Deus ordena fins e também ordena meios.</p>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>Obedeça</strong>
+          <p>Suas escolhas têm resultados reais diante de Deus.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Use meios</strong>
+          <p>Planejamento e prudência são instrumentos comuns da providência.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Confie</strong>
+          <p>O controle de Deus sustenta a ação, não a preguiça.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="split">
+        <div>
+          <div class="icon-hero"><i data-lucide="map"></i></div>
+          <div class="card-kicker">Sem fatalismo</div>
+          <h2 class="card-title">Confiança que anda</h2>
+          <p class="card-lead">A providência bíblica une dependência total e passos responsáveis. O cristão ora, age e descansa no governo sábio de Deus.</p>
+          <div class="attribute-pills">
+            <span>oração</span>
+            <span>ação</span>
+            <span>descanso</span>
+          </div>
+        </div>
+        <div class="visual-stage" id="anim-path" data-anim="animatePath"><!-- @MIRA:SIZE 5/10 --></div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="split">
+        <div>
+          <div class="icon-hero"><i data-lucide="message-circle-heart"></i></div>
+          <div class="card-kicker">Oração</div>
+          <h2 class="card-title">A oração muda eventos</h2>
+          <p class="card-lead">Deus ordenou a oração como meio real. Muitas mudanças acontecem porque Deus decidiu agir por meio do clamor do seu povo.</p>
+          <div class="attribute-pills">
+            <span>Tiago 4.2</span>
+            <span>João 16.24</span>
+            <span>intercessão</span>
+          </div>
+        </div>
+        <div class="visual-stage" id="anim-prayer" data-anim="animatePrayer"><!-- @MIRA:SIZE 5/10 --></div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="card-kicker"><i data-lucide="scale"></i> Debate evangélico</div>
+      <h2 class="card-title">Duas leituras em tensão</h2>
+      <p class="card-lead">O capítulo compara preocupações reformadas e arminianas. A questão central é como manter soberania divina, santidade de Deus e escolhas humanas significativas.</p>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Ênfase reformada</strong>
+          <p>Deus governa todos os detalhes, e as escolhas humanas continuam reais e responsáveis.</p>
+        </div>
+        <div class="mini-card">
+          <strong>Ênfase arminiana</strong>
+          <p>Deus responde às escolhas humanas para preservar uma liberdade definida como não causada.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass-card max-w-5xl p-10" data-aos="fade-up">
+      <div class="card-kicker"><i data-lucide="book-open-check"></i> Memorização</div>
+      <h2 class="card-title">Todas as coisas cooperam</h2>
+      <p class="quote">“Sabemos que todas as coisas cooperam para o bem daqueles que amam a Deus.”</p>
+      <p class="card-lead">Providência não promete que tudo será simples. Promete que nada será desperdiçado nas mãos do Pai sábio e amoroso.</p>
+      <div class="reference">Romanos 8.28</div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <img src="canal_sandeco_logo.png" alt="Canal Sandeco" />
+      <p>Doutrina Bíblica, Capítulo 08</p>
+    </div>
+  </footer>
+
+  <button id="next-card" aria-label="Próximo card"><i data-lucide="chevron-down"></i></button>
+
+  <script>
+    AOS.init({ duration: 750, once: false, easing: "ease-out-cubic" });
+    lucide.createIcons();
+
+    const primary = "#FF904D";
+    const primarySoft = "rgba(255, 144, 77, 0.42)";
+    const text = "#fff7ed";
+    const muted = "#cbd5e1";
+
+    function fitSvg(container) {
+      const rect = container.getBoundingClientRect();
+      const size = Math.max(320, Math.min(rect.width || 420, rect.height || 420));
+      d3.select(container).selectAll("*").remove();
+      return d3.select(container).append("svg").attr("viewBox", `0 0 ${size} ${size}`).attr("preserveAspectRatio", "xMidYMid meet");
+    }
+
+    function animatePreservation(container) {
+      const svg = fitSvg(container);
+      const size = svg.attr("viewBox").split(" ").map(Number)[2];
+      const cx = size / 2, cy = size / 2;
+      const g = svg.append("g").attr("opacity", 0);
+      g.transition().duration(700).attr("opacity", 1);
+      const rings = [60, 105, 150];
+      rings.forEach((r, i) => g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", r).attr("fill", "none").attr("stroke", i === 1 ? primary : "rgba(255,255,255,.24)").attr("stroke-dasharray", "5 9"));
+      g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 42).attr("fill", "rgba(255,144,77,.14)").attr("stroke", primary).attr("stroke-width", 2);
+      g.append("text").attr("x", cx).attr("y", cy - 4).attr("class", "svg-label").text("Cristo");
+      g.append("text").attr("x", cx).attr("y", cy + 18).attr("class", "svg-small").text("sustenta");
+      const stars = d3.range(32).map((_, i) => ({ a: i * Math.PI * 2 / 32, r: rings[i % 3], s: 2 + Math.random() * 3 }));
+      const orbit = g.append("g").attr("transform", `translate(${cx},${cy})`);
+      orbit.selectAll("circle").data(stars).enter().append("circle").attr("cx", d => Math.cos(d.a) * d.r).attr("cy", d => Math.sin(d.a) * d.r).attr("r", d => d.s).attr("fill", (_, i) => i % 5 === 0 ? "#fff" : primary).attr("opacity", .82);
+      function loop() {
+        orbit.transition().duration(8500).ease(d3.easeLinear).attrTween("transform", () => d3.interpolateString(`translate(${cx},${cy}) rotate(0)`, `translate(${cx},${cy}) rotate(360)`)).on("end", loop);
+      }
+      loop();
+    }
+
+    function animateConcurrence(container) {
+      const svg = fitSvg(container);
+      const size = svg.attr("viewBox").split(" ").map(Number)[2];
+      const g = svg.append("g").attr("opacity", 0);
+      g.transition().duration(700).attr("opacity", 1);
+      const y = size * .58;
+      const nodes = [
+        { label: "nuvem", x: size * .18, y },
+        { label: "chuva", x: size * .38, y },
+        { label: "solo", x: size * .58, y },
+        { label: "fruto", x: size * .78, y }
+      ];
+      g.append("path").attr("d", `M${size*.12},${size*.25} C${size*.32},${size*.08} ${size*.68},${size*.08} ${size*.88},${size*.25}`).attr("fill", "none").attr("stroke", primary).attr("stroke-width", 3).attr("stroke-dasharray", "8 10");
+      g.append("text").attr("x", size / 2).attr("y", size * .19).attr("class", "svg-label").text("causa primária");
+      nodes.forEach((n, i) => {
+        if (i < nodes.length - 1) g.append("line").attr("x1", n.x + 27).attr("y1", y).attr("x2", nodes[i+1].x - 27).attr("y2", y).attr("stroke", "rgba(255,255,255,.25)").attr("stroke-width", 2);
+        const node = g.append("g").attr("transform", `translate(${n.x},${n.y}) scale(.2)`).attr("opacity", 0);
+        node.transition().delay(i * 150).duration(520).attr("transform", `translate(${n.x},${n.y}) scale(1)`).attr("opacity", 1);
+        node.append("circle").attr("r", 33).attr("fill", "rgba(255,255,255,.07)").attr("stroke", primary);
+        node.append("text").attr("class", "svg-small").attr("y", 4).text(n.label);
+      });
+      const dot = g.append("circle").attr("r", 6).attr("fill", primary);
+      function travel() {
+        dot.attr("cx", nodes[0].x).attr("cy", y).attr("opacity", 1)
+          .transition().duration(3000).ease(d3.easeSinInOut).attr("cx", nodes[3].x).attr("cy", y)
+          .transition().duration(500).attr("opacity", 0).on("end", travel);
+      }
+      travel();
+    }
+
+    function animateGovernment(container) {
+      const svg = fitSvg(container);
+      const size = svg.attr("viewBox").split(" ").map(Number)[2];
+      const cx = size / 2, cy = size / 2;
+      const labels = ["natureza", "animais", "acaso", "nações", "passos", "talentos"];
+      const g = svg.append("g").attr("opacity", 0);
+      g.transition().duration(700).attr("opacity", 1);
+      g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 48).attr("fill", "rgba(255,144,77,.15)").attr("stroke", primary).attr("stroke-width", 2);
+      g.append("text").attr("x", cx).attr("y", cy - 4).attr("class", "svg-label").text("vontade");
+      g.append("text").attr("x", cx).attr("y", cy + 18).attr("class", "svg-small").text("de Deus");
+      const orbit = g.append("g").attr("transform", `translate(${cx},${cy})`);
+      labels.forEach((label, i) => {
+        const a = i * Math.PI * 2 / labels.length;
+        const x = Math.cos(a) * 145;
+        const y = Math.sin(a) * 145;
+        const node = orbit.append("g").attr("transform", `translate(${x},${y})`);
+        node.append("circle").attr("r", 33).attr("fill", "rgba(255,255,255,.06)").attr("stroke", "rgba(255,255,255,.22)");
+        node.append("text").attr("class", "svg-small").attr("y", 4).text(label);
+        orbit.append("line").attr("x1", 0).attr("y1", 0).attr("x2", x * .75).attr("y2", y * .75).attr("stroke", primarySoft).attr("stroke-dasharray", "3 8");
+      });
+      function spin() {
+        orbit.transition().duration(12000).ease(d3.easeLinear).attrTween("transform", () => d3.interpolateString(`translate(${cx},${cy}) rotate(0)`, `translate(${cx},${cy}) rotate(360)`)).on("end", spin);
+      }
+      spin();
+    }
+
+    function animatePath(container) {
+      const svg = fitSvg(container);
+      const size = svg.attr("viewBox").split(" ").map(Number)[2];
+      const g = svg.append("g").attr("opacity", 0);
+      g.transition().duration(700).attr("opacity", 1);
+      const path = `M${size*.14},${size*.72} C${size*.28},${size*.46} ${size*.42},${size*.84} ${size*.56},${size*.54} S${size*.78},${size*.3} ${size*.88},${size*.18}`;
+      g.append("path").attr("d", path).attr("fill", "none").attr("stroke", "rgba(255,255,255,.22)").attr("stroke-width", 12).attr("stroke-linecap", "round");
+      g.append("path").attr("d", path).attr("fill", "none").attr("stroke", primary).attr("stroke-width", 3).attr("stroke-dasharray", "8 12").attr("stroke-linecap", "round");
+      g.append("text").attr("x", size*.26).attr("y", size*.26).attr("class", "svg-label").text("Deus dirige");
+      g.append("text").attr("x", size*.72).attr("y", size*.78).attr("class", "svg-small").text("nós caminhamos");
+      const walker = g.append("circle").attr("r", 11).attr("fill", primary).attr("filter", "drop-shadow(0 0 12px rgba(255,144,77,.75))");
+      const pathNode = g.select("path").node();
+      function walk() {
+        walker.transition().duration(4200).ease(d3.easeSinInOut).attrTween("transform", () => {
+          const l = pathNode.getTotalLength();
+          return t => {
+            const p = pathNode.getPointAtLength(t * l);
+            return `translate(${p.x},${p.y})`;
+          };
+        }).transition().duration(500).attr("opacity", 0).transition().duration(300).attr("opacity", 1).on("end", walk);
+      }
+      walk();
+    }
+
+    function animatePrayer(container) {
+      const svg = fitSvg(container);
+      const size = svg.attr("viewBox").split(" ").map(Number)[2];
+      const cx = size / 2, cy = size / 2;
+      const g = svg.append("g").attr("opacity", 0);
+      g.transition().duration(700).attr("opacity", 1);
+      g.append("circle").attr("cx", cx).attr("cy", cy - 120).attr("r", 42).attr("fill", "rgba(255,144,77,.14)").attr("stroke", primary);
+      g.append("text").attr("x", cx).attr("y", cy - 116).attr("class", "svg-label").text("Deus");
+      g.append("circle").attr("cx", cx).attr("cy", cy + 118).attr("r", 42).attr("fill", "rgba(255,255,255,.06)").attr("stroke", "rgba(255,255,255,.28)");
+      g.append("text").attr("x", cx).attr("y", cy + 122).attr("class", "svg-label").text("oração");
+      g.append("line").attr("x1", cx).attr("y1", cy + 78).attr("x2", cx).attr("y2", cy - 78).attr("stroke", primarySoft).attr("stroke-width", 3).attr("stroke-dasharray", "7 10");
+      const request = g.append("circle").attr("cx", cx).attr("cy", cy + 78).attr("r", 6).attr("fill", primary);
+      const answer = g.append("circle").attr("cx", cx).attr("cy", cy - 78).attr("r", 6).attr("fill", "#fff").attr("opacity", 0);
+      function pray() {
+        request.attr("cy", cy + 78).attr("opacity", 1).transition().duration(1500).attr("cy", cy - 78).attr("opacity", .2);
+        answer.attr("cy", cy - 78).attr("opacity", 0).transition().delay(1600).duration(1500).attr("cy", cy + 78).attr("opacity", 1).transition().duration(500).attr("opacity", 0).on("end", pray);
+      }
+      pray();
+    }
+
+    const animationMap = { animatePreservation, animateConcurrence, animateGovernment, animatePath, animatePrayer };
+
+    function setupFullScreenWrappers() {
+      document.querySelectorAll(".visual-stage").forEach(stage => {
+        if (!stage.parentElement.classList.contains("full-screen-wrapper")) {
+          const wrapper = document.createElement("div");
+          wrapper.className = "full-screen-wrapper";
+          stage.parentNode.insertBefore(wrapper, stage);
+          wrapper.appendChild(stage);
+        }
+      });
+    }
+
+    function setupAnimationTriggers() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          if (el.dataset.started === "true") return;
+          const fn = animationMap[el.dataset.anim];
+          if (fn) {
+            el.dataset.started = "true";
+            fn(el);
+          }
+        });
+      }, { threshold: 0.45 });
+
+      document.querySelectorAll("[data-anim]").forEach(el => observer.observe(el));
+    }
+
+    function cards() {
+      return Array.from(document.querySelectorAll(".glass-card"));
+    }
+
+    function goNext() {
+      const all = cards();
+      const y = window.scrollY + window.innerHeight * .32;
+      const next = all.find(card => card.offsetTop > y);
+      if (next) next.scrollIntoView({ behavior: "smooth", block: "center" });
+      else window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function updateProgress() {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+      document.getElementById("reading-progress").style.width = `${pct}%`;
+    }
+
+    setupFullScreenWrappers();
+    setupAnimationTriggers();
+    document.getElementById("next-card").addEventListener("click", goNext);
+    document.getElementById("header-next-btn").addEventListener("click", () => {
+      const first = document.querySelector(".glass-card");
+      if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+  </script>
+</body>
+</html>
