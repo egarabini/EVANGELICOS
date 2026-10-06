@@ -1,3 +1,14 @@
+> ## 🏛️ Esta árvore é DERIVADA
+>
+> A **fonte de verdade** do conteúdo teológico é `Grudem_Doutrina_Biblica/`
+> (decisão do ARQUITETO, 2026-10-05). Esta árvore é a cópia operacional
+> expandida: traz os planos de estudo dirigido mais refinados e os decks, mas
+> **não** preserva as variantes `_EN`/`_PT` do texto.
+>
+> Para corrigir **conteúdo**, trabalhe em `Grudem_Doutrina_Biblica/`.
+> Aqui se trabalha em **produtos derivados** (planos, decks, estudo dirigido).
+
+---
 # Teologia Sistemática — Wayne Grudem
 
 > **Manual de Doutrinas Cristãs | Teologia ao Alcance de Todos**

@@ -1,4 +1,25 @@
-# Teologia Sistemática — Wayne Grudem
+## 🏛️ Árvore canônica de conteúdo (decisão do ARQUITETO, 2026-10-05)
+
+**Esta árvore é a FONTE DE VERDADE do conteúdo teológico.** Todo o restante é derivado.
+
+Camadas editoriais desta árvore:
+
+| Arquivo | Papel | Pode editar? |
+|---|---|---|
+| `*_EN.md` | Original em inglês — fonte primária intocável | ❌ Não |
+| `*_PT.md` | Tradução histórica preservada | ❌ Não |
+| `*_PT_v1.md` | Texto português para estudo e produção | ✅ Sim |
+
+Regras:
+
+- Novas correções de **conteúdo** partem daqui.
+- `DOUTRINAS_CRISTAS/` e `TEOLOGIA_SISTEMATICA/` são **derivadas** (cópia
+  operacional expandida e reorganização pelo template, respectivamente).
+- Decks e planos de estudo dirigido são **produtos derivados, regeneráveis**.
+- A menção a `TEMPLATE_ESTUDO` como "fonte de verdade" em outros READMEs refere-se
+  à **arquitetura e convenções**, não ao conteúdo teológico.
+
+---# Teologia Sistemática — Wayne Grudem
 
 > **Manual de Doutrinas Cristãs | Teologia ao Alcance de Todos**
 
