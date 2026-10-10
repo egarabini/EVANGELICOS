@@ -19,6 +19,20 @@ Uso:
     python load_biblia.py --source ./sources/BibleMarkdown --dry-run
     python load_biblia.py --source ./sources/BibleMarkdown
     python load_biblia.py --source ./sources/BibleMarkdown --benchmark
+    python load_biblia.py --source ./sources/BibleMarkdown --recriar   # trocou de embedding
+
+ATENCAO — O EMBEDDING PRECISA SER O MESMO DA CONSULTA:
+esta carga usa o DefaultEmbeddingFunction do chromadb (ONNXMiniLM_L6_V2). Nao e
+uma escolha estetica: a plataforma consulta o corpus com
+`client.get_collection(nome)`, SEM passar embedding_function — e nesse caso o
+chromadb tambem cai no DefaultEmbeddingFunction para vetorizar a consulta.
+
+Se a carga indexar com OUTRO modelo (era o caso: sentence-transformers
+paraphrase-multilingual-MiniLM-L12-v2), consulta e indice ficam em espacos
+vetoriais diferentes. Como os dois modelos tem 384 dimensoes, o ChromaDB NAO
+acusa erro de dimensao — ele apenas devolve similaridade sem sentido. O sintoma
+aparece longe daqui, como "a Escritura sumiu da licao", porque o
+EscrituraService degrada em silencio de proposito.
 """
 
 import sys
@@ -50,7 +64,10 @@ console = Console()
 CHROMA_HOST = os.getenv("CHROMA_HOST", "localhost")
 CHROMA_PORT = int(os.getenv("CHROMA_PORT", "8001"))  # porta ajustada (8001)
 COLLECTION_NAME = "biblia_pt_br"
-EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+# Embedding do INDICE. Tem de ser identico ao da CONSULTA (ver o bloco no topo).
+# DefaultEmbeddingFunction = ONNXMiniLM_L6_V2, 384 dims, calculado no cliente.
+# Substitui o sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2, que
+# arrastava o torch (~2 GB) e, pior, NAO era o modelo que a consulta usava.
 BATCH_SIZE = 200  # Versículos por batch (CPU-safe)
 TRADUCAO = "ACF"  # Única tradução disponível no BibleMarkdown
 
@@ -360,8 +377,8 @@ def main():
     parser.add_argument(
         "--traducao",
         type=str,
-        default="ARC",
-        help="Sigla da tradução (ex: ARC, NVI, NVT)",
+        default=TRADUCAO,  # "ACF": unica traducao do BibleMarkdown
+        help="Sigla da tradução gravada nos metadados (padrão: ACF)",
     )
     parser.add_argument(
         "--dry-run",
@@ -372,6 +389,11 @@ def main():
         "--benchmark",
         action="store_true",
         help="Executa benchmark de qualidade após indexação",
+    )
+    parser.add_argument(
+        "--recriar",
+        action="store_true",
+        help="Apaga a colecao antes de indexar (recomendado ao trocar de embedding)",
     )
     args = parser.parse_args()
 
@@ -394,9 +416,20 @@ def main():
         console.print(f"\n[cyan]Conectando ao ChromaDB em {CHROMA_HOST}:{CHROMA_PORT}...[/cyan]")
         client = chromadb.HttpClient(host=CHROMA_HOST, port=CHROMA_PORT)
 
-        ef = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name=EMBEDDING_MODEL
-        )
+        # DefaultEmbeddingFunction: o MESMO que a plataforma usa ao consultar
+        # (ela chama get_collection sem embedding_function). Ver o topo do arquivo.
+        ef = embedding_functions.DefaultEmbeddingFunction()
+
+        if args.recriar:
+            # Recomendado ao TROCAR de embedding. Um upsert ja sobrescreve os
+            # vetores dos ids reenviados (todos os 31 mil voltam), mas a
+            # CONFIGURACAO da colecao continua registrando o modelo antigo.
+            # Recriar deixa o indice e a configuracao coerentes.
+            try:
+                client.delete_collection(COLLECTION_NAME)
+                console.print(f"[yellow]Colecao '{COLLECTION_NAME}' apagada (--recriar)[/yellow]")
+            except Exception:
+                pass  # ainda nao existia: nada a apagar
 
         collection = client.get_or_create_collection(
             name=COLLECTION_NAME,
