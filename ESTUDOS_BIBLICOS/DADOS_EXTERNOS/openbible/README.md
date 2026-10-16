@@ -39,14 +39,22 @@ Colunas separadas por TAB: `From Verse`, `To Verse`, `Votes`.
 
 ## Estado
 
-Ainda **não há código de ingestão**. A avaliação de viabilidade (cobertura sobre os
-34 planos, o bug de mapeamento de livros que apareceu no caminho e as decisões de
-curadoria) está em
-`ESTUDOS_BIBLICOS/GSI_EBD/Diagnostico/referencias-cruzadas.md`.
+**Carregado e em uso.** A ingestão e a curadoria vivem no app:
 
-Decisão de curadoria já tomada: **no máximo 5 passagens relacionadas por capítulo**.
-No corte de votos ≥ 10 a média era de 21,7 por citação — exibir isso cru seria pior
-que não exibir.
+| | |
+|---|---|
+| Carga no banco | `GSI_EBD/gsi_ebd/scripts/importar_referencias_cruzadas.py` |
+| Curadoria e exibição | `GSI_EBD/gsi_ebd/services/referencias_cruzadas_service.py` |
+| Tabela | `referenciacruzada` (344.799 linhas; 45.036 com votos ≥ 10) |
+| Avaliação e decisões | `GSI_EBD/Diagnostico/referencias-cruzadas.md` |
+
+Curadoria decidida e implementada: **piso de votos ≥ 10** (os votos são um saldo e
+podem ser negativos — mínimo −86 no arquivo) e **teto de 5 passagens por lição**, em
+rodízio entre os versículos que o plano cita. No corte de votos ≥ 10 a média era de
+21,7 passagens por citação — exibir isso cru seria pior que não exibir.
+
+A atribuição exigida pela licença CC-BY vai no próprio bloco renderizado, dentro da
+lição, e não depende de onde ele é exibido.
 
 ## Como atualizar
 
