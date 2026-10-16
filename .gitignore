@@ -39,6 +39,12 @@ EVANGELICOS-backup-*.zip
 .obsidian/workspace.json
 .trash/
 
+# --- Area de trabalho de pesquisa (spikes) ---
+# Datasets de terceiros baixados para avaliacao (ex.: referencias cruzadas do
+# OpenBible). Nao versionado: o dado ainda nao tem casa definitiva — ver
+# ESTUDOS_BIBLICOS/GSI_EBD/Diagnostico/referencias-cruzadas.md
+_openbible/
+
 # --- Sistema operacional ---
 Thumbs.db
 desktop.ini
