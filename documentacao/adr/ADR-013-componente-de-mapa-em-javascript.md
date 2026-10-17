@@ -1,6 +1,6 @@
 # ADR-013: Componente de mapa em JavaScript — exceção pontual à ADR-001
 
-- **Status:** Proposed — aguarda aceite do ARQUITECT
+- **Status:** **Accepted** (2026-10-17) — aceita pelo ARQUITECT com as fronteiras desta ADR
 - **Data:** 2026-10-17
 - **Decisores:** ARQUITECT (Eduardo) — autorizou abrir a ADR (decisão 10.8 da OLPF); termos técnicos pelo PLANNER
 - **Gatilho:** Novo Horizonte

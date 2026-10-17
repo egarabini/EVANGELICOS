@@ -18,7 +18,7 @@ ADR que a substitui **antes** da DEM começar.
 | [ADR-010](ADR-010-publicacao-por-ci.md) | Publicação por CI/CD, nunca por agente | Accepted |
 | [ADR-011](ADR-011-aprovacao-de-conteudo-assinada.md) | Aprovação de conteúdo assinada e amarrada ao hash | Accepted |
 | [ADR-012](ADR-012-politica-de-fontes-e-licencas.md) | Política de fontes e licenças do acervo | Accepted |
-| [ADR-013](ADR-013-componente-de-mapa-em-javascript.md) | Componente de mapa em JavaScript (exceção à ADR-001) | **Proposed** |
+| [ADR-013](ADR-013-componente-de-mapa-em-javascript.md) | Componente de mapa em JavaScript (exceção à ADR-001) | Accepted |
 
 As **001–011** são **retroativas**: registram decisões já tomadas e implementadas, para o
 projeto deixar de depender de memória de sessão. As **012–013** são novas: nascem da OLPF

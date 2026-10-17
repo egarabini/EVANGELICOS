@@ -35,6 +35,10 @@ ADR fixa as respostas como lei e vale para **toda** ingestão futura.
 | 10.11 | Resumo por IA | **Entra na busca**, com citação por afirmação; nada gerado é armazenado como conteúdo aprovado. |
 | 10.12 | Modelos de classificação (Jev, Laya) | **Fora desta frente**; reavaliar na DEM-E. |
 
+**As três interpretações do PLANNER foram confirmadas pelo ARQUITECT em 2026-10-17:**
+"interno" = ADMIN, REVISOR, COORDENADOR e INSTRUTOR; fontes de uso não comercial **aceitas**
+no regime sem lucro; registros BY-SA **marcados e contidos** na plataforma até parecer.
+
 ## O que NÃO entra (e por quê)
 
 | Item | Motivo |
