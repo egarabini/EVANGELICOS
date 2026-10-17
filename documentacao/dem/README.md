@@ -4,4 +4,5 @@ Uma pasta por DEM, no formato `DEM-AAAAMM-<seq>-<slug>/` com `planner/`, `dev/`,
 
 | DEM | Assunto | Estado |
 |---|---|---|
-| [DEM-202610-001](DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | spec aprovada · design e plano-testes prontos · aguarda List |
+| [DEM-202610-001](DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | EVAL PASS · aguarda VISION/aceite |
+| DEM-202610-002 *(proposta)* | Guarda de papel nas rotas `/admin` | proposta |

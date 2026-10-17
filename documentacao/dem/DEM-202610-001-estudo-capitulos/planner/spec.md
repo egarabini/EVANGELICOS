@@ -36,7 +36,12 @@ PRD: [`prd.md`](prd.md) · Intent: [`intent.md`](intent.md) — **signed** em 20
 
 - **Idempotência:** RF05 executado duas vezes → 0 novos, 0 duplicados.
 - **Performance:** a tela lista 34 capítulos e origens em **< 1 s** no ambiente local.
-- **Segurança:** tela e importador exigem papel **ADMIN** (REVISOR também lê, se existir).
+- **Segurança:** **alvo** — tela e importador exigem papel **ADMIN**.
+  **Pendência conhecida (descoberta pelo EVAL em 2026-10-16, vira DEM-202610-002):**
+  hoje `/admin` usa `AuthState.check_auth` → `require_login` (só login, sem papel) e os
+  **loaders** de estado não têm guarda `is_admin` — a checagem existe apenas nas ações
+  que gravam (`states/admin.py` linhas ~193/289/320/355). É rota **pré-existente**, fora
+  do diff desta DEM, portanto não é regressão; mas este RNF é **alvo, não estado atual**.
 - **Observabilidade:** o importador reporta contagens (estudo, capítulos novos/atualizados,
   origens criadas).
 - **Compatibilidade:** nenhum contrato existente muda; `Study`, `StudyVersion` e

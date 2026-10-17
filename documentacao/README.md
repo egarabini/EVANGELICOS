@@ -33,7 +33,8 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 
 | DEM | Assunto | Estado | Depende de |
 |---|---|---|---|
-| [DEM-202610-001](dem/DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | **em validação** — implementado, aguarda EVAL | — |
+| [DEM-202610-001](dem/DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | **EVAL PASS** — aguarda VISION/aceite do ARQUITECT | — |
+| DEM-202610-002 *(proposta)* | Guarda de papel nas rotas `/admin` (achado do EVAL) | proposta — precisa de intent | — |
 
 > A fonte é esta tabela. Não hardcode a "DEM atual" nos arquivos de guarda.
 
