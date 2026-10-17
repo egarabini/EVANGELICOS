@@ -1,13 +1,14 @@
 # Intent: DEM-202610-001 / estudo-capitulos
 
-status: draft
+status: signed
 owner: PLANNER
 signed_by: ARQUITECT
 origin: ADR-005 + especificação do ARQUITECT (fluxo de bibliotecas, Ações 1–4)
-signed_at:
+signed_at: 2026-10-16
 supersedes: —
-open_questions_open: 5
-spec_citations: — (não existe spec antes da assinatura)
+open_questions_open: 0
+spec_citations: 100% — todo RF de `spec.md` cita §2, §4 In, §5 ou uma decisão do §8
+nota_de_assinatura: o ARQUITECT autorizou as recomendações do PLANNER ("segue a sua leitura", 2026-10-16) e delegou o fechamento das questões; as decisões estão registradas no §8.
 
 ## 1. Problema
 
@@ -77,15 +78,18 @@ O ARQUITECT abre a tela do estudo, vê os capítulos do estudo e a origem de cad
 confirma que a lição do aluno está idêntica. **Isso é o aceite.** A suíte é a evidência, não
 o aceite.
 
-## 8. Perguntas abertas
+## 8. Perguntas abertas — fechadas pelo ARQUITECT em 2026-10-16
 
-Só o ARQUITECT fecha. O PLANNER lista, não responde.
+**Nenhuma aberta.** As decisões abaixo são do ARQUITECT (autorizadas por "segue a sua
+leitura") e regem a `spec.md`.
 
-- [ ] A tela desta DEM é **só de leitura**, ou já permite criar/editar capítulos do estudo?
-- [ ] A carga inicial é só dos **34 capítulos do Grudem**, ou os 5 estudos de exemplo também entram?
-- [ ] O mapa de origem precisa registrar o **trecho** (proporção/intervalo), ou basta o vínculo capítulo↔capítulo?
-- [ ] O **adendo** entra nesta DEM (aparece na origem exibida) ou fica só como tabela até a Ação 1?
-- [ ] Um capítulo do estudo pode existir **sem origem** (material original), ou a origem é obrigatória?
+| # | Pergunta | Decisão |
+|---|---|---|
+| 8.1 | A tela é só de leitura? | **Sim, somente leitura.** Criar/editar capítulo pela interface é DEM própria. |
+| 8.2 | A carga inclui os 5 estudos de exemplo? | **Não, só os 34 capítulos do Grudem.** Os exemplos não têm origem na obra. |
+| 8.3 | O mapa precisa registrar o trecho? | **Não. Basta o vínculo capítulo↔capítulo.** Trecho é refinamento que ninguém pediu. |
+| 8.4 | O adendo entra nesta DEM? | **Só como referência exibida** na origem. O uso no fluxo de avaliação é da Ação 1. |
+| 8.5 | Capítulo sem origem é válido? | **Sim.** É o que permite material original; a tela informa "sem origem declarada". |
 
 ## 9. Fora de julgamento
 
