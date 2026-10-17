@@ -19,10 +19,11 @@ exibido ao aluno. É a **DEM-A** da OLPF da frente de base de conhecimento.
 - [x] Intent escrito e **assinado** (3 decisões no §8)
 - [x] PRD escrito
 - [x] **Spec aprovada** — `GATE: spec` vencido, com três ajustes incorporados
-- [ ] Design + plano-testes (enxutos: esta DEM produz **dado e documento**)
-- [ ] Artefato: `documentacao/fontes/inventario.csv` + `README.md`
-- [ ] List + implementação (TLC)
-- [ ] EVAL + aceite
+- [x] Design + plano-testes (enxutos: esta DEM produz **dado e documento**)
+- [x] **Artefato entregue**: `documentacao/fontes/inventario.csv` (79 linhas) + `README.md` + `verificar_inventario.py`
+- [x] Verificador próprio: **PASS** (estrutura, enums, motivo, gatilho, cobertura do Anexo A)
+- [ ] List + implementação (TLC) — registro formal do List
+- [ ] **EVAL** ← próximo · depois aceite do ARQUITECT
 
 ## Os três ajustes do ARQUITECT (incorporados em 2026-10-17)
 
