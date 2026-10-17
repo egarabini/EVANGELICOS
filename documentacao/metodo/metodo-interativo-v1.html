@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Método interativo v1 — Desenvolvimento Governado por Agentes (Spec-Driven + INTENT)</title>
+<style>
+  :root{
+    --bg:#0e1526; --panel:#ffffff; --ink:#0f172a; --muted:#5b6b85; --line:#e2e8f0;
+    --lei:#fef3c7; --intent:#ede9fe; --papeis:#dbeafe; --exec:#e0e7ff; --valid:#ccfbf1; --instr:#e5e7eb; --opt:#fce7f3; --ref:#dcfce7;
+    --lei-s:#d97706; --intent-s:#7c3aed; --papeis-s:#2563eb; --exec-s:#4f46e5; --valid-s:#0d9488; --instr-s:#475569; --opt-s:#db2777; --ref-s:#16a34a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#e6eefc;background:radial-gradient(1200px 600px at 50% -10%,#1a2744,#0e1526)}
+  header{padding:20px 24px 6px}
+  h1{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:#9fb6e6;font-size:13.5px;margin-top:4px;max-width:960px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;padding:12px 24px}
+  .btn{background:#16223d;color:#dbe7ff;border:1px solid #2b3c63;border-radius:9px;padding:8px 13px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+  .btn:hover{border-color:#4a63a0}
+  .btn[aria-pressed="true"]{background:#2563eb;border-color:#2563eb;color:#fff}
+  .btn.primary{background:#7c3aed;border-color:#7c3aed;color:#fff}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .btn:disabled:hover{border-color:#2b3c63}
+  .flow-counter{align-self:center;font-size:12.5px;font-weight:700;color:#c9b6ff;min-width:120px}
+  .wrap{display:grid;grid-template-columns:1fr 340px;gap:16px;padding:6px 24px 28px;align-items:start}
+  .scene-shell{background:var(--panel);border-radius:16px;padding:8px;box-shadow:0 20px 50px rgba(0,0,0,.35);overflow:hidden;perspective:1600px}
+  .scene{transition:transform .5s ease;transform-origin:50% 40%}
+  .scene.tilt{transform:rotateX(46deg) rotateZ(-7deg) scale(.92)}
+  svg{width:100%;height:auto;display:block}
+  .band-front{stroke-width:1}
+  .lbl-band{font-size:12px;font-weight:700;fill:#334155;letter-spacing:.04em;text-transform:uppercase}
+  .node{cursor:pointer}
+  .node rect{stroke-width:1.5;transition:filter .15s,stroke-width .15s}
+  .node text{font-size:12px;fill:#0f172a;pointer-events:none}
+  .node .t{font-weight:700}
+  .node:hover rect{filter:brightness(.97)}
+  .node.sel rect{stroke-width:3.5}
+  .node:focus{outline:none}
+  .node:focus rect{stroke-width:3.5}
+  .edge{fill:none;stroke:#94a3b8;stroke-width:2}
+  .edge.flow{stroke:#334155;stroke-width:2.4}
+  .edge.aux{stroke:#94a3b8;stroke-dasharray:2 4}
+  .edge-lbl{font-size:10.5px;fill:#64748b}
+  .hidden{display:none}
+  #dot{fill:#f59e0b;stroke:#7c3a00;stroke-width:1.5}
+  .panel{background:var(--panel);border-radius:16px;padding:18px 18px 20px;color:var(--ink);box-shadow:0 20px 50px rgba(0,0,0,.35);min-height:340px}
+  .panel h2{margin:0 0 2px;font-size:17px}
+  .panel .cam{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .panel p{margin:10px 0 0;font-size:13.5px;color:#334155}
+  .panel ul{margin:10px 0 0;padding-left:18px}
+  .panel li{font-size:12.8px;color:#475569;margin:4px 0}
+  .cap{margin-top:10px;background:#0e1526;color:#dbe7ff;border-radius:10px;padding:10px 12px;font-size:13px;min-height:20px}
+  .demo-btn{margin-top:14px;width:100%;background:#0d9488;color:#fff;border:0;border-radius:10px;padding:11px 13px;font:inherit;font-weight:700;font-size:13.5px;cursor:pointer;display:flex;gap:8px;align-items:center;justify-content:center}
+  .demo-btn:hover{filter:brightness(1.08)}
+  .legend{display:flex;flex-wrap:wrap;gap:10px 16px;padding:4px 24px 26px;color:#9fb6e6;font-size:12px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr}}
+
+  /* ---------- popup de detalhe ---------- */
+  .modal-overlay{position:fixed;inset:0;background:rgba(6,12,26,.74);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}
+  .modal-overlay.open{display:flex}
+  .modal{background:#0f172a;color:#e6eefc;border-radius:16px;width:min(640px,96vw);max-height:95vh;overflow:auto;box-shadow:0 30px 90px rgba(0,0,0,.65);border:1px solid #24314f}
+  .modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid #24314f;position:sticky;top:0;background:#0f172a}
+  .modal-head h3{margin:0;font-size:16px}
+  .modal-head .x{background:#1b2740;border:1px solid #2b3c63;color:#dbe7ff;border-radius:8px;width:34px;height:34px;font-size:16px;cursor:pointer}
+  .modal-body{padding:16px 18px 20px}
+  .pt{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#9fb6e6;font-weight:700;margin:0 0 8px}
+  .step{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:9px;border:1px solid #24314f;background:#111c33;opacity:.5;transition:.3s;margin-bottom:7px}
+  .step.on{opacity:1;border-color:#7c3aed;background:#1a1140;box-shadow:0 0 0 1px #7c3aed inset}
+  .step.done{opacity:.92;border-color:#2f6b45;background:#0f2018}
+  .step .num{width:20px;height:20px;border-radius:50%;background:#24314f;color:#dbe7ff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .step.on .num{background:#7c3aed}.step.done .num{background:#16a34a}
+  .step .st{font-size:12px;font-weight:700;color:#e6eefc}
+  .demo-actions{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+  .demo-actions button{background:#7c3aed;border:0;color:#fff;border-radius:9px;padding:9px 15px;font:inherit;font-weight:700;font-size:13px;cursor:pointer}
+  .demo-actions .ghost{background:#1b2740;border:1px solid #2b3c63;color:#dbe7ff}
+  .det-io{font-size:12px;color:#c9d6f0;background:#111c33;border:1px solid #24314f;border-radius:9px;padding:9px 11px;margin-bottom:12px}
+  .det-io b{color:#7dd3fc}
+  .det-inv{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px}
+  .det-inv .chip{font-size:11px;color:#bbf7d0;background:rgba(22,163,74,.14);border:1px solid rgba(22,163,74,.4);border-radius:20px;padding:4px 10px;font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <h1>Método interativo — Desenvolvimento Governado por Agentes <span style="font-size:13px;font-weight:700;color:#c9b6ff;background:#241a45;border:1px solid #4c3a86;border-radius:7px;padding:2px 8px;vertical-align:middle">v1 · Spec-Driven + INTENT</span></h1>
+  <div class="sub">Clique em qualquer componente para aprofundar — a coluna direita abre as referências completas: <b>📜 11 regras</b>, <b>🔀 Matriz de fronteiras</b>, <b>🧱 Evolução das cercas</b>, <b>🛡️ 4 guard-rails</b> e <b>🚀 Como adotar</b>. Use <b>Reproduzir fluxo</b> para ver o ciclo de vida de uma DEM — do problema cru do ARQUITECT ao fechamento com snapshot git — atravessar o método. Com <b>🐢 Ritmo de apresentação</b> ligado, cada passo fica mais lento; ou navegue manualmente com <b>◀ / ▶</b> (ou as <b>setas ← →</b> do teclado).</div>
+</header>
+
+<div class="toolbar">
+  <button class="btn primary" id="play">▶ Reproduzir fluxo</button>
+  <button class="btn" id="prev" title="Passo anterior (seta ←)" disabled>◀ Anterior</button>
+  <button class="btn" id="next" title="Próximo passo (seta →)" disabled>Próximo ▶</button>
+  <span id="flowCounter" class="flow-counter" aria-live="polite"></span>
+  <button class="btn" id="tTilt" aria-pressed="false">Profundidade 3D</button>
+  <button class="btn" id="tSlow" aria-pressed="false">🐢 Ritmo de apresentação</button>
+  <button class="btn" id="reset">Reset</button>
+</div>
+
+<div class="wrap">
+  <div class="scene-shell">
+    <div class="scene" id="scene">
+    <svg viewBox="0 0 1120 800" role="group" aria-label="Diagrama de camadas do método de desenvolvimento governado por agentes">
+      <g id="bands"></g>
+      <g id="edges"></g>
+      <g id="nodes"></g>
+      <circle id="dot" r="8" class="hidden"/>
+    </svg>
+    </div>
+  </div>
+
+  <aside class="panel">
+    <div class="cam" id="p-cam">Comece por aqui</div>
+    <h2 id="p-title">Método · Desenvolvimento Governado por Agentes</h2>
+    <p id="p-desc">Selecione um componente no diagrama para ver o que ele é e como funciona. Ou reproduza o fluxo para acompanhar uma DEM ponta a ponta.</p>
+    <ul id="p-list"></ul>
+    <div class="cap" id="cap">Pronto.</div>
+    <button class="demo-btn" id="btn-detail" style="display:none">🔍 Ver o conteúdo completo</button>
+  </aside>
+</div>
+
+<div class="legend" id="legend"></div>
+
+<!-- POPUP: detalhe de um componente -->
+<div class="modal-overlay" id="detailModal" role="dialog" aria-modal="true" aria-label="Detalhe do componente">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="detTitle">Detalhe</h3>
+      <button class="x" id="detClose" aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="det-io" id="detIO"></div>
+      <p class="pt" style="margin:6px 0 10px">Conteúdo</p>
+      <div id="detSteps"></div>
+      <div id="detInv" class="det-inv"></div>
+      <div class="demo-actions">
+        <button id="detReplay">▶ Reproduzir novamente</button>
+        <button class="ghost" id="detClose2">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const LAYERS = [
+  {key:"lei",    label:"Constituição — princípio + ADRs (as leis)", cls:"lei", y:44,  h:70},
+  {key:"intent", label:"Objetivo — camada INTENT (a cerca de objetivo)", cls:"intent", y:150, h:88},
+  {key:"papeis", label:"Papéis — especialização reduz alucinação", cls:"papeis", y:274, h:100},
+  {key:"exec",   label:"Execução — a DEM (a ação)", cls:"exec", y:410, h:100},
+  {key:"valid",  label:"Validação & publicação — porteiros e gates", cls:"valid", y:546, h:86},
+  {key:"instr",  label:"Instrumentos — o pacote copiável", cls:"instr", y:668, h:86}
+];
+const NODES = {
+  principio:{cls:"lei", x:60,y:58,w:330,h:44, t:"Princípio constitucional", d:"O código serve à documentação, não o contrário. O que não está na spec não entra no código; o que não está no visual não chega à tela.", inv:["Divergência → atualiza o documento ANTES do código"]},
+  adr:{cls:"lei", x:410,y:58,w:230,h:44, t:"ADRs — as leis (MADR)", d:"Decisões estruturais que regem muitas DEMs. Uma vez Accepted, são lei até serem substituídas. O Pilar A do método (a Constituição).", inv:["Aceite é do ARQUITECT","Nenhuma DEM contraria uma ADR Accepted","Numeração contínua, nunca reutilizada"]},
+  adrs_min:{cls:"lei", x:660,y:58,w:230,h:44, t:"8 decisões mínimas", d:"O que todo projeto novo registra antes da primeira DEM: stack, branches, guard-rails, estrutura de DEM, INTENT, segredos, observabilidade e custo.", inv:["Decisões 2–5 já descritas no método — a ADR só adota"]},
+  intent_doc:{cls:"intent", x:60,y:166,w:250,h:48, t:"intent.md — o porquê (≤ 1 página)", d:"Proto-spec: o que se quer, por quê, para quem, o que NÃO se quer e as restrições inegociáveis. Sem stack, sem schema, sem tasks.", inv:["PLANNER escreve · ARQUITECT assina","Um intent por DEM","Mudou o porquê → novo intent ou superseded"]},
+  gate_intent:{cls:"intent", x:330,y:166,w:180,h:48, t:"GATE: intent (signed)", d:"O gate de objetivo — o ponto que a maioria dos processos não tem. O ARQUITECT fecha as perguntas abertas e muda o status para signed; só então a spec abre.", inv:["Não-bypassável","open_questions_open = 0 no signed","spec_citations = 100% depois da spec"]},
+  health:{cls:"intent", x:530,y:166,w:180,h:48, t:"Health metrics §6", d:"O que NÃO pode piorar: 3 a 5 invariantes observáveis, cada uma com porteiro nomeado. O outcome diz o que muda; a health metric diz o que se preserva.", inv:["Promovidas a casos H-* do plano-testes","Métrica que não gera critério não existe"]},
+  metricas:{cls:"intent", x:730,y:166,w:160,h:48, t:"Métricas do gate", d:"A saúde da prática (não do produto): o gate INTENT está sendo respeitado ao longo das DEMs? Medido com git + regra 9, sem survey.", inv:["Piloto mede só as 4 primeiras","Constraint → FAIL > 0 é bom sinal"]},
+  arquitect:{cls:"papeis", x:60,y:290,w:130,h:48, t:"👷 ARQUITECT (humano)", d:"O humano no comando: dono da visão, origem e destino de toda DEM. Assina todos os gates.", inv:["Gates não-bypassáveis","Confere o caminho antes de todo Accept"]},
+  planner:{cls:"papeis", x:200,y:290,w:130,h:48, t:"🧠 PLANNER (IA condutora)", d:"Escriba, especificador e auditor: traduz a visão em intent → specs → briefings, verifica toda alegação contra o disco/git e fecha o ciclo.", inv:["Não codifica","Não abre spec sem intent signed","Nunca escreve jornada alheia"]},
+  devs:{cls:"papeis", x:340,y:290,w:130,h:48, t:"💻 DEVS (IA ou humano)", d:"Implementação confinada à spec, via TLC. Escreve código em feature/* e a própria jornada em tempo real.", inv:["Não redefine escopo","Dúvida → para e devolve ao PLANNER"]},
+  eval:{cls:"papeis", x:480,y:290,w:130,h:48, t:"⚖️ EVAL (IA)", d:"O porteiro de qualidade: QA lógico-funcional, advogado do diabo. Nada segue sem o PASS dele.", inv:["Veredito amarrado a hash, em estado limpo","Não corrige código, não muda critérios"]},
+  vision:{cls:"papeis", x:620,y:290,w:130,h:48, t:"🎨 VISION (IA · se há tela)", d:"Guardião visual: valida UI/UX em navegador real sobre o hash — design system, responsividade, estados.", inv:["Correção = lista ao PLANNER, não aplicação","Não relata suposição de código como fato de tela"]},
+  deploy:{cls:"papeis", x:760,y:290,w:130,h:48, t:"🚀 DEPLOY (IA)", d:"Publicador: executa o GitFlow e os deploys com gates completos, e reporta via CALLBACK estruturado.", inv:["Não toca lógica; não publica sem gate","Backup pareado antes de toda release"]},
+  dem_struct:{cls:"exec", x:60,y:426,w:240,h:48, t:"Estrutura da DEM (pastas por agente)", d:"Toda DEM usa o mesmo pacote: planner/, dev/, eval/, deploy/, vision/, know/. O controle de 'quem escreve o quê' é estrutural, não textual.", inv:["Cada arquivo tem UM dono","Ausência de pasta = agente não participou"]},
+  tlc:{cls:"exec", x:320,y:426,w:180,h:48, t:"Ritual TLC", d:"Think → List → Code: nada de código antes do List aprovado. Em toda sessão de implementação, nesta ordem.", inv:["List aguarda aprovação","Um passo por vez, jornada em tempo real"]},
+  briefing:{cls:"exec", x:520,y:426,w:180,h:48, t:"Briefing (PARA:/DEM:/GATE:)", d:"O handoff do PLANNER para cada agente: cabeçalho de despacho + caminhos absolutos (docs, código, branch, hash e o intent).", inv:["Quem recebe fora do papel devolve","GATE: spec sem intent signed = mis-roteamento"]},
+  jornada:{cls:"exec", x:720,y:426,w:170,h:48, t:"Jornada viva (tempo/tokens)", d:"Livro-razão em tempo real: cada tarefa com Início/Término ISO e tokens. A métrica é o Tempo ativo, não o SPAN do relógio.", inv:["Tokens de fonte real ou 'não medido' — nunca inventados","Rollup por DEM no README"]},
+  gates:{cls:"valid", x:60,y:562,w:260,h:46, t:"6 gates não-bypassáveis", d:"intent · spec · eval · vision · aceite de entrega · aceite de release. Cada um com pré-condição verificada — nenhum gate humano é bypassável.", inv:["Ver o detalhe para a tabela completa"]},
+  gitflow:{cls:"valid", x:340,y:562,w:270,h:46, t:"GitFlow (branches e releases)", d:"main = produção (tag SemVer por merge); develop = integração contínua; feature/* → develop; release/* → main e develop; hotfix/* → ambos.", inv:["main/develop protegidas — só PR","PR de feature exige EVAL=PASS (+VISION se tela)"]},
+  deploy_rules:{cls:"valid", x:630,y:562,w:260,h:46, t:"9 regras duras do DEPLOY", d:"Violar = abortar e reportar ao ARQUITECT. Nasceram de incidentes reais: re-merge que perdeu arquivos de guarda; falso positivo de estado residual.", inv:["NUNCA revert + re-merge","Homologar sempre em estado limpo"]},
+  templates:{cls:"instr", x:60,y:684,w:230,h:46, t:"templates/ (intent, prd, spec…)", d:"Os modelos copiáveis da DEM: intent, prd, spec, design, plano-testes, briefing, jornada, changelog, README-dem.", inv:["Nunca apagar seções — N/A + motivo","Plano-testes com rastreio F/H/C/N/G"]},
+  perfil:{cls:"instr", x:310,y:684,w:200,h:46, t:"perfil-do-projeto (o encaixe)", d:"O método é neutro; toda escolha técnica vive aqui: stack, segurança, ambientes, rastreio, testes, custo e as instâncias dos papéis.", inv:["Campo desconhecido → pergunta aberta → ADR","Exemplo preenchido: exemplo-agoracred.md"]},
+  guarda:{cls:"instr", x:530,y:684,w:180,h:46, t:"arquivos-de-guarda (raiz do repo)", d:"AGENTS.md, CLAUDE.md, CONVENTIONS.md (+ PROJECT_CONTEXT.md recomendado): o que todo agente de código lê antes de escrever.", inv:["Curtos e comportamentais de propósito","Completar os [preencher] com o perfil"]},
+  painel:{cls:"instr", x:730,y:684,w:160,h:46, t:"Painel de DEMs (_dashboard)", d:"A fonte do que está em andamento: estado, dependências, última release. O fechamento de uma DEM libera as represadas (cascata).", inv:["Não hardcode 'DEM atual' nos arquivos de guarda"]},
+  know:{cls:"opt", x:930,y:290,w:170,h:48, t:"📚 KNOW (latente)", d:"Fonte única de verdade consultável (base + regras + schema), servida sob demanda. Opcional: ative quando o projeto tiver base consultável.", inv:["Não decide; só serve conhecimento, com a fonte"]},
+  orchestrator:{cls:"opt", x:930,y:348,w:170,h:48, t:"🎼 ORCHESTRATOR (futuro)", d:"Roteador dos despachos: assumirá do ARQUITECT o transporte (PARA:), as coletas de jornadas/callbacks e as confirmações mecânicas.", inv:["Não decide negócio; não aprova gates"]},
+  regras11:{cls:"ref", x:930,y:426,w:170,h:48, t:"📜 11 regras de ouro", d:"As cercas em uma lista: as regras 1–10 são de execução; a 11ª é a cerca de objetivo.", inv:["Abra o detalhe para ver as 11"]},
+  matriz:{cls:"ref", x:930,y:484,w:170,h:48, t:"🔀 Matriz de fronteiras", d:"Scopes e fronteiras críticas de cada papel — menor privilégio + auditabilidade. Revise a cada DEM que mexa em papéis.", inv:["Escalonamento de privilégio acumulado é armadilha conhecida"]},
+  cercas:{cls:"ref", x:930,y:542,w:170,h:48, t:"🧱 Evolução das cercas", d:"Por que o método é assim: as cercas amadureceram em 4 estágios — textuais → estruturais → verificadas → de objetivo.", inv:["Contra alucinação, desalinhamento e escalada de privilégio"]},
+  guard4:{cls:"ref", x:930,y:600,w:170,h:48, t:"🛡️ 4 guard-rails", d:"Os guard-rails comportamentais de todo agente de IA: escopo/verificação (governança), não de estilo. Contêm alucinação, desalinhamento e escalada de privilégio.", inv:["Estilo é julgamento, não regra","Devem virar uma ADR no projeto"]},
+  adocao:{cls:"ref", x:930,y:658,w:170,h:48, t:"🚀 Como adotar (README)", d:"O guia de adoção do pacote metodo/ num projeto novo, em 5 passos — da cópia da pasta até a primeira DEM rodando.", inv:["O pacote é autocontido e neutro","Toda escolha técnica entra só no perfil"]}
+};
+const EDGES = [
+  ["principio","adr","flow"],["adr","adrs_min","aux"],
+  ["intent_doc","gate_intent","flow"],["intent_doc","health","aux"],["metricas","gate_intent","aux"],
+  ["arquitect","planner","flow"],
+  ["planner","briefing","flow"],["briefing","devs","flow"],["briefing","eval","aux"],["briefing","vision","aux"],["briefing","deploy","aux"],
+  ["devs","jornada","flow"],["devs","eval","flow"],["eval","vision","aux"],
+  ["deploy","gitflow","flow"],["deploy","planner","aux"],
+  ["dem_struct","briefing","aux"],["tlc","devs","aux"],["health","eval","aux"],
+  ["templates","dem_struct","aux"],["perfil","guarda","aux"],["guarda","devs","aux"],["painel","planner","aux"],
+  ["know","planner","aux"],["orchestrator","arquitect","aux"],
+  ["gates","gitflow","aux"],["guard4","tlc","aux"],["adocao","perfil","aux"]
+];
+const FLOW = ["arquitect","planner","intent_doc","gate_intent","planner","briefing","devs","eval","vision","arquitect","deploy","planner"];
+const CAPS = [
+  "O ARQUITECT descreve o problema em linguagem crua — ele é a origem de toda DEM.",
+  "O PLANNER pergunta como analista (quem sente, o que é 'melhor', o que não pode piorar) e redige o intent.",
+  "intent.md: outcome observável, non-goals, constraints, health metrics §6 — sem stack, ≤ 1 página.",
+  "GATE: intent — o ARQUITECT fecha as perguntas abertas e assina (status: signed). Spec sem signed não existe.",
+  "Com o intent signed, o PLANNER escreve prd → spec → design → plano-testes. 100% das capacidades citam o intent.",
+  "Briefings com PARA:/DEM:/GATE: + caminhos absolutos (incluindo o intent) para cada agente que vai atuar.",
+  "DEVS implementam via TLC (Think → List aprovado → Code), com jornada viva. PLANNER emite parecer sobre o diff real.",
+  "EVAL roda o plano de testes em estado limpo: PASS/FAIL/BLOCKED amarrado a hash, rastreio F/H/C/N/G.",
+  "VISION (só se há tela) valida UI/UX em navegador real sobre o hash; correções voltam como lista ao PLANNER.",
+  "Aceite do ARQUITECT — inclui o não-automatizável (fluxo humano, decisões sensíveis).",
+  "DEPLOY executa o GitFlow com gates: backup pareado, homologação em estado limpo, release/* → main, tag anotada.",
+  "Fechamento do PLANNER: changelog, painel de DEMs, rollup de tempo/tokens e snapshot git — a cascata libera DEMs represadas."
+];
+const PALETTE = {lei:["--lei","--lei-s"],intent:["--intent","--intent-s"],papeis:["--papeis","--papeis-s"],exec:["--exec","--exec-s"],valid:["--valid","--valid-s"],instr:["--instr","--instr-s"],opt:["--opt","--opt-s"],ref:["--ref","--ref-s"]};
+const css=getComputedStyle(document.documentElement);
+const col=v=>css.getPropertyValue(v).trim();
+const c=(k)=>NODES[k];
+const center=(k)=>({x:c(k).x+c(k).w/2,y:c(k).y+c(k).h/2});
+const SVGNS="http://www.w3.org/2000/svg";
+function el(n,a){const e=document.createElementNS(SVGNS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+function wrapText(t,max){const w=t.split(" ");const lines=[];let cur="";for(const x of w){if((cur+" "+x).trim().length>max){lines.push(cur.trim());cur=x;}else cur+=" "+x;}if(cur.trim())lines.push(cur.trim());return lines;}
+
+// bands
+const gB=document.getElementById("bands");
+LAYERS.forEach(L=>{
+  const [f,s]=PALETTE[L.cls];
+  const depth=14, dx=20;
+  gB.appendChild(el("polygon",{points:`40,${L.y} ${40+dx},${L.y-depth} ${900+dx},${L.y-depth} 900,${L.y}`,fill:col(f),stroke:col(s),"stroke-width":1,opacity:.55}));
+  gB.appendChild(el("polygon",{points:`900,${L.y} ${900+dx},${L.y-depth} ${900+dx},${L.y+L.h-depth} 900,${L.y+L.h}`,fill:col(s),opacity:.18}));
+  gB.appendChild(el("rect",{x:40,y:L.y,width:860,height:L.h,rx:12,fill:col(f),stroke:col(s),class:"band-front",opacity:.35}));
+  const lb=el("text",{x:52,y:L.y+16,class:"lbl-band"});lb.textContent=L.label;gB.appendChild(lb);
+});
+
+// edges
+const gE=document.getElementById("edges");
+function edgePath(a,b){const A=center(a),B=center(b);return `M${A.x},${A.y} L${B.x},${B.y}`;}
+EDGES.forEach(([a,b,t])=>{
+  gE.appendChild(el("path",{d:edgePath(a,b),class:"edge "+t}));
+});
+
+// nodes
+const gN=document.getElementById("nodes");
+Object.keys(NODES).forEach(k=>{
+  const n=NODES[k],[f,s]=PALETTE[n.cls];
+  const g=el("g",{class:"node","data-key":k,tabindex:"0",role:"button","aria-label":n.t});
+  g.appendChild(el("rect",{x:n.x,y:n.y,width:n.w,height:n.h,rx:9,fill:col(f),stroke:col(s)}));
+  const lines=wrapText(n.t, Math.max(16,Math.floor(n.w/7)));
+  const startY=n.y+n.h/2-(lines.length-1)*7+4;
+  lines.forEach((ln,i)=>{const tx=el("text",{x:n.x+n.w/2,y:startY+i*14,"text-anchor":"middle",class:i===0?"t":""});tx.textContent=ln;g.appendChild(tx);});
+  gN.appendChild(g);
+});
+
+// interactions
+const dot=document.getElementById("dot");
+const pCam=document.getElementById("p-cam"),pTitle=document.getElementById("p-title"),pDesc=document.getElementById("p-desc"),pList=document.getElementById("p-list"),cap=document.getElementById("cap");
+let selected=null;
+function select(k){
+  document.querySelectorAll(".node.sel").forEach(e=>e.classList.remove("sel"));
+  const g=document.querySelector('.node[data-key="'+k+'"]');if(g)g.classList.add("sel");
+  const n=NODES[k];pCam.textContent=({lei:"Constituição",intent:"Objetivo (INTENT)",papeis:"Papéis",exec:"Execução (DEM)",valid:"Validação / Publicação",instr:"Instrumentos",opt:"Opcional / Futuro",ref:"Referência"})[n.cls]||"";
+  pTitle.textContent=n.t;pDesc.textContent=n.d;pList.innerHTML="";(n.inv||[]).forEach(x=>{const li=document.createElement("li");li.textContent=x;pList.appendChild(li);});
+  selected=k;
+  const bd=document.getElementById("btn-detail");
+  if(typeof DETAIL!=="undefined" && DETAIL[k]){bd.style.display="";}else{bd.style.display="none";}
+}
+document.getElementById("nodes").addEventListener("click",e=>{const g=e.target.closest(".node");if(g)select(g.getAttribute("data-key"));});
+document.getElementById("nodes").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")){const g=e.target.closest(".node");if(g){e.preventDefault();select(g.getAttribute("data-key"));}}});
+
+// toggles
+const tTilt=document.getElementById("tTilt");
+tTilt.addEventListener("click",()=>{const on=tTilt.getAttribute("aria-pressed")==="true";tTilt.setAttribute("aria-pressed",String(!on));document.getElementById("scene").classList.toggle("tilt",!on);});
+const tSlow=document.getElementById("tSlow");
+tSlow.addEventListener("click",()=>{const on=tSlow.getAttribute("aria-pressed")==="true";tSlow.setAttribute("aria-pressed",String(!on));PRESENTER.slow=!on;});
+const PRESENTER = { slow:false };
+const SP = () => (PRESENTER.slow ? 1.7 : 1);
+
+// flow animation (ritmo ajustável, pausa de leitura por nó e navegação manual por setas)
+let raf=null, flowIdx=0, flowActive=false;
+function flowSpeed(){ return PRESENTER.slow ? 0.005 : 0.012; }
+function flowDwell(){ return PRESENTER.slow ? 1700 : 750; }
+
+function updateFlowControls(){
+  const p=document.getElementById("prev"), n=document.getElementById("next"), ctr=document.getElementById("flowCounter");
+  if(flowActive){
+    ctr.textContent="Passo "+(flowIdx+1)+" / "+FLOW.length+" — "+NODES[FLOW[flowIdx]].t;
+    p.disabled=(flowIdx<=0); n.disabled=(flowIdx>=FLOW.length-1);
+  }else{ ctr.textContent=""; p.disabled=true; n.disabled=true; }
+}
+function placeDotAt(k){ const q=center(k); dot.setAttribute("cx",q.x); dot.setAttribute("cy",q.y); }
+function showNode(i){ flowIdx=Math.max(0,Math.min(i,FLOW.length-1)); const k=FLOW[flowIdx]; placeDotAt(k); cap.textContent=CAPS[flowIdx]||""; select(k); updateFlowControls(); }
+
+function stopAuto(){ if(raf)cancelAnimationFrame(raf); raf=null; }
+function endFlow(){ stopAuto(); flowActive=false; dot.classList.add("hidden"); updateFlowControls(); }
+
+// Reprodução automática: move o ponto de nó em nó, PAUSANDO em cada um para leitura.
+function playFlow(){
+  stopAuto(); flowActive=true; dot.classList.remove("hidden");
+  const pts=FLOW.map(center); let seg=0, t=0, dwelling=true, dwellUntil=performance.now()+flowDwell();
+  showNode(0);
+  function step(){
+    if(!flowActive) return;
+    if(seg>=FLOW.length-1){ showNode(FLOW.length-1); setTimeout(endFlow, flowDwell()); return; }
+    if(dwelling){ if(performance.now()<dwellUntil){ raf=requestAnimationFrame(step); return; } dwelling=false; }
+    const a=pts[seg], b=pts[seg+1];
+    t+=flowSpeed();
+    dot.setAttribute("cx", a.x+(b.x-a.x)*t);
+    dot.setAttribute("cy", a.y+(b.y-a.y)*t);
+    if(t>=1){ t=0; seg++; showNode(seg); dwelling=true; dwellUntil=performance.now()+flowDwell(); }
+    raf=requestAnimationFrame(step);
+  }
+  raf=requestAnimationFrame(step);
+}
+
+// Navegação manual: pausa o auto e move um passo. Se o fluxo ainda não começou, abre no passo 0.
+function stepManual(dir){
+  stopAuto();
+  if(!flowActive){ flowActive=true; dot.classList.remove("hidden"); showNode(0); if(dir>0) return; }
+  showNode(flowIdx+dir);
+}
+
+document.getElementById("play").addEventListener("click",playFlow);
+document.getElementById("prev").addEventListener("click",()=>stepManual(-1));
+document.getElementById("next").addEventListener("click",()=>stepManual(1));
+document.addEventListener("keydown",e=>{
+  if(detModal.classList.contains("open")) return;
+  if(e.target.closest("input,textarea")) return;
+  if(e.key==="ArrowRight"){ e.preventDefault(); stepManual(1); }
+  else if(e.key==="ArrowLeft"){ e.preventDefault(); stepManual(-1); }
+});
+document.getElementById("reset").addEventListener("click",()=>{endFlow();document.querySelectorAll(".node.sel").forEach(e=>e.classList.remove("sel"));pCam.textContent="Comece por aqui";pTitle.textContent="Método · Desenvolvimento Governado por Agentes";pDesc.textContent="Selecione um componente ou reproduza o fluxo.";pList.innerHTML="";cap.textContent="Pronto.";});
+
+// legend
+const L=document.getElementById("legend");
+[["Constituição","lei"],["Objetivo (INTENT)","intent"],["Papéis","papeis"],["Execução (DEM)","exec"],["Validação/Publicação","valid"],["Instrumentos","instr"],["Opcional/Futuro","opt"],["Referência","ref"]]
+ .forEach(([n,cl])=>{const s=document.createElement("span");s.innerHTML='<i class="sw" style="background:'+col(PALETTE[cl][0])+';border:1px solid '+col(PALETTE[cl][1])+'"></i>'+n;L.appendChild(s);});
+
+/* =================== POPUP: detalhe por componente =================== */
+const DETAIL={
+  principio:{io:"<b>Papel:</b> a regra que rege tudo",
+    steps:["O código serve à documentação, não o contrário","O que não está na spec não pode entrar no código","O que não está no visual não pode chegar à tela","Divergência detectada → atualiza o documento ANTES do código"]},
+  adr:{io:"<b>Papel:</b> a lei do projeto (Pilar A — a Constituição)",
+    steps:["Padrão MADR: Contexto → Opções consideradas → Decisão → Consequências → Impacto nas DEMs","Ciclo de vida: Proposed → Accepted → Deprecated | Superseded by ADR-NNN","O aceite é do ARQUITECT; numeração contínua e única — nunca reutilizada","Nenhuma DEM pode contrariar uma ADR Accepted — se precisar quebrar, uma nova ADR a substitui ANTES de a DEM começar","Uma ADR refina ou substitui outra explicitamente — nunca contradiz em silêncio"]},
+  adrs_min:{io:"<b>Papel:</b> as 8 decisões que todo projeto novo precisa tomar",
+    steps:["1. Stack e tecnologias-base — fixa o 'não trocar o stack'","2. Estratégia de branches (GitFlow) — ambientes, releases, regras do DEPLOY","3. Guard-rails de agentes + TLC + arquivos de guarda — autoriza delegar código a agentes","4. Estrutura única de DEM (ownership por pasta) — controle estrutural, não textual","5. Camada INTENT como gate de objetivo — a 11ª regra","6. Gestão de segredos — credenciais nunca no repositório","7. Observabilidade — como se instrumenta e se lê o runtime","8. Métrica de custo/tamanho por DEM — base do rollup e da priorização"]},
+  intent_doc:{io:"<b>Entrada:</b> problema em linguagem crua · <b>Saída:</b> o porquê assinável (≤ 1 página)",
+    steps:["Vai: problema com evidência, outcome observável, afetados/intocável, non-goals, constraints duras, health metrics, perguntas abertas, sinal de sucesso","Não vai: stack, libs, schema, endpoints, user stories, Gherkin, tasks, estimativas","Régua operacional: implementer ainda perguntaria 'qual banco?' → nível certo; PLANNER escrevendo 'vamos usar X' → virou spec, rejeita","Um intent por DEM (planner/intent.md): PLANNER escreve, ARQUITECT assina","Intent é estável, spec evolui: mudou o porquê → novo intent (ou superseded); mudou o como → nova spec"]},
+  gate_intent:{io:"<b>Papel:</b> o gate de objetivo — não-bypassável",
+    steps:["O PLANNER lista as perguntas abertas; o ARQUITECT as fecha — ninguém inventa resposta","status: signed + signed_by + signed_at — só então o PLANNER está autorizado a abrir a spec","Checklist de saúde antes de assinar: outcome observável, non-goals reais, constraints violáveis, ≤ 1 página","Cabeçalho com dois números: open_questions_open (= 0 no signed) e spec_citations (= 100% depois da spec)","Intent doente não se corrige na spec — reescreve o intent, ou não assina"]},
+  health:{io:"<b>Papel:</b> §6 do intent — o que NÃO pode piorar",
+    steps:["3 a 5 invariantes, cada uma com porteiro nomeado: EVAL, VISION, DEPLOY ou gate do ARQUITECT","Teste de admissão: observável agora, independente do outcome, violável por um DEM, barato de checar","Promoção: intent §6 linha N → plano-testes caso H-N → EVAL PASS/FAIL sobre hash","Se não dá para promover: a linha sai do intent (era desejo) ou vira pergunta aberta","Anti-padrões recusados: métrica = o próprio outcome, sem número/dono, 'UX premium', 'código limpo'","Sinal de §6 correto: pelo menos um FAIL de EVAL na piloto nasce de uma health metric"]},
+  metricas:{io:"<b>Papel:</b> saúde da prática — o gate está sendo respeitado?",
+    steps:["Intent-before-spec: % DEMs com signed antes do 1º commit de spec — alvo 100%","Churn pós-spec ~0 · Kill rate de non-goal = 0 · Briefing cita intent = 100%","Constraint → FAIL: > 0 é bom (0 eterno = §5 é enfeite)","Fechamento ilegal = 0 (pergunta do §8 respondida por PLANNER/DEVS) · Drift de outcome = 0","Tempo até signed (leading): cai ao longo das DEMs · Survival draft→signed ≠ 100% (morte é filtro)","Ordem de adoção: na piloto só as 4 primeiras; o restante depois de 3 DEMs — antes disso você mede o rito, não o efeito"]},
+  arquitect:{io:"<b>Ficha:</b> o humano no comando",
+    steps:["Missão: dono da visão, do produto e das decisões finais; origem e destino de toda DEM","Escreve: ADRs, roadmap, backlog (com o PLANNER), o problema em linguagem crua, o Accept do intent","Julga: fecha as perguntas abertas do intent — o PLANNER lista, o ARQUITECT decide","Aplica os Accepts de ferramentas que propõem-sem-escrever, conferindo o caminho no cabeçalho do diff","Fronteira: nenhum gate dele é bypassável — intent, spec, TLC List, aceite de entrega, aceite de release, decisões sensíveis"]},
+  planner:{io:"<b>Ficha:</b> planejador, escriba e auditor (a IA condutora)",
+    steps:["Missão: traduzir a visão em intent → specs → briefings executáveis; julgar desvios pela adequação ao resultado","Escreve (dono): intent.md, planner/ (prd · spec · design · plano-testes), TODOS os briefings, changelog, painel de DEMs, snapshot git","Fronteira de execução: não codifica (salvo pedido explícito), não aprova release, nunca escreve a jornada de outro agente","Fronteira de objetivo: não abre spec sem intent signed; não fecha pergunta aberta; não promove constraint a solução; não expande escopo","Se o porquê quebrar no meio da spec: para, reabre o intent (novo ou superseded) — não patcha a spec","Audita: 100% das capacidades citam §2/§4 Out/§5 do intent; promove cada health metric a um caso H-*"]},
+  devs:{io:"<b>Ficha:</b> desenvolvedores (IA ou humano)",
+    steps:["Missão: implementação técnica confinada à spec, via TLC (Think → List aprovado → Code)","Escreve (dono): código em feature/*; dev/jornada.md em tempo real (ponto ISO + tokens por tarefa)","Lê: o intent signed como norte, a spec/design, o próprio briefing","Fronteira: não redefine escopo; devolve tarefa de outro papel; gap que contradiz o intent → devolve, não 'melhora'","Commits sempre com trailers de rastreio; PR de feature sempre → a branch de integração"]},
+  eval:{io:"<b>Ficha:</b> avaliador / porteiro (IA)",
+    steps:["Missão: QA lógico-funcional; advogado do diabo — nada segue sem o PASS dele","Roda o plano de testes em estado limpo (dados/volumes zerados — evidência residual é falso positivo)","Veredito PASS/FAIL/BLOCKED amarrado a hash, com evidência por caso","Rastreio F/H/C/N/G: F→capacidade da spec · H→§6 do intent · C→§5 · N→§4 Out · G→gate humano","Fronteira: não corrige código; não muda critérios; a parte não-automatizável é gate do ARQUITECT, não FAIL"]},
+  vision:{io:"<b>Ficha:</b> guardião visual (IA · só em DEM com tela)",
+    steps:["Missão: validar UI/UX em navegador real — design system, responsividade, estados (loading/erro/vazio)","Sem pasta vision/ na DEM = VISION não participou (N/A)","Correções: devolve uma LISTA ao PLANNER (arquivo → problema observado → critério), que tria contra o código real antes de virar tarefa","Fronteira: não altera regra de negócio/serviços/dados; não relata suposição de código como fato de tela"]},
+  deploy:{io:"<b>Ficha:</b> publicador (IA)",
+    steps:["Missão: executar o GitFlow e os deploys com gates completos — e reportar","Escreve (dono): branches/PRs/merges/tags anotadas/back-merges + deploy/jornada.md — somente isso","Fronteira: não toca lógica; não publica sem gate (homologação em estado limpo; backup pareado antes de toda release)","Não altera nenhum documento do PLANNER — a interface de retorno é o CALLBACK estruturado","Callback incompleto (campo faltante) = o PLANNER não fecha"]},
+  know:{io:"<b>Ficha:</b> guardião do conhecimento (IA · transversal, opcional)",
+    steps:["Missão: fonte única de verdade consultável (base de conhecimento + regras + schema), servida sob demanda","Fronteira: não decide; só serve conhecimento, sempre com a fonte","Estado: latente até o projeto ter uma base consultável"]},
+  orchestrator:{io:"<b>Ficha:</b> roteador (IA · opcional/futuro)",
+    steps:["Missão futura: substituir o ARQUITECT no TRANSPORTE — despachar briefings pelo PARA:, coletar jornadas/callbacks","Confirmações mecânicas dentro dos scopes; roteio por complexidade","Fronteira: não decide negócio/escopo; não aprova nenhum gate humano","O processo instrumentado (tempo/tokens por tarefa) já acumula o que ele vai precisar"]},
+  dem_struct:{io:"<b>Papel:</b> ownership por pasta — a estrutura do processo é arquitetura",
+    steps:["DEM-AAAAMM-<tracker>-<seq>-<slug>/ — o mesmo pacote de pastas para toda DEM, grande ou pequena","planner/ (o plano: intent · prd · spec · design · plano-testes) · dev/ · eval/ · deploy/ · vision/ · know/","Dois arquivos de dono único por pasta: briefing.md (PLANNER) + jornada.md (o próprio agente)","A ausência de uma pasta indica que o agente NÃO participou (sem vision/ = VISION N/A)","PLANNER e ARQUITECT não têm pasta de diário — o registro do PLANNER é planner/ + changelog"]},
+  tlc:{io:"<b>Papel:</b> o ritual de toda sessão de implementação",
+    steps:["Identifique a DEM e leia na ordem: perfil → convenções → planner/ (intent → prd → spec → design → plano-testes) → seu briefing","Think — declare assunções, ambiguidades e conflitos com ADRs; nunca escolha em silêncio","List — arquivos afetados, riscos e a ordem dos passos; AGUARDE aprovação","Code — só então, um passo por vez, registrando na jornada em tempo real","Dúvida antes de executar → registra e devolve ao PLANNER; nunca executa sobre assunção não confirmada"]},
+  briefing:{io:"<b>Papel:</b> o handoff do PLANNER — protocolo de despacho",
+    steps:["Cabeçalho de despacho: PARA: <papel> · DEM: <id> · GATE: <gate>","A ordem dos gates é intent → spec → eval → vision → deploy; GATE: spec sem intent signed = mis-roteamento → devolve","Caminhos absolutos: intent, spec, plano de testes, código, branch e hash (quando aplicável)","O caminho do intent acompanha todo despacho PARA: DEVS/EVAL/VISION — é o norte contra o qual se julga 'melhoria'","Quem recebe um despacho fora do seu papel devolve — não executa"]},
+  jornada:{io:"<b>Papel:</b> livro-razão vivo — cartão de ponto e rollup",
+    steps:["Cada tarefa é uma entrada titulada com Início/Término ISO + tokens in/out","A métrica é o Tempo ativo (Σ das durações das tarefas), NÃO o SPAN — o gap de despacho do ARQUITECT não conta","briefing.md mede o PLANNER (orquestração); jornada.md mede a execução do agente","Tarefas de briefing e jornada se espelham pelo título (Tarefa N ↔ Tarefa N), incluindo erro/correção","Tokens derivados de fonte real (gateway/telemetria) ou 'não medido' — nunca inventados","Rollup por DEM: README da DEM soma tempo/tokens por agente, consolidado pelo PLANNER no fechamento"]},
+  gates:{io:"<b>Papel:</b> os 6 gates — todos não-bypassáveis · + DoR/DoD por fase",
+    steps:["intent — ARQUITECT: planner/intent.md no disco, status: signed","spec — ARQUITECT: spec aprovada; 100% das capacidades citam o intent","eval — EVAL: veredito PASS sobre hash existente, em estado limpo","vision (se há tela) — VISION valida sobre hash em navegador real; PLANNER tria a lista","aceite de entrega — ARQUITECT: inclui fluxo humano / decisões sensíveis","aceite de release — ARQUITECT: homologação em estado limpo + backup pareado","DoR · Intent: problema em linguagem crua do ARQUITECT","DoR · Spec: intent signed + prd sem ambiguidade pendente","DoR · Design: spec aprovada, requisitos verificáveis, contratos se houver","DoR · Implementação: documentos anteriores aprovados; ADRs relevantes citadas","DoR · Fechamento: testes verdes cobrindo os requisitos; hash do commit; checklist de regressão arquitetural OK","Done de fase = documento completo (sem [placeholder]) + ARQUITECT aprovou + conflitos com ADRs sinalizados + itens em aberto registrados"]},
+  gitflow:{io:"<b>Papel:</b> estratégia de branches — integração, homologação e produção separadas",
+    steps:["main = produção (cada merge recebe tag SemVer anotada) · develop = linha de integração contínua","feature/DEM-… → develop (via PR) · bugfix/DEM-… → develop · release/x.y.z → main E develop (+ tag) · hotfix/x.y.z → main E develop","A branch de feature espelha a pasta da DEM: feature/DEM-AAAAMM-<tracker>-<seq>-<slug>","main e develop protegidas: proibido push direto, só via Pull Request","PR de feature → develop só avança com EVAL=PASS (+ VISION se houver tela); release → main exige aceite do ARQUITECT","1 PR por DEM; branch de feature deletada após o merge; back-merge obrigatório em develop"]},
+  deploy_rules:{io:"<b>Papel:</b> as 9 regras duras — violar = abortar e reportar ao ARQUITECT",
+    steps:["1. Alvo de PR de feature/bugfix = SEMPRE a branch de integração — nunca direto em produção","2. Produção só recebe PR de release/* (ou hotfix/*), após homologação + aceite explícito do ARQUITECT","3. Pré-flight antes de QUALQUER merge: confirmar source/target, git diff --stat, nenhum segredo no diff","4. NUNCA revert + re-merge (o Git trata os commits como já presentes e PERDE alterações) — branch nova do estado correto","5. Backup pareado com checksum antes de toda release","6. Back-merge obrigatório de release/*/hotfix/* em develop — confirmar develop ⊇ produção","7. Pós-merge: validar a árvore, atualizar o painel, devolver PRs + hash do merge + tag ao PLANNER","8. Relatórios em bloco copiável (erro ou OK) — sem isso, a decisão humana fica sem material","9. Diário de publicação deploy/jornada.md, simétrico à dev/jornada.md, com ponto por tarefa"]},
+  templates:{io:"<b>Papel:</b> os modelos copiáveis da DEM (todos neutros — nenhum cita stack)",
+    steps:["intent.md → planner/intent.md — ANTES de tudo (PLANNER escreve / ARQUITECT assina)","prd.md → spec.md → design.md → plano-testes.md — o plano, nesta ordem, só com intent signed","briefing.md → <agente>/briefing.md (o handoff) · jornada.md → <agente>/jornada.md (vivo, do próprio agente)","changelog.md + README-dem.md — raiz da DEM, no fechamento e na abertura","Regras: nunca apagar seções (escreva N/A + motivo); plano-testes só é aceito com rastreio F/H/C/N/G por caso"]},
+  perfil:{io:"<b>Papel:</b> o encaixe neutro — o SEU projeto entra aqui",
+    steps:["11 seções: identidade, papéis (instâncias), stack, segurança, ambientes/GitFlow, rastreio, testes, observabilidade, custo, ADRs, perguntas abertas","Nenhum documento de método cita stack — toda escolha técnica vive aqui, e só aqui","É aqui que você diz QUEM ocupa cada papel (humano / modelo / agente)","Campo desconhecido → pergunta aberta → vira ADR","Exemplo real preenchido: exemplo-agoracred.md"]},
+  guarda:{io:"<b>Papel:</b> manifestos comportamentais na raiz do repositório",
+    steps:["AGENTS.md — manifesto do DEVS: guard-rails, TLC, restrições absolutas, ponteiro para a DEM atual","CLAUDE.md — equivalente para agentes Claude; aponta para os demais","CONVENTIONS.md — padrões de código/teste/segurança, commits, rastreio requisito↔teste, DoR/DoD","PROJECT_CONTEXT.md (recomendado) — stack, ADRs vigentes e a seção 'o que NÃO mudar'","Copiar para a raiz do repo e completar os [preencher] com o perfil; sem duplicar conteúdo entre eles"]},
+  painel:{io:"<b>Papel:</b> a fonte do que está em andamento",
+    steps:["_dashboard.md (ou equivalente) lista todas as DEMs: estado, dependências e a última release","Não hardcode a 'DEM atual' nos arquivos de guarda — eles envelhecem a cada ciclo","Cascata: o fechamento de uma DEM libera as que dependiam dela","É onde vivem as métricas de governança do gate INTENT (rollup por DEM)"]},
+  regras11:{io:"<b>Regras 1–10:</b> cercas de execução · <b>Regra 11:</b> a cerca de objetivo",
+    steps:["1. PLANNER não codifica, planeja — e audita: escriba da spec e de todo o fechamento","2. DEVS não decidem escopo, executam — dúvida para e pergunta; desvio registra na jornada em tempo real","3. EVAL é o porteiro — em estado limpo. Nenhum PASS sobre estado residual","4. O ARQUITECT é a origem e o destino. Nenhum gate humano é bypassável","5. KNOW é a fonte de verdade consultável (quando operacional)","6. Cada arquivo tem UM dono. Briefing = PLANNER; jornada = o próprio agente. Ownership estrutural","7. A cerca de papel é bidirecional. Tarefa fora do papel devolve-se; troca de papel/instância só com aceite explícito do ARQUITECT","8. DEPLOY reporta, PLANNER registra. Callback estruturado é a única interface de retorno da publicação","9. Nada existe até estar no disco/git, verificado. Veredito amarrado a hash; jornada materializada é pré-condição; declaração nunca substitui verificação","10. A ferramenta serve ao papel. Instância sem as capacidades opera por fluxo mediado (Accept); todo fechamento termina em snapshot git","11. Intent é o porquê; spec é o quê; DEM é o como. Spec sem intent signed não existe. Mudou o porquê → novo intent; mudou o como → spec/DEM. Ninguém no fim da cadeia 'melhora' o outcome"]},
+  matriz:{io:"<b>Papel:</b> menor privilégio + auditabilidade (quem, o quê, quando, por quê)",
+    steps:["ARQUITECT — scopes *:* · gates não-bypassáveis; confere o caminho antes de todo Accept","PLANNER — doc:*, spec:*, intent:*, briefing:*, audit:*, feature:read · NÃO codifica; não aprova release; não escreve jornada alheia; não abre spec sem signed; não fecha pergunta aberta; não promove constraint a solução; não expande escopo","DEVS — code:*, git:push (feature/*), test:local · NÃO redefine escopo; devolve tarefa de outro papel; contradição ao intent → devolve, não 'melhora'","EVAL — validation:*, verdict:*, evidence:read · NÃO corrige código; não muda critérios; não valida estado residual","VISION — ui:validate, design:*, vision-folder:write · NÃO altera negócio/serviços; correção = lista, não aplicação","DEPLOY — git:*, release:*, branch:* · NÃO toca lógica; não publica sem gate; não altera docs do PLANNER","KNOW — kb:read, kb:index · NÃO decide; só serve conhecimento","ORCHESTRATOR — dispatch:*, collect:* · NÃO decide negócio; não aprova gates","Revise esta matriz a cada DEM que mexa em papéis — escalonamento de privilégio acumulado por DEMs é uma armadilha conhecida"]},
+  cercas:{io:"<b>Papel:</b> por que o método é assim — as cercas amadureceram em 4 estágios",
+    steps:["1. Textuais — regras escritas ('não faça X')","2. Estruturais — a organização dos arquivos garante o controle: um dono por arquivo, pastas por papel","3. Verificadas — nada existe até estar no disco/git, conferido; veredito amarrado a hash; jornada materializada é pré-condição","4. De objetivo — o porquê vira artefato assinado (intent): fecha o drift de objetivo, que as três anteriores não cobriam","O que combatem: alucinação (inventar fora da spec), quebra de alinhamento (trocar stack, refatorar fora de escopo, 'melhorar' o não pedido) e escalada de privilégio (decidir arquitetura/negócio sozinho)"]},
+  guard4:{io:"<b>Papel:</b> os 4 guard-rails comportamentais de todo agente de IA",
+    steps:["Think Before Coding — declare assunções e ambiguidades; nunca escolha em silêncio","Simplicity First — código mínimo que resolve; sem flexibilidade não pedida","Surgical Changes — toque só o necessário; não 'melhore' código adjacente fora do escopo","Goal-Driven Execution — não termine até os testes provarem os critérios de aceite da DEM","Estilo é julgamento, não regra: escreva código que lê como o código ao redor — os guard-rails são de escopo/verificação (governança), não de estilo","Devem ser registrados como uma ADR no projeto — é a decisão que autoriza delegar código a agentes com segurança"]},
+  adocao:{io:"<b>Papel:</b> guia de adoção do pacote metodo/ num projeto novo (README)",
+    steps:["1. Copie a pasta inteira metodo/ para a documentação do projeto novo — ela é autocontida","2. Preencha o perfil do projeto a partir do template — é aqui, e só aqui, que entram as escolhas técnicas","3. Instale os arquivos de guarda (AGENTS/CLAUDE/CONVENTIONS) na raiz do repo e complete os [preencher] com o perfil","4. Registre as primeiras ADRs a partir do template MADR — a lista mínima são as 8 decisões","5. Rode a primeira DEM: crie a pasta a partir dos templates/ e siga o ciclo de vida (INTENT → spec → briefings → DEVS/TLC → EVAL → VISION → aceite → DEPLOY → fechamento)","Ordem de leitura para a IA condutora: filosofia → papéis → guard-rails → INTENT → estrutura da DEM → ciclo de vida → despacho → gitflow"]}
+};
+const detModal=document.getElementById("detailModal");
+const detTitle=document.getElementById("detTitle"),detIO=document.getElementById("detIO"),detStepsEl=document.getElementById("detSteps"),detInv=document.getElementById("detInv");
+let detTimers=[];
+function clearDet(){detTimers.forEach(clearTimeout);detTimers=[];}
+function playDetail(k){
+  clearDet();
+  const F=SP();
+  const D=DETAIL[k],n=NODES[k];
+  detTitle.textContent=n.t;
+  detIO.innerHTML=D.io||"";
+  detStepsEl.innerHTML="";
+  D.steps.forEach((s,i)=>{
+    const d=document.createElement("div");d.className="step";d.id="detstep"+i;
+    d.innerHTML='<div class="num">'+(i+1)+'</div><div><div class="st">'+s+'</div></div>';
+    detStepsEl.appendChild(d);
+  });
+  detInv.innerHTML="";(n.inv||[]).forEach(x=>{const c=document.createElement("span");c.className="chip";c.textContent="✓ "+x;detInv.appendChild(c);});
+  D.steps.forEach((s,i)=>{
+    detTimers.push(setTimeout(()=>{
+      for(let j=0;j<D.steps.length;j++){const e=document.getElementById("detstep"+j);if(!e)continue;e.classList.remove("on");if(j<i)e.classList.add("done");}
+      const cur=document.getElementById("detstep"+i);if(cur)cur.classList.add("on");
+      if(i===D.steps.length-1){detTimers.push(setTimeout(()=>{const last=document.getElementById("detstep"+i);if(last){last.classList.remove("on");last.classList.add("done");}},650*F));}
+    },(250+i*700)*F));
+  });
+}
+function openDetail(){if(selected!=null&&DETAIL[selected]){detModal.classList.add("open");playDetail(selected);}}
+function closeDetail(){clearDet();detModal.classList.remove("open");}
+document.getElementById("btn-detail").addEventListener("click",openDetail);
+document.getElementById("detClose").addEventListener("click",closeDetail);
+document.getElementById("detClose2").addEventListener("click",closeDetail);
+document.getElementById("detReplay").addEventListener("click",()=>{if(selected!=null&&DETAIL[selected])playDetail(selected);});
+detModal.addEventListener("click",e=>{if(e.target===detModal)closeDetail();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&detModal.classList.contains("open"))closeDetail();});
+
+// deep-links de apresentação: #no=<chave> seleciona o componente; #detalhe=<chave> seleciona e abre o detalhe
+(function(){const h=location.hash||"";const md=h.match(/detalhe=([\w-]+)/);
+  if(md&&NODES[md[1]]&&typeof DETAIL!=="undefined"&&DETAIL[md[1]]){select(md[1]);openDetail();return;}
+  const m=h.match(/no=([\w-]+)/);if(m&&NODES[m[1]])select(m[1]);})();
+</script>
+</body>
+</html>
