@@ -33,7 +33,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 
 | DEM | Assunto | Estado | Depende de |
 |---|---|---|---|
-| [DEM-202610-001](dem/DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | **spec em revisão** — aguarda aprovação do ARQUITECT | — |
+| [DEM-202610-001](dem/DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | **implementação** — aguarda aprovação do List (TLC) | — |
 
 > A fonte é esta tabela. Não hardcode a "DEM atual" nos arquivos de guarda.
 
