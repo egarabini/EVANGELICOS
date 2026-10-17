@@ -1,13 +1,14 @@
 # Intent: DEM-202610-003 / inventario-de-fontes
 
-status: draft
+status: signed
 owner: PLANNER
 signed_by: ARQUITECT
 origin: OLPF da base de conhecimento + ADR-012 (política de fontes)
-signed_at:
+signed_at: 2026-10-17
 supersedes: —
-open_questions_open: 3
-spec_citations: — (preenchido ao fechar a spec)
+open_questions_open: 0
+spec_citations: 100% — todo RF de `spec.md` cita §2, §4 In, §5 ou uma decisão do §8
+nota_de_assinatura: as três questões foram fechadas pelo ARQUITECT em 2026-10-17; na 8.3 ele delegou a classificação doutrinária ao PLANNER ("pode colocar o que você interpretar e na revisão vamos adequar").
 
 ## 1. Problema
 
@@ -69,16 +70,15 @@ seguintes da frente (B a D), que passam a consultar o inventário em vez de rede
 O ARQUITECT percorre o inventário e responde, para **qualquer** arquivo do acervo, *"isso
 pode ser exibido ao aluno?"* — sem abrir um segundo documento. Isso é o aceite.
 
-## 8. Perguntas abertas
+## 8. Perguntas abertas — fechadas pelo ARQUITECT em 2026-10-17
 
-Só o ARQUITECT fecha. O PLANNER lista, não responde.
+**Nenhuma aberta.**
 
-- [ ] O inventário vive como **documento** (`documentacao/fontes/`) ou já nasce como **dado
-      estruturado** (CSV/tabela) para a DEM-B importar sem retrabalho?
-- [ ] As fontes **internas** (Grudem, Sire, dicionários) entram com o mesmo peso das
-      externas, ou ficam num anexo separado?
-- [ ] Quem atesta a **adequação doutrinária**: o ARQUITECT sozinho hoje, com o REVISOR
-      assumindo depois (quando existir)?
+| # | Pergunta | Decisão |
+|---|---|---|
+| 8.1 | Documento ou dado estruturado? | **Dado estruturado (CSV)**, para a DEM-B importar direto. |
+| 8.2 | Fontes internas com o mesmo peso? | **Sim, mesmo peso** das externas. Sem anexo. |
+| 8.3 | Quem atesta a adequação doutrinária? | **O PLANNER preenche com a sua interpretação**; o ARQUITECT revisa e ajusta o que for necessário. |
 
 ## 9. Fora de julgamento
 

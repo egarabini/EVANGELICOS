@@ -6,4 +6,4 @@ Uma pasta por DEM, no formato `DEM-AAAAMM-<seq>-<slug>/` com `planner/`, `dev/`,
 |---|---|---|
 | [DEM-202610-001](DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | EVAL PASS · aguarda VISION/aceite |
 | DEM-202610-002 *(proposta)* | Guarda de papel nas rotas `/admin` | proposta |
-| [DEM-202610-003](DEM-202610-003-inventario-de-fontes/planner/intent.md) | DEM-A: inventário de fontes e licenças | intent em rascunho |
+| [DEM-202610-003](DEM-202610-003-inventario-de-fontes/README.md) | DEM-A: inventário de fontes e licenças | intent signed · spec em revisão |
