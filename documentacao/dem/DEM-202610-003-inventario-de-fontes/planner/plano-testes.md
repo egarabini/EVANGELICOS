@@ -30,7 +30,7 @@ signed_at:
 | F-07 | funcional | spec RF07 | `adequacao_doutrinaria` preenchida; revisão pendente registrada | sim | EVAL |
 | F-08 | funcional | spec RF08 | internas e externas no mesmo arquivo | sim | EVAL |
 | F-09 | funcional | spec RF09 | arquivos nos caminhos declarados | sim | EVAL |
-| F-10 | funcional | spec RF10 | 13 exclusões presentes como `nao_entra` com motivo | sim | EVAL |
+| F-10 | funcional | spec RF10 | 12 exclusões presentes como `nao_entra` com motivo | sim | EVAL |
 | H-01 | health | intent §6 | suíte continua **82 verdes** | sim | EVAL |
 | H-02 | health | intent §6 | lição do Cap. 21 intocada (corpus/produção sem escrita) | sim | EVAL |
 | H-03 | health | intent §6 | 0 contradições com as 12 decisões da ADR-012 | **não** | EVAL |

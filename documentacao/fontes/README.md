@@ -35,13 +35,34 @@ EVAL: ele lê o CSV, não o código que o gerou.
    a dúvida.
 6. **Na dúvida entre regimes, o mais restritivo** (spec §6.1).
 
+## Como ler as 17 colunas
+
+| Coluna | O que significa |
+|---|---|
+| `id` | identificador da linha (`F-001`…) |
+| `fonte` | nome da fonte; para o Sensus: `Sensus — <id>: <título>` |
+| `tipo` | `corpus` · `referencia_cruzada` · `obra` · `adendo` · `fonte_dados` · `codigo` · `conteudo` · `ferramenta` |
+| `titular` | quem detém o direito, ou `a confirmar` |
+| `licenca` | licença identificada (ou `a confirmar`) |
+| `licenca_verificada` | `sim`/`nao` — se a licença foi conferida na fonte |
+| `regime_exibicao` | `curto` (trecho ao aluno) · `integral_interno` (só os quatro papéis) · `nao_exibir` |
+| `atribuicao_exigida` | texto a exibir, ou `não` |
+| `versao_data` | versão, edição ou data |
+| `adequacao_doutrinaria` | `ok` · `atencao` · `fora` · `a_revisar` |
+| `decisao` | `entra` · `nao_entra` · `depende` |
+| `motivo` | obrigatório quando a decisão não é `entra` |
+| `localizacao` | onde a fonte está no repositório |
+| `adr_referencia` | a ADR (ou decisão) que rege a linha |
+| `observacoes` | gatilho (**o quê · com quem · quando**) e notas |
+| `revisado_por` / `revisado_em` | preenchidos na revisão do ARQUITECT |
+
 ## Pendências conhecidas (registradas, não escondidas)
 
 | Pendência | Estado |
 |---|---|
 | **Medida objetiva de "curto"** (nº de palavras, % do capítulo) | proposta do PLANNER, a fechar pelo ARQUITECT. Não trava o inventário: o regime já está classificado. Vira requisito da DEM que construir o "detalhar". |
 | **Limite de citação da ACF** | depende da SBTB (F-001) |
-| **Licença da tradução PT** de Grudem, Sire e Dicionário de Paulo | `a confirmar` com gatilho (F-002, F-004, F-007, F-008) |
+| **Titularidade/licença da tradução PT** | a **obra** está em `direito reservado` (F-004, F-007, F-008); o que falta identificar é a **tradução**. Henry PT é `a confirmar` (F-002) |
 | **`adequacao_doutrinaria` das fontes adventistas e dispensacionalistas** | provisória (`atencao`); o ARQUITECT revisa. Não é exclusão — é identificação de tradição. |
 | **Autoria dos resumos do `biblia-plataforma`** | `a confirmar` (F-074) |
 | **Duplicidade de fontes entre projetos** (Bíblia Livre, OpenBible) | catálogo registra a ocorrência; a normalização (fonte única + N:N com projeto) é da **DEM-B** |

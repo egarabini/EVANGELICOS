@@ -105,6 +105,26 @@ def main() -> int:
             if valor not in dominio:
                 falhas.append(f"{rotulo}: {coluna}='{valor}' fora do dominio {sorted(dominio)}")
 
+        # CA01: campos obrigatorios preenchidos (spec §4)
+        obrigatorios = [
+            "id", "fonte", "tipo", "titular", "licenca", "licenca_verificada",
+            "regime_exibicao", "atribuicao_exigida", "versao_data",
+            "adequacao_doutrinaria", "decisao", "localizacao",
+        ]
+        vazios = [c for c in obrigatorios if not (linha.get(c) or "").strip()]
+        if vazios:
+            falhas.append(f"{rotulo}: campos obrigatorios vazios {vazios} (CA01)")
+
+        # spec §6.1: licenca a confirmar -> regime NAO MAIS PERMISSIVO que integral_interno.
+        # Aceita integral_interno e nao_exibir (mais restritivo); recusa apenas curto.
+        # Excecao unica: F-001 (ACF), cujo risco a ADR-012 10.10 aceita explicitamente.
+        if (linha.get("licenca") or "").strip().lower() == "a confirmar" and rid != "F-001":
+            if (linha.get("regime_exibicao") or "").strip() not in ("integral_interno", "nao_exibir"):
+                falhas.append(
+                    f"{rotulo}: licenca 'a confirmar' exige regime integral_interno ou "
+                    f"nao_exibir, nunca curto (spec §6.1)"
+                )
+
         # CA03: motivo obrigatorio quando nao entra
         decisao = (linha.get("decisao") or "").strip()
         motivo = (linha.get("motivo") or "").strip()
