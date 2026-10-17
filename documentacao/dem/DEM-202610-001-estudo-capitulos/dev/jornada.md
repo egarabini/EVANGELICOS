@@ -4,82 +4,83 @@
 Agente: DEVS (IA)
 Papel:  DEVS
 DEM:    DEM-202610-001-estudo-capitulos
+Branch: feature/DEM-202610-001-estudo-capitulos
 Registro: **data** (decisão do ARQUITECT — sem relógio e sem tokens)
 ```
 
 ## Tarefa 0 — TLC (Think + List) · 2026-10-16
 
-Status: **List aguardando aprovação do ARQUITECT.** Nenhum arquivo de código criado;
-nenhuma branch criada.
+Think e List apresentados; **List aprovado pelo ARQUITECT em 2026-10-16**.
 
-### Think — assunções declaradas
+## Tarefa 1 — modelos · 2026-10-16
 
-1. A fonte da carga é o **banco**: os 34 `Study` + a `StudyVersion` de maior `version`.
-   Não releio o markdown (design §4).
-2. A ordem vem do título do `Study` (`^Cap\.\s*(\d+)`), com fallback para a ordem de
-   criação. Função pura, testável isoladamente.
-3. `questions_json` é **opaco**: copio a string, não parseio, não valido.
-4. `StudyStatus.RASCUNHO` serve; **não** crio enum novo.
-5. A aba nova segue o padrão de `_obras_tab`: listas planas, rótulos montados no estado.
-6. `create_all` no importador cria as 3 tabelas (o projeto não usa Alembic).
-7. O importador **aborta** se a obra não existir, antes de criar qualquer coisa (design §4).
+`models/estudo.py` com `Estudo`, `EstudoCapitulo`, `EstudoCapituloOrigem` + registro
+em `models/__init__.py`.
 
-### Ambiguidades e conflitos
+Decisão: `status = StudyStatus.RASCUNHO` — o enum já existia com o mesmo ciclo de vida,
+e criar outro só duplicaria taxonomia.
 
-- **Nenhum conflito** com as ADRs 001–011.
-- Uma decisão que estava ambígua foi fechada pelo ARQUITECT nesta rodada: **quem roda a
-  carga em produção**. Registrado no design §4: o ARQUITECT, manualmente, após `pg_dump`
-  e após o merge — nunca o agente (ADR-010).
-- Dois ajustes do ARQUITECT foram incorporados antes deste List: a **pré-condição da obra**
-  (F-11) e a **prova objetiva de não tocar na lição** (C-04, `git diff` vazio).
+Verificação: as 3 tabelas aparecem no metadata com as FKs certas
+(`obra.id`, `obracapitulo.id`, `adendo.id`, `estudocapitulo.id`); suíte 76 verde.
 
-### List — arquivos, riscos e ordem
+## Tarefa 2 — importador · 2026-10-16
 
-**Criar (3)**
+`scripts/importar_estudo_aplicado.py` no padrão de `importar_obra.py`.
 
-| # | Arquivo | Conteúdo |
-|---|---|---|
-| 1 | `gsi_ebd/models/estudo.py` | `Estudo`, `EstudoCapitulo`, `EstudoCapituloOrigem` |
-| 2 | `gsi_ebd/scripts/importar_estudo_aplicado.py` | importador idempotente, `--apply`/`--autoteste`, aborto na pré-condição, funções puras |
-| 3 | `tests/test_estudo_aplicado.py` | ordem pelo título, fallback, idempotência, pré-condição |
+**Desvio 1 (erro meu).** Importei `select` do SQLAlchemy, que devolve `Row`; `obra.id`
+estourou `AttributeError`. Corrigido para o `select` do SQLModel.
 
-**Modificar (4)**
+**Como descobri o defeito no importador da obra:** foi o mesmo erro, no mesmo lugar.
+Ver "Descoberta" abaixo.
 
-| # | Arquivo | Mudança |
-|---|---|---|
-| 4 | `gsi_ebd/models/__init__.py` | registro das 3 entidades (~2 linhas) |
-| 5 | `gsi_ebd/states/admin.py` | 2 listas planas + `load_estudos_aplicados()` |
-| 6 | `gsi_ebd/pages/admin.py` | aba **Estudos** (~40 linhas) |
-| 7 | `gsi_ebd/components/sidebar.py` | 1 item de menu |
+Verificação: `--apply --autoteste` → **PASS**, 10 checagens (F-11 aborta sem a obra e
+não cria nada; 34 capítulos; 34 origens; 5 exemplos ignorados; tudo em rascunho;
+idempotente; não duplicou; dry-run seleciona 34).
 
-**Não tocar (declarado e verificável por C-04):**
-`gsi_ebd/pages/lesson.py` · `gsi_ebd/states/aluno.py` · `gsi_ebd/models/study.py` ·
-`gsi_ebd/scripts/importar_obra.py` · todo `gsi_ebd/services/` · o corpus.
+## Descoberta fora do escopo declarado — `importar_obra.py`
 
-**Riscos**
+**Defeito:** `from sqlalchemy import func, select` → na **re-execução**, `obra.id`
+estourava `AttributeError: id`. A primeira execução nunca lia o registro de volta
+(criava a obra e seguia com a instância local), então o defeito nunca apareceu — e
+contradiz o que o próprio docstring promete ("quando a correção for feita, basta rodar
+de novo") e a premissa de idempotência da Fase 1.
 
-| Risco | Mitigação |
-|---|---|
-| Obra ausente no banco | aborta antes de criar nada (F-11) |
-| Título fora do padrão `Cap. NN` | fallback por ordem de criação, unitário |
-| Mais de uma `StudyVersion` | maior `version`; empate por `created_at` |
-| A aba quebrar a compilação da página (incidente de 16/10) | rótulos prontos no estado, sem `Var + str`; `test_paginas.py` roda antes do commit |
-| `create_all` no banco de produção | só cria tabelas ausentes; contagens conferidas antes/depois (H-04) |
+**Ação:** corrigido em **commit separado** (`6defd39`), 1 linha, trivial de reverter.
+Justificativa: esta DEM depende da obra existir, e é o ARQUITECT quem roda o importador
+da obra depois de corrigir a tradução.
 
-**Ordem dos passos**
+**Verificado:** 1ª execução 34 novos; 2ª execução 0 novos / 0 atualizados.
 
-1. `models/estudo.py` + registro → suíte verde
-2. `scripts/importar_estudo_aplicado.py` (com `--autoteste`)
-3. `tests/test_estudo_aplicado.py` → verde
-4. `states/admin.py`
-5. `pages/admin.py` + `components/sidebar.py` → `test_paginas.py` verde
-6. suíte completa
+## Tarefa 3 — testes das funções puras · 2026-10-16
 
-**Branch:** `feature/DEM-202610-001-estudo-capitulos`, criada de `develop` no passo 1.
+6 testes em `tests/test_estudo_aplicado.py`: ordem pelo título (padrão real dos 34 e os
+5 exemplos), escolha de versão (maior, empate por data, vazio), seleção e ordenação.
 
-### Estado
+## Tarefa 4 — estado do admin · 2026-10-16
 
-- [x] Think
-- [x] List
-- [ ] **List aprovado pelo ARQUITECT** ← aguardando
-- [ ] Code (passo 1 em diante)
+Duas listas planas (`estudos_aplicados`, `capitulos_estudo`) + `load_estudos_aplicados()`.
+Rótulos montados **em Python** (`origem_label`, `conteudo_label`) — nada concatenado no
+componente, para não repetir o incidente de 16/10.
+
+## Tarefa 5 — tela e menu · 2026-10-16
+
+Aba **Estudo Aplicável** + item no menu (7 itens).
+
+**Desvio 2 (erro meu, pego antes do commit).** Colidi o nome com a aba de Aprovação:
+já existia `_estudos_tab()`. O Python não reclama — a segunda definição sobrescreve a
+primeira, e a aba de **Aprovação de Estudos passaria a mostrar a tela nova**. Foi pego
+ao conferir a fiação (6 triggers × 6 contents × funções distintas). Renomeada para
+`_estudo_aplicado_tab`. Lição: compilar não basta; é preciso conferir **o que** está
+ligado em **qual** aba.
+
+## Tarefa 6 — verificação final · 2026-10-16
+
+- suíte: **82 verdes** (76 + 6)
+- autoteste do importador: **PASS** (10 checagens)
+- `tests/test_paginas.py`: a página admin compila com a aba nova
+- **C-04:** `git diff --stat develop...HEAD` em `lesson.py`, `aluno.py`, `study.py` → **vazio**
+
+## Estado
+
+Implementação concluída na branch, em 2 commits (`6defd39` fix, `ac712dd` feat).
+Aguardando parecer do PLANNER sobre o diff real e o EVAL cego.
