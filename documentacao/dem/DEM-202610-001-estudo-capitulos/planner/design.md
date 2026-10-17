@@ -23,19 +23,29 @@ Spec: [`spec.md`](spec.md) — aprovada em 2026-10-16 · ADRs: 001 (stack), 002 
 
 ## 3. Fluxo principal
 
-1. Operador roda `python -m gsi_ebd.scripts.importar_estudo_aplicado --apply`.
-2. O importador resolve o estudo de destino (cria se não existir, ligado à obra).
-3. Lê os **34 `Study` existentes** e, de cada um, a `StudyVersion` de maior `version`.
-4. Deriva a ordem do título (`Cap. NN`) e cria/atualiza o `EstudoCapitulo` com
+1. O **ARQUITECT** roda `python -m gsi_ebd.scripts.importar_estudo_aplicado --apply`
+   (ver §4, "Quem executa a carga").
+2. **Pré-condição verificada antes de escrever:** a obra da Fase 1 tem de existir no
+   banco. Se não existir, o importador **aborta com mensagem clara e não cria nada** —
+   falhar é melhor do que criar capítulos sem origem (coberto pelo caso F-11).
+3. O importador resolve o estudo de destino (cria se não existir, ligado à obra).
+4. Lê os **34 `Study` existentes** e, de cada um, a `StudyVersion` de maior `version`.
+5. Deriva a ordem do título (`Cap. NN`) e cria/atualiza o `EstudoCapitulo` com
    `status = RASCUNHO`, copiando `content_md` e `questions_json`.
-5. Cria/atualiza a origem 1:1 com o `ObraCapitulo` de ordem equivalente.
-6. A tela lê as 3 tabelas + `ObraCapitulo`/`Adendo` e exibe em modo leitura.
+6. Cria/atualiza a origem 1:1 com o `ObraCapitulo` de ordem equivalente.
+7. A tela lê as 3 tabelas + `ObraCapitulo`/`Adendo` e exibe em modo leitura.
 
 ## 4. Decisões técnicas
 
 - **A fonte da carga é o banco, não o markdown.** Os 34 `Study` + `StudyVersion` já têm o
   conteúdo e as questões que o aluno consome; reler o markdown duplicaria a lógica e
   poderia divergir. O importador **só lê** essas tabelas (RF09).
+- **Quem executa a carga, onde e quando:** o **ARQUITECT**, manualmente, **depois** do
+  `pg_dump` (rotina de backup do perfil) e **depois** do merge/release. Nunca o agente —
+  a ADR-010 proíbe IA de escrever em produção. O agente entrega código, a instrução e a
+  evidência; a escrita em produção é humana.
+- **Pré-condição dura, verificada antes de escrever:** obra ausente → **aborta sem criar
+  nada**. O caminho é exercitado no autoteste (F-11).
 - **Ordem derivada do título** com `^Cap\.\s*(\d+)`, e **fallback** para a ordem de
   criação quando o título não seguir o padrão. Função pura e testável.
 - **`questions_json` copiado como texto opaco** — não é parseado nem revalidado aqui.
@@ -67,7 +77,7 @@ Spec: [`spec.md`](spec.md) — aprovada em 2026-10-16 · ADRs: 001 (stack), 002 
 ## 8. Ordem de implementação
 
 1. `models/estudo.py` + registro em `models/__init__.py`
-2. `scripts/importar_estudo_aplicado.py` (funções puras + `--autoteste`)
+2. `scripts/importar_estudo_aplicado.py` (funções puras + `--autoteste`, com aborto na pré-condição)
 3. `tests/test_estudo_aplicado.py`
 4. `states/admin.py` — `estudos_aplicados`, `capitulos_estudo`, `load_estudos_aplicados`
 5. `pages/admin.py` (aba) + `components/sidebar.py` (item)
@@ -75,6 +85,8 @@ Spec: [`spec.md`](spec.md) — aprovada em 2026-10-16 · ADRs: 001 (stack), 002 
 
 ## 9. Riscos
 
+- **Obra ausente no banco** → o importador aborta sem criar (F-11). Sem isso, o pior
+  cenário seria criar capítulos órfãos e descobrir depois.
 - **Título fora do padrão** `Cap. NN` → fallback por ordem de criação (coberto por teste).
 - **Mais de uma `StudyVersion`** por estudo → escolher a de maior `version`; empate resolve
   por `created_at` mais recente.

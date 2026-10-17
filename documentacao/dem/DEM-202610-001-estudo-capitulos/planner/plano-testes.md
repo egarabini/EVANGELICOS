@@ -46,6 +46,7 @@ Se o reset falhar → EVAL **não testa**. Veredito: `BLOCKED` (não `FAIL`).
 | F-08 | funcional | spec RF08 | A lição continua servida por `StudyVersion` | sim | EVAL |
 | F-09 | funcional | spec RF09 | `Study`/`StudyVersion` intactos após a carga | sim | EVAL |
 | F-10 | funcional | spec RF10 | Capítulo sem origem exibe "sem origem declarada" | sim | EVAL |
+| F-11 | funcional | spec RF05 + design §4 | **Obra ausente no banco → importador ABORTA sem criar nada** | sim | EVAL |
 | H-01 | health | intent §6.H-01 | **76** testes passando (`pytest tests`) | sim | EVAL |
 | H-02 | health | intent §6.H-02 | Lição do Cap. 21 com "João 3:16" e 5 passagens relacionadas | sim | EVAL |
 | H-03 | health | intent §6.H-03 | Cap. 21 com **4 citações e 10 questões** | sim | EVAL |
@@ -53,6 +54,7 @@ Se o reset falhar → EVAL **não testa**. Veredito: `BLOCKED` (não `FAIL`).
 | C-01 | constraint | intent §5 (ADR-002) | O corpus **não** é escrito nesta DEM | sim | EVAL |
 | C-02 | constraint | intent §5 (ADR-011) | Nenhum capítulo criado fica disponível ao aluno | sim | EVAL |
 | C-03 | constraint | intent §5 (ADR-010) | O agente **não** executa deploy (sem `subir.sh`, sem SSH) | sim | EVAL |
+| C-04 | constraint | design §4 · intent §5 | `lesson.py`, `aluno.py` e `study.py` com **`git diff` VAZIO** | sim | EVAL |
 | N-01 | non-goal | intent §4 Out | Fluxo da Ação 1 (agendamento/ressalvas) **não existe** | sim | EVAL |
 | N-02 | non-goal | intent §4 Out | Bibliotecas, níveis e treinamento **não existem** | sim | EVAL |
 | N-03 | non-goal | intent §4 Out | Liberação/classificação de alunos **não existe** | sim | EVAL |
@@ -106,6 +108,14 @@ Se o reset falhar → EVAL **não testa**. Veredito: `BLOCKED` (não `FAIL`).
 - evidência: captura de tela + resposta HTTP 200
 - FAIL se: bloco ausente, contagem diferente ou erro
 
+### F-11 — pré-condição: obra ausente aborta
+- origem: spec RF05 · design §4
+- precondição: SQLite do autoteste **sem** a obra (não rodar antes o importador da obra)
+- passos: 1. rodar o importador com `--apply --autoteste` 2. conferir contagens
+- esperado: **mensagem de erro clara** e **0 estudos, 0 capítulos, 0 origens** criados
+- evidência: saída do comando + contagens consultadas no SQLite
+- FAIL se: criar qualquer registro sem a obra, ou falhar em silêncio sem mensagem
+
 ### N-01..N-06 — non-goals (provam AUSÊNCIA)
 - passos: busca no código e nas rotas
 - esperado: não existe rota/tabela/tela de agendamento, biblioteca, níveis, liberação de
@@ -114,10 +124,13 @@ Se o reset falhar → EVAL **não testa**. Veredito: `BLOCKED` (não `FAIL`).
 - evidência: `grep` no código + schema do banco
 - FAIL se: qualquer item aparecer — significa que a spec inflou
 
-### C-01 / C-03 — constraints
+### C-01 / C-03 / C-04 — constraints
 - C-01: `grep` por escrita no corpus / ausência de caminho de escrita para `/conteudo`
 - C-03: ausência de execução de `subir.sh`/SSH na jornada
-- FAIL se: houver qualquer escrita no corpus ou comando de deploy registrado
+- C-04: `git diff --stat develop...HEAD -- gsi_ebd/pages/lesson.py gsi_ebd/states/aluno.py gsi_ebd/models/study.py`
+  deve sair **vazio** (nenhuma linha) — prova objetiva de que a lição não foi tocada
+- FAIL se: houver qualquer escrita no corpus, comando de deploy registrado, ou uma linha de
+  diff nos três arquivos intocáveis
 
 ### G-01 — aceite humano (não é FAIL de EVAL)
 - EVAL registra **N-A** e o que foi preparado; o ARQUITECT abre a tela e dá o aceite.
