@@ -9,40 +9,45 @@ exibido ao aluno. É a **DEM-A** da OLPF da frente de base de conhecimento.
 ## Relação com a governança
 
 - Intent: [`planner/intent.md`](planner/intent.md) — **signed** (2026-10-17, `open_questions_open: 0`)
-- PRD: [`planner/prd.md`](planner/prd.md) · Spec: [`planner/spec.md`](planner/spec.md)
-- **ADR-012** governa cada linha do inventário; **OLPF** define a frente
+- PRD: [`planner/prd.md`](planner/prd.md)
+- Spec: [`planner/spec.md`](planner/spec.md) — **aprovada com 3 ajustes** (2026-10-17)
+- **ADR-012** governa cada linha; **OLPF** define a frente
 - Depende de: DEM-202610-001 (entregue — libera a frente)
 
 ## Estado
 
 - [x] Intent escrito e **assinado** (3 decisões no §8)
-- [x] PRD + spec escritos
-- [ ] **Spec aprovada pelo ARQUITECT** ← próximo
-- [ ] Design + plano-testes (enxutos: esta DEM produz **dado e documento**, não código)
+- [x] PRD escrito
+- [x] **Spec aprovada** — `GATE: spec` vencido, com três ajustes incorporados
+- [ ] Design + plano-testes (enxutos: esta DEM produz **dado e documento**)
 - [ ] Artefato: `documentacao/fontes/inventario.csv` + `README.md`
 - [ ] List + implementação (TLC)
 - [ ] EVAL + aceite
 
-## O que o artifacto vai ser
+## Os três ajustes do ARQUITECT (incorporados em 2026-10-17)
 
-Um CSV com **uma linha por artefato** (código e dados são linhas separadas quando as
-licenças diferem), colunas conforme a spec §4: `id`, `fonte`, `tipo`, `titular`, `licenca`,
-`licenca_verificada`, `regime_exibicao`, `atribuicao_exigida`, `versao_data`,
-`adequacao_doutrinaria`, `decisao`, `motivo`, `localizacao`, `adr_referencia`,
-`observacoes`, `revisado_por`, `revisado_em`.
+| # | Ajuste | O que mudou |
+|---|---|---|
+| 1 | **Granularidade do Sensus** | RF02 agora exige **uma linha por fonte de dados** (~46 ids do `DATA_LICENSES.md`), não uma por projeto. É o que a DEM-C vai ingerir. |
+| 2 | **RF10 incompleta** | Entraram como `nao_entra`: **código do Sensus (AGPL-3.0)**, **código do `biblia-plataforma` (Expo/TS)**, fluxo LaTeX e **modelos Jev e Laya**. |
+| 3 | **CA02 não verificável** | Criado o **Anexo A — lista de referência fechada**, item a item. Somados **CA06** (enums) e **CA07** (gatilho com o quê/com quem/quando), e criado o **§6** com os critérios de classificação que tornam RF04/05/07 objetivos. |
 
-## Estrutura (ownership por pasta)
+**Detalhe menor aceito:** o CSV é gravado em **UTF-8 com BOM** (`utf-8-sig`) para abrir no
+Excel em português sem perder acento.
 
-```
-DEM-202610-003-inventario-de-fontes/
-├── README.md            ← este índice
-├── changelog.md         ← nasce no fechamento
-└── planner/             ← intent · prd · spec (agora); design · plano-testes
-```
+## Uma consequência que o levantamento revelou
+
+O acervo do Sensus traz **7 fontes de Ellen G. White** (linha adventista) e clássicos de
+várias tradições (`sword-scofield`, `sword-torrey`, `sword-calvincommentaries`,
+`sword-wesley`, `sword-luther`…). Com a granularidade por fonte, a **adequação doutrinária
+passa a ser decidida por fonte** — não dá mais para dizer "o Sensus entra" ou "não entra".
+É o primeiro caso em que o inventário **força uma decisão doutrinária** que antes ficaria
+escondida dentro de um projeto.
 
 ## Histórico (data, não relógio)
 
 | Data | Evento |
 |---|---|
-| 2026-10-17 | Intent criado (proposta da OLPF) |
-| 2026-10-17 | ARQUITECT fecha as 3 questões e assina; PRD e spec escritos |
+| 2026-10-17 | Intent criado (proposta da OLPF); ARQUITECT fecha as 3 questões e assina |
+| 2026-10-17 | PRD e spec escritos |
+| 2026-10-17 | Spec **aprovada com 3 ajustes**; ajustes incorporados (RF02, RF10, Anexo A, §6, CA06/CA07, BOM) |
