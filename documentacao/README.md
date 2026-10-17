@@ -33,7 +33,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 
 | DEM | Assunto | Estado | Depende de |
 |---|---|---|---|
-| DEM-202610-001 | Estudo: capítulos próprios + mapa de origem (Fase 2 das bibliotecas) | **planejada** | Fase A |
+| [DEM-202610-001](dem/DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | **intent em rascunho** — aguarda assinatura do ARQUITECT | Fase A |
 
 > A fonte é esta tabela. Não hardcode a "DEM atual" nos arquivos de guarda.
 
@@ -43,5 +43,5 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 - [x] perfil do projeto
 - [x] guardas (raiz + código)
 - [x] ADRs 001–011
-- [ ] GitFlow (`develop` + tags)
+- [x] GitFlow (`develop` nos dois repos; tags virão com o primeiro release)
 - [ ] CI/CD (`gh` autenticado + workflows + secrets) — **bloqueado**: precisa do `gh auth login`
