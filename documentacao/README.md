@@ -40,7 +40,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 | DEM-202610-004 *(proposta)* | DEM-B: registro de fontes e proveniência | proposta | DEM-003 |
 | DEM-202610-005 *(proposta)* | DEM-C: ingestão do grafo (lugares, pessoas, eventos, jornadas) | proposta | DEM-004 |
 | DEM-202610-006 *(proposta)* | DEM-D: busca por assunto (coordenador e instrutor) | proposta | DEM-005 |
-| DEM-202610-007 *(futura)* | DEM-E: assistente do aluno (texto e voz) | futura | DEM-006 |
+| DEM-202610-007 *(futura)* | DEM-E: o agente **DAVID** no atendimento ao aluno (texto e voz) | futura | DEM-006 |
 
 > A fonte é esta tabela. Não hardcode a "DEM atual" nos arquivos de guarda.
 

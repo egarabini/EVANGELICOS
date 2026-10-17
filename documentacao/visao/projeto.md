@@ -14,6 +14,21 @@ coordenador, instrutores e alunos.
 igualdade do corpus local (ACF 2007) e o LLM é instruído a não citar versículo de
 memória. É o que evita alucinação em conteúdo doutrinário.
 
+## O agente DAVID
+
+**DAVID é o nome do nosso agente de IA** — homenagem a David Livingstone (1813–1873).
+Ele apoia os estudos e responde às perguntas dos usuários, ajudando no entendimento
+bíblico. Hoje ele existe como a chamada **local** ao Ollama (`gemma2:9b`) dentro do app;
+a fala por voz é camada separada (`ESTUDOS_BIBLICOS/GSI_EBD/MCP-VOICE-FRAMEWORK.md`).
+
+> **Registro de 2026-10-17 — para não confundir (aconteceu com dois agentes):**
+> a pasta `ESTUDOS_BIBLICOS/PASTOR_IA/` guarda o **planejamento de 2026-07** de um
+> produto maior que usava o mesmo nome — um SaaS de discipulado com dashboard,
+> Telegram/WhatsApp e stack `FastAPI + Vue 3`. **Aquilo é histórico, não o estado
+> atual.** O Didasko é a aplicação (ADR-001), DAVID é o agente dentro dela, e o que do
+> planejamento servir será colhido na **DEM-E**. Vue/TS não entra na aplicação —
+> a ADR-001 continua valendo.
+
 ## Arquitetura atual
 
 ```
@@ -46,7 +61,8 @@ humana com parecer por IA.
 ## O que ainda não existe
 
 - **Autoria pela interface**: estudo nasce do importador (markdown), não de uma tela
-- **Modelo Obra → Estudo** no banco (hoje cada capítulo é um `Study`) — DEM piloto
+- **Migração da lição** para o capítulo do estudo — o modelo Obra → Estudo **já existe**
+  no banco (DEM-202610-001, entregue); a lição ainda lê `StudyVersion`
 - **CI/CD** e GitFlow pleno
 - **Homologação** e **observabilidade** (alguém avisado quando o site cai)
 - **Troca das senhas de demonstração** (ADR-008)
