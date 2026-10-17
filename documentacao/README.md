@@ -8,8 +8,9 @@
 | Quero… | Leia |
 |---|---|
 | entender o produto | [`visao/projeto.md`](visao/projeto.md) |
+| ver a frente em preparação | [`visao/OLPF-base-de-conhecimento-e-busca.md`](visao/OLPF-base-de-conhecimento-e-busca.md) |
 | saber a stack e as regras do projeto | [`perfil-do-projeto.md`](perfil-do-projeto.md) |
-| saber **por que** algo é assim | [`adr/`](adr/README.md) — 11 decisões registradas |
+| saber **por que** algo é assim | [`adr/`](adr/README.md) — 13 decisões registradas |
 | trabalhar numa demanda | [`dem/`](dem/) — uma pasta por DEM |
 | ver o que veio antes do método | [`historico/`](historico/README.md) |
 
@@ -35,8 +36,23 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 |---|---|---|---|
 | [DEM-202610-001](dem/DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | **EVAL PASS** — aguarda VISION/aceite do ARQUITECT | — |
 | DEM-202610-002 *(proposta)* | Guarda de papel nas rotas `/admin` (achado do EVAL) | proposta — precisa de intent | — |
+| DEM-202610-003 *(proposta)* | DEM-A: inventário de fontes e licenças | proposta | DEM-001 fechar |
+| DEM-202610-004 *(proposta)* | DEM-B: registro de fontes e proveniência | proposta | DEM-003 |
+| DEM-202610-005 *(proposta)* | DEM-C: ingestão do grafo (lugares, pessoas, eventos, jornadas) | proposta | DEM-004 |
+| DEM-202610-006 *(proposta)* | DEM-D: busca por assunto (coordenador e instrutor) | proposta | DEM-005 |
+| DEM-202610-007 *(futura)* | DEM-E: assistente do aluno (texto e voz) | futura | DEM-006 |
 
 > A fonte é esta tabela. Não hardcode a "DEM atual" nos arquivos de guarda.
+
+## Frente em preparação — base de conhecimento e busca
+
+Proposta do AUXILIAR-ARCHITECT, com as **12 perguntas fechadas** pelo ARQUITECT em
+2026-10-17: [`visao/OLPF-base-de-conhecimento-e-busca.md`](visao/OLPF-base-de-conhecimento-e-busca.md).
+
+- Política que rege a frente: **[ADR-012](adr/ADR-012-politica-de-fontes-e-licencas.md)** (fontes, licenças, cânon, citação, riscos com gatilho).
+- Exceção de stack pendente: **[ADR-013](adr/ADR-013-componente-de-mapa-em-javascript.md)** (mapa em JS) — **Proposed**, aguarda aceite.
+- A decisão **10.9** (original grego/hebraico no primeiro corte) **amplia** o primeiro corte em relação ao que a OLPF sugeria.
+- Sequência: **começa depois do fechamento da DEM-001** (a OLPF §8 impõe a dependência).
 
 ## Fase A (em andamento)
 
