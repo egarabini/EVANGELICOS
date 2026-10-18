@@ -64,6 +64,21 @@ Sem senha na chave, porque o CI não digita senha. A proteção vem das restriç
 Environment. Use **Git Bash** (não PowerShell) neste passo e no 4: ele preserva o arquivo byte a byte;
 quebras de linha CRLF podem fazer o `ssh-keygen -y` do workflow rejeitar a chave.
 
+### 2.1 Teste local obrigatório (antes de instalar ou gravar qualquer coisa)
+
+O workflow valida a chave com `ssh-keygen -y -f`. Rode o mesmo teste na sua máquina. Ele **não pode pedir senha**:
+
+```bash
+ssh-keygen -y -f /tmp/didasko-ci/didasko_ci
+```
+
+- Se imprimir uma linha `ssh-ed25519 AAAA...`, a chave está boa.
+- Se aparecer `Enter passphrase:`, a chave **tem senha** (por exemplo, o `-N ""` foi interpretado de forma errada).
+  Apague e gere de novo, em **Git Bash**, não em PowerShell.
+
+> Ocorrência real (2026-10-18): a primeira execução do deploy falhou em "Preparar a chave" com
+> `Enter passphrase: ... incorrect passphrase supplied to decrypt private key`. Não chegou a conectar na VPS.
+
 ## 3. Instalar a chave pública na VPS (restrita)
 
 Na VPS, copie `didasko-deploy-entry.sh` para `/usr/local/bin/didasko-deploy-entry` (dono `root`, modo
