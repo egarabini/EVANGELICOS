@@ -1,0 +1,25 @@
+tests/test_rbac.py::test_matriz_de_rotas[/admin-permitidos0-negados0]
+tests/test_rbac.py::test_matriz_de_rotas[/coordenador-permitidos1-negados1]
+tests/test_rbac.py::test_matriz_de_rotas[/revisao-permitidos2-negados2]
+tests/test_rbac.py::test_matriz_de_acoes[acao:catalogo_ler-permitidos0-negados0]
+tests/test_rbac.py::test_matriz_de_acoes[acao:catalogo_aprovar-permitidos1-negados1]
+tests/test_rbac.py::test_matriz_de_acoes[acao:usuarios-permitidos2-negados2]
+tests/test_rbac.py::test_matriz_de_acoes[acao:leads-permitidos3-negados3]
+tests/test_rbac.py::test_matriz_de_acoes[acao:coordenacao-permitidos4-negados4]
+tests/test_rbac.py::test_matriz_de_acoes[acao:revisao-permitidos5-negados5]
+tests/test_rbac.py::test_chave_desconhecida_nega
+tests/test_rbac.py::test_invariante_casa_do_papel
+tests/test_rbac.py::test_state_auto_setters_desligado
+tests/test_rbac.py::test_nenhum_setter_de_identidade
+tests/test_rbac.py::test_lista_de_eventos_congelada[AdminState]
+tests/test_rbac.py::test_lista_de_eventos_congelada[AlunoState]
+tests/test_rbac.py::test_lista_de_eventos_congelada[AuthState]
+tests/test_rbac.py::test_lista_de_eventos_congelada[CommonState]
+tests/test_rbac.py::test_lista_de_eventos_congelada[CoordenadorState]
+tests/test_rbac.py::test_lista_de_eventos_congelada[PerfilState]
+tests/test_rbac.py::test_lista_de_eventos_congelada[RevisaoState]
+tests/test_rbac.py::test_todo_evento_tem_marcador_exige
+tests/test_rbac.py::test_exige_barra_quem_nao_pode
+tests/test_rbac.py::test_guarda_rota_redireciona_e_libera
+
+23 tests collected in 3.59s

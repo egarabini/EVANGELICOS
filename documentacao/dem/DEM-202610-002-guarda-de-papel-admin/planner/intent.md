@@ -59,7 +59,8 @@ serve a rota" é da spec de lá).
 
 - **H-01** · a suíte continua verde · baseline **82 testes** · porteiro **EVAL**
 - **H-04** · a **matriz papel × rota** passa a existir e é testada · baseline **a levantar (inventário das rotas e dos papéis)** · porteiro **EVAL**
-- **H-06** · aluno logado em `/admin` recebe **403** · baseline hoje **200** · porteiro **EVAL**
+- **H-06** · aluno logado em `/admin` é **devolvido ao painel dele e não vê dado administrativo** · baseline hoje: entra e vê · porteiro **EVAL** + verificação manual do ARQUITECT.
+  *Nota (2026-10-18, após o EVAL): a formulação original dizia "recebe 403". Não há 403 — a rota é servida pelo SPA, que responde 200 e redireciona no cliente. A garantia verificável é mais forte: o **estado não carrega** dado administrativo para quem não tem papel (loader com `@exige`). A métrica passa a ser essa, não o código HTTP.*
 
 ## 7. Sinal de sucesso
 

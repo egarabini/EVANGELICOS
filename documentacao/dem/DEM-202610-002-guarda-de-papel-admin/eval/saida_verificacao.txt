@@ -1,0 +1,172 @@
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+DeprecationWarning: state_auto_setters has been deprecated in version 0.9.0. 
+state_auto_setters=False is already the default and the option will be removed.
+It will be completely removed in 1.0. (rxconfig.py:8)
+==============================================================================
+1. CONFIG / IDENTIDADE / SETVAR
+==============================================================================
+get_config().state_auto_setters = False
+
+AuthState          handlers=13 identidade_em_handlers=[] attrs_identidade=[]
+                   ['check_auth', 'confirm_account_token', 'dismiss_status_modal', 'guarda_admin', 'guarda_coordenador', 'guarda_revisao', 'is_instrutor', 'login', 'logout', 'request_reactivation', 'set_login_email', 'set_login_password', 'setvar']
+AdminState         handlers=18 identidade_em_handlers=[] attrs_identidade=[]
+                   ['activate_user', 'aprovar_estudo', 'aprovar_todos', 'cancel_user', 'create_gestor', 'load_coordenadores', 'load_estudos_aplicados', 'load_estudos_pendentes', 'load_leads', 'load_obras', 'rejeitar_estudo', 'set_new_gestor_email', 'set_new_gestor_nome', 'set_reject_motivo', 'set_tab_atual', 'setvar', 'suspend_user', 'update_lead_status']
+CoordenadorState   handlers=10 identidade_em_handlers=[] attrs_identidade=[]
+                   ['assign_study', 'clear_selection', 'load_all', 'load_alunos', 'load_estudos', 'load_turmas', 'select_all_alunos', 'set_selected_study_option', 'setvar', 'toggle_aluno']
+RevisaoState       handlers=10 identidade_em_handlers=[] attrs_identidade=[]
+                   ['abrir_resposta', 'descartar_sugestao', 'fechar_resposta', 'load_fila', 'pedir_sugestao', 'salvar_parecer', 'set_considerou_correto', 'set_parecer_texto', 'setvar', 'usar_sugestao']
+AlunoState         handlers= 8 identidade_em_handlers=[] attrs_identidade=[]
+                   ['load_assigned_studies', 'load_pareceres', 'next_question', 'select_study', 'set_user_answer', 'setvar', 'start_study', 'submit_answer']
+PerfilState        handlers= 6 identidade_em_handlers=[] attrs_identidade=[]
+                   ['alterar_senha', 'check_perfil_auth', 'set_confirma_senha', 'set_nova_senha', 'set_senha_atual', 'setvar']
+CommonState        handlers= 2 identidade_em_handlers=[] attrs_identidade=[]
+                   ['setvar', 'toggle_sidebar']
+
+-- setvar alcanca a identidade? (chamada direta do handler registrado)
+   ok AuthState.setvar('current_user_role') -> AttributeError: 'AuthState' object has no attribute 'set_current_user_role'
+   ok AdminState.setvar('current_user_role') -> AttributeError: 'AdminState' object has no attribute 'set_current_user_role'
+   ok CoordenadorState.setvar('current_user_role') -> AttributeError: 'CoordenadorState' object has no attribute 'set_current_user_role'
+   ok RevisaoState.setvar('current_user_role') -> AttributeError: 'RevisaoState' object has no attribute 'set_current_user_role'
+   ok AlunoState.setvar('current_user_role') -> AttributeError: 'AlunoState' object has no attribute 'set_current_user_role'
+   ok PerfilState.setvar('current_user_role') -> AttributeError: 'PerfilState' object has no attribute 'set_current_user_role'
+   ok CommonState.setvar('current_user_role') -> AttributeError: 'CommonState' object has no attribute 'set_current_user_role'
+
+==============================================================================
+2. ROTAS: matriz, guarda real, casa do papel
+==============================================================================
+PERMISSOES = {'rota:/admin': (1, 5), 'rota:/coordenador': (1, 2), 'rota:/revisao': (1, 3), 'acao:catalogo_ler': (1, 5), 'acao:catalogo_aprovar': (1,), 'acao:usuarios': (1,), 'acao:leads': (1,), 'acao:coordenacao': (1, 2), 'acao:revisao': (1, 3)}
+
+rota /admin         -> {'ADMIN': True, 'COORDENADOR': False, 'INSTRUTOR': False, 'ALUNO': False, 'REVISOR': True}
+rota /coordenador   -> {'ADMIN': True, 'COORDENADOR': True, 'INSTRUTOR': False, 'ALUNO': False, 'REVISOR': False}
+rota /revisao       -> {'ADMIN': True, 'COORDENADOR': False, 'INSTRUTOR': True, 'ALUNO': False, 'REVISOR': False}
+
+-- guarda real (AuthState.guarda_*) por papel
+/admin         ADMIN->None | COORDENADOR->/coordenador | INSTRUTOR->/revisao | ALUNO->/aluno | REVISOR->None | ANONIMO->/login
+/coordenador   ADMIN->None | COORDENADOR->None | INSTRUTOR->/revisao | ALUNO->/aluno | REVISOR->/admin | ANONIMO->/login
+/revisao       ADMIN->None | COORDENADOR->/coordenador | INSTRUTOR->None | ALUNO->/aluno | REVISOR->/admin | ANONIMO->/login
+
+-- invariante: casa do papel == redirect_for_role e a casa e permitida
+   ADMIN        rbac=/admin         login=/admin         permitida=True
+   COORDENADOR  rbac=/coordenador   login=/coordenador   permitida=True
+   INSTRUTOR    rbac=/revisao       login=/revisao       permitida=True
+   ALUNO        rbac=/aluno         login=/aluno         permitida=rota sem guarda
+   REVISOR      rbac=/admin         login=/admin         permitida=True
+
+-- rotas publicas na funcao pura (F-06)
+   pode('rota:/', ALUNO) = False  (pode('rota:/', ADMIN) = False)
+   pode('rota:/login', ALUNO) = False  (pode('rota:/login', ADMIN) = False)
+   pode('rota:/confirmar/[token]', ALUNO) = False  (pode('rota:/confirmar/[token]', ADMIN) = False)
+   pode('rota:/homenagens', ALUNO) = False  (pode('rota:/homenagens', ADMIN) = False)
+
+-- on_load real do app (gsi_ebd/gsi_ebd.py)
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+   admin          on_load = ['AuthState.guarda_admin', 'AdminState.load_coordenadores']
+   coordenador    on_load = ['AuthState.guarda_coordenador', 'CoordenadorState.load_all']
+   revisao        on_load = ['AuthState.guarda_revisao', 'RevisaoState.load_fila']
+
+==============================================================================
+3. EVENTOS DOS 3 ESTADOS ADMINISTRATIVOS
+==============================================================================
+== AdminState (18 handlers no barramento)
+   activate_user                    __exige__ = 'acao:usuarios'
+   aprovar_estudo                   __exige__ = 'acao:catalogo_aprovar'
+   aprovar_todos                    __exige__ = 'acao:catalogo_aprovar'
+   cancel_user                      __exige__ = 'acao:usuarios'
+   create_gestor                    __exige__ = 'acao:usuarios'
+   load_coordenadores               __exige__ = 'acao:usuarios'
+   load_estudos_aplicados           __exige__ = 'acao:catalogo_ler'
+   load_estudos_pendentes           __exige__ = 'acao:catalogo_ler'
+   load_leads                       __exige__ = 'acao:leads'
+   load_obras                       __exige__ = 'acao:catalogo_ler'
+   rejeitar_estudo                  __exige__ = 'acao:catalogo_aprovar'
+   set_new_gestor_email             SETTER (sem __exige__; coberto pela lista congelada)
+   set_new_gestor_nome              SETTER (sem __exige__; coberto pela lista congelada)
+   set_reject_motivo                SETTER (sem __exige__; coberto pela lista congelada)
+   set_tab_atual                    SETTER (sem __exige__; coberto pela lista congelada)
+   setvar                           setvar (nao decorado; so setter explicito)
+   suspend_user                     __exige__ = 'acao:usuarios'
+   update_lead_status               __exige__ = 'acao:leads'
+== CoordenadorState (10 handlers no barramento)
+   assign_study                     __exige__ = 'acao:coordenacao'
+   clear_selection                  __exige__ = 'acao:coordenacao'
+   load_all                         __exige__ = 'acao:coordenacao'
+   load_alunos                      __exige__ = 'acao:coordenacao'
+   load_estudos                     __exige__ = 'acao:coordenacao'
+   load_turmas                      __exige__ = 'acao:coordenacao'
+   select_all_alunos                __exige__ = 'acao:coordenacao'
+   set_selected_study_option        SETTER (sem __exige__; coberto pela lista congelada)
+   setvar                           setvar (nao decorado; so setter explicito)
+   toggle_aluno                     __exige__ = 'acao:coordenacao'
+== RevisaoState (10 handlers no barramento)
+   abrir_resposta                   __exige__ = 'acao:revisao'
+   descartar_sugestao               __exige__ = 'acao:revisao'
+   fechar_resposta                  __exige__ = 'acao:revisao'
+   load_fila                        __exige__ = 'acao:revisao'
+   pedir_sugestao                   __exige__ = 'acao:revisao'
+   salvar_parecer                   __exige__ = 'acao:revisao'
+   set_considerou_correto           SETTER (sem __exige__; coberto pela lista congelada)
+   set_parecer_texto                SETTER (sem __exige__; coberto pela lista congelada)
+   setvar                           setvar (nao decorado; so setter explicito)
+   usar_sugestao                    __exige__ = 'acao:revisao'
+
+   eventos NAO-setter com marcador: 28 (alegado: 28)
+
+-- scan do teste F-12 sobre vars(estado)
+   AdminState         entradas que o scan do teste examina: 0 -> []
+   CoordenadorState   entradas que o scan do teste examina: 0 -> []
+   RevisaoState       entradas que o scan do teste examina: 0 -> []
+   (todos os atributos publicos da classe sao EventHandler, nao function)
+
+-- decorador barra de verdade? (handlers reais, sem tocar no banco)
+   AdminState.load_coordenadores(ALUNO) -> None (barrado, nao abriu sessao)
+   AdminState.load_leads(REVISOR) -> None (barrado, nao abriu sessao)
+   AdminState.update_lead_status(COORDENADOR) -> None (barrado, nao abriu sessao)
+   AdminState.aprovar_estudo(REVISOR) -> None (barrado, nao abriu sessao)
+   AdminState.aprovar_estudo(COORDENADOR) -> None (barrado, nao abriu sessao)
+   CoordenadorState.assign_study(ALUNO) -> None (barrado, nao abriu sessao)
+   CoordenadorState.assign_study(REVISOR) -> None (barrado, nao abriu sessao)
+   RevisaoState.abrir_resposta(COORDENADOR) -> None (barrado, nao abriu sessao)
+   RevisaoState.salvar_parecer(ALUNO) -> None (barrado, nao abriu sessao)
+
+-- assinatura preservada (F-27)
+   AdminState.aprovar_estudo                iscoroutine=False signature=(self, study_id: int) wrapped=True
+   CoordenadorState.assign_study            iscoroutine=False signature=(self) wrapped=True
+   RevisaoState.abrir_resposta              iscoroutine=False signature=(self, response_id: str) wrapped=True
+
+==============================================================================
+4. ADVERSARIAL
+==============================================================================
+-- AlunoState: eventos publicos sem guarda de papel/autenticacao/posse
+   load_assigned_studies      __exige__=None assinatura=(self)
+   load_pareceres             __exige__=None assinatura=(self)
+   next_question              __exige__=None assinatura=(self)
+   select_study               __exige__=None assinatura=(self, study_id: str)
+   set_user_answer            __exige__=None assinatura=(self, v: str)
+   setvar                     __exige__=None assinatura=n/a
+   start_study                __exige__=None assinatura=(self, study_id, version_id)
+   submit_answer              __exige__=None assinatura=(self)
+   select_study/start_study/submit_answer nao conferem is_authenticated nem posse do estudo.
+
+-- CoordenadorState.toggle_aluno: aceita qualquer id de aluno? (COORDENADOR)
+   selected_aluno_ids apos toggle_aluno('999999') = [999999]
+   assign_study grava StudyAssignment para esses ids sem conferir o ambiente do aluno.
+
+-- onde current_user_role e escrito no codigo do app
+   auth.py:138  self.current_user_role = user.role   (login, do banco)
+   auth.py:190  self.current_user_role = Role.ALUNO  (logout)
+   nenhum setter, nenhum getattr('set_'+...), nenhum add_var no app
+
+-- RevisaoState.abrir_resposta: id arbitr�rio, mas a escrita confere posse no service
+   ReviewService.registrar_parecer: 'Voce nao acompanha este aluno' (lido no service)
+
+FIM

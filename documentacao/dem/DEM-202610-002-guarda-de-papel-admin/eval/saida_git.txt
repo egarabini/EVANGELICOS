@@ -1,0 +1,59 @@
+commit 65fbf7a906e924efea337ba227664bd29ee6c9e3
+Author: Eduardo Garabini Neto <eduardo.neto@agoratech.com.br>
+Date:   Sun Oct 18 10:15:46 2026 -0300
+
+    feat(dem-002): guarda de papel por rota e por evento + estado imutavel pelo cliente
+    
+    Implementa o List 2.1 aprovado. Tres furos da mesma classe (autorizacao) fechados.
+    
+    1. ESTADO IMUTAVEL (RF09, bloqueante): state_auto_setters=False no rxconfig e 20
+       setters explicitos (19 de formulario + 1 validado). Os 7 setters de identidade
+       deixaram de existir: AuthState tinha 17 setters, agora tem 2 (login_email,
+       login_password). O setvar tambem deixa de alcancar a identidade - ele faz
+       getattr(self, "set_"+var), e esse setter nao existe mais.
+    
+    2. ROTA (RF01-RF04): matriz PERMISSOES (rotas E acoes), guarda_rota nos on_load de
+       /admin, /coordenador e /revisao. Nao logado -> /login; logado sem papel -> casa
+       do proprio papel, nunca para a rota negada (loop coberto por teste).
+    
+    3. EVENTO (RF07-RF08): @exige em 28 eventos dos 3 estados administrativos. Cobre o
+       cliente disparando evento direto, que era o buraco maior: assign_study (ESCRITA)
+       e update_lead_status (ESCRITA) nao checavam nada, e activate/suspend/cancel_user
+       passavam so pelo can_manage - que deixava o REVISOR gerenciar COORDENADOR.
+    
+    Matriz separa catalogo_ler (ADMIN, REVISOR) de catalogo_aprovar (ADMIN): a DEM nao
+    cria poder novo - o revisor le, nao aprova.
+    
+    Testes: tests/test_rbac.py novo, 23 casos - matriz completa por papel, invariante da
+    casa do papel, ausencia de setter de identidade nos 7 estados, lista de eventos
+    CONGELADA (evento novo, inclusive setter, falha ate ser classificado), marcador
+    __exige__ em todo evento dos 3 estados, e o decorador barrando de verdade.
+    Suite: 105 passed (82 + 23), rodada do diretorio do app.
+    
+    Licao registrada no teste e no README: o Reflex descobre o rxconfig.py pelo CWD;
+    rodar a suite de outro diretorio falsifica o resultado (os setters nao resolvem e
+    test_paginas falha 9/9).
+
+ gsi_ebd/gsi_ebd.py                    |   6 +-
+ gsi_ebd/landing_content/controller.py |  23 ++++
+ gsi_ebd/states/admin.py               |  30 +++++
+ gsi_ebd/states/aluno.py               |   7 ++
+ gsi_ebd/states/auth.py                |  30 +++++
+ gsi_ebd/states/coordenador.py         |  19 +++
+ gsi_ebd/states/perfil.py              |  13 ++
+ gsi_ebd/states/revisao.py             |  18 +++
+ gsi_ebd/utils/rbac.py                 | 108 ++++++++++++++++-
+ rxconfig.py                           |   7 +-
+ tests/test_rbac.py                    | 216 ++++++++++++++++++++++++++++++++++
+ 11 files changed, 470 insertions(+), 7 deletions(-)
+gsi_ebd/gsi_ebd.py
+gsi_ebd/landing_content/controller.py
+gsi_ebd/states/admin.py
+gsi_ebd/states/aluno.py
+gsi_ebd/states/auth.py
+gsi_ebd/states/coordenador.py
+gsi_ebd/states/perfil.py
+gsi_ebd/states/revisao.py
+gsi_ebd/utils/rbac.py
+rxconfig.py
+tests/test_rbac.py

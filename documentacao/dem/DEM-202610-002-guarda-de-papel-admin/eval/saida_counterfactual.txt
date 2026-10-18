@@ -1,0 +1,22 @@
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+DeprecationWarning: state_auto_setters has been deprecated in version 0.9.0. 
+state_auto_setters=False is already the default and the option will be removed.
+It will be completely removed in 1.0. (rxconfig.py:8)
+state_auto_setters (contrafactual) = True
+handlers de AuthState: 28
+setters de identidade recriados: ['set_current_user_ambiente', 'set_current_user_id', 'set_current_user_name', 'set_current_user_role', 'set_current_user_status', 'set_is_authenticated', 'set_must_change_password']
+antes: current_user_role = 4 | is_authenticated = False
+depois de setvar('current_user_role',1)+setvar('is_authenticated',True):
+   current_user_role = 1 | is_authenticated = True
+   -> com o flag ligado, o cliente vira ADMIN pelo setvar (o furo do RF09)
+
+-- o teste de identidade reprova nesse cenario?
+   ok test_state_auto_setters_desligado REPROVOU (AssertionError, msg='')
+   ok test_nenhum_setter_de_identidade REPROVOU (AssertionError, msg="AuthState expoe ['set_current_user_ambiente', 'set_current_user_id', 'set_current_user_status', 'set_current_user_role', 'set_must_change_password', 'set_current_user_name', 'set_is_authenticated']")

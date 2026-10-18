@@ -25,7 +25,7 @@
 | **F-16** | `assign_study` com REVISOR e ALUNO | **não escreve** | RF08 |
 | **F-17** | `abrir_resposta`/`fechar_resposta`/`usar_sugestao`/`descartar_sugestao` com ALUNO e COORDENADOR | **barrado** | RF08 |
 | **F-18** | cada handler com um **papel permitido** (`acao:usuarios` → ADMIN; `acao:catalogo` → ADMIN/REVISOR) | executa | RF07 |
-| **F-19** | `aprovar_estudo`/`aprovar_todos`/`rejeitar_estudo` com **REVISOR** | **executa** (é o catálogo, a casa dele) | 9.2a |
+| **F-19** | `aprovar_estudo`/`aprovar_todos`/`rejeitar_estudo` com **ADMIN** | **executa** (caso positivo de `catalogo_aprovar`) | RF10 |
 | **F-20** | `exige(chave)` grava `__exige__` no wrapper | marcador presente e igual à chave | RF07 |
 | **F-21** | `pode("acao:usuarios", REVISOR)` = **False**; `pode("acao:usuarios", ADMIN)` = True | matriz | RF01 |
 | **F-22** | `pode` de **chave desconhecida** (rota ou ação) | **False** (fecha para o desconhecido) | N-01 |

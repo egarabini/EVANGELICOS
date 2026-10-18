@@ -1,0 +1,53 @@
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+DeprecationWarning: state_auto_setters has been deprecated in version 0.9.0. 
+state_auto_setters=False is already the default and the option will be removed.
+It will be completely removed in 1.0. (rxconfig.py:8)
+==============================================================================
+A. o teste do marcador examina alguma coisa?
+==============================================================================
+   entradas de vars() que passam no filtro isfunction: 0
+   -> test_todo_evento_tem_marcador_exige() roda sobre ZERO metodos
+   -> teste PASSA (verde) mesmo sem examinar nada
+
+==============================================================================
+B. removendo __exige__ de TODOS os 28 eventos (em memoria): o teste reprova?
+==============================================================================
+   marcadores removidos: 28 (esperado: 28)
+   -> test_todo_evento_tem_marcador_exige() CONTINUA PASSANDO (falso verde)
+
+==============================================================================
+C. evento novo sem classificacao: a lista congelada reprova?
+==============================================================================
+   event_handlers de AdminState agora tem 19 entradas
+   ok lista congelada REPROVOU (AssertionError: '' )
+
+==============================================================================
+D. guarda de rota neutrada (em memoria): a suite reprova?
+==============================================================================
+   AuthState._guarda = lambda self, rota: None  (guarda real vira no-op)
+........................................................................ [ 68%]
+.................................                                        [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\_pytest\config\__init__.py:1345
+  C:\Projetos\EM_ESTUDO\EVANGELICOS\ESTUDOS_BIBLICOS\GSI_EBD\.venv\Lib\site-packages\_pytest\config\__init__.py:1345: PytestAssertRewriteWarning: Module already imported so cannot be rewritten; anyio
+    self._mark_plugins_for_rewrite(hook, disable_autoload)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+105 passed, 1 warning in 4.86s
+   pytest exit code com a guarda neutrada: 0
+   0 = suite inteira passou (a guarda de rota NAO e coberta por teste)
+
+==============================================================================
+E. algum teste toca o on_load de gsi_ebd/gsi_ebd.py?
+==============================================================================
+   git grep em tests/ -> tests/test_rbac.py:199:    def on_load(self):
+tests/test_rbac.py:214:    assert on_load(Anonimo()) is not None   # manda para /login
+tests/test_rbac.py:215:    assert on_load(Aluno()) is not None     # devolve para a casa (nunca para /admin)
+tests/test_rbac.py:216:    assert on_load(Revisor()) is None       # revisor entra: 9.2a

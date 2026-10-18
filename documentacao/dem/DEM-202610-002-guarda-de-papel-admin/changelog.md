@@ -37,6 +37,38 @@ casa, ausência de setter de identidade nos 7 estados, **lista de eventos congel
 (evento novo, inclusive setter, falha até ser classificado), marcador `__exige__` em
 todo evento dos 3 estados, e o decorador barrando de verdade. **105 passed** (82 + 23).
 
+## Rodada 1 do EVAL: FAIL de teste, PASS de segurança
+
+O EVAL cego deu **FAIL** — e o defeito era exatamente o que eu cobro dos outros: **um teste que não testava nada**.
+
+`test_todo_evento_tem_marcador_exige` varria `vars(estado)` com `inspect.isfunction(fn)`. O Reflex **substitui cada método por um `EventHandler`** ao compilar a classe — a varredura examinava **zero** métodos e passava com os 28 `@exige` removidos (o EVAL provou removendo-os em memória: **105 passed**).
+
+O mesmo valia para a rota: `rbac.guarda_rota` era **dead code** (o app usava `AuthState._guarda`) e o único teste dela exercitava uma função sintética. E a casa do papel tinha **duas tabelas** (`rbac.home_do_papel` e `AuthService.redirect_for_role`).
+
+### Corrigido nesta rodada (`6768ea9`)
+
+| Defeito | Correção |
+|---|---|
+| Varredura cega | itera `event_handlers` e checa `handler.fn.__exige__` |
+| `guarda_rota` morto | os 3 handlers usam `@guarda_rota(...)` — o decorador testado é o do app |
+| Guarda sem teste de fiação | `test_fiacao_on_load_das_rotas_guardadas` importa o app e confere os `on_load` |
+| `_guarda` sem teste real | `test_guarda_real_bloqueia_e_libera` chama o guarda do app, por papel |
+| Casa em dois lugares | `AuthService.redirect_for_role` delega para `rbac.home_do_papel` + teste de consistência |
+| F-06 (públicas) | rotas públicas entram na matriz com `_TODOS`; `pode` é total |
+| F-19 × F-25 | F-19 corrigida (caso positivo é ADMIN) |
+
+### Prova de que os testes estão vivos (mutações em memória)
+
+| Mutação | Reprovou? |
+|---|---|
+| Remover `__exige__` de um handler | **sim** |
+| Remover o guarda do `on_load` de `/admin` | **sim** |
+| Tirar o REVISOR de `rota:/admin` | **sim** (matriz **e** guarda real barram) |
+| Dar `catalogo_aprovar` ao REVISOR | **sim** |
+| Ligar `state_auto_setters` | **sim** (contrafactual do EVAL) |
+
+**Suíte: 109 passed** (82 + 27).
+
 ## Lição medida (registrada no teste e no README)
 
 O Reflex descobre o `rxconfig.py` **pelo diretório atual**. Rodando a suíte de outro
