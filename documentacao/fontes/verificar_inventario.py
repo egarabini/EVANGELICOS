@@ -8,6 +8,7 @@ cobertura do Anexo A da spec.
 from __future__ import annotations
 
 import csv
+import re
 import sys
 from pathlib import Path
 
@@ -174,6 +175,67 @@ def main() -> int:
     # CA05: internas e externas no mesmo arquivo (trivial, mas registra)
     internas = [l for l in linhas if "ESTUDOS_BIBLICOS" in (l.get("localizacao") or "")]
     avisos.append(f"fontes internas na mesma tabela: {len(internas)} linha(s)")
+
+    # ── checagens de IDENTIDADE (sugeridas pelo AUXILIAR-ARCHITECT, 17/10) ───
+    # Nao verificam verdade; reduzem onde o erro se esconde.
+    raiz = AQUI.parents[1]  # .../EVANGELICOS  (AQUI = documentacao/fontes)
+    padrao_caminho = re.compile(r"((?:ESTUDOS_BIBLICOS|estudos|documentacao)/[A-Za-z0-9_./\-]+)")
+    caminhos = set()
+
+    # 1. existencia do caminho citado na localizacao
+    for linha in linhas:
+        rid = (linha.get("id") or "").strip()
+        loc = (linha.get("localizacao") or "").strip()
+        if not loc or "não identificado" in loc:
+            continue
+        for achado in padrao_caminho.findall(loc):
+            caminho = achado.rstrip("/")
+            caminhos.add(caminho)
+            candidatos = (raiz / caminho, raiz / "ESTUDOS_BIBLICOS" / caminho)
+            if not any(c.exists() for c in candidatos):
+                falhas.append(f"{rid}: caminho da localizacao nao existe: {caminho}")
+        if "a confirmar" in loc.lower() and "fora do git" not in loc.lower():
+            avisos.append(f"{rid}: localizacao com 'a confirmar' - usar o caminho real se o material esta no git")
+
+    # 2. autores com nome parecido: Clark x Clarke ja enganou uma linha uma vez
+    def _ed(a: str, b: str) -> int:
+        if abs(len(a) - len(b)) > 1:
+            return 9
+        anterior = list(range(len(b) + 1))
+        for i, ca in enumerate(a, 1):
+            atual = [i]
+            for j, cb in enumerate(b, 1):
+                atual.append(min(anterior[j] + 1, atual[j - 1] + 1, anterior[j - 1] + (ca != cb)))
+            anterior = atual
+        return anterior[-1]
+
+    tokens: dict[str, set[str]] = {}
+    for linha in linhas:
+        rid = (linha.get("id") or "").strip()
+        for palavra in re.findall(r"\b[A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-záéíóúâêôãõç]{3,}\b", linha.get("titular") or ""):
+            tokens.setdefault(palavra, set()).add(rid)
+    nomes = sorted(tokens)
+    for i, a in enumerate(nomes):
+        for b in nomes[i + 1:]:
+            if tokens[a] == tokens[b]:
+                continue
+            if _ed(a.lower(), b.lower()) == 1:
+                avisos.append(
+                    f"autores com nome parecido: '{a}' {sorted(tokens[a])} x '{b}' "
+                    f"{sorted(tokens[b])} - conferir identidade"
+                )
+
+    # 3. cobertura inversa: diretorio de primeiro nivel sem nenhuma linha citada.
+    # Excluidos os que NAO sao fonte de conteudo (codigo, planejamento, template).
+    nao_fonte = {"GSI_EBD", "Diagnostico", "PASTOR_IA", "TEMPLATE_ESTUDO", "conteudo"}
+    for pasta, rotulo in ((raiz / "estudos", "estudos/"), (raiz / "ESTUDOS_BIBLICOS", "ESTUDOS_BIBLICOS/")):
+        if not pasta.is_dir():
+            continue
+        for d in sorted(p for p in pasta.iterdir() if p.is_dir()):
+            if d.name.startswith(".") or d.name in ("__pycache__",) or d.name in nao_fonte:
+                continue
+            if not any(d.name in c for c in caminhos):
+                avisos.append(f"cobertura inversa: nenhum caminho cita {rotulo}{d.name}/")
 
     return relatar(falhas, avisos, len(linhas))
 
