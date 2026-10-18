@@ -22,6 +22,28 @@ por isso **vai antes do deploy por pipeline**.
 - [ ] Implementação (TLC)
 - [ ] EVAL + aceite
 
+## O furo é maior que o `/admin`
+
+O levantamento dos eventos (List 2.0) mostrou que o furo **não para nas rotas**:
+
+- `AdminState.update_lead_status` — **escrita** em dados de leads, **sem verificação nenhuma**;
+- `AdminState.activate_user/suspend_user/cancel_user` — só `can_manage`, e pela hierarquia do
+  `utils/rbac.py` o **REVISOR (nível 1) gerencia coordenador, instrutor e aluno** — contra o próprio
+  `Role`, que o descreve como "função editorial, fora da cadeia de comando";
+- `CoordenadorState.assign_study` — **escrita** (atribui estudo), sem verificação;
+- `RevisaoState.abrir_resposta/fechar_resposta/usar_sugestao/descartar_sugestao` — sem verificação;
+- os `load_*` dos três estados — leitura direta por evento.
+
+Daí a DEM ter passado de "guarda de rota" para **guarda de rota + de evento**, com um decorator
+único e um teste que varre a classe. O `require_role` que existia em `utils/rbac.py` nunca foi
+usado por nenhum arquivo.
+
+## Achados que saem desta DEM
+
+- **`can_manage` não confere o ambiente (tenant)**: um COORDENADOR pode agir sobre usuário de
+  **outro** ambiente por evento direto. É isolamento de dados, não só de papel → **DEM própria**
+  (DEM-202610-010, proposta no painel).
+
 ## Por que é urgente
 
 O furo existe **hoje, em produção**: uma conta de aluno abre `/admin`. Não é hipótese — está no

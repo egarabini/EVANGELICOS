@@ -18,7 +18,17 @@
 | **F-09** | `guarda_admin` com `is_authenticated=False` | `rx.redirect("/login")` | RF03 |
 | **F-10** | `guarda_admin` com papel ALUNO e logado | redirect para a **casa** do aluno (`/aluno`) | RF04 |
 | **F-11** | `guarda_admin` com papel ADMIN | `None` (segue) | RF02 |
-| **F-12** | los três loaders (`load_coordenadores`, `load_all`, `load_fila`) chamam `pode_acessar` **antes** de abrir sessão | inspeção de código + teste do caminho cedo | RF02 (defesa em profundidade) |
+| **F-12** | **Varredura da classe**: todo método público de `AdminState`, `CoordenadorState` e `RevisaoState` tem o marcador `__exige__` — exceto os `@rx.var` | nenhum evento sem guarda | RF07 (ajuste 2) |
+| **F-13** | `load_coordenadores` com ALUNO/INSTRUTOR/COORDENADOR/REVISOR | **não consulta nada** (sai antes de abrir sessão) | RF02 |
+| **F-14** | `update_lead_status` com ALUNO/INSTRUTOR/COORDENADOR/REVISOR | **não escreve** | RF08 |
+| **F-15** | `activate_user`/`suspend_user`/`cancel_user` com **REVISOR** (que o `can_manage` deixaria passar, nível 1 × 2) | **barrado** | RF08 · achado do AUXILIAR |
+| **F-16** | `assign_study` com REVISOR e ALUNO | **não escreve** | RF08 |
+| **F-17** | `abrir_resposta`/`fechar_resposta`/`usar_sugestao`/`descartar_sugestao` com ALUNO e COORDENADOR | **barrado** | RF08 |
+| **F-18** | cada handler com um **papel permitido** (`acao:usuarios` → ADMIN; `acao:catalogo` → ADMIN/REVISOR) | executa | RF07 |
+| **F-19** | `aprovar_estudo`/`aprovar_todos`/`rejeitar_estudo` com **REVISOR** | **executa** (é o catálogo, a casa dele) | 9.2a |
+| **F-20** | `exige(chave)` grava `__exige__` no wrapper | marcador presente e igual à chave | RF07 |
+| **F-21** | `pode("acao:usuarios", REVISOR)` = **False**; `pode("acao:usuarios", ADMIN)` = True | matriz | RF01 |
+| **F-22** | `pode` de **chave desconhecida** (rota ou ação) | **False** (fecha para o desconhecido) | N-01 |
 
 ## 2. Casos de saúde (H)
 
@@ -40,6 +50,12 @@
 - **N-03** · loader chamado direto (sem `on_load`) não carrega dado para quem não pode.
 - **N-04** · nenhum `is_admin` usado como guarda de `/admin` (bloquearia o REVISOR — 9.2a).
 - **N-05** · nenhum segredo/credencial tocado (ADR-008).
+- **N-06** · evento público **novo** sem `@exige` → a varredura **F-12 reprova** (é o teste que
+  impede o furo voltar por descuido).
+- **N-07** · `can_manage` continua existindo, mas **não** é a guarda de evento nenhum (o decorator
+  barra antes); se alguém voltar a usá-lo como única guarda, F-15 reprova.
+- **N-08** · nenhum `@rx.var` é decorado — a varredura da F-12 ignora `ComputedVar` e não exige
+  marcador deles.
 
 ## 5. Verificação manual (ARQUITECT)
 

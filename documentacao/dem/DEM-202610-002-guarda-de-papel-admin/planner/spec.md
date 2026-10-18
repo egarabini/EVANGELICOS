@@ -35,6 +35,25 @@ matriz acima.
 - [ ] **RF05:** a matriz é **testada** (`tests/test_rbac.py`), papel × rota, incluindo a
   invariante da casa. — *(H-04)*
 - [ ] **RF06:** as páginas continuam compilando (`tests/test_paginas.py`). — *(ADR-007)*
+- [ ] **RF07:** **todo evento público** dos três estados administrativos (`AdminState`,
+  `CoordenadorState`, `RevisaoState`) é barrado pela matriz quando o papel não tem permissão, e um
+  teste **varre a classe** reprovando evento novo sem guarda. — *(ajustes 1 e 2 do List 2.0)*
+- [ ] **RF08:** os **mutadores** de usuário, lead e coordenação são exclusivos do papel da matriz
+  (`acao:usuarios` e `acao:leads` = ADMIN; `acao:coordenacao` = ADMIN+COORDENADOR;
+  `acao:revisao` = ADMIN+INSTRUTOR) — inclusive contra o `can_manage`, que deixava o **REVISOR**
+  gerenciar papéis abaixo dele na hierarquia. — *(achado do AUXILIAR-ARCHITECT)*
+
+## 3a. Matriz de ações (eventos) — ver `design.md` §4
+
+| Ação | Papéis |
+|---|---|
+| `acao:catalogo` | ADMIN, REVISOR |
+| `acao:usuarios` | **ADMIN** |
+| `acao:leads` | **ADMIN** |
+| `acao:coordenacao` | ADMIN, COORDENADOR |
+| `acao:revisao` | ADMIN, INSTRUTOR |
+
+`pode(chave, papel)` fecha para **chave desconhecida** (N-01).
 
 ## 4. Requisitos não funcionais
 
