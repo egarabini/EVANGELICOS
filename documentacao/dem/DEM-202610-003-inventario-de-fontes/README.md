@@ -55,3 +55,8 @@ escondida dentro de um projeto.
 | 2026-10-17 | Intent criado (proposta da OLPF); ARQUITECT fecha as 3 questões e assina |
 | 2026-10-17 | PRD e spec escritos |
 | 2026-10-17 | Spec **aprovada com 3 ajustes**; ajustes incorporados (RF02, RF10, Anexo A, §6, CA06/CA07, BOM) |
+| 2026-10-17 | Implementação; EVAL rodada 1 **FAIL** (2 defeitos de forma) → corrigido; rodada 2 **PASS** |
+| 2026-10-18 | Auditoria do AUXILIAR-ARCHITECT **contra o disco**: 18 erros de identidade + 7 artefatos sem linha aplicados (`c0161ce`) |
+| 2026-10-18 | EVAL rodada 3 **FAIL** (F-082 fora da §6.1) → corrigido + verificador endurecido (`3018146`) |
+| 2026-10-18 | EVAL rodada 4 **FAIL** (H-01: ponteiro no commit pré-merge) → apontado para `ba165d9` (`6d9d1cc`) |
+| 2026-10-18 | **EVAL rodada 5: PASS** (82 testes no hash pinado; verificador PASS, 86 linhas) — **aguarda aceite do ARQUITECT** |
