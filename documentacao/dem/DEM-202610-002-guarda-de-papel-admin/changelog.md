@@ -1,15 +1,43 @@
 # Changelog — DEM-202610-002 / guarda de papel no `/admin`
 
+## Fechamento (2026-10-18)
+
+**Aceite do ARQUITECT: concedido em 2026-10-18**, no hash **`7cb2ee2`** — o head da
+branch `release/0.1.0` (PR #2), que é exatamente o hash aprovado pelo EVAL na rodada 3.
+
+| Gate | Evidência |
+|---|---|
+| `GATE: intent` | signed 2026-10-18 |
+| `GATE: spec` + `GATE: TLC-List` | List 2.1 aprovado (com as 2 observações de implementação) |
+| `GATE: EVAL` | **PASS** (rodada 3) — 113 testes; m6 e m7 reprovam |
+| CI | **verde** — run `39146196858` |
+| **Aceite** | **concedido 2026-10-18** |
+
+**O que estava em jogo**: o furo do `/admin` (qualquer usuário logado alcançava a área
+administrativa) **e** dois outros da mesma classe que a inspeção revelou — o cliente podia
+escrever o próprio papel via `set_current_user_role`, e 28 eventos administrativos não
+conferiam papel algum.
+
+### Pendências que saem desta DEM (e para quem)
+
+| Item | Para |
+|---|---|
+| **Release 0.1.0**: merge do PR #2, tag `v0.1.0`, deploy | ARQUITECT (depende da **chave de deploy**) |
+| **DEM-202610-010** — isolamento por ambiente (tenant) e posse: `can_manage` sem ambiente; `toggle_aluno`/`assign_study` e `AlunoState.start_study`/`select_study`/`submit_answer` recebem id do cliente sem conferir pertença | DEM própria (proposta no painel) |
+| **DEM-202610-011** — aprovação em dupla (ADR-011 não implementada; hoje o admin sozinho libera, inclusive os 34 capítulos) | DEM própria (proposta no painel) |
+| **Higiene de sessão**: `logout` não limpa `AdminState` — um REVISOR no mesmo navegador/token, após logout de ADMIN, pode ver dados que o ADMIN carregou | WARN do EVAL; candidato a DEM própria |
+| Limpeza dos WARNs da rodada 3 (imports sem uso, caso de teste vacuoso, nomes na spec) | já em `develop` (`d1dd132`), **fora da branch do release** para preservar o hash do aceite |
+
 ## Resumo
 
 | Item | Estado |
 |---|---|
 | Intent | **signed** 2026-10-18 ("DEM-002 já") |
 | Spec + design + plano | aprovados (List 2.1) |
-| Implementação | **`65fbf7a`** (repositório de código, `develop`) |
-| CI | **verde** — run `39130776109`, 105 testes |
-| EVAL cego | aguardando |
-| Aceite | pendente |
+| Implementação | `65fbf7a` → correções `6768ea9` e `7cb2ee2` (repositório de código) |
+| CI | **verde** — 113 testes (run `39146196858`) |
+| EVAL cego | **PASS** (rodada 3, `7cb2ee2`) |
+| Aceite | **concedido 2026-10-18** |
 
 ## O que a DEM entregou
 

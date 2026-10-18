@@ -21,7 +21,11 @@ por isso **vai antes do deploy por pipeline**.
 - [x] **Implementação** — `65fbf7a`: estado imutável pelo cliente, guarda de rota e
   `@exige` em 28 eventos; **105 testes** e **CI verde** (run `39130776109`)
 - [x] **EVAL cego: PASS** (rodada 3, hash `7cb2ee2`) — 113 testes; as mutações m6/m7 agora reprovam
-- [ ] **Aceite do ARQUITECT** ← próximo (a DEM está no release 0.1.0, PR #2)
+- [x] **Aceite do ARQUITECT** — **concedido em 2026-10-18**, no hash `7cb2ee2`
+
+**DEM FECHADA.** Pendências que saem: release 0.1.0 (merge + tag + deploy, dependente da
+chave), **DEM-010** (tenant/posse), **DEM-011** (dupla aprovação) e a higiene de sessão do
+`logout`. Ver o [changelog](changelog.md) para o detalhe.
 
 Ver [`changelog.md`](changelog.md) para o detalhe e o que ficou de fora.
 
