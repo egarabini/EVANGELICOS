@@ -28,7 +28,7 @@ ADR fixa as respostas como lei e vale para **toda** ingestão futura.
 | 10.4 | Modelo comercial | **Sem lucro:** contribuição simbólica dos coordenadores para custear servidor. Fontes de uso **não comercial** são aceitas nesse regime; se houver lucro, saem (ver gatilhos). |
 | 10.5 | ADR de política de fontes antes da DEM-A | **Sim — é esta ADR.** |
 | 10.6 | Cânon | **Deuterocanônicos ficam fora.** 66 livros. |
-| 10.7 | Linha doutrinária | **`lff`, `lff-en`, `lffe` e `sangue` ficam fora da base** (verificado: 8 pastas em `estudos/estudos-biblicos/`). |
+| 10.7 | Linha doutrinária | **`lff`, `lff-en`, `lffe` e `sangue` ficam fora da base.** **Material eliminado do acervo em 2026-10-18** (4 pastas, 42 arquivos) por decisão do ARQUITECT: não entra nos estudos. A menção que resta na obra de Grudem (Cap. 6, Trindade) é a **refutação do autor à posição**, não material JW — permanece. |
 | 10.8 | Mapa interativo em JavaScript | **Aceito abrir ADR** — ver [ADR-013](ADR-013-componente-de-mapa-em-javascript.md). |
 | 10.9 | Original grego/hebraico | **Entra já no primeiro corte** (fontes abertas: SBL GNT e WLC em CC BY 4.0; MorphGNT em CC BY-SA 3.0). |
 | 10.10 | Texto ACF 2007 | **Risco aceito:** citação hoje, confirmação da licença depois (ver gatilhos). |
