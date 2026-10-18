@@ -38,10 +38,11 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 | DEM-202610-002 *(proposta)* | Guarda de papel nas rotas `/admin` (achado do EVAL) | proposta — precisa de intent | — |
 | [DEM-202610-003](dem/DEM-202610-003-inventario-de-fontes/README.md) | DEM-A: inventário de fontes e licenças | **EVAL rodada 3: FAIL** (1 defeito) — corrigido, aguarda rodada 4 | DEM-001 entregue |
 | [DEM-202610-004](dem/DEM-202610-004-ci-cd-fase-a3/README.md) | CI/CD (Fase A3) | **Etapa 1 entregue** — CI verde + proteção em `develop`/`main`; Etapa 2 aguarda a chave | — |
-| DEM-202610-005 *(proposta)* | DEM-B: registro de fontes e proveniência | proposta | DEM-003 |
-| DEM-202610-006 *(proposta)* | DEM-C: ingestão do grafo (lugares, pessoas, eventos, jornadas) | proposta | DEM-005 |
-| DEM-202610-007 *(proposta)* | DEM-D: busca por assunto (coordenador e instrutor) | proposta | DEM-006 |
-| DEM-202610-008 *(futura)* | DEM-E: o agente **DAVID** no atendimento ao aluno (texto e voz) | futura | DEM-007 |
+| [DEM-202610-005](dem/DEM-202610-005-saida-do-reflex/README.md) | **Saída do Reflex** (FastAPI + Jinja2 + HTMX), por rotas | **intent em rascunho** — aguarda ADR-014 + DEM-004 | DEM-004 |
+| DEM-202610-006 *(proposta)* | DEM-B: registro de fontes e proveniência | proposta | DEM-003 |
+| DEM-202610-007 *(proposta)* | DEM-C: ingestão do grafo (lugares, pessoas, eventos, jornadas) | proposta | DEM-006 |
+| DEM-202610-008 *(proposta)* | DEM-D: busca por assunto (coordenador e instrutor) | proposta | DEM-007 |
+| DEM-202610-009 *(futura)* | DEM-E: o agente **DAVID** no atendimento ao aluno (texto e voz) | futura | DEM-008 |
 
 > A fonte é esta tabela. Não hardcode a "DEM atual" nos arquivos de guarda.
 

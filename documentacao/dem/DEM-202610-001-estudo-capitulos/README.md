@@ -24,9 +24,12 @@ próprios e origem rastreável. Herdado do outcome do intent.
 - [x] **Implementação (TLC)** — 2 commits em `feature/DEM-202610-001-estudo-capitulos`
 - [x] Parecer do PLANNER sobre o diff real
 - [x] **EVAL cego: PASS** — hash `ac712dd`, estado limpo (C 4/4 · N 6/6 · F 11/11 · H PASS)
-- [x] **VISION / aceite do ARQUITECT** — **concedido em 2026-10-17**
-- [ ] PR → `develop` · publicação pelo CI — **bloqueados** (Fase A3 / `gh`)
-- [ ] Fechamento final — `changelog.md` escrito; conclui após o release
+- [x] **VISION / aceite do ARQUITECT** — concedido em 2026-10-17
+- [x] **PR #1 mergeado em `develop`** — commit `ba165d9` (2026-10-18 00:56 UTC), pelo ARQUITECT;
+  **CI verde no push do merge**; branch de feature removida (ADR-009)
+- [ ] **Aceite de release** — depende da **DEM-004 / Etapa 2 (CD)**
+- [ ] **Importador em produção** — tarefa do ARQUITECT, após o `pg_dump`
+- [ ] Fechamento final — conclui após o release
 
 ## Implementação (2026-10-16)
 

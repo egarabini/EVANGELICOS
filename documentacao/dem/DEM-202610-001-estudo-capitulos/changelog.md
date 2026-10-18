@@ -40,6 +40,18 @@
   real e sha256 das tabelas. A verificação deixou de ser relato.
 - **Scripts de prova versionados** em `eval/` — a verificação fica reproduzível.
 
+## Merge em `develop` e CI (2026-10-18)
+
+O **PR #1** foi mergeado pelo ARQUITECT em `develop` — commit de merge **`ba165d9`**,
+00:56 UTC — e a **CI rodou no push do merge e passou** (run `39083755739`, 82 testes, 50 s).
+A branch `feature/DEM-202610-001-estudo-capitulos` foi removida depois do merge.
+
+O merge aconteceu **antes** de a proteção de branch existir: o portão nasceu depois. A CI
+validou o resultado, mas o registro é honesto — este foi o último merge sem check obrigatório.
+
+**Continua pendente:** aceite de **release** (depende da Etapa 2 do CD, DEM-004) e a execução
+do importador em produção (tarefa do ARQUITECT, após `pg_dump`).
+
 ## Pendências que saem desta DEM
 
 1. **DEM-202610-002** — guarda de papel nas rotas `/admin` (segurança; qualquer usuário

@@ -49,3 +49,6 @@ _openbible/
 Thumbs.db
 desktop.ini
 .DS_Store
+# Acervo de projetos de terceiros (alguns com direito reservado): NAO redistribuir.
+estudos/
+

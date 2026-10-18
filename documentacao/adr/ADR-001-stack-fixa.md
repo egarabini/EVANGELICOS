@@ -1,6 +1,6 @@
 # ADR-001: Stack fixa: Python/Reflex
 
-- **Status:** Accepted
+- **Status:** Accepted — **proposta de substituição: [ADR-014](ADR-014-saida-do-reflex.md)** (Proposed, 2026-10-18)
 - **Data:** 2026-10-16
 - **Decisores:** ARQUITECT (Eduardo)
 - **Gatilho:** Novo Horizonte (adoção de método) / decisão já implementada
