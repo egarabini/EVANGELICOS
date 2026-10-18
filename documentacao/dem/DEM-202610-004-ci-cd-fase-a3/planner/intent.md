@@ -1,13 +1,14 @@
 # Intent: DEM-202610-004 / ci-cd-fase-a3
 
-status: draft
+status: signed
 owner: PLANNER
 signed_by: ARQUITECT
 origin: ADR-009 + ADR-010 + bloqueio do aceite de release da DEM-202610-001
-signed_at:
+signed_at: 2026-10-17
 supersedes: —
-open_questions_open: 5
-spec_citations: — (preenchido ao fechar a spec)
+open_questions_open: 0
+spec_citations: 100% — todo RF de `spec.md` cita §2, §4 In, §5 ou uma decisão do §9
+nota_de_assinatura: o ARQUITECT autorizou as recomendações do PLANNER ("segue", 2026-10-17); as cinco decisões estão registradas no §9.
 
 ## 1. Problema
 
@@ -85,13 +86,17 @@ mesclado**. Isso é o aceite; os workflows são a evidência.
 | 8.1 | Copilot Enterprise entra nesta DEM? | **Sim, como revisor do PR.** Está ativado na conta — informação do ARQUITECT em 17/10; a ADR-009 já o prevê. |
 | 8.2 | Runner do GitHub ou runner próprio na VPS? | **GitHub-hosted + SSH para a VPS.** Runner próprio na VPS foi descartado: os repositórios são públicos e runner self-hosted permitiria execução de código de terceiro na VPS. O ARQUITECT aceitou a recomendação em 17/10. |
 
-## 9. Perguntas abertas — só o ARQUITECT fecha
+## 9. Perguntas abertas — fechadas pelo ARQUITECT em 2026-10-17
 
-- [ ] **9.1** O deploy dispara em **merge em `main`/tag** ou só por **acionamento manual**?
-- [ ] **9.2** O **backup `pg_dump`** entra no pipeline ou continua manual antes do release?
-- [ ] **9.3** Quem **cria e guarda** a nova chave, e **quando** a antiga (`didasko_deploy`) é revogada?
-- [ ] **9.4** **Rollback:** reimplantar a tag anterior basta, ou há migração de banco a reverter?
-- [ ] **9.5** As duas entregas (CI e CD) são **uma DEM** ou **duas**?
+**Nenhuma aberta.** As cinco foram decididas (autorizadas com "segue").
+
+| # | Pergunta | Decisão |
+|---|---|---|
+| 9.1 | Disparo do deploy | **Merge em `main`** (via `release/*`, com aceite) **+ `workflow_dispatch`** para republicar sem release, em emergência |
+| 9.2 | `pg_dump` no pipeline | **Sim, no pipeline**, antes do deploy, com checksum e guardado como artifact |
+| 9.3 | Chave de deploy | **Par novo (ed25519).** Pública no `authorized_keys` da VPS (tarefa do ARQUITECT); privada como secret `DEPLOY_SSH_KEY` via `gh secret set` lendo de arquivo — **nunca no chat**. A `didasko_deploy` antiga é revogada **depois** do primeiro deploy pelo pipeline funcionar |
+| 9.4 | Rollback | **Reimplantar a tag anterior.** Nenhuma migração de schema é feita pelo pipeline |
+| 9.5 | Uma ou duas DEMs | **Uma DEM com duas entregas**: CI (Etapa 1) e CD (Etapa 2) |
 
 ## 10. Fora de julgamento
 

@@ -17,11 +17,11 @@ porque a publicação depende de CI.
 
 ## Estado
 
-- [x] Intent lapidado — em **rascunho**, com 5 perguntas abertas
-- [ ] **Intent assinado** ← `GATE: intent`, próximo
-- [ ] PRD · spec · design · plano-testes
-- [ ] List + implementação (TLC)
-- [ ] EVAL + aceite
+- [x] **Intent assinado** — 5 decisões no §9 (`GATE: intent` vencido)
+- [x] Spec + design da Etapa 1
+- [x] **Etapa 1 (CI) entregue**: workflow verde (82 testes, 50 s) e **proteção** em `develop` e `main` exigindo o check `testes (pytest)`
+- [ ] **Etapa 2 (CD)** — aguarda a **chave de deploy** (decisão 9.3): pública no `authorized_keys` da VPS, privada em secret
+- [ ] EVAL da Etapa 1 + aceite
 
 ## O que a lapidação mudou no rascunho do AUXILIAR
 

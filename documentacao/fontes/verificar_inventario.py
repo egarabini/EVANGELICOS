@@ -116,14 +116,19 @@ def main() -> int:
         if vazios:
             falhas.append(f"{rotulo}: campos obrigatorios vazios {vazios} (CA01)")
 
-        # spec §6.1: licenca a confirmar -> regime NAO MAIS PERMISSIVO que integral_interno.
-        # Aceita integral_interno e nao_exibir (mais restritivo); recusa apenas curto.
+        # spec §6.1: licenca a confirmar, OU licenca nao verificada com decisao nao-entra,
+        # exige regime NAO MAIS PERMISSIVO que integral_interno (aceita nao_exibir).
         # Excecao unica: F-001 (ACF), cujo risco a ADR-012 10.10 aceita explicitamente.
-        if (linha.get("licenca") or "").strip().lower() == "a confirmar" and rid != "F-001":
+        licenca_txt = (linha.get("licenca") or "").strip().lower()
+        nao_verificada_em_nao_entra = (
+            (linha.get("licenca_verificada") or "").strip() == "nao"
+            and (linha.get("decisao") or "").strip() != "entra"
+        )
+        if licenca_txt and ("a confirmar" in licenca_txt or nao_verificada_em_nao_entra) and rid != "F-001":
             if (linha.get("regime_exibicao") or "").strip() not in ("integral_interno", "nao_exibir"):
                 falhas.append(
-                    f"{rotulo}: licenca 'a confirmar' exige regime integral_interno ou "
-                    f"nao_exibir, nunca curto (spec §6.1)"
+                    f"{rotulo}: licenca nao confirmada com decisao '{decisao}' exige regime "
+                    f"integral_interno ou nao_exibir, nunca curto (spec §6.1)"
                 )
 
         # CA03: motivo obrigatorio quando nao entra
