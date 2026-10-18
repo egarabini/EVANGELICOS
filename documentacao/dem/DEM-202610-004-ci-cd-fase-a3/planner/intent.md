@@ -12,14 +12,19 @@ spec_citations: — (preenchido ao fechar a spec)
 ## 1. Problema
 
 Não existe pipeline: nenhum dos dois repositórios tem `.github/workflows`. O que isso custa,
-medido:
+**medido em 2026-10-17 com o `gh` autenticado**:
 
+- O **PR #1** (DEM-001, `feature/…` → `develop`) está aberto, `MERGEABLE`, com **0 checks**.
+- O **Copilot Code Review já funciona** e aprovou o PR (run `39067498100`, success, 4m32s).
+  Ou seja: **o revisor automático existe; o portão de testes não.**
+- **Nenhuma** branch protection (`main` responde 404 "not protected") e **nenhum secret**
+  configurado nos dois repositórios.
+- Consequência: um PR com a suíte quebrada **mergeia do mesmo jeito**. É o portão da ADR-009
+  existindo pela metade.
 - A **DEM-001 está aceita e com changelog fechado**, mas o aceite de **release** ficou
-  pendente — o changelog diz "bloqueado no `gh`" e "sem CI não há publicação".
-- Um PR em `develop` ou `main` **não roda teste nenhum** (o PR #1 abriu com **0 checks**): o
-  portão de merge da ADR-009 existe no papel, não na prática.
-- O deploy ainda depende de SSH humano ou de agente, caminho que a ADR-010 manda aposentar —
-  e que **já derrubou o site uma vez**, por erro que só aparecia na compilação da página.
+  pendente: sem CI não há publicação (ADR-010).
+- O deploy ainda depende de SSH humano ou de agente — caminho que já derrubou o site uma vez,
+  por erro que só aparecia na compilação da página.
 
 ## 2. Outcome
 
