@@ -19,19 +19,20 @@ O PLANNER escreveu o workflow e o script de entrada; **ninguém além do ARQUITE
 |---|---|
 | Workflow `deploy.yml` | pronto. Dispara em **tag `v*`** e em **`workflow_dispatch`**; job com `environment: producao` |
 | Script de entrada `deploy/didasko-deploy-entry.sh` | pronto. Só aceita `deploy <tag>` (tag com `A-Za-z0-9._-`); faz `pg_dump` → checkout da tag → `subir.sh --pular-import` → verificação HTTP 200 |
-| Environment `producao` | existe, com `egarabini` como aprovador obrigatório; branches restritas a `main` (ver aviso na seção "Pendência de tags") |
+| Environment `producao` | existe, com `egarabini` como aprovador obrigatório; aceita `main` (branch) e `v*` (tag) |
 | Secrets `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS` | **faltam** (são o objeto deste runbook) |
 | Variáveis `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PORT` | opcionais; padrões do workflow: `didasko.app.br`, `didasko-deploy`, `22` |
 
-## Pendência de tags (leia antes de criar o primeiro `v*`)
+## Tags e o Environment (resolvido em 2026-10-18)
 
-O `deploy.yml` dispara em **tag `v*`**, mas o Environment `producao` hoje aceita **só a branch `main`**
-(política aplicada em 2026-10-18). Uma execução disparada por tag vem com ref `refs/tags/v…` e, **se o
-Environment não tiver regra para tags, a aprovação nunca é pedida e o job é recusado**.
-Resolver antes do primeiro release, com **uma** das opções (decisão do ARQUITECT):
-1. acrescentar ao Environment a regra de **tag** `v*` (mantém o disparo por tag); ou
-2. publicar sempre por `workflow_dispatch` a partir de `main`, informando a tag no campo `tag`, e
-   considerar remover o gatilho `push: tags` do workflow.
+O `deploy.yml` dispara em **tag `v*`**. O Environment `producao` foi primeiro restrito à branch `main`;
+isso recusaria execuções disparadas por tag. Corrigido no mesmo dia: o Environment agora aceita **duas
+regras**, `main` (branch) e `v*` (tag), com `egarabini` como aprovador obrigatório. Conferido pela API.
+
+Risco residual: uma tag `v*` pode apontar para qualquer commit, e o workflow executado é o do commit da
+tag. Hoje só o dono do repositório escreve, e cada execução exige a sua aprovação, então o risco é baixo.
+Se o time crescer, restringir quem cria tags `v*` (ruleset de tags) ou publicar só por `workflow_dispatch`
+a partir de `main`.
 
 ## Pré-requisitos na VPS (conferir uma vez)
 
@@ -154,7 +155,7 @@ Só **depois** de um deploy completo bem-sucedido pelo pipeline:
 ## Lacunas que o PLANNER deve fechar no design
 
 1. Comando `ping`/`status` no script de entrada (seção 6).
-2. Regra de tag no Environment, ou remoção do gatilho por tag (seção "Pendência de tags").
+2. Restringir quem cria tags `v*` (ruleset), se o time crescer.
 3. Verificação de pré-requisitos da VPS (clone, `.env`, `conteudo/`) antes do primeiro deploy.
 4. O script de entrada roda `subir.sh --pular-import`: o **importador do conteúdo (inclusive o da
    DEM-001) continua manual** do ARQUITECT, depois do `pg_dump`, como decidido.
