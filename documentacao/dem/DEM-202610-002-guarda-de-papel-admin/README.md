@@ -16,11 +16,14 @@ por isso **vai antes do deploy por pipeline**.
 
 ## Estado
 
-- [x] Intent escrito (rascunho)
-- [ ] **Intent assinado** — fecha 9.1 (matriz antes ou depois) e 9.2 (o que o coordenador alcança)
-- [ ] Spec + design + **baseline H-04** (matriz papel × rota)
-- [ ] Implementação (TLC)
-- [ ] EVAL + aceite
+- [x] Intent assinado (2026-10-18) — 9.1, 9.2, 9.2a e 9.3 fechadas
+- [x] Spec + design (v3, List 2.1) + plano-testes (F-01..F-28, N-01..N-08)
+- [x] **Implementação** — `65fbf7a`: estado imutável pelo cliente, guarda de rota e
+  `@exige` em 28 eventos; **105 testes** e **CI verde** (run `39130776109`)
+- [ ] **EVAL cego** ← próximo
+- [ ] Aceite do ARQUITECT
+
+Ver [`changelog.md`](changelog.md) para o detalhe e o que ficou de fora.
 
 ## O furo é maior que o `/admin`
 
