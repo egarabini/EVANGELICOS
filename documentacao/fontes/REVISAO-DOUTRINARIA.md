@@ -2,13 +2,27 @@
 
 > Para o **ARQUITECT**. O EVAL cego deu **PASS** na rodada 5; o aceite é seu.
 >
-> Das **86 linhas**, **64 têm `adequacao_doutrinaria = ok`** e não pedem nada de você. As **22
-> restantes** pedem o seu olhar — e uma delas (F-077) é questão **legal**, não doutrinária. Este
-> documento junta as 23 em quatro blocos, para a revisão ser uma sessão só.
+> ## Duas folhas, dois papéis — não são concorrentes
 >
-> **Como fechar:** em cada linha, marque `ok` (mantém como está), `mudar` (diga para o quê) ou
-> `fora`. Com isso o PLANNER grava `revisado_por` e `revisado_em` nas 86 linhas do CSV — inclusive
-> nas 64 que não pedem olhar, com uma assinatura de lote.
+> - **A forma de decidir** é o quadro do AUXILIAR-ARCHITECT:
+>   [`visao/QUADRO-REVISAO-DOUTRINARIA-aux-architect.md`](../visao/QUADRO-REVISAO-DOUTRINARIA-aux-architect.md).
+>   Ele reduz as 22 linhas a **8 decisões** (opções A/B/C/D) e mostra o efeito de cada opção no CSV.
+>   **É o que você preenche.**
+> - **Este documento** é o **mapa de aplicação**: qual `id` está em qual grupo, o que o PLANNER
+>   escreve no CSV para cada opção A/B/C/D, a correção de contagem e a assinatura.
+>
+> Das **86 linhas**, **64 têm `adequacao_doutrinaria = ok`** e não pedem nada de você. As **22
+> restantes** pedem o seu olhar — e uma delas (F-077) é questão **legal**, não doutrinária.
+
+## O que o PLANNER grava no CSV, por opção
+
+| Opção | O que muda no CSV |
+|---|---|
+| **A. Entra, com rótulo** | nada (já está `atencao` + `curto`); a interface identifica a tradição |
+| **B. Só papel interno** | `regime_exibicao = integral_interno`; o aluno não vê |
+| **C. Não entra** | `decisao = nao_entra` + `motivo` obrigatório (verificador CA05) |
+| **D. Entra sem rótulo** | `adequacao_doutrinaria = ok` |
+| Em todas | `revisado_por` e `revisado_em` preenchidos; verificador reexecutado; EVAL confirma |
 
 ## 1. A que mais importa (1)
 
