@@ -23,9 +23,9 @@ corrigir **antes** do deploy por pipeline: não se publica uma versão que ainda
 ## 2. Outcome
 
 **Nenhuma rota administrativa responde a quem não é admin.** Um aluno logado que tenta `/admin`
-recebe **403** na rota (e é devolvido ao seu painel na navegação); um coordenador também não
-alcança o que é exclusivo do admin. E a **matriz papel × rota** deixa de ser promessa: passa a ser
-teste.
+é **devolvido ao seu painel** e o estado **não carrega** dado administrativo (a rota é servida pelo
+SPA: a garantia é o loader não executar, não um código HTTP); um coordenador também não alcança o
+que é exclusivo do admin. E a **matriz papel × rota** deixa de ser promessa: passa a ser teste.
 
 ## 3. Afetados
 
@@ -38,7 +38,7 @@ serve a rota" é da spec de lá).
 **In**
 - guarda de papel em **todas** as rotas administrativas (`/admin` e subrotas)
 - a **matriz papel × rota** como baseline: qual papel pode qual rota
-- teste automatizado que percorre a matriz e prova o 403 (o `test_paginas.py` atual só compila)
+- teste automatizado que percorre a matriz e prova que o acesso é **negado** (redirect para a casa do papel e loader que não carrega) — o `test_paginas.py` atual só compila
 - registro do achado no changelog da DEM-002
 
 **Out (non-goals)**
@@ -53,7 +53,9 @@ serve a rota" é da spec de lá).
 - **Nenhuma mudança de schema ou de dado.**
 - **Antes do deploy por pipeline** (ordem do ARQUITECT, 18/10) e **antes da migração do admin**.
 - Guarda **central**, não copiada por página: uma função/dependência única, testada.
-- A resposta de acesso negado é **403**, não tela em branco nem erro 500.
+- A resposta de acesso negado é **redirect para a casa do próprio papel**, não tela em branco nem
+  erro 500. **Não há 403**: a rota é servida pelo SPA, que responde 200 e redireciona no cliente; a
+  garantia real é o **loader não carregar** dado administrativo (nota do H-06, §6).
 
 ## 6. Health metrics
 
@@ -73,7 +75,7 @@ O teste da matriz falha se alguém remover a guarda de uma rota.
 |---|---|---|
 | 8.1 | Momento | **Antes do deploy por pipeline** (carta do ARQUITECT, 18/10) e antes da migração do admin (ADR-014) |
 | 8.2 | Onde | No **Reflex**, agora — a base nova só herda a matriz |
-| 8.3 | Resposta | **403** na rota; na navegação, devolver ao painel do papel |
+| 8.3 | Resposta | **Redirect para a casa do papel**, sem 403 HTTP (rota é SPA); o loader administrativo **não carrega** para papel negado |
 
 ## 9. Perguntas abertas — fechadas pelo ARQUITECT em 2026-10-18
 

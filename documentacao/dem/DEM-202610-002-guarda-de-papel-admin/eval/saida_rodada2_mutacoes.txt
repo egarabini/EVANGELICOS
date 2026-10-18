@@ -1,0 +1,50 @@
+=== MUTACOES EM MEMORIA - RODADA 2 (DEM-202610-002) ===
+
+===== m1 =====
+mutado: AdminState.load_coordenadores sem __exige__ (fn=<function AdminState.load_coordenadores at 0x000001728D593D70>)
+REPROVOU  m1 varredura F-12: AdminState sem @exige: ['load_coordenadores']
+exit=0
+
+===== m1b =====
+mutado: RevisaoState.abrir_resposta sem __exige__ (fn=<function RevisaoState.abrir_resposta at 0x000002DB43531590>)
+REPROVOU  m1 varredura F-12: RevisaoState sem @exige: ['abrir_resposta']
+exit=0
+
+===== m2 =====
+mutado: on_load /admin ['AuthState.guarda_admin', 'AdminState.load_coordenadores'] -> ['AdminState.load_coordenadores']
+REPROVOU  m2 fiacao on_load: /admin sem o guarda no on_load: [<function AdminState.load_coordenadores at 0x000001729D946CF0>]
+exit=0
+
+===== m3 =====
+mutado: rota:/admin = (<Role.ADMIN: 1>,)
+REPROVOU  m3 test_matriz_de_rotas(/admin): REVISOR deveria poder /admin
+NAO REPROVOU  m3 test_guarda_real_bloqueia_e_libera (o teste passou com a mutacao)
+exit=0
+
+===== m4 =====
+mutado: acao:catalogo_aprovar = (<Role.ADMIN: 1>, <Role.REVISOR: 5>)
+REPROVOU  m4 test_matriz_de_acoes(catalogo_aprovar): REVISOR NAO deveria poder acao:catalogo_aprovar
+exit=0
+
+===== m5 =====
+mutado: state_auto_setters=True antes de importar os estados
+  set_current_user_role existe? True
+  setvar(current_user_role, 1) -> EventSpec (o cliente escreve a identidade)
+REPROVOU  m5 test_nenhum_setter_de_identidade: AuthState expoe ['set_current_user_role', 'set_current_user_name', 'set_is_authenticated', 'set_current_user_id', 'set_must_change_password', 'set_current_user_status', 'set_current_user_ambiente']
+REPROVOU  m5 test_state_auto_setters_desligado: 
+exit=0
+
+===== m6 =====
+mutado: home_do_papel -> /login para todo papel
+passou  test_invariante_casa_do_papel (nao pegou a mutacao)
+passou  test_home_consistente_com_authservice (nao pegou a mutacao)
+passou  test_guarda_real_bloqueia_e_libera (nao pegou a mutacao)
+passou  test_guarda_rota_redireciona_e_libera (nao pegou a mutacao)
+exit=2
+
+===== m7 (extra: chave errada) =====
+mutado: AdminState.load_leads __exige__=acao:catalogo_ler
+passou  test_todo_evento_tem_marcador_exige
+passou  test_lista_de_eventos_congelada(AdminState)
+VAZOU  load_leads delegou para REVISOR - suite nao acusou (FURO de cobertura)
+exit=2

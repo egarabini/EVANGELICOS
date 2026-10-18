@@ -69,6 +69,21 @@ O mesmo valia para a rota: `rbac.guarda_rota` era **dead code** (o app usava `Au
 
 **Suíte: 109 passed** (82 + 27).
 
+## Rodada 2 do EVAL: FAIL de cobertura e de contrato — corrigido (`7cb2ee2`)
+
+Segurança **PASS** (regressão dos 3 furos, 5/5 mutações pedidas, sonda com 140 células). Dois bloqueios, ambos de **prova**:
+
+1. **Cobertura por chave (m7):** a suíte provava que o evento tem `@exige`, não **qual** chave. Decorar `load_leads` com `catalogo_ler` passava — e o REVISOR carregava leads. Corrigido: `CHAVES_ESPERADAS` (mapa congelado evento → chave) + `test_chave_de_cada_evento`.
+2. **Destino do redirect (m6):** ninguém asseria para onde o redirect ia; trocar `home_do_papel` por `/login` passava nos 4 testes. Corrigido: tabela **hardcoded** de casas (oráculo independente) + extração do path do `EventSpec`.
+
+Também: `test_handlers_reais_barrados_nao_executam` cobre o negativo de F-13/F-16/F-19 chamando o **handler real** (o `@exige` retorna antes do corpo, sem abrir sessão).
+
+**Contrato (H-06):** o intent dizia 403 em §2, §4, §5 e §8.3. Corrigido nos quatro — a garantia é *redirect para a casa + loader que não carrega*, sem 403 (a rota é SPA). **Suíte: 113 passed.**
+
+### Pendência registrada (WARN do EVAL, fora do escopo)
+
+`logout` não limpa `AdminState`: um REVISOR no mesmo navegador/token, após logout de um ADMIN, pode ver dados que o ADMIN carregou. É **higiene de sessão**, não bypass de guarda — candidato a DEM própria (ou à DEM-010, junto do tenant).
+
 ## Lição medida (registrada no teste e no README)
 
 O Reflex descobre o `rxconfig.py` **pelo diretório atual**. Rodando a suíte de outro

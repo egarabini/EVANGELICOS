@@ -1,0 +1,164 @@
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+DeprecationWarning: state_auto_setters has been deprecated in version 0.9.0. 
+state_auto_setters=False is already the default and the option will be removed.
+It will be completely removed in 1.0. (rxconfig.py:8)
+==============================================================================
+1. MATRIZ (rotas e acoes)
+==============================================================================
+  rota:/admin          {'ADMIN': True, 'COORDENADOR': False, 'INSTRUTOR': False, 'ALUNO': False, 'REVISOR': True}
+  rota:/coordenador    {'ADMIN': True, 'COORDENADOR': True, 'INSTRUTOR': False, 'ALUNO': False, 'REVISOR': False}
+  rota:/revisao        {'ADMIN': True, 'COORDENADOR': False, 'INSTRUTOR': True, 'ALUNO': False, 'REVISOR': False}
+  acoes:
+    acao:catalogo_aprovar      {'ADMIN': True, 'COORDENADOR': False, 'INSTRUTOR': False, 'ALUNO': False, 'REVISOR': False}
+    acao:catalogo_ler          {'ADMIN': True, 'COORDENADOR': False, 'INSTRUTOR': False, 'ALUNO': False, 'REVISOR': True}
+    acao:coordenacao           {'ADMIN': True, 'COORDENADOR': True, 'INSTRUTOR': False, 'ALUNO': False, 'REVISOR': False}
+    acao:leads                 {'ADMIN': True, 'COORDENADOR': False, 'INSTRUTOR': False, 'ALUNO': False, 'REVISOR': False}
+    acao:revisao               {'ADMIN': True, 'COORDENADOR': False, 'INSTRUTOR': True, 'ALUNO': False, 'REVISOR': False}
+    acao:usuarios              {'ADMIN': True, 'COORDENADOR': False, 'INSTRUTOR': False, 'ALUNO': False, 'REVISOR': False}
+
+==============================================================================
+2. F-06 rotas publicas (pode=True para todo papel; anonimo nao e papel)
+==============================================================================
+OK     rota publica / para os 5 papeis
+OK     rota publica /login para os 5 papeis
+OK     rota publica /confirmar/[token] para os 5 papeis
+OK     rota publica /homenagens para os 5 papeis
+OK     rota publica /aluno para os 5 papeis
+OK     rota publica /aluno/licao para os 5 papeis
+OK     rota publica /aluno/pareceres para os 5 papeis
+OK     rota publica /perfil/alterar-senha para os 5 papeis
+  pode(rota:/ , -1) = False  (anonimo nao tem assento na matriz)
+
+==============================================================================
+3. F-08 casa do papel: AuthService x rbac (fonte unica)
+==============================================================================
+OK     ADMIN        home=/admin         AuthService=/admin         pode=True
+OK     COORDENADOR  home=/coordenador   AuthService=/coordenador   pode=True
+OK     INSTRUTOR    home=/revisao       AuthService=/revisao       pode=True
+OK     ALUNO        home=/aluno         AuthService=/aluno         pode=True
+OK     REVISOR      home=/admin         AuthService=/admin         pode=True
+  papel invalido (99): home=/login AuthService=/login
+
+==============================================================================
+4. IDENTIDADE: setters proibidos nos 7 estados + alcance do setvar
+==============================================================================
+OK     AuthState          setters identidade attr=[] eventos=[]
+OK     AdminState         setters identidade attr=[] eventos=[]
+OK     CoordenadorState   setters identidade attr=[] eventos=[]
+OK     RevisaoState       setters identidade attr=[] eventos=[]
+OK     AlunoState         setters identidade attr=[] eventos=[]
+OK     PerfilState        setters identidade attr=[] eventos=[]
+OK     CommonState        setters identidade attr=[] eventos=[]
+  setvar tentando alcancar identidade:
+    setvar('current_user_role') -> AttributeError: Variable `current_user_role` cannot be set on `reflex___state____state.gsi_ebd___states___auth____auth_state`
+    AdminState.setvar('current_user_role') -> AttributeError: Variable `current_user_role` cannot be set on `reflex___state____state.gsi_ebd___states___auth____auth_state.gsi_ebd___states___admin____admin_state`
+    setvar('current_user_id') -> AttributeError: Variable `current_user_id` cannot be set on `reflex___state____state.gsi_ebd___states___auth____auth_state`
+    AdminState.setvar('current_user_id') -> AttributeError: Variable `current_user_id` cannot be set on `reflex___state____state.gsi_ebd___states___auth____auth_state.gsi_ebd___states___admin____admin_state`
+    setvar('is_authenticated') -> AttributeError: Variable `is_authenticated` cannot be set on `reflex___state____state.gsi_ebd___states___auth____auth_state`
+    AdminState.setvar('is_authenticated') -> AttributeError: Variable `is_authenticated` cannot be set on `reflex___state____state.gsi_ebd___states___auth____auth_state.gsi_ebd___states___admin____admin_state`
+    setvar('must_change_password') -> AttributeError: Variable `must_change_password` cannot be set on `reflex___state____state.gsi_ebd___states___auth____auth_state`
+    AdminState.setvar('must_change_password') -> AttributeError: Variable `must_change_password` cannot be set on `reflex___state____state.gsi_ebd___states___auth____auth_state.gsi_ebd___states___admin____admin_state`
+
+==============================================================================
+5. ROTA: on_load real das 3 rotas guardadas
+==============================================================================
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+  /admin         on_load=['AuthState.guarda_admin', 'AdminState.load_coordenadores']
+OK     /admin tem AuthState.guarda_admin no on_load
+  /coordenador   on_load=['AuthState.guarda_coordenador', 'CoordenadorState.load_all']
+OK     /coordenador tem AuthState.guarda_coordenador no on_load
+  /revisao       on_load=['AuthState.guarda_revisao', 'RevisaoState.load_fila']
+OK     /revisao tem AuthState.guarda_revisao no on_load
+  guarda_rota usado por (marcador __guarda_rota__):
+    AuthState.guarda_admin       __guarda_rota__=/admin
+    AuthState.guarda_coordenador __guarda_rota__=/coordenador
+    AuthState.guarda_revisao     __guarda_rota__=/revisao
+  AuthState.check_auth ainda existe e NAO e guarda de papel: True
+
+==============================================================================
+6. EVENTO: 28 @exige nos 3 estados (e o que a varredura examina)
+==============================================================================
+  AdminState         eventos=18 com_marcador=13 sem_marcador=['set_new_gestor_email', 'set_new_gestor_nome', 'set_reject_motivo', 'set_tab_atual', 'setvar']
+    ['activate_user', 'aprovar_estudo', 'aprovar_todos', 'cancel_user', 'create_gestor', 'load_coordenadores', 'load_estudos_aplicados', 'load_estudos_pendentes', 'load_leads', 'load_obras', 'rejeitar_estudo', 'suspend_user', 'update_lead_status']
+  CoordenadorState   eventos=10 com_marcador= 8 sem_marcador=['set_selected_study_option', 'setvar']
+    ['assign_study', 'clear_selection', 'load_all', 'load_alunos', 'load_estudos', 'load_turmas', 'select_all_alunos', 'toggle_aluno']
+  RevisaoState       eventos=10 com_marcador= 7 sem_marcador=['set_considerou_correto', 'set_parecer_texto', 'setvar']
+    ['abrir_resposta', 'descartar_sugestao', 'fechar_resposta', 'load_fila', 'pedir_sugestao', 'salvar_parecer', 'usar_sugestao']
+OK     total de @exige nos 3 estados = 28 (esperado 28)
+  varredura F-12: quantos eventos ela realmente examina?
+    examina 28 eventos (nao-zero; a lista inteira esta acima)
+
+==============================================================================
+7. GUARDAS reais: destino do redirect por papel x rota
+==============================================================================
+  /admin
+    auth=False ADMIN        destino=/login         esperado=/login         OK 
+    auth=False COORDENADOR  destino=/login         esperado=/login         OK 
+    auth=False INSTRUTOR    destino=/login         esperado=/login         OK 
+    auth=False ALUNO        destino=/login         esperado=/login         OK 
+    auth=False REVISOR      destino=/login         esperado=/login         OK 
+    auth=True  ADMIN        destino=None           esperado=None           OK 
+    auth=True  COORDENADOR  destino=/coordenador   esperado=/coordenador   OK 
+    auth=True  INSTRUTOR    destino=/revisao       esperado=/revisao       OK 
+    auth=True  ALUNO        destino=/aluno         esperado=/aluno         OK 
+    auth=True  REVISOR      destino=None           esperado=None           OK 
+  /coordenador
+    auth=False ADMIN        destino=/login         esperado=/login         OK 
+    auth=False COORDENADOR  destino=/login         esperado=/login         OK 
+    auth=False INSTRUTOR    destino=/login         esperado=/login         OK 
+    auth=False ALUNO        destino=/login         esperado=/login         OK 
+    auth=False REVISOR      destino=/login         esperado=/login         OK 
+    auth=True  ADMIN        destino=None           esperado=None           OK 
+    auth=True  COORDENADOR  destino=None           esperado=None           OK 
+    auth=True  INSTRUTOR    destino=/revisao       esperado=/revisao       OK 
+    auth=True  ALUNO        destino=/aluno         esperado=/aluno         OK 
+    auth=True  REVISOR      destino=/admin         esperado=/admin         OK 
+  /revisao
+    auth=False ADMIN        destino=/login         esperado=/login         OK 
+    auth=False COORDENADOR  destino=/login         esperado=/login         OK 
+    auth=False INSTRUTOR    destino=/login         esperado=/login         OK 
+    auth=False ALUNO        destino=/login         esperado=/login         OK 
+    auth=False REVISOR      destino=/login         esperado=/login         OK 
+    auth=True  ADMIN        destino=None           esperado=None           OK 
+    auth=True  COORDENADOR  destino=/coordenador   esperado=/coordenador   OK 
+    auth=True  INSTRUTOR    destino=None           esperado=None           OK 
+    auth=True  ALUNO        destino=/aluno         esperado=/aluno         OK 
+    auth=True  REVISOR      destino=/admin         esperado=/admin         OK 
+
+==============================================================================
+8. F-19/F-25: catalogo_aprovar (positivo ADMIN, negativo REVISOR)
+==============================================================================
+  pode(catalogo_aprovar, ADMIN)   = True
+  pode(catalogo_aprovar, REVISOR) = False
+  aprovar_estudo   __exige__=acao:catalogo_aprovar
+  aprovar_todos    __exige__=acao:catalogo_aprovar
+  rejeitar_estudo  __exige__=acao:catalogo_aprovar
+  (nao ha teste que EXECUTE o handler com ADMIN; ver jornada)
+
+==============================================================================
+9. Eventos que recebem id (pertenca nao conferida no estado)
+==============================================================================
+  AdminState.activate_user(self, user_id: int)  marker=acao:usuarios
+  AdminState.suspend_user(self, user_id: int)  marker=acao:usuarios
+  AdminState.cancel_user(self, user_id: int)  marker=acao:usuarios
+  AdminState.update_lead_status(self, lead_id: int, new_status: str)  marker=acao:leads
+  AdminState.aprovar_estudo(self, study_id: int)  marker=acao:catalogo_aprovar
+  AdminState.rejeitar_estudo(self, study_id: int)  marker=acao:catalogo_aprovar
+  CoordenadorState.toggle_aluno(self, aluno_id: str)  marker=acao:coordenacao
+  RevisaoState.abrir_resposta(self, response_id: str)  marker=acao:revisao
+  AlunoState.select_study(self, study_id: str)  marker=None
+  AlunoState.start_study(self, study_id, version_id)  marker=None
+
+==============================================================================
+RESUMO: 0 falha(s)
+==============================================================================

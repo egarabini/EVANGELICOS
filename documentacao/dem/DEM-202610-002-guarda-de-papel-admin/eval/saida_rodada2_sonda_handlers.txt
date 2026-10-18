@@ -1,0 +1,47 @@
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+Warning: `reflex_base.plugins.sitemap.SitemapPlugin` plugin is enabled by 
+default, but not explicitly added to the config. If you want to use it, please 
+add it to the `plugins` list in your config inside of `rxconfig.py`. To disable
+this plugin, add `SitemapPlugin` to the `disable_plugins` list.
+DeprecationWarning: state_auto_setters has been deprecated in version 0.9.0. 
+state_auto_setters=False is already the default and the option will be removed.
+It will be completely removed in 1.0. (rxconfig.py:8)
+====================================================================================================
+SONDA: handler real x papel (barrado nao abre sessao; permitido delega)
+====================================================================================================
+estado.handler                             chave                    ADMIN        COORDENADOR  INSTRUTOR    ALUNO        REVISOR     
+AdminState.load_coordenadores              acao:usuarios            OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :barrado 
+AdminState.load_leads                      acao:leads               OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :barrado 
+AdminState.load_estudos_pendentes          acao:catalogo_ler        OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :delegou 
+AdminState.load_obras                      acao:catalogo_ler        OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :delegou 
+AdminState.load_estudos_aplicados          acao:catalogo_ler        OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :delegou 
+AdminState.create_gestor                   acao:usuarios            OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :barrado 
+AdminState.activate_user                   acao:usuarios            OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :barrado 
+AdminState.suspend_user                    acao:usuarios            OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :barrado 
+AdminState.cancel_user                     acao:usuarios            OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :barrado 
+AdminState.update_lead_status              acao:leads               OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :barrado 
+AdminState.aprovar_estudo                  acao:catalogo_aprovar    OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :barrado 
+AdminState.aprovar_todos                   acao:catalogo_aprovar    OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :barrado 
+AdminState.rejeitar_estudo                 acao:catalogo_aprovar    OK :delegou  OK :barrado  OK :barrado  OK :barrado  OK :barrado 
+CoordenadorState.load_all                  acao:coordenacao         OK :delegou  OK :delegou  OK :barrado  OK :barrado  OK :barrado 
+CoordenadorState.load_alunos               acao:coordenacao         OK :delegou  OK :delegou  OK :barrado  OK :barrado  OK :barrado 
+CoordenadorState.load_estudos              acao:coordenacao         OK :delegou  OK :delegou  OK :barrado  OK :barrado  OK :barrado 
+CoordenadorState.load_turmas               acao:coordenacao         OK :delegou  OK :delegou  OK :barrado  OK :barrado  OK :barrado 
+CoordenadorState.toggle_aluno              acao:coordenacao         OK :efeito   OK :efeito   OK :barrado  OK :barrado  OK :barrado 
+CoordenadorState.select_all_alunos         acao:coordenacao         OK :efeito   OK :efeito   OK :barrado  OK :barrado  OK :barrado 
+CoordenadorState.clear_selection           acao:coordenacao         OK :efeito   OK :efeito   OK :barrado  OK :barrado  OK :barrado 
+CoordenadorState.assign_study              acao:coordenacao         OK :delegou  OK :delegou  OK :barrado  OK :barrado  OK :barrado 
+RevisaoState.load_fila                     acao:revisao             OK :delegou  OK :barrado  OK :delegou  OK :barrado  OK :barrado 
+RevisaoState.abrir_resposta                acao:revisao             OK :efeito   OK :barrado  OK :efeito   OK :barrado  OK :barrado 
+RevisaoState.fechar_resposta               acao:revisao             OK :efeito   OK :barrado  OK :efeito   OK :barrado  OK :barrado 
+RevisaoState.pedir_sugestao                acao:revisao             OK :efeito   OK :barrado  OK :efeito   OK :barrado  OK :barrado 
+RevisaoState.usar_sugestao                 acao:revisao             OK :efeito   OK :barrado  OK :efeito   OK :barrado  OK :barrado 
+RevisaoState.descartar_sugestao            acao:revisao             OK :efeito   OK :barrado  OK :efeito   OK :barrado  OK :barrado 
+RevisaoState.salvar_parecer                acao:revisao             OK :delegou  OK :barrado  OK :delegou  OK :barrado  OK :barrado 
+
+====================================================================================================
+RESUMO: 0 furo(s)
+====================================================================================================
