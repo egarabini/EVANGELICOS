@@ -25,8 +25,8 @@ matriz acima.
 
 ## 3. Requisitos funcionais
 
-- [ ] **RF01:** a matriz vira **dado único** no código (`ROTAS_PROTEGIDAS`), e uma função pura diz
-  se um papel pode uma rota. — *(intent §2, 9.1)*
+- [ ] **RF01:** a matriz vira **dado único** no código (`PERMISSOES`, com chaves `rota:/…` e
+  `acao:…`), e a função pura `pode(chave, papel)` responde. — *(intent §2, 9.1)*
 - [ ] **RF02:** `/admin`, `/coordenador` e `/revisao` **não servem conteúdo** a papel não
   autorizado: o carregamento de dados é bloqueado antes de qualquer consulta. — *(§2, H-06)*
 - [ ] **RF03:** quem **não está logado** vai para `/login` (comportamento atual, preservado). — *(§5)*
@@ -79,13 +79,13 @@ servidor. **A guarda só vale se o estado for imutável pelo cliente.**
 
 ```python
 # utils/rbac.py
-ROTAS_PROTEGIDAS: dict[str, tuple[Role, ...]]
-def pode_acessar(rota: str, papel: int) -> bool
+PERMISSOES: dict[str, tuple[Role, ...]]   # chaves "rota:/..." e "acao:..."
+def pode(chave: str, papel: int) -> bool
+def exige(chave: str)                     # decorator de EVENTO (grava __exige__)
+def guarda_rota(rota: str)                # decorator do handler de on_load
 
-# states/auth.py (novos handlers de on_load)
-def guarda_admin(self)        # /admin          -> ADMIN, REVISOR
-def guarda_coordenador(self)  # /coordenador    -> ADMIN, COORDENADOR
-def guarda_revisao(self)      # /revisao        -> ADMIN, INSTRUTOR
+# states/auth.py (handlers de on_load, decorados com guarda_rota)
+guarda_admin · guarda_coordenador · guarda_revisao
 ```
 
 ## 6. Edge cases

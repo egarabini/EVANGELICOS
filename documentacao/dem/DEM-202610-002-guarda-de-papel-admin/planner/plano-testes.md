@@ -12,7 +12,7 @@
 | **F-03** | `pode_acessar("/admin", ALUNO)` | `False` | RF01 |
 | **F-04** | `pode_acessar("/coordenador", {ADMIN, COORDENADOR})` = True; `{REVISOR, INSTRUTOR, ALUNO}` = False | idem | RF01 |
 | **F-05** | `pode_acessar("/revisao", {ADMIN, INSTRUTOR})` = True; `{REVISOR, COORDENADOR, ALUNO}` = False | idem | RF01 |
-| **F-06** | `pode_acessar` das rotas **públicas** para qualquer papel **e para anônimo** | `True` | RF01 |
+| **F-06** | `pode` das rotas **públicas/abertas** para os **5 papéis** | `True` (40/40) | RF01 · *anônimo não é papel: o guarda de rota checa `is_authenticated` antes e é asserido em F-10* |
 | **F-07** | **Matriz completa**: laço `ROTAS_PROTEGIDAS × Role` confere a tabela inteira da spec §2 | igual à spec | RF05 · H-04 |
 | **F-08** | **Invariante da casa**: para cada papel, `pode_acessar(redirect_for_role(papel), papel)` | `True` (sem loop) | RF04 |
 | **F-09** | `guarda_admin` com `is_authenticated=False` | `rx.redirect("/login")` | RF03 |

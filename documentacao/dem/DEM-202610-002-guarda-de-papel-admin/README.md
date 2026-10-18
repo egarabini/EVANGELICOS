@@ -20,8 +20,8 @@ por isso **vai antes do deploy por pipeline**.
 - [x] Spec + design (v3, List 2.1) + plano-testes (F-01..F-28, N-01..N-08)
 - [x] **Implementação** — `65fbf7a`: estado imutável pelo cliente, guarda de rota e
   `@exige` em 28 eventos; **105 testes** e **CI verde** (run `39130776109`)
-- [ ] **EVAL cego** ← próximo
-- [ ] Aceite do ARQUITECT
+- [x] **EVAL cego: PASS** (rodada 3, hash `7cb2ee2`) — 113 testes; as mutações m6/m7 agora reprovam
+- [ ] **Aceite do ARQUITECT** ← próximo (a DEM está no release 0.1.0, PR #2)
 
 Ver [`changelog.md`](changelog.md) para o detalhe e o que ficou de fora.
 

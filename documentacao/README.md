@@ -35,7 +35,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 | DEM | Assunto | Estado | Depende de |
 |---|---|---|---|
 | [DEM-202610-001](dem/DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | **aceito** — entrega aprovada; aguarda publicação (CI) | — |
-| [DEM-202610-002](dem/DEM-202610-002-guarda-de-papel-admin/README.md) | Guarda de papel nas rotas `/admin` (achado do EVAL) | **intent em rascunho** — urgente: o furo está aberto | — |
+| [DEM-202610-002](dem/DEM-202610-002-guarda-de-papel-admin/README.md) | Guarda de papel nas rotas `/admin` | **EVAL PASS** (rodada 3, `7cb2ee2`) — aguarda aceite; está no release 0.1.0 (PR #2) | — |
 | [DEM-202610-003](dem/DEM-202610-003-inventario-de-fontes/README.md) | DEM-A: inventário de fontes e licenças | **EVAL PASS** (rodada 5) — aguarda aceite do ARQUITECT | DEM-001 entregue |
 | [DEM-202610-004](dem/DEM-202610-004-ci-cd-fase-a3/README.md) | CI/CD (Fase A3) | **Etapa 1 entregue** — CI verde + proteção em `develop`/`main`; Etapa 2 aguarda a chave | — |
 | [DEM-202610-005](dem/DEM-202610-005-saida-do-reflex/README.md) | **Saída do Reflex** (FastAPI + Jinja2 + HTMX), por rotas | **intent em rascunho** — aguarda ADR-014 + DEM-004 | DEM-004 |

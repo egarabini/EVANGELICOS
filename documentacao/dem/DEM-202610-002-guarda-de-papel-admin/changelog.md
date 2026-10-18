@@ -84,6 +84,22 @@ Também: `test_handlers_reais_barrados_nao_executam` cobre o negativo de F-13/F-
 
 `logout` não limpa `AdminState`: um REVISOR no mesmo navegador/token, após logout de um ADMIN, pode ver dados que o ADMIN carregou. É **higiene de sessão**, não bypass de guarda — candidato a DEM própria (ou à DEM-010, junto do tenant).
 
+## Rodada 3 do EVAL: **PASS** — gate vencido (`7cb2ee2`)
+
+| Categoria | Veredito |
+|---|---|
+| m7 (chave errada) | **PASS** — reprova agora, com o diff da chave |
+| m6 (destino do redirect) | **PASS** — reprova agora, com o destino esperado |
+| Contrato (403) | **PASS** — as 4 afirmações sumiram |
+| Regressão dos 3 furos | **PASS** — 7/7 estados sem setter de identidade; `setvar` → `AttributeError` nos 7; 3 `on_load`; 28 `@exige` |
+| Negativo dos handlers reais | **PASS** com WARN |
+| Suíte | **PASS** — 113 |
+| Escopo | **PASS** |
+
+WARNs não bloqueantes, tratados: o caso `abrir_resposta` do teste de handlers reais era vacuoso (trocado por `salvar_parecer`, cujo corpo toca serviço/banco); imports sem uso em `auth.py` removidos; spec/plano alinhados aos nomes reais (`PERMISSOES`/`pode`); F-06 ajustado (anônimo não é papel).
+
+**Essas limpezas foram para `develop` (`d1dd132`), não para a branch do release** — o PR #2 aponta o hash aprovado (`7cb2ee2`), e mover a branch invalidaria o hash do aceite por uma limpeza cosmética.
+
 ## Lição medida (registrada no teste e no README)
 
 O Reflex descobre o `rxconfig.py` **pelo diretório atual**. Rodando a suíte de outro
