@@ -126,9 +126,10 @@ def main() -> int:
         )
         if licenca_txt and ("a confirmar" in licenca_txt or nao_verificada_em_nao_entra) and rid != "F-001":
             if (linha.get("regime_exibicao") or "").strip() not in ("integral_interno", "nao_exibir"):
+                decisao_da_linha = (linha.get("decisao") or "").strip()
                 falhas.append(
-                    f"{rotulo}: licenca nao confirmada com decisao '{decisao}' exige regime "
-                    f"integral_interno ou nao_exibir, nunca curto (spec §6.1)"
+                    f"{rotulo}: licenca nao confirmada com decisao '{decisao_da_linha}' exige "
+                    f"regime integral_interno ou nao_exibir, nunca curto (spec §6.1)"
                 )
 
         # CA03: motivo obrigatorio quando nao entra
