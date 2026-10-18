@@ -6,12 +6,13 @@ signed_by: ARQUITECT
 origin: decisão do ARQUITECT (17/10) + incidentes de 16/10 e da DEM-001
 signed_at:
 supersedes: —
-open_questions_open: 3
+open_questions_open: 2
 spec_citations: — (preenchido ao fechar a spec)
 
-> **Rascunho do AUXILIAR-ARCHITECT para o PLANNER lapidar.** O número `005` é sugestão.
-> A palavra "Reflex" aparece porque é o objeto da decisão; **a tecnologia substituta não é
-> decidida aqui** (ver §8, decisão 8.1, e §10). O PLANNER pode renumerar, cortar e dividir em DEMs.
+> **Lapidado pelo PLANNER em 2026-10-18**, a partir do rascunho do AUXILIAR-ARCHITECT, com as
+> emendas da revisão `documentacao/visao/REVISAO-ADR-014-e-DEM-005-aux-architect.md` (A, B, D, E).
+> O número `005` está fixado (a frente de fontes deslizou para 006–009). A tecnologia substituta
+> está na **ADR-014 (Proposed)** — este intent não a decide.
 
 ## 1. Problema
 
@@ -69,6 +70,12 @@ que o aluno já usa.
 - **Menor impacto:** nada de migração de dados; **convivência por rota**; cada tela migrada tem
   **volta atrás** documentada.
 - **IA não faz deploy** (ADR-010); publicação pelo CI. Por isso **esta DEM depende da DEM-004**.
+- **Sessão compartilhada é bloqueante** (emenda A): o login hoje é **estado do Reflex** — não há
+  cookie assinado, JWT nem middleware — e o Traefik tem **um** roteador. A **primeira** rota
+  migrada não saberia quem está logado. A spec exige o mecanismo e o **spike descartável** antes.
+- **Ordem de dependências** (emendas D/E): a **DEM-002** (guarda de papel no `/admin`) vem
+  **antes** da migração do admin; e a **primeira rota** só migra depois da **Etapa 2 da DEM-004**
+  (deploy por pipeline — sem ela, cada rota migrada seria um deploy manual).
 - Segredos fora do repositório (ADR-008); LGPD preservada (nenhum dado novo ao navegador).
 - Nada de código de terceiros copiado (decisão do ARQUITECT para esta frente).
 
@@ -99,7 +106,9 @@ Seguem as recomendações do AUXILIAR-ARCHITECT, adotadas pelo ARQUITECT em 17/1
 
 ## 9. Perguntas abertas — só o ARQUITECT fecha
 
-- [ ] **9.1** A **DEM-002** (guarda de papel no `/admin`) é feita **agora no Reflex** ou já na base nova? **Atenção do AUXILIAR-ARCHITECT:** o furo existe hoje (qualquer usuário logado alcança a área administrativa, conforme o changelog da DEM-001). Esperar a migração do admin deixa o furo aberto por semanas; a opção segura é corrigir agora no Reflex, pequena, e reimplementar o guarda na base nova.
+- [x] **9.1 — decidida:** a **DEM-002** é feita **agora, no Reflex** — o furo existe hoje e a
+  migração não é desculpa para deixá-lo por semanas; o guarda é reimplementado na base nova.
+  Registrado na ADR-014 e na ordem da carta do ARQUITECT (18/10).
 - [ ] **9.2** **Ritmo:** várias DEMs (uma por grupo de telas) ou uma DEM com entregas?
 - [ ] **9.3** **Direção de UX:** há referência visual (produto, paleta, exemplos) ou o PLANNER propõe?
 
