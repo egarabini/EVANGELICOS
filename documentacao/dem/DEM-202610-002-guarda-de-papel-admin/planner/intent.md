@@ -1,13 +1,15 @@
 # Intent: DEM-202610-002 / guarda-de-papel-admin
 
-status: draft
+status: signed
 owner: PLANNER
 signed_by: ARQUITECT
 origin: achado do EVAL da DEM-202610-001 (jornada, 2026-10-16) + carta do ARQUITECT de 2026-10-18 (§5 e §6)
-signed_at:
+signed_at: 2026-10-18
 supersedes: —
-open_questions_open: 3
-spec_citations: — (preenchido ao fechar a spec)
+open_questions_open: 0
+spec_citations: 100% — todo RF de `spec.md` cita §2, §4 In, §5 ou uma decisão do §9
+nota_de_assinatura: o ARQUITECT determinou "DEM-002 já" (2026-10-18) após "é pequena e é segurança";
+as três perguntas foram fechadas com as recomendações do PLANNER, registradas no §9.
 
 ## 1. Problema
 
@@ -72,16 +74,14 @@ O teste da matriz falha se alguém remover a guarda de uma rota.
 | 8.2 | Onde | No **Reflex**, agora — a base nova só herda a matriz |
 | 8.3 | Resposta | **403** na rota; na navegação, devolver ao painel do papel |
 
-## 9. Perguntas abertas — só o ARQUITECT fecha
+## 9. Perguntas abertas — fechadas pelo ARQUITECT em 2026-10-18
 
-- [ ] **9.1** A **matriz papel × rota** é levantada **agora** (H-04, baseline) ou a guarda entra
-  primeiro e a matriz vem depois? *Recomendação: levantar antes — sem o baseline, o teste não sabe
-  o que afirmar.*
-- [ ] **9.2** O **coordenador** alcança `/admin` hoje? Se não deve alcançar, qual é o recorte
-  (admin tem tudo; coordenador tem o quê)? *Recomendação: admin = tudo; coordenador = o painel
-  próprio, sem as telas de usuários/estudos.*
-- [ ] **9.3** Existe **rota que hoje é pública** e deveria continuar? (ex.: confirmação de conta)
-  *Recomendação: manter como está; a matriz registra o "público".*
+| # | Pergunta | Decisão |
+|---|---|---|
+| 9.1 | Matriz antes ou depois da guarda? | **Antes.** A matriz é o baseline (H-04) e o próprio teste — sem ela, o teste não sabe o que afirmar |
+| 9.2 | O que o COORDENADOR alcança? | **`/coordenador`** (e mais nada da área administrativa). `/revisao` é do INSTRUTOR (+ADMIN) |
+| 9.2a | **Correção depois de ler o código** | A decisão 9.2 dizia "`/admin` exclusivo do ADMIN". O código (`AuthService.redirect_for_role`) manda o **REVISOR** para `/admin` ("valida o catálogo na tela do admin"). Fechar `/admin` só para ADMIN faria o login do revisor **entrar em loop** (redireciona para /admin → guarda recusa → redireciona para /admin). Matriz corrigida: **`/admin` = ADMIN + REVISOR** |
+| 9.3 | Rota pública que continua pública? | **`/`, `/login`, `/confirmar/[token]` e `/homenagens`** — conferidas no código, não mudam |
 
 ## 10. Fora de julgamento
 
