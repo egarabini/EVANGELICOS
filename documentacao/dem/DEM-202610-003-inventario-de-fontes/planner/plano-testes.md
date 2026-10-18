@@ -61,7 +61,7 @@ signed_at:
 - FAIL se: qualquer `a confirmar` com `observacoes` vazio ou incompleto
 
 ### F-10 — exclusões como linha
-- passos: buscar as 13 exclusões do RF10
+- passos: buscar as **12** exclusões do RF10
 - esperado: todas presentes com `decisao = nao_entra` e `motivo` não vazio
 - FAIL se: alguma ausente ou sem motivo
 

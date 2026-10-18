@@ -36,7 +36,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 |---|---|---|---|
 | [DEM-202610-001](dem/DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | **aceito** — entrega aprovada; aguarda publicação (CI) | — |
 | DEM-202610-002 *(proposta)* | Guarda de papel nas rotas `/admin` (achado do EVAL) | proposta — precisa de intent | — |
-| [DEM-202610-003](dem/DEM-202610-003-inventario-de-fontes/README.md) | DEM-A: inventário de fontes e licenças | **implementado** — 79 linhas, verificador PASS; aguarda EVAL | DEM-001 entregue |
+| [DEM-202610-003](dem/DEM-202610-003-inventario-de-fontes/README.md) | DEM-A: inventário de fontes e licenças | **EVAL PASS** (rodada 2) — aguarda aceite do ARQUITECT | DEM-001 entregue |
 | [DEM-202610-004](dem/DEM-202610-004-ci-cd-fase-a3/planner/intent.md) | CI/CD (Fase A3): CI dos PRs + publicação pelo pipeline | **intent em rascunho** — aguarda assinatura | — |
 | DEM-202610-005 *(proposta)* | DEM-B: registro de fontes e proveniência | proposta | DEM-003 |
 | DEM-202610-006 *(proposta)* | DEM-C: ingestão do grafo (lugares, pessoas, eventos, jornadas) | proposta | DEM-005 |

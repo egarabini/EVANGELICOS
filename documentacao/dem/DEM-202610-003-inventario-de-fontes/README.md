@@ -21,9 +21,12 @@ exibido ao aluno. É a **DEM-A** da OLPF da frente de base de conhecimento.
 - [x] **Spec aprovada** — `GATE: spec` vencido, com três ajustes incorporados
 - [x] Design + plano-testes (enxutos: esta DEM produz **dado e documento**)
 - [x] **Artefato entregue**: `documentacao/fontes/inventario.csv` (79 linhas) + `README.md` + `verificar_inventario.py`
-- [x] Verificador próprio: **PASS** (estrutura, enums, motivo, gatilho, cobertura do Anexo A)
-- [ ] List + implementação (TLC) — registro formal do List
-- [ ] **EVAL** ← próximo · depois aceite do ARQUITECT
+- [x] **EVAL rodada 1: FAIL** — 2 defeitos reais + 3 observações (`eval/jornada.md`)
+- [x] Correções: artefato **e instrumento** (o verificador não testava CA01 nem a regra do §6.1)
+- [x] **EVAL rodada 2: PASS** — `eval/jornada-rodada2.md`, hash `17fc665`
+- [ ] **Aceite do ARQUITECT** ← próximo
+
+> **Registro pós-veredito:** uma correção documental entrou **depois** do PASS (o corpo do caso F-10 ainda dizia "13 exclusões"). Não altera o CSV, portanto o veredito segue valendo para o artefato no hash `17fc665`.
 
 ## Os três ajustes do ARQUITECT (incorporados em 2026-10-17)
 

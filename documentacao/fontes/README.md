@@ -56,6 +56,25 @@ EVAL: ele lê o CSV, não o código que o gerou.
 | `observacoes` | gatilho (**o quê · com quem · quando**) e notas |
 | `revisado_por` / `revisado_em` | preenchidos na revisão do ARQUITECT |
 
+## Limites do verificador (declarados)
+
+O `verificar_inventario.py` é um **checklist materializado pelo PLANNER** — não substitui o
+EVAL. Limites conhecidos, apontados pela rodada 2 do EVAL:
+
+- compara `licenca` por **igualdade exata** para achar `a confirmar`; valores híbridos como
+  `MIT (a confirmar)` (F-075, F-076) não disparam o gatilho — nesses casos o que vale é
+  `licenca_verificada = nao`;
+- a exceção do ACF (F-001) é **hardcoded**: é a decisão 10.10 da ADR-012, não uma brecha;
+- cobre a cobertura do Sensus e as 12 exclusões; **não** substitui a conferência do Anexo A
+  item a item;
+- **não lê o plano de testes** — resíduos documentais (como um "13" no lugar de "12") passam
+  por ele.
+
+**Nota sobre o ACF (F-001):** a ADR-012 10.10 aceita o risco ("citação hoje, confirmação
+depois"), mas o gatilho da linha é **deliberadamente mais restritivo** que a ADR: exige
+confirmação antes de qualquer exibição. A diferença é intencional — o risco aceito vale para
+o uso atual, não para o que a frente nova construir em cima dele.
+
 ## Pendências conhecidas (registradas, não escondidas)
 
 | Pendência | Estado |
