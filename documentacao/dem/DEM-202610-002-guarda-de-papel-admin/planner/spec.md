@@ -42,18 +42,31 @@ matriz acima.
   (`acao:usuarios` e `acao:leads` = ADMIN; `acao:coordenacao` = ADMIN+COORDENADOR;
   `acao:revisao` = ADMIN+INSTRUTOR) — inclusive contra o `can_manage`, que deixava o **REVISOR**
   gerenciar papéis abaixo dele na hierarquia. — *(achado do AUXILIAR-ARCHITECT)*
+- [ ] **RF09 (bloqueante):** **desligar `state_auto_setters`** e escrever os setters explícitos dos
+  campos de formulário. Nenhum evento `set_current_user_*`, `set_is_authenticated` ou
+  `set_must_change_password` pode existir. — *(item 1 do List 2.1)*
+- [ ] **RF10:** a matriz separa **leitura** (`catalogo_ler` = ADMIN+REVISOR) de **aprovação**
+  (`catalogo_aprovar` = ADMIN); a DEM não cria poder novo. — *(item 2 do List 2.1)*
 
 ## 3a. Matriz de ações (eventos) — ver `design.md` §4
 
 | Ação | Papéis |
 |---|---|
-| `acao:catalogo` | ADMIN, REVISOR |
+| `acao:catalogo_ler` | ADMIN, REVISOR |
+| **`acao:catalogo_aprovar`** | **ADMIN** |
 | `acao:usuarios` | **ADMIN** |
 | `acao:leads` | **ADMIN** |
 | `acao:coordenacao` | ADMIN, COORDENADOR |
 | `acao:revisao` | ADMIN, INSTRUTOR |
 
-`pode(chave, papel)` fecha para **chave desconhecida** (N-01).
+`pode(chave, papel)` fecha para **chave desconhecida** (N-01). A DEM **não cria poder novo**: o
+revisor lê o catálogo e não aprova (o modelo tem um só `aprovado_por` → User (Admin)).
+
+## 3b. O cliente não escreve o próprio papel (RF09)
+
+`rxconfig.py` tem `state_auto_setters=True`, e do diretório do app o `AuthState` expõe **17 setters**,
+incluindo os 7 de identidade. Um cliente que dispara `set_current_user_role(1)` vira ADMIN para o
+servidor. **A guarda só vale se o estado for imutável pelo cliente.**
 
 ## 4. Requisitos não funcionais
 

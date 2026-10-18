@@ -38,11 +38,32 @@ Daí a DEM ter passado de "guarda de rota" para **guarda de rota + de evento**, 
 único e um teste que varre a classe. O `require_role` que existia em `utils/rbac.py` nunca foi
 usado por nenhum arquivo.
 
+## O segundo furo (bloqueante): o cliente escreve o próprio papel
+
+`rxconfig.py` tem `state_auto_setters=True`. Medido **do diretório do app**, o `AuthState` expõe
+**25 eventos / 17 setters**, entre eles `set_current_user_role`, `set_current_user_id`,
+`set_current_user_ambiente`, `set_is_authenticated` e `set_must_change_password`.
+
+Como a guarda inteira lê `self.current_user_role`, um cliente que dispara `set_current_user_role(1)`
+**vira ADMIN para o servidor** — e a matriz e o `@exige` passariam a proteger um estado controlado
+pelo atacante. Por isso a DEM começa por desligar os auto setters e escrever os setters explícitos
+(RF09): **a guarda só vale se o estado for imutável pelo cliente**.
+
+> **Lição medida:** o Reflex descobre o `rxconfig.py` a partir do **diretório atual**. Rodando a
+> suíte do diretório errado, os setters não existem e `test_paginas` falha 9/9; do diretório do app,
+> **82 passed**. A suíte roda sempre de `ESTUDOS_BIBLICOS/GSI_EBD`.
+
 ## Achados que saem desta DEM
 
 - **`can_manage` não confere o ambiente (tenant)**: um COORDENADOR pode agir sobre usuário de
-  **outro** ambiente por evento direto. É isolamento de dados, não só de papel → **DEM própria**
-  (DEM-202610-010, proposta no painel).
+  **outro** ambiente por evento direto. É isolamento de dados, não só de papel → **DEM-202610-010**
+  (proposta no painel).
+- **Aprovação em dupla**: a regra de negócio confirmada em 18/10 é que o estudo só fica disponível
+  quando **REVISOR e ADMIN** aprovam. Hoje não existe: há uma única aprovação (`aprovado_por`, só
+  ADMIN), e a **ADR-011** (assinatura + data + hash do conteúdo) **também não está implementada**.
+  Antes disso, o admin sozinho libera os estudos — inclusive os 34 capítulos já importados.
+  → **DEM-202610-011** (proposta no painel). Esta DEM (002) **não** antecipa: o revisor **lê** o
+  catálogo e **não** aprova.
 
 ## Por que é urgente
 

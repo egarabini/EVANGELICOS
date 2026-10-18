@@ -44,6 +44,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 | DEM-202610-008 *(proposta)* | DEM-D: busca por assunto (coordenador e instrutor) | proposta | DEM-007 |
 | DEM-202610-009 *(futura)* | DEM-E: o agente **DAVID** no atendimento ao aluno (texto e voz) | futura | DEM-008 |
 | DEM-202610-010 *(proposta)* | Isolamento por ambiente (tenant) no RBAC — `can_manage` não confere o ambiente | proposta (achado da DEM-002) | DEM-002 |
+| DEM-202610-011 *(proposta)* | **Aprovação em dupla** do estudo (REVISOR + ADMIN, com hash — implementa a ADR-011) | proposta (achado da DEM-002) | DEM-002 |
 
 > A fonte é esta tabela. Não hardcode a "DEM atual" nos arquivos de guarda.
 

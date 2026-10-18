@@ -29,6 +29,12 @@
 | **F-20** | `exige(chave)` grava `__exige__` no wrapper | marcador presente e igual à chave | RF07 |
 | **F-21** | `pode("acao:usuarios", REVISOR)` = **False**; `pode("acao:usuarios", ADMIN)` = True | matriz | RF01 |
 | **F-22** | `pode` de **chave desconhecida** (rota ou ação) | **False** (fecha para o desconhecido) | N-01 |
+| **F-23** | **Auto setters desligados**: `AuthState` **não** expõe `set_current_user_role`, `set_current_user_id`, `set_current_user_name`, `set_current_user_status`, `set_current_user_ambiente`, `set_is_authenticated`, `set_must_change_password` | **nenhum existe** (medido do diretório do app) | RF09 · item 1 do List 2.1 |
+| **F-24** | Cada setter **explícito** usado pelas páginas existe (`login_email`, `tab_atual`, `user_answer`, `parecer_texto`, `senha_atual`, `form_nome`…) | as 9 páginas compilam | RF09 · rede de segurança |
+| **F-25** | `aprovar_estudo`/`aprovar_todos`/`rejeitar_estudo` com **REVISOR** | **barrado** (`acao:catalogo_aprovar` = ADMIN) | RF10 |
+| **F-26** | `load_estudos_pendentes`/`load_obras` com **REVISOR** | **executa** (`acao:catalogo_ler`) | RF10 · 9.2a |
+| **F-27** | Handler decorado com argumentos: continua **síncrono** e com a assinatura original (`__wrapped__`) | `inspect.iscoroutinefunction` = False; `inspect.signature` = original | item 3 do List 2.1 |
+| **F-28** | A suíte roda **do diretório do app** (`ESTUDOS_BIBLICOS/GSI_EBD`) | **82+ passed** (do diretório errado dá falha de setter) | H-01 · lição medida |
 
 ## 2. Casos de saúde (H)
 
