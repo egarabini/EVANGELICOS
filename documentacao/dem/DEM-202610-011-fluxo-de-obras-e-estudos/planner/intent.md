@@ -98,10 +98,12 @@ adendos, e uma alteração posterior **não passa** sem a revisão.
 | **9.2** | a versão `liberada` **permanece disponível** enquanto a alterada espera revisão; o coordenador **adota quando quiser** |
 | **9.3** | os adendos são **sobreposição por ambiente**, identificados como **do coordenador**; não alteram a obra base nem passam por revisão; o isolamento multi-ambiente fica com o gatilho do D-06 |
 | **9.4** | portão de licença em **duas etapas**: **`nao_entra` bloqueia na importação** (o `em_revisao` não nasce) e **`depende` bloqueia na liberação** (revisa, mas não libera até a fonte virar `entra`) |
+| **9.5** | o coordenador define **quais capítulos, em que ordem e com qual calendário** — em **fatia posterior** (nível 2), com o padrão "obra inteira, na ordem da obra, sem calendário"; o plano **nunca** altera a obra base |
 
 **Status:** o intent passa a `signed` — as 4 perguntas estão fechadas; o próximo passo é a spec.
 
 ## 10.## 10. Fora de julgamento
 
 A estrutura das telas, o formato do parecer, o nome dos estados (internal), a linguagem do hash.
+
 

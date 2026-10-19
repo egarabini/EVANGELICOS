@@ -1,7 +1,7 @@
 # Spec — DEM-202610-011 / fluxo de obras e estudos (**v2** — revisão de 19/10)
 
 > Dono: PLANNER. **Nível 3** (ADR-018).
-> **Revisão v2** (19/10): acrescenta o estado `devolvida` (recusa do Revisor), o aviso de
+> **Aprovada pelo ARQUITECT em 2026-10-19** (com a ADR-019 aceita). **Revisão v2** (19/10): acrescenta o estado `devolvida` (recusa do Revisor), o aviso de
 > **origem alterada** no estudo derivado, a **transparência do intervalo** (a salvaguarda do
 > trade-off da ADR-019), a pergunta do **"como" do coordenador** e o **fatiamento** (o domínio
 > pode ser feito antes das telas). As 4 decisões 9.1-9.4 **são as do ARQUITECT** (mensagem de
@@ -103,10 +103,9 @@ o `Adendo.ambiente_id`), os hashes e os testes de invariante podem ser implement
 | **1 — domínio (agora)** | os modelos, o `flow.py`, os hashes, os gates, os testes | nada da v1 |
 | **2 — as telas** | as telas do fluxo (na v1) | a DEM-005 |
 
-## 10. Pergunta aberta (a do "como" do coordenador)
+## 10. O "como" do coordenador (decidido em 2026-10-19 — a 9.5)
 
-- [ ] **9.5** O coordenador, além de vincular e adendar, define **quais capítulos usa, em que
-  ordem e com qual calendário**? *Recomendação: sim — é o que a sua frase "ele determina o que e
-  como a obra é trabalhada no ambiente" significa, e sem isso a autonomia dele é só escolher a
-  obra. O `plano(ambiente, obra, capítulos, ordem, calendário)` entra na RF06; o isolamento
-  multi-ambiente continua no D-06.*
+O coordenador define **quais capítulos usa, em que ordem e com qual calendário** — mas em
+**fatia posterior** (nível 2), com o padrão **"obra inteira, na ordem da obra, sem calendário"**.
+O plano **nunca** altera a obra base. O `planejar(ambiente, obra, capítulos, ordem, calendário)`
+fica fora desta fatia; a RF06 desta fatia cobre **vincular/desvincular e o adendo do ambiente**.

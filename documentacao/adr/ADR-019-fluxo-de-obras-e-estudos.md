@@ -1,6 +1,6 @@
 # ADR-019: O fluxo de obras e estudos — e a emenda da ADR-011
 
-- **Status:** **Proposed** — aguarda o aceite do ARQUITECT.
+- **Status:** **Accepted** — aceita pelo ARQUITECT em **2026-10-19** (inclui a emenda da ADR-011 e a salvaguarda do "contestar").
 - **Data:** 2026-10-19
 - **Decisores:** ARQUITECT (Eduardo) · redação do PLANNER
 - **Gatilho:** o fluxo decidido em 19/10 + a dívida **D-07** (a aprovação de uma só assinatura)
@@ -82,4 +82,5 @@ visível e contestável.
 ## Referências
 
 - [ADR-011](ADR-011-aprovacao-de-conteudo-assinada.md) · [DEM-011](../../dem/DEM-202610-011-fluxo-de-obras-e-estudos/planner/intent.md) · a spec da DEM-011
+
 

@@ -1,0 +1,56 @@
+# Plano de testes — DEM-202610-011 / fatia 1 (domínio)
+
+> Nível 3 (ADR-018). O EVAL é cego e usa o template `documentacao/metodo/templates/briefing-eval.md`
+> (com os contornos de ambiente já conhecidos: `python -m pytest`, `--basetemp` fora do app,
+> mutação em cópia fiel).
+
+## 1. Funcionais — o fluxo (F)
+
+| ID | Caso | Esperado |
+|---|---|---|
+| **F-01** | `importar` de fonte `entra` | a obra + a versão v1 nascem em `em_revisao` |
+| **F-02** | `revisar` em `em_revisao` | `aguardando_admin`; o parecer + os ajustes + o `hash_visto` gravados |
+| **F-03** | `recusar` em `em_revisao` | `devolvida` (o estado `devolvida` existe e é alcançável) |
+| **F-04** | `liberar` em `aguardando_admin` | `liberada`; o `hash_liberado`; o `Obra.status`; o `versao_liberada_id` |
+| **F-05** | `alterar` numa `liberada` | a versão N+1 em `em_revisao`; a liberada **não** é despublicada; o `versao_liberada_id` continua o anterior |
+| **F-06** | `contestar` numa liberada | a versão volta a `em_revisao` (a salvaguarda da ADR-019) |
+
+## 2. Gates e permissões (N)
+
+| ID | Caso | Esperado |
+|---|---|---|
+| **N-01** | `importar` de fonte `nao_entra` | **bloqueado** (a obra não nasce) |
+| **N-02** | `liberar` de fonte `depende` | **bloqueado** (a versão não libera) |
+| **N-03** | `liberar` sem o Revisor ter assinado | **bloqueado** (o invariante) |
+| **N-04** | `revisar`/`recusar` por papel ≠ REVISOR | **bloqueado** |
+| **N-05** | `importar`/`liberar`/`alterar` por papel ≠ ADMIN | **bloqueado** |
+| **N-06** | `liberar` de uma `em_revisao` (transição inválida) | **bloqueado** |
+
+## 3. Hashes e diferença (C)
+
+| ID | Caso | Esperado |
+|---|---|---|
+| **C-01** | o `hash_visto` × o `hash_liberado` | iguais quando não há ajuste; diferentes quando há |
+| **C-02** | a canonização | determinística: a mesma obra → o mesmo hash; um capítulo alterado → hash novo |
+| **C-03** | o "tamanho do que mudou" | conta os capítulos/adendos cujo hash individual mudou |
+
+## 4. Saúde (H)
+
+- **H-01** · a suíte verde (o baseline da fatia + os novos)
+- **H-14** · o fluxo completo por papel (o teste de jornada)
+- **H-15** · a alteração pós-`liberada` não despublica
+- **H-16** · os dois gates de licença
+- **A prova de mutação**: remover o gate do `nao_entra` → o N-01 falha; remover a checagem do
+  `revisor_id` no `liberar` → o N-03 falha; remover a checagem do papel → o N-04 falha.
+
+## 5. Baseline e escopo
+
+| Item | Hoje | Esperado |
+|---|---|---|
+| o fluxo | não existe (a `Obra` não tem status) | o fluxo completo, testado |
+| a assinatura | a ADR-011 não implementada | o par `(revisor_id, revisado_em, hash_visto)` |
+| os gates | não existem | os dois, testados + a mutação |
+| a suíte | 128 | 128 + os novos |
+
+**Fora desta fatia**: as telas (fatia 2), o `Study` (a fatia seguinte), o `planejar` (a fatia
+posterior, a 9.5), o multi-ambiente real (D-06).

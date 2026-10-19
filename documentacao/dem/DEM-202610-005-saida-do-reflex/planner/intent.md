@@ -1,12 +1,12 @@
 # Intent: DEM-202610-005 / v1-na-base-nova
 
-status: draft
+status: signed
 owner: PLANNER
 signed_by: ARQUITECT
 origin: decisão do ARQUITECT (19/10) — a v1 é a base nova; não há migração por rotas
-signed_at:
+signed_at: 2026-10-19
 supersedes: —
-open_questions_open: 3
+open_questions_open: 0
 nivel_agil: 3 — muda a base de toda a plataforma
 nota: a DEM-005 deixou de ser "a saída do Reflex" e passou a ser **a v1** (ADR-014 v3). O
 domínio é reaproveitado; as telas e o auth são novos; a virada é única.
@@ -96,12 +96,16 @@ sumiu** da v0. A v0 é desligada sem perda — e o Reflex deixa de ser dependên
 | 8.4 | A v0 | fica de pé, só com correção, até a virada |
 | 8.5 | Os dados | **teste**, limpos na virada — nada a migrar |
 
-## 9. Perguntas abertas — só o ARQUITECT fecha
+## 9. Decisões (fechadas pelo ARQUITECT em 2026-10-19)
 
-- [ ] **9.1** A **ordem das telas**: admin/segurança primeiro (a matriz migra cedo) ou o fluxo do aluno primeiro? *Recomendação: admin + o fluxo de obras/estudos primeiro (são o núcleo de conteúdo), a lição por último (H-06).*
-- [ ] **9.2** A **virada**: junto com a DEM-011 (o fluxo novo) ou antes dela? *Recomendação: depois — o fluxo é o motivo da v1 ser nova.*
-- [ ] **9.3** O **retorno**: basta o Traefik voltar para a v0, ou há dados criados na v1 que precisam de atenção? *Recomendação: basta; os dados são de teste.*
+| # | Decisão |
+|---|---|
+| **9.1** | **admin + o fluxo de obras/estudos primeiro**; a **lição do aluno por último** |
+| **9.2** | a **virada é depois da DEM-011** — o fluxo novo é o motivo da v1 |
+| **9.3** | a volta pelo Traefik **basta enquanto só houver dados de teste**; **dados reais só entram depois de um período estável** (o plano de virada define) e, **a partir daí, "voltar à v0" perde dados** — a correção é **para a frente** |
+| **A-2** | o **`exec -e SEED_PASSWORD`** no script de deploy — **implementar no deploy da v1**; o valor vem do **ambiente do script**, **nunca** da linha de comando; **não** gravar no `environment:` do Compose |
 
-## 10. Fora de julgamento
+## 10.## 10. Fora de julgamento
 
 O framework HTTP, o motor de templates, o CSS, a organização das pastas.
+

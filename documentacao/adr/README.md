@@ -6,7 +6,7 @@ ADR que a substitui **antes** da DEM começar.
 
 | ADR | Assunto | Status |
 |---|---|---|
-| [ADR-001](ADR-001-stack-fixa.md) | Stack fixa: Python/Reflex | Accepted |
+| [ADR-001](ADR-001-stack-fixa.md) | Stack fixa: Python/Reflex | Accepted — **em parte superseded pela ADR-014** |
 | [ADR-002](ADR-002-corpus-local-nao-redistribuido.md) | Corpus bíblico local, não redistribuído | Accepted |
 | [ADR-003](ADR-003-escritura-por-igualdade.md) | Escritura por igualdade, não similaridade | Accepted |
 | [ADR-004](ADR-004-referencias-cruzadas-curadoria.md) | Referências cruzadas e sua curadoria | Accepted |
@@ -19,20 +19,24 @@ ADR que a substitui **antes** da DEM começar.
 | [ADR-011](ADR-011-aprovacao-de-conteudo-assinada.md) | Aprovação de conteúdo assinada e amarrada ao hash | Accepted |
 | [ADR-012](ADR-012-politica-de-fontes-e-licencas.md) | Política de fontes e licenças do acervo | Accepted |
 | [ADR-013](ADR-013-componente-de-mapa-em-javascript.md) | Componente de mapa em JavaScript (exceção à ADR-001) | Accepted |
-| [ADR-014](ADR-014-saida-do-reflex.md) | Saída do Reflex: FastAPI + Jinja2 + HTMX (**substitui a ADR-001**) | **Accepted** (2026-10-19) |
+| [ADR-014](ADR-014-saida-do-reflex.md) | Saída do Reflex: FastAPI + Jinja2 + HTMX (**substitui a cláusula do framework da ADR-001**) | **Accepted** (2026-10-19) |
 | [ADR-015](ADR-015-acesso-operacional-do-agente.md) | Acesso operacional do agente à VPS (lista fechada; **emenda a ADR-010 em parte**) | **Accepted** (2026-10-19) |
 | [ADR-016](ADR-016-delegacao-de-publicacao-ao-deploy.md) | **Delegação da publicação ao perfil DEPLOY** (emenda a ADR-010 e a ADR-015) | **Accepted** (2026-10-19) |
 | [ADR-017](ADR-017-publicacao-como-servico.md) | A publicação como serviço (MCP), com os agentes como clientes | **Deferred** (adiada pelo ARQUITECT em 2026-10-19, até a v1) |
 | [ADR-018](ADR-018-modo-agil-ate-a-v1.md) | **Modo ágil até a v1** — processo proporcional ao risco (3 níveis; emenda ADR-006 e ADR-007) | **Accepted** (2026-10-19) |
-| [ADR-019](ADR-019-fluxo-de-obras-e-estudos.md) | **O fluxo de obras e estudos** (5 passos, 3 estados) + **emenda da ADR-011** (a assinatura como intervalo) | **Proposed** |
+| [ADR-019](ADR-019-fluxo-de-obras-e-estudos.md) | **O fluxo de obras e estudos** (5 passos, 3 estados) + **emenda da ADR-011** (a assinatura como intervalo) | **Accepted** (2026-10-19) |
 
 As **001–011** são **retroativas**: registram decisões já tomadas e implementadas, para o
 projeto deixar de depender de memória de sessão. As **012–013** nascem da OLPF da frente de
 base de conhecimento (2026-10-17). A **014** é a troca de framework pedida pelo ARQUITECT
-(2026-10-18) — **Proposed**: quando aceita, a ADR-001 passa a `Superseded by ADR-014`.
+(2026-10-18), **aceita em 2026-10-19**: a ADR-001 passa a `Superseded in part by ADR-014` (só a cláusula do framework).
 A **015** separa **operação** de **deploy**: o agente pode instalar chave pública e
 diagnosticar (lista fechada), e continua proibido de publicar — a ADR-010 permanece no que
 importa.
+
+
+
+
 
 
 
