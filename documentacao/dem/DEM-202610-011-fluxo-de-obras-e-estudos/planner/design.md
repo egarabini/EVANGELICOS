@@ -52,7 +52,7 @@ class ObraVersaoAdendo(SQLModel, table=True):
 | `reenviar(versao, ajustes, admin)` | `devolvida` → `em_revisao` | o Admin ajusta e devolve à revisão |
 | `liberar(versao, ajustes_descritos, admin)` | `aguardando_admin` → `liberada` | gate 2 (`depende`); **cria o instantâneo liberado**; `hash_liberado`; `Obra.status`/`versao_liberada_id` |
 | **`alterar(obra, conteudo, admin)`** | — → nova versão `em_revisao` | **correção 3**: recebe o **conteúdo novo** (`capitulos` + `adendos` da base) e o aplica à obra; a liberada **fica** |
-| `contestar(versao, revisor)` | `liberada` → `em_revisao` | a salvaguarda (RF11) |
+| `contestar(versao, revisor)` | **a versão contestada volta a `em_revisao`** (sem criar outra); `Obra.status` → `em_revisao`; o `versao_liberada_id` → `NULL` | a salvaguarda (RF11) |
 
 **Invariantes no código**: `revisar`/`recusar`/`contestar` = REVISOR; `importar`/`reenviar`/
 `liberar`/`alterar` = ADMIN; `liberar` exige `revisor_id` + `hash_visto`.
@@ -137,4 +137,22 @@ seguinte** (junto com o mapa de origem e o adendo de ambiente), com a política 
 **L5 — a transação é da camada de rotas (a DEM-005).** O domínio só faz `flush()`; a v1 abre e
 fecha a transação: **um `commit` por operação do fluxo**, com `rollback` em `FluxoBloqueado`.
 Registrado na DEM-005 (RF12).
+## 9. A v5 — a clarificação do `contestar` (o EVAL da fatia 1)
+
+O EVAL reprovou o **F-06**: o código cria uma v2 e deixa a versão contestada `liberada` com a `Obra.status`
+`liberada`. O design v3 era **ambíguo** ("`liberada` → `em_revisao` (nova versão)") — o "nova versão"
+era entre parênteses, sem dizer quem volta. **A decisão é a do RF11**, e o EVAL leu certo:
+
+- o `contestar` **não cria versão**: a **versão contestada** volta a `em_revisao` (é ela que vai à
+  revisão de novo, com o parecer do Revisor);
+- o `Obra.status` → `em_revisao` e o `versao_liberada_id` → `NULL`: **a publicação é suspensa** (o
+  conteúdo contestado não continua disponível);
+- o evento `contestada` fica na **versão contestada** (não numa v2);
+- o `alterar` (o Admin) é que cria a versão nova — e aí a 9.2 vale (a liberada fica disponível).
+
+E o **N-01**: o `importar` precisa de `recarregar=True` — o cache serve à exibição, não ao gate
+(a regra L3 vale para **os dois** gates, não só para a liberação).
+
+O `liberar` de uma v2 também corrige o estado: a `Obra.status` → `liberada`, o `versao_liberada_id`
+→ a nova, e a **anterior** → `substituida` (o EVAL notou que o status `substituida` nunca era usado).
 
