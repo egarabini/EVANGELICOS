@@ -27,6 +27,9 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 - [ ] **RF01 — a autenticação própria**: login/logout com **sessão de servidor**, CSRF em
   formulários/HTMX, o cookie com flags e expiração. *(o achar A da revisão da ADR-014 fica
   resolvido por construção: não há nada a compartilhar com o Reflex)*
+  **Nota (19/10):** o experimento da **DEM-016** avalia o **Zitadel** como provedor externo; o RF01
+  **não muda** até o resultado — se adotar, uma **ADR nova** + o RF01 + os marcos 1/2. De qualquer
+  forma, a autenticação fica **atrás de uma interface** (OIDC-ready).
 - [ ] **RF02 — a matriz papel × rota** (a DEM-002, migrada inteira): uma dependência única de
   autorização, testada pela matriz, **na base nova**.
 - [ ] **RF03 — as telas por papel** (os marcos 2-5), com `StrictUndefined` no Jinja e um teste que
@@ -83,6 +86,7 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 
 A busca (DEM-B/C/D), o DAVID (DEM-E), o `planejar` (a 9.5, fatia posterior), o multi-ambiente real
 (D-06), o serviço MCP (DEM-013, adiada).
+
 
 
 
