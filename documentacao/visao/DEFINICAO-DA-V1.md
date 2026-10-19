@@ -72,3 +72,20 @@ O ARQUITECT declara, com o checklist fechado. O PLANNER registra a data, o hash 
 fechamento das dívidas no painel; a ADR-018 ganha o status de encerrada (o nível 3 volta a ser o
 padrão) e o modo ágil termina.
 
+## 8. O plano de virada (as decisões de 19/10)
+
+- **A v1 nasce com banco próprio** (`didasko_v1`, no mesmo Postgres): o schema é criado **do zero** a
+  partir dos modelos finais, com um **baseline de Alembic na v1**. **A v0 fica no banco antigo** —
+  não há migração de schema nem de dados (os dados de teste são limpos).
+- **O Alembic existe no repositório** (`alembic.ini`, `env.py`, 6 revisões), mas **não está no fluxo
+  de deploy** (`subir.sh`/`DEPLOY.md` não o chamam) e pode estar defasado dos modelos. O baseline da
+  v1 corrige isso **para a frente**.
+- **A v0 está congelada na tag `v0.1.0`**: a partir de 19/10 a `develop` pertence à v1. **Não se
+  publica mais uma v0 a partir da `develop`** — correção urgente da v0 sai de uma **branch de
+  hotfix sobre a tag**. As mudanças da `develop` (o PR #3 e as seguintes) vão ao ar **com a v1**.
+- **A D-01** (a rotação das contas) é feita pelo **ARQUITECT na v0**; a correção de código (a
+  DEM-012) chega **na virada**.
+- **O retorno**: a volta pelo Traefik **basta enquanto só houver dados de teste**. **Dados reais só
+  entram depois de um período estável** (o plano de virada define). **A partir daí, "voltar à v0"
+  perde dados** — a correção é **para a frente**.
+
