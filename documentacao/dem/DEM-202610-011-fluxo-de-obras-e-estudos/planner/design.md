@@ -100,3 +100,26 @@ e o teste de que o `flow.py` não importa `reflex` (C-07).
 O plano v3 — com a mutação: sem o gate do `nao_entra` → N-01; sem a checagem do `revisor_id` → N-03;
 sem o instantâneo no `liberar` → N-07; **sem a checagem do `hash_esperado`** → N-08; **sem o
 instantâneo visto** → F-08 falha.
+## 8. A v4 — as 4 lacunas do relatório do DEVS (decisões do PLANNER, 19/10)
+
+**L1 — a canonização sem escape (o furo mais grave).** O item era
+`sha256(f"{ordem}|{titulo}|{conteudo_md}")`: um `|` no texto **ambíguo** o hash. **Decisão**: a
+canonização é **JSON canônico** — `sha256(json.dumps({...}, ensure_ascii=False, sort_keys=True,
+separators=(",", ":")))` — os campos são nomeados e o JSON escapa; não há separador a escapar. O
+agregado: `sha256("v1\n" + "\n".join(f"{item_key}\t{item_hash}" for os itens ordenados))` (os hashes
+são hex — sem `\t`/`\n` dentro). O prefixo `v1|` vira `v1\n` (o algoritmo versionado).
+**Sem assinatura persistida ainda** — a troca não invalida nada.
+
+**L2 — a trilha imutável (o RF08).** O modelo só tem o estado do ciclo; sucessivas recusas/reenvios
+perdem o histórico. **Decisão**: a `ObraVersaoEvento` (append-only):
+`id, versao_id, tipo (importada|vista|recusada|reenviada|liberada|alterada|contestada), autor_id,
+quando, detalhe (JSON: o hash, o parecer)`. Cada operação **acrescenta** um evento. A app não
+atualiza nem apaga; a imutabilidade contra SQL direto (o trigger/ACL) é do deploy da v1.
+
+**L3 — o cache × a decisão atual.** A liberação consulta o inventário **relendo** o arquivo
+(`fonte_decisao(fonte_id, recarregar=True)`); o cache serve à exibição, **não ao gate**. O
+`liberar` faz a leitura fresca.
+
+**L4 — a remoção de item.** Nesta fatia o `alterar` **não remove** itens (só adiciona/atualiza); a
+remoção fica para a fatia com o mapa de origem e o adendo de ambiente, com a política das FKs
+explicitada. Registrado como limite da fatia 1, não como esquecimento.

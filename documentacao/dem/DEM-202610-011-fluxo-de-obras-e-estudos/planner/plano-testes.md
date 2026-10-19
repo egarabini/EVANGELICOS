@@ -17,6 +17,7 @@
 | **F-07** | `reenviar` numa `devolvida` | o Admin ajusta e a versão volta a `em_revisao` (o reenvio registrado) |
 | **F-08** | o instantâneo **visto** | o `revisar` cria a cópia do conteúdo que o Revisor leu; a diferença com o liberado mostra o **texto** de cada item |
 | **F-09** | `alterar` com o conteúdo novo | a obra recebe os capítulos/adendos novos e nasce a versão N+1; a liberada fica |
+| **F-10** | a trilha imutável | cada operação acrescenta um `ObraVersaoEvento`; a recusa e o reenvio sucessivos ficam no histórico |
 
 ## 2. Gates e permissões (N)
 
@@ -42,6 +43,8 @@
 | **C-05** | o `fonte_id` | persiste na `Obra`; o `liberar` consulta a decisão **atual** do inventário |
 | **C-06** | a diferença da RF11b | mostra **quais itens** mudaram **e o texto** de cada lado (os dois instantâneos) |
 | **C-07** | a independência do domínio | `services/flow.py` **não importa `reflex`** (o teste de grep) |
+| **C-08** | a canonização com `\|`/aspas/newline no texto | o **JSON canônico** não é ambíguo (dois textos diferentes → hashes diferentes) |
+| **C-09** | o `liberar` relê o inventário | a decisão é a **atual** (mudar o CSV e liberar → o gate usa a nova decisão) |
 
 ## 4. Saúde (H)
 
@@ -64,5 +67,6 @@
 
 **Fora desta fatia**: as telas (fatia 2), o `Study` (a fatia seguinte), o `planejar` (a fatia
 posterior, a 9.5), o multi-ambiente real (D-06).
+
 
 

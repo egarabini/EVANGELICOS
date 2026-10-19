@@ -67,4 +67,18 @@ ele é derivado do instantâneo visto.
 
 A fatia 2 (as telas), o `planejar` (a 9.5, fatia posterior), o `Study`, o banco `didasko_v1` (o
 marco 1 da DEM-005), o deploy, a publicação.
+## 4b. O delta da v4 ao Codex (19/10, depois do seu relatório)
 
+Suas 4 lacunas foram decididas (o design §8). O delta no seu PR:
+
+1. **A canonização**: trocar o `sha256(f"{ordem}|{titulo}|...")` pelo **JSON canônico**
+   (`ensure_ascii=False, sort_keys=True, separators=(",",":")`) — o `|` no texto não pode ser
+   ambíguo. O agregado vira `sha256("v1\n" + "\n".join(f"{k}\t{v}" ordenados))`. (Ainda não há
+   assinatura persistida — a troca é livre.)
+2. **A `ObraVersaoEvento`** (a trilha append-only): `versao_id, tipo, autor_id, quando, detalhe
+   (JSON)`; cada operação acrescenta o seu evento. Não se apaga nem atualiza.
+3. **O `liberar` relê o inventário** (`fonte_decisao(fonte_id, recarregar=True)`) — o gate não usa
+   o cache.
+4. **A remoção**: nesta fatia o `alterar` não remove itens (registre no relatório).
+
+O EVAL só dispara depois do delta. O resto do escopo não muda.
