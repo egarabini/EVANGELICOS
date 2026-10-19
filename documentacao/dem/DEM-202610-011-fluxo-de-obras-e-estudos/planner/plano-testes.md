@@ -15,6 +15,8 @@
 | **F-05** | `alterar` numa `liberada` | a versão N+1 em `em_revisao`; a liberada **não** é despublicada; o `versao_liberada_id` continua o anterior |
 | **F-06** | `contestar` numa liberada | a versão volta a `em_revisao` (a salvaguarda da ADR-019) |
 | **F-07** | `reenviar` numa `devolvida` | o Admin ajusta e a versão volta a `em_revisao` (o reenvio registrado) |
+| **F-08** | o instantâneo **visto** | o `revisar` cria a cópia do conteúdo que o Revisor leu; a diferença com o liberado mostra o **texto** de cada item |
+| **F-09** | `alterar` com o conteúdo novo | a obra recebe os capítulos/adendos novos e nasce a versão N+1; a liberada fica |
 
 ## 2. Gates e permissões (N)
 
@@ -27,6 +29,7 @@
 | **N-05** | `importar`/`liberar`/`alterar` por papel ≠ ADMIN | **bloqueado** |
 | **N-06** | `liberar` de uma `em_revisao` (transição inválida) | **bloqueado** |
 | **N-07** | alterar a obra **depois** da liberação | a **snapshot da versão liberada não muda** (o conteúdo publicado é o congelado) |
+| **N-08** | `revisar`/`recusar` com `hash_esperado` diferente do atual | **recusado** ("o conteúdo mudou desde que você abriu") |
 
 ## 3. Hashes e diferença (C)
 
@@ -37,6 +40,8 @@
 | **C-03** | o "tamanho do que mudou" | conta os capítulos/adendos cujo hash individual mudou |
 | **C-04** | o C-03 **por item** | o `itens_visto` (o parecer) vs os `item_hash` da snapshot liberada: os itens com hash diferente são o tamanho |
 | **C-05** | o `fonte_id` | persiste na `Obra`; o `liberar` consulta a decisão **atual** do inventário |
+| **C-06** | a diferença da RF11b | mostra **quais itens** mudaram **e o texto** de cada lado (os dois instantâneos) |
+| **C-07** | a independência do domínio | `services/flow.py` **não importa `reflex`** (o teste de grep) |
 
 ## 4. Saúde (H)
 
@@ -59,4 +64,5 @@
 
 **Fora desta fatia**: as telas (fatia 2), o `Study` (a fatia seguinte), o `planejar` (a fatia
 posterior, a 9.5), o multi-ambiente real (D-06).
+
 

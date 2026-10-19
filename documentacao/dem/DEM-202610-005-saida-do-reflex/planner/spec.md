@@ -44,6 +44,7 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
   script**, nunca da linha de comando; **não** no `environment:` do Compose).
 - [ ] **RF08 — a homologação**: a v1 sobe num **subdomínio** ao lado da v0 (o DNS e o certificado
   são do ARQUITECT — avisar quando o marco 1 estiver pronto).
+- [ ] **RF11 — o inventário no contêiner**: o `inventario.csv` (o `documentacao/fontes/` do repositório de conteúdo) precisa estar **acessível no contêiner** da v1 — o Compose hoje só monta `conteudo/ESTUDOS_BIBLICOS`; a v1 monta ou copia o inventário e aponta o `CAMINHO_INVENTARIO` (o `services/fontes.py` da DEM-011 o lê).
 - [ ] **RF10 — o banco da v1**: banco próprio (`didasko_v1`, no mesmo Postgres), schema do zero + o **baseline de Alembic**; a `DATABASE_URL` da v1 aponta para ele; a v0 fica no antigo. **Sem migração de schema no banco existente.**
 - [ ] **RF09 — a virada**: o Traefik aponta o domínio principal para a v1; a v0 fica de pé para o
   **retorno** — que basta **enquanto só houver dados de teste**. **Dados reais só entram depois de
@@ -81,6 +82,7 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 
 A busca (DEM-B/C/D), o DAVID (DEM-E), o `planejar` (a 9.5, fatia posterior), o multi-ambiente real
 (D-06), o serviço MCP (DEM-013, adiada).
+
 
 
 

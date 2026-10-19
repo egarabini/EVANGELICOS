@@ -49,7 +49,22 @@ Se o design tiver lacuna, registre no relatório — não invente escopo.
 4. com o **PASS**: o **merge** no `develop`, o registro no painel e a **fatia 2** (as telas, na v1)
    agendada.
 
+## 4a. Aviso ao Codex — o design foi para a **v3** (19/10)
+
+Três correções entraram **depois** do seu último despacho, e mudam o que você ia codar:
+
+1. o **instantâneo "visto"**: o `revisar` cria a cópia do conteúdo que o Revisor leu (além do
+   instantâneo da liberação); a diferença da RF11b mostra **o texto**, não só o hash;
+2. o **`hash_esperado`**: `revisar`/`recusar` recebem o hash que o Revisor viu e **recusam** se o
+   conteúdo atual for outro ("o conteúdo mudou desde que você abriu") — e há um teste novo;
+3. o **`alterar` recebe o conteúdo novo** (`capitulos` + `adendos` da base) e o aplica à obra; e o
+   `flow.py` **não pode importar `reflex`** (um teste de grep prova).
+
+Releia o **design v3** e o **plano v3** antes de codar. O JSON `itens_visto` **não existe mais** —
+ele é derivado do instantâneo visto.
+
 ## 5. O que **não** é deste despacho
 
 A fatia 2 (as telas), o `planejar` (a 9.5, fatia posterior), o `Study`, o banco `didasko_v1` (o
 marco 1 da DEM-005), o deploy, a publicação.
+
