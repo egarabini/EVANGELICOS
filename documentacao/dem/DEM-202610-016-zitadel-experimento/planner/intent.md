@@ -89,14 +89,23 @@ a migrar.
 | 8.2 | O executor | **Codex** (branch + PR; a homologação) |
 | 8.3 | O limite do E-05 | **≤ 5 s** de ponta a ponta (a proposta; o ARQUITECT pode ajustar) |
 | 8.4 | A decisão | **o ARQUITECT**, com o relatório; se adotar, **ADR nova** + o RF01 + os marcos 1/2 |
+| 8.5 | A versão e a arquitetura | **v4.19.5**: a API Zitadel + o **Login V2 separado**, com a API encaminhada por **`h2c`** (confirmado na doc oficial pelo DEVS em 2026-10-19) |
+| 8.6 | A licença | o núcleo **AGPL-3.0-only**; o login com **exceção MIT** (a `LICENSING.md` oficial da v4.19.5); usado como **serviço separado e não modificado** |
+| 8.7 | Os hosts (a proposta do DEVS) | `zitadel.homolog.didasko.app.br` (a API) e `oidc.homolog.didasko.app.br` (o FastAPI experimental) — o **DNS é do ARQUITECT** |
+| 8.8 | Os fatos da VPS (2026-10-19) | o SSH: `didasko-vps` (`didasko-deploy`); a rede do Traefik: **`deploy_didasko`**; o Postgres: o **`didasko_postgres`** (o projeto `deploy`, a rede `deploy_didasko`, o usuário `didasko`); os bancos hoje: o `didasko`; o **Zitadel** ganha o banco próprio (o `zitadel`) |
 
 ## 9. Perguntas abertas — só o ARQUITECT fecha
 
-- [ ] **9.1** O limite do E-05 (**≤ 5 s** é razoável para o seu uso?) e o **quantil** (o p95 de 3
-  medições com o Ollama ocupado?).
-- [ ] **9.2** O host do Zitadel (o nome; o `zitadel.homolog.didasko.app.br`?) — para o DNS e o
-  roteador.
+- [ ] **9.1** O limite do E-05: **≤ 5 s** de ponta a ponta, **p95 de 3 medições** com o Ollama
+  ocupado — confirmar.
+- [ ] **9.2** **O DNS**: os hosts propostos (`zitadel.homolog...` + `oidc.homolog...`) e o
+  `homolog.didasko.app.br` (o pai) — criar as entradas.
+- [ ] **9.3** **O banco do Zitadel**: criar o banco/usuário (`zitadel`) no `didasko_postgres` (o
+  mesmo servidor, o banco separado).
+- [ ] **9.4** **O roteador do Traefik**: a regra dos dois hosts (o DEVS prepara a config; o
+  ARQUITECT aplica).
 
 ## 10. Fora de escopo
 
 A migração de usuários da v0 (não há); o deploy/o pipeline da v1; a adoção (a decisão é depois).
+
