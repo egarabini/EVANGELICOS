@@ -51,6 +51,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 | [DEM-202610-012](dem/DEM-202610-012-credencial-de-seed/README.md) | **Credencial de seed**: sem senha no código, troca obrigatória para todos | **EVAL PASS** (128 testes; RF01-RF07) e **mergeada no `develop`** (`dbbfc09`) — aguarda o aceite; a D-01/D-10/D-11 seguem abertas | — |
 | DEM-202610-013 *(adiada)* | Publicação como serviço MCP | **adiada até a v1** (decisão de 19/10; ADR-017 Deferred) | — |
 | [DEM-202610-014](dem/DEM-202610-014-codex-como-devs/README.md) | **O Codex acumula DEVS e DEPLOY** (os gates preservam a independência) | **decidido** (uma página) — a DEM-012 é a próxima, executada por ele | DEM-012 |
+| [DEM-202610-016](dem/DEM-202610-016-zitadel-experimento/planner/intent.md) | **O experimento do Zitadel** (o provedor de identidade da v1: o go/no-go) | **intent + briefing escritos** (nível 2, 1-2 dias, a homologação) — aguarda o despacho e a infra | DEM-005 (o marco 1) |
 | [DEM-202610-013](dem/DEM-202610-013-publicacao-como-servico/planner/intent.md) | **Publicação como serviço MCP** (o DEPLOY vira API; os agentes são clientes) | **intent em rascunho** — aguarda ADR-017 + 3 decisões | DEM-004 |
 | DEM-202610-014 *(proposta)* | **Piloto do Codex como DEVS** (segundo modelo, julgado pelo EVAL) | proposta | DEM-013 |
 
@@ -74,6 +75,7 @@ Proposta do AUXILIAR-ARCHITECT, com as **12 perguntas fechadas** pelo ARQUITECT 
 - [x] ADRs 001–011
 - [x] GitFlow (`develop` nos dois repos; tags virão com o primeiro release)
 - [ ] CI/CD (`gh` autenticado + workflows + secrets) — **bloqueado**: precisa do `gh auth login`
+
 
 
 
