@@ -14,6 +14,7 @@
 | **F-04** | `liberar` em `aguardando_admin` | `liberada`; o `hash_liberado`; o `Obra.status`; o `versao_liberada_id` |
 | **F-05** | `alterar` numa `liberada` | a versão N+1 em `em_revisao`; a liberada **não** é despublicada; o `versao_liberada_id` continua o anterior |
 | **F-06** | `contestar` numa liberada | a versão volta a `em_revisao` (a salvaguarda da ADR-019) |
+| **F-07** | `reenviar` numa `devolvida` | o Admin ajusta e a versão volta a `em_revisao` (o reenvio registrado) |
 
 ## 2. Gates e permissões (N)
 
@@ -25,6 +26,7 @@
 | **N-04** | `revisar`/`recusar` por papel ≠ REVISOR | **bloqueado** |
 | **N-05** | `importar`/`liberar`/`alterar` por papel ≠ ADMIN | **bloqueado** |
 | **N-06** | `liberar` de uma `em_revisao` (transição inválida) | **bloqueado** |
+| **N-07** | alterar a obra **depois** da liberação | a **snapshot da versão liberada não muda** (o conteúdo publicado é o congelado) |
 
 ## 3. Hashes e diferença (C)
 
@@ -33,6 +35,8 @@
 | **C-01** | o `hash_visto` × o `hash_liberado` | iguais quando não há ajuste; diferentes quando há |
 | **C-02** | a canonização | determinística: a mesma obra → o mesmo hash; um capítulo alterado → hash novo |
 | **C-03** | o "tamanho do que mudou" | conta os capítulos/adendos cujo hash individual mudou |
+| **C-04** | o C-03 **por item** | o `itens_visto` (o parecer) vs os `item_hash` da snapshot liberada: os itens com hash diferente são o tamanho |
+| **C-05** | o `fonte_id` | persiste na `Obra`; o `liberar` consulta a decisão **atual** do inventário |
 
 ## 4. Saúde (H)
 
@@ -41,7 +45,8 @@
 - **H-15** · a alteração pós-`liberada` não despublica
 - **H-16** · os dois gates de licença
 - **A prova de mutação**: remover o gate do `nao_entra` → o N-01 falha; remover a checagem do
-  `revisor_id` no `liberar` → o N-03 falha; remover a checagem do papel → o N-04 falha.
+  `revisor_id` no `liberar` → o N-03 falha; remover a checagem do papel → o N-04 falha; **não criar
+  a snapshot no `liberar`** → o N-07 falha.
 
 ## 5. Baseline e escopo
 
@@ -54,3 +59,4 @@
 
 **Fora desta fatia**: as telas (fatia 2), o `Study` (a fatia seguinte), o `planejar` (a fatia
 posterior, a 9.5), o multi-ambiente real (D-06).
+
