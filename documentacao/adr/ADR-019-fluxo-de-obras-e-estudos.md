@@ -46,6 +46,19 @@ espera revisão; o coordenador **adota** a nova quando quiser — a versão em u
 **5. O adendo do coordenador.** É **sobreposição por ambiente**, identificado como dele; não altera
 a obra base nem passa por revisão. O isolamento multi-ambiente completo fica com a **D-06**.
 
+## A salvaguarda do trade-off (revisão de 19/10)
+
+A emenda declara que o Admin pode liberar conteúdo que o Revisor não viu, e que a proteção é o
+registro. Duas medidas **baratas, sem bloqueio**, entram no design (spec RF11):
+
+1. **no momento da liberação**, o Admin vê o **tamanho do que mudou** em relação à versão que o
+   Revisor viu;
+2. **depois da liberação**, o Revisor vê a **diferença final** (só leitura) e tem o botão
+   **"contestar"**, que **reabre a revisão**.
+
+Isso não fecha a brecha — mantém o Admin no comando — mas transforma o que era invisível em
+visível e contestável.
+
 ## Consequências
 
 **Positivas**
@@ -69,3 +82,4 @@ a obra base nem passa por revisão. O isolamento multi-ambiente completo fica co
 ## Referências
 
 - [ADR-011](ADR-011-aprovacao-de-conteudo-assinada.md) · [DEM-011](../../dem/DEM-202610-011-fluxo-de-obras-e-estudos/planner/intent.md) · a spec da DEM-011
+
