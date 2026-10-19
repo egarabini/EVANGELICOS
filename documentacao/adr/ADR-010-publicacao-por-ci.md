@@ -1,6 +1,6 @@
 # ADR-010: Publicação por CI/CD, nunca por agente
 
-- **Status:** Accepted — **acesso operacional restrito emendado pela [ADR-015](ADR-015-acesso-operacional-do-agente.md)**; a proibição de **deploy** permanece
+- **Status:** Accepted — **acesso operacional restrito emendado pela [ADR-015](ADR-015-acesso-operacional-do-agente.md)**; **emenda em proposta: [ADR-016](ADR-016-delegacao-de-publicacao-ao-deploy.md)** (delegação da publicação ao perfil DEPLOY); a regra de que **quem publica é o CI** permanece
 - **Data:** 2026-10-16
 - **Decisores:** ARQUITECT (Eduardo)
 - **Gatilho:** Novo Horizonte (adoção de método) / decisão já implementada

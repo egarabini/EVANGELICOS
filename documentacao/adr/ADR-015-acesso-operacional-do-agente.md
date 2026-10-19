@@ -1,6 +1,6 @@
 # ADR-015: Acesso operacional do agente à VPS (escopo restrito)
 
-- **Status:** **Accepted** — aceite do ARQUITECT em **2026-10-19**
+- **Status:** **Accepted** — aceite do ARQUITECT em **2026-10-19** · **emenda em proposta: [ADR-016](ADR-016-delegacao-de-publicacao-ao-deploy.md)** (estende o acesso à publicação e ao rollback, pelo procedimento)
 - **Data:** 2026-10-19
 - **Decisores:** ARQUITECT (Eduardo) · redação do PLANNER
 - **Gatilho:** Operação — a instalação da chave de deploy não é deploy, mas hoje está coberta pelo "nunca" da ADR-010
@@ -28,18 +28,31 @@ Uma regra absoluta que obriga o humano a ser o único shell do projeto não é g
 
 **O agente PODE, sem autorização adicional:**
 
-1. **Instalar e conferir chave PÚBLICA de deploy e suas permissões** — acrescentar entrada
+1. **Usar o cliente SSH com a chave OPERACIONAL pré-existente** (`~/.ssh/didasko_deploy`,
+   a mesma que o ARQUITECT usa) **sem ler, copiar, exibir ou exportar o material** — o
+   processo `ssh` lê o arquivo; o agente nunca vê o conteúdo;
+2. **Instalar e conferir chave PÚBLICA de deploy e suas permissões** — acrescentar entrada
    no `authorized_keys`, ajustar dono/modo, conferir o conteúdo;
-2. **Inspecionar configuração e executar diagnósticos READ-ONLY** — `docker ps`/`logs`,
+3. **Inspecionar configuração e executar diagnósticos READ-ONLY** — `docker ps`/`logs`,
    `systemctl status`, `df`, `free`, `git status`, `curl` local, leitura de arquivos de
    configuração, `ssh -T` para testar autenticação.
 
 **O agente NÃO PODE, em nenhum caso:**
 
-- **gerar, guardar, ler ou usar chave PRIVADA**;
+- **gerar, guardar, copiar, exibir ou exportar chave PRIVADA** — o **material** nunca
+  entra no contexto da IA, em log, em chat ou em arquivo do repositório;
+- **usar a chave privada do CI** (a do secret `DEPLOY_SSH_KEY`) — essa é exclusiva do
+  pipeline;
 - **executar deploy** — a ADR-010 continua valendo, inteira, para publicação;
 - **executar ação destrutiva** sem autorização **específica e escrita** do ARQUITECT para
   aquela ação, naquele atendimento.
+
+> **Emenda 1 — 2026-10-19, apontada pelo ARQUITECT.** A redação original dizia "não pode
+> **usar** chave privada", o que proibia **qualquer autenticação SSH por chave** — e anulava
+> a própria ADR, que autoriza acesso operacional. A distinção correta é entre **usar o
+> cliente** e **expor o material**: o `ssh` lê o arquivo; o agente não. A garantia é de
+> **política** (com o registro na jornada), reforçada pelo controle técnico — o
+> `restrict,command=` da entrada no `authorized_keys` limita o que a chave pode executar.
 
 ### Lista fechada do que é destrutivo
 

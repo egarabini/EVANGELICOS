@@ -21,6 +21,7 @@ ADR que a substitui **antes** da DEM começar.
 | [ADR-013](ADR-013-componente-de-mapa-em-javascript.md) | Componente de mapa em JavaScript (exceção à ADR-001) | Accepted |
 | [ADR-014](ADR-014-saida-do-reflex.md) | Saída do Reflex: FastAPI + Jinja2 + HTMX (**substitui a ADR-001**) | **Proposed** |
 | [ADR-015](ADR-015-acesso-operacional-do-agente.md) | Acesso operacional do agente à VPS (lista fechada; **emenda a ADR-010 em parte**) | **Accepted** (2026-10-19) |
+| [ADR-016](ADR-016-delegacao-de-publicacao-ao-deploy.md) | **Delegação da publicação ao perfil DEPLOY** (emenda a ADR-010 e a ADR-015) | **Proposed** |
 
 As **001–011** são **retroativas**: registram decisões já tomadas e implementadas, para o
 projeto deixar de depender de memória de sessão. As **012–013** nascem da OLPF da frente de
