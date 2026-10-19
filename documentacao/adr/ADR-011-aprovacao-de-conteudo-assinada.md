@@ -1,6 +1,6 @@
 # ADR-011: Aprovação de conteúdo assinada e amarrada ao hash
 
-- **Status:** Accepted
+- **Status:** Accepted — **emenda em proposta: [ADR-019](ADR-019-fluxo-de-obras-e-estudos.md)** (a assinatura como intervalo do ciclo de revisão, com os dois hashes)
 - **Data:** 2026-10-16
 - **Decisores:** ARQUITECT (Eduardo)
 - **Gatilho:** Novo Horizonte (adoção de método) / decisão já implementada
@@ -36,3 +36,4 @@ amostragem fica como **opção futura** (hoje são 34 capítulos: revisa-se 100%
 
 - **DEM piloto** (Estudo).
 - Refina a ADR-005; não a substitui.
+

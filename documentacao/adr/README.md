@@ -24,6 +24,7 @@ ADR que a substitui **antes** da DEM começar.
 | [ADR-016](ADR-016-delegacao-de-publicacao-ao-deploy.md) | **Delegação da publicação ao perfil DEPLOY** (emenda a ADR-010 e a ADR-015) | **Accepted** (2026-10-19) |
 | [ADR-017](ADR-017-publicacao-como-servico.md) | A publicação como serviço (MCP), com os agentes como clientes | **Deferred** (adiada pelo ARQUITECT em 2026-10-19, até a v1) |
 | [ADR-018](ADR-018-modo-agil-ate-a-v1.md) | **Modo ágil até a v1** — processo proporcional ao risco (3 níveis; emenda ADR-006 e ADR-007) | **Accepted** (2026-10-19) |
+| [ADR-019](ADR-019-fluxo-de-obras-e-estudos.md) | **O fluxo de obras e estudos** (5 passos, 3 estados) + **emenda da ADR-011** (a assinatura como intervalo) | **Proposed** |
 
 As **001–011** são **retroativas**: registram decisões já tomadas e implementadas, para o
 projeto deixar de depender de memória de sessão. As **012–013** nascem da OLPF da frente de
@@ -32,4 +33,5 @@ base de conhecimento (2026-10-17). A **014** é a troca de framework pedida pelo
 A **015** separa **operação** de **deploy**: o agente pode instalar chave pública e
 diagnosticar (lista fechada), e continua proibido de publicar — a ADR-010 permanece no que
 importa.
+
 
