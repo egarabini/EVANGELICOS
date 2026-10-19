@@ -23,16 +23,27 @@ estudo, gerencia usuários e vê leads.
 - [ ] **D-01** — a rotação das contas em produção e o repasse do `SEED_PASSWORD` no Compose **não** são desta DEM
 - [ ] **D-11** — o achado do Copilot (abaixo)
 
-## As ressalvas (que o EVAL registrou — e eu concordo)
+## As ressalvas (o relatório final do EVAL — e eu concordo)
 
-1. **O Compose não repassa `SEED_PASSWORD` ao contêiner.** O `--env-file .env` alimenta a
-   interpolação do compose, **não** o ambiente do container, a menos que a variável esteja no
-   `environment:` do serviço. Com isso, **só pôr a senha no `.env` da VPS não basta** — a
-   semeadura de um banco novo pelo pipeline continua bloqueada até o Compose ser ajustado (operação
-   de infraestrutura, autorização do ARQUITECT).
-2. **A rotação das contas que já existem é manual e do ARQUITECT.** A `senha123` do admin **atual**
-   de produção continua valendo até ele trocar. Por isso a DEM-012 **não fecha a D-01 nem a D-10**.
-3. **O banco de teste é SQLite temporário.** A verificação não cobre a produção.
+1. **A-1 — o `.env` sozinho não é lido.** O `run_seed()` chama `seed_password()` (seed.py:695)
+   **antes** do `from rxconfig import config`, e é o `rxconfig` que faz o `load_dotenv()`. Com a
+   variável só no `.env` e o ambiente sem ela, o seed aborta. **A spec §4 (`os.environ`) está
+   correta; o `intent §5` (que fala do `.env`) é que era otimista.** Para o procedimento do D-01
+   funcionar, ou o seed **carrega o `.env` no início**, ou a variável vai no **shell**.
+2. **A-2 — o Compose não repassa `SEED_PASSWORD`** ao serviço `app` (linhas 72-97); o DEPLOY.md
+   documenta a pendência (117-120). O comando de deploy documentado **aborta em banco limpo** até
+   o repasse no Compose ou o uso de `exec -e`. É *fail-safe* (seguro), mas a **operação está
+   bloqueada**.
+3. **A rotação das contas que já existem é manual e do ARQUITECT.** A `senha123` do admin **atual**
+   continua valendo até ele trocar — a DEM **não fecha a D-01 nem a D-10**.
+4. **O banco de teste é SQLite temporário.** A verificação não cobre a produção.
+
+**Não bloqueantes (A-3 a A-6):** o F-07 é mais fraco que o N-01; o N-04 só enxerga o repositório
+do app (as exceções de DEM/EVAL/ADR-008 são do guarda-chuva); o `tests/` é varrido só em `*.py`;
+e `SEED_PASSWORD=" "` (um espaço) é aceita — a spec só proíbe vazio.
+
+**A recomendação do EVAL:** PASS de **código**; o fechamento da **D-01** fica **condicionado à
+decisão A-1/A-2** — a variável precisa **chegar de fato** ao processo/contêiner.
 
 ## O achado do Copilot — a D-11
 

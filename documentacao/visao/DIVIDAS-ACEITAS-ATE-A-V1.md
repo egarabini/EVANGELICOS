@@ -6,7 +6,7 @@
 
 | # | Dívida | Risco aceito | Gatilho de fechamento | Dono |
 |---|---|---|---|---|
-| **D-01** | **Credencial de seed pública** (`admin@gsi.ebd` / `senha123`) — DEM-012 | quem ler o repositório público entra como admin; vê leads, aprova estudos | **antes de dados reais ou de divulgação** (a ADR-008 já bloqueia a divulgação) | ARQUITECT (decisão) · Codex (implementação, DEM-012) |
+| **D-01** | **Credencial de seed pública** (`admin@gsi.ebd` / `senha123`) — DEM-012 | quem ler o repositório público entra como admin; vê leads, aprova estudos | **antes de dados reais ou de divulgação**; a DEM-012 tirou a senha do código, mas o fechamento exige **A-1** (o seed carregar o `.env`) e **A-2** (o repasse no Compose) | ARQUITECT (decisão) · Codex (implementação, DEM-012) |
 | **D-02** | **Chave operacional com shell completo** (ADR-016) | um agente com a chave tem acesso root-equivalente à VPS | **na virada da v1**: comando `diag` no script + chave com `restrict` | ARQUITECT |
 | **D-03** | **Sem ruleset de tags `v*`** e conta admin única | qualquer sessão autenticada como o dono publica por tag | na virada da v1, ou quando entrar um segundo colaborador | ARQUITECT |
 | **D-04** | **Environment `producao` sem aprovador** (ADR-016) | deploy sem pausa humana | revisar na virada da v1 | ARQUITECT |
@@ -31,5 +31,6 @@ agora.** Verificar é do ARQUITECT.
 
 Na **virada da v1** ([`DEFINICAO-DA-V1`](DEFINICAO-DA-V1.md)): cada item é fechado **ou**
 reclassificado com um novo gatilho. O documento não some — ele vira o **registro do fechamento**.
+
 
 
