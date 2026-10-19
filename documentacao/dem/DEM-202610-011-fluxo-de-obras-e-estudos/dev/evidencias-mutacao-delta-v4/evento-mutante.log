@@ -1,0 +1,55 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+___________ test_rf08_f10_eventos_append_only_em_todas_as_operacoes ___________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000001E75161E660>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...to/AppData/Local/Temp/dem011-delta-v4-mutacao-eaejxzrv/evento-tmp-mutante/test_rf08_f10_eventos_append_o0/fontes.csv'))
+
+    def test_rf08_f10_eventos_append_only_em_todas_as_operacoes(fluxo):
+        import json
+        from sqlmodel import select
+        from gsi_ebd.models import ObraVersaoEvento
+        sessao, flow, admin, revisor, _ = fluxo
+        anteriores = []
+    
+        def executar(tipo, autor, operacao):
+            nonlocal anteriores
+            versao = operacao()
+            sessao.commit()
+            sessao.expire_all()
+            eventos = sessao.exec(select(ObraVersaoEvento).order_by(ObraVersaoEvento.id)).all()
+            registro = [(e.id, e.versao_id, e.tipo, e.autor_id, e.quando, e.detalhe) for e in eventos]
+            assert len(registro) == len(anteriores) + 1
+            assert registro[:-1] == anteriores
+            ultimo = eventos[-1]
+            assert ultimo.tipo == tipo and ultimo.autor_id == autor.id
+            assert ultimo.versao_id == versao.id and ultimo.quando
+            assert json.loads(ultimo.detalhe)["hash"] == versao.conteudo_hash
+            anteriores = registro
+            return versao, json.loads(ultimo.detalhe)
+    
+        obra = Obra(titulo="Trilha")
+>       versao, _ = executar("importada", admin, lambda: flow.importar(sessao, "F-001", obra, admin))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_flow.py:448: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+tipo = 'importada', autor = User()
+operacao = <function test_rf08_f10_eventos_append_only_em_todas_as_operacoes.<locals>.<lambda> at 0x000001E75164EA30>
+
+    def executar(tipo, autor, operacao):
+        nonlocal anteriores
+        versao = operacao()
+        sessao.commit()
+        sessao.expire_all()
+        eventos = sessao.exec(select(ObraVersaoEvento).order_by(ObraVersaoEvento.id)).all()
+        registro = [(e.id, e.versao_id, e.tipo, e.autor_id, e.quando, e.detalhe) for e in eventos]
+>       assert len(registro) == len(anteriores) + 1
+E       assert 0 == (0 + 1)
+E        +  where 0 = len([])
+E        +  and   0 = len([])
+
+tests\test_flow.py:438: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf08_f10_eventos_append_only_em_todas_as_operacoes
+1 failed, 73 deselected in 0.83s

@@ -1,0 +1,49 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________ test_rf11_f11_diferenca_nao_inclui_itens_de_rodadas_antigas _________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000002149079E3C0>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...rs/eduardo.neto/AppData/Local/Temp/dem011-v6-mutacao-h7ecfe5v/mutante-tmp/test_rf11_f11_diferenca_nao_in0/fontes.csv'))
+
+    def test_rf11_f11_diferenca_nao_inclui_itens_de_rodadas_antigas(fluxo):
+        from gsi_ebd.models import ObraVersaoCapitulo, ObraVersaoAdendo
+        sessao, flow, _, _, _ = fluxo
+        _, versao = preparar(fluxo)
+        versao.rodada = 2
+        sessao.add(versao)
+        # A ordem fisica dos registros nao identifica a rodada corrente.
+        for rodada in (2, 1):
+            for momento in ("visto", "liberado"):
+                cap = ObraVersaoCapitulo(
+                    versao_id=versao.id, rodada=rodada, momento=momento, ordem=1,
+                    titulo="Titulo", conteudo_md=f"Capitulo {momento} da rodada {rodada}")
+                nota = ObraVersaoAdendo(
+                    versao_id=versao.id, rodada=rodada, momento=momento, codigo="ADO-01",
+                    titulo="Nota", texto=f"Adendo {momento} da rodada {rodada}")
+                cap.item_hash = hash_capitulo(cap)
+                nota.item_hash = hash_adendo(nota)
+                sessao.add_all([cap, nota])
+        # Itens exclusivamente historicos nao pertencem a rodada corrente.
+        for momento in ("visto", "liberado"):
+            cap = ObraVersaoCapitulo(
+                versao_id=versao.id, rodada=1, momento=momento, ordem=99,
+                titulo="Historico", conteudo_md=f"Antigo {momento}")
+            nota = ObraVersaoAdendo(
+                versao_id=versao.id, rodada=1, momento=momento, codigo="ADO-99",
+                titulo="Historica", texto=f"Antiga {momento}")
+            cap.item_hash = hash_capitulo(cap)
+            nota.item_hash = hash_adendo(nota)
+            sessao.add_all([cap, nota])
+        sessao.commit()
+        mudancas = {item["item"]: item for item in flow.diferenca(sessao, versao)}
+>       assert set(mudancas) == {"capitulo:1", "adendo:ADO-01"}
+E       AssertionError: assert {'adendo:ADO-...'capitulo:99'} == {'adendo:ADO-... 'capitulo:1'}
+E         
+E         Extra items in the left set:
+E         'capitulo:99'
+E         'adendo:ADO-99'
+E         Use -v to get more diff
+
+tests\test_flow.py:776: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf11_f11_diferenca_nao_inclui_itens_de_rodadas_antigas
+1 failed, 98 deselected in 0.75s

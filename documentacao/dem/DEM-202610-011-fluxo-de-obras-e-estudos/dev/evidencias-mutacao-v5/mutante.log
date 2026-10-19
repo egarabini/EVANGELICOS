@@ -1,0 +1,22 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+___________ test_rf07_n01_importar_rele_inventario_com_cache_quente ___________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000002C54C44E660>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...rs/eduardo.neto/AppData/Local/Temp/dem011-v5-mutacao-9aeq4wdw/mutante-tmp/test_rf07_n01_importar_rele_in0/fontes.csv'))
+
+    def test_rf07_n01_importar_rele_inventario_com_cache_quente(fluxo):
+        from gsi_ebd.services import fontes
+        from gsi_ebd.models import ObraVersao, ObraVersaoEvento
+        from sqlmodel import select
+        sessao, flow, admin, _, inventario = fluxo
+        assert fontes.fonte_decisao("F-001") == "entra"
+        inventario.write_text("id;decisao\nF-001;nao_entra\n", encoding="utf-8")
+        assert fontes.fonte_decisao("F-001") == "entra"
+>       with pytest.raises(FluxoBloqueado, match="fonte"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:534: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf07_n01_importar_rele_inventario_com_cache_quente
+1 failed, 94 deselected in 1.53s

@@ -1,0 +1,228 @@
+FFFFFFFFFFF                                                              [100%]
+================================== FAILURES ===================================
+________ test_rf03_c10_normalizacao_capitulo[A\nB\nC-A\r\nB\rC-titulo] ________
+
+campo = 'titulo', texto = 'A\nB\nC', equivalente = 'A\r\nB\rC'
+
+    @pytest.mark.parametrize("campo", ["titulo", "conteudo_md"])
+    @pytest.mark.parametrize("texto,equivalente", [("A\nB\nC", "A\r\nB\rC"),
+                                                    ("Caf\u00e9", "Cafe\u0301")])
+    def test_rf03_c10_normalizacao_capitulo(campo, texto, equivalente):
+        capitulo = ObraCapitulo(obra_id=1, ordem=1, titulo="Titulo", conteudo_md="Texto")
+        setattr(capitulo, campo, texto)
+        antes = hash_capitulo(capitulo)
+        setattr(capitulo, campo, equivalente)
+>       assert hash_capitulo(capitulo) == antes
+E       AssertionError: assert '5b57904ce75d...e056c6e06bf8b' == '589a5dd817f3...2369b9dfe8475'
+E         
+E         - 589a5dd817f3b13826e58ae5549f488e855725b700949ba59752369b9dfe8475
+E         + 5b57904ce75de145fa0c80df4686b955f9f23fc50d10020516ee056c6e06bf8b
+
+tests\test_flow.py:371: AssertionError
+_____ test_rf03_c10_normalizacao_capitulo[A\nB\nC-A\r\nB\rC-conteudo_md] ______
+
+campo = 'conteudo_md', texto = 'A\nB\nC', equivalente = 'A\r\nB\rC'
+
+    @pytest.mark.parametrize("campo", ["titulo", "conteudo_md"])
+    @pytest.mark.parametrize("texto,equivalente", [("A\nB\nC", "A\r\nB\rC"),
+                                                    ("Caf\u00e9", "Cafe\u0301")])
+    def test_rf03_c10_normalizacao_capitulo(campo, texto, equivalente):
+        capitulo = ObraCapitulo(obra_id=1, ordem=1, titulo="Titulo", conteudo_md="Texto")
+        setattr(capitulo, campo, texto)
+        antes = hash_capitulo(capitulo)
+        setattr(capitulo, campo, equivalente)
+>       assert hash_capitulo(capitulo) == antes
+E       AssertionError: assert '03002955fd9e...7d575e78cde06' == 'c1af153ec9ab...8fc0baec2bfb0'
+E         
+E         - c1af153ec9ab4e16b47cdf07101d4c7441278c64a7391ae28dd8fc0baec2bfb0
+E         + 03002955fd9e1517cfd093627ca25cb73828c1612e9c721c86f7d575e78cde06
+
+tests\test_flow.py:371: AssertionError
+_______ test_rf03_c10_normalizacao_capitulo[Caf\xe9-Cafe\u0301-titulo] ________
+
+campo = 'titulo', texto = 'Caf\xe9', equivalente = 'Cafe\u0301'
+
+    @pytest.mark.parametrize("campo", ["titulo", "conteudo_md"])
+    @pytest.mark.parametrize("texto,equivalente", [("A\nB\nC", "A\r\nB\rC"),
+                                                    ("Caf\u00e9", "Cafe\u0301")])
+    def test_rf03_c10_normalizacao_capitulo(campo, texto, equivalente):
+        capitulo = ObraCapitulo(obra_id=1, ordem=1, titulo="Titulo", conteudo_md="Texto")
+        setattr(capitulo, campo, texto)
+        antes = hash_capitulo(capitulo)
+        setattr(capitulo, campo, equivalente)
+>       assert hash_capitulo(capitulo) == antes
+E       AssertionError: assert '2ec05a731d16...9398b720355c4' == 'c8944c8cf08a...c8fea0c09f2f3'
+E         
+E         - c8944c8cf08a21f6169e50de6b5b80f44dc64c77cea70614817c8fea0c09f2f3
+E         + 2ec05a731d162ca74fec5418371acb73254201e289a9816f1529398b720355c4
+
+tests\test_flow.py:371: AssertionError
+_____ test_rf03_c10_normalizacao_capitulo[Caf\xe9-Cafe\u0301-conteudo_md] _____
+
+campo = 'conteudo_md', texto = 'Caf\xe9', equivalente = 'Cafe\u0301'
+
+    @pytest.mark.parametrize("campo", ["titulo", "conteudo_md"])
+    @pytest.mark.parametrize("texto,equivalente", [("A\nB\nC", "A\r\nB\rC"),
+                                                    ("Caf\u00e9", "Cafe\u0301")])
+    def test_rf03_c10_normalizacao_capitulo(campo, texto, equivalente):
+        capitulo = ObraCapitulo(obra_id=1, ordem=1, titulo="Titulo", conteudo_md="Texto")
+        setattr(capitulo, campo, texto)
+        antes = hash_capitulo(capitulo)
+        setattr(capitulo, campo, equivalente)
+>       assert hash_capitulo(capitulo) == antes
+E       AssertionError: assert 'e48282902986...581fd872c83e2' == 'ccf611bee110...f6e434f1c9b05'
+E         
+E         - ccf611bee110ccaec31e1e1bb0db348b71db73b4aacf81d78fbf6e434f1c9b05
+E         + e48282902986cf4e9840586b093a015a8f7b18e6e2bf46ecd1f581fd872c83e2
+
+tests\test_flow.py:371: AssertionError
+_________ test_rf03_c10_normalizacao_adendo[A\nB\nC-A\r\nB\rC-codigo] _________
+
+campo = 'codigo', texto = 'A\nB\nC', equivalente = 'A\r\nB\rC'
+
+    @pytest.mark.parametrize("campo", ["codigo", "titulo", "texto"])
+    @pytest.mark.parametrize("texto,equivalente", [("A\nB\nC", "A\r\nB\rC"),
+                                                    ("Caf\u00e9", "Cafe\u0301")])
+    def test_rf03_c10_normalizacao_adendo(campo, texto, equivalente):
+        adendo = Adendo(obra_id=1, codigo="ADO-01", titulo="Nota", texto="Texto")
+        setattr(adendo, campo, texto)
+        antes = hash_adendo(adendo)
+        setattr(adendo, campo, equivalente)
+>       assert hash_adendo(adendo) == antes
+E       AssertionError: assert 'f430c4134970...41149c980a704' == 'dd461e29b934...1d7186d1894a1'
+E         
+E         - dd461e29b93429a03f4361d8e4412d2161dd1c00bb5e8f4f0501d7186d1894a1
+E         + f430c4134970138e4394b5aa27f9de6d918b1d4ac5b531e504b41149c980a704
+
+tests\test_flow.py:382: AssertionError
+_________ test_rf03_c10_normalizacao_adendo[A\nB\nC-A\r\nB\rC-titulo] _________
+
+campo = 'titulo', texto = 'A\nB\nC', equivalente = 'A\r\nB\rC'
+
+    @pytest.mark.parametrize("campo", ["codigo", "titulo", "texto"])
+    @pytest.mark.parametrize("texto,equivalente", [("A\nB\nC", "A\r\nB\rC"),
+                                                    ("Caf\u00e9", "Cafe\u0301")])
+    def test_rf03_c10_normalizacao_adendo(campo, texto, equivalente):
+        adendo = Adendo(obra_id=1, codigo="ADO-01", titulo="Nota", texto="Texto")
+        setattr(adendo, campo, texto)
+        antes = hash_adendo(adendo)
+        setattr(adendo, campo, equivalente)
+>       assert hash_adendo(adendo) == antes
+E       AssertionError: assert '4801f358898c...ae99d195a1073' == '35607c2c85a6...0be1d5e8b5aeb'
+E         
+E         - 35607c2c85a63e2e510866285ffb42304609003c0d07f804ec60be1d5e8b5aeb
+E         + 4801f358898cbe8818f47ed93bcd4eaf16e89b63a8f0960c8dbae99d195a1073
+
+tests\test_flow.py:382: AssertionError
+_________ test_rf03_c10_normalizacao_adendo[A\nB\nC-A\r\nB\rC-texto] __________
+
+campo = 'texto', texto = 'A\nB\nC', equivalente = 'A\r\nB\rC'
+
+    @pytest.mark.parametrize("campo", ["codigo", "titulo", "texto"])
+    @pytest.mark.parametrize("texto,equivalente", [("A\nB\nC", "A\r\nB\rC"),
+                                                    ("Caf\u00e9", "Cafe\u0301")])
+    def test_rf03_c10_normalizacao_adendo(campo, texto, equivalente):
+        adendo = Adendo(obra_id=1, codigo="ADO-01", titulo="Nota", texto="Texto")
+        setattr(adendo, campo, texto)
+        antes = hash_adendo(adendo)
+        setattr(adendo, campo, equivalente)
+>       assert hash_adendo(adendo) == antes
+E       AssertionError: assert 'bddc7dccb7e3...44d157b1095ae' == 'db849851c864...2c466209aa518'
+E         
+E         - db849851c864775431cf5af61051e992824fb3d00dca3da4d612c466209aa518
+E         + bddc7dccb7e35677bdd2373abc17768d350594d17f30c7f95ce44d157b1095ae
+
+tests\test_flow.py:382: AssertionError
+________ test_rf03_c10_normalizacao_adendo[Caf\xe9-Cafe\u0301-codigo] _________
+
+campo = 'codigo', texto = 'Caf\xe9', equivalente = 'Cafe\u0301'
+
+    @pytest.mark.parametrize("campo", ["codigo", "titulo", "texto"])
+    @pytest.mark.parametrize("texto,equivalente", [("A\nB\nC", "A\r\nB\rC"),
+                                                    ("Caf\u00e9", "Cafe\u0301")])
+    def test_rf03_c10_normalizacao_adendo(campo, texto, equivalente):
+        adendo = Adendo(obra_id=1, codigo="ADO-01", titulo="Nota", texto="Texto")
+        setattr(adendo, campo, texto)
+        antes = hash_adendo(adendo)
+        setattr(adendo, campo, equivalente)
+>       assert hash_adendo(adendo) == antes
+E       AssertionError: assert 'd4fbacf56a61...3b7483708c95d' == '146bc1bf658f...7cdbe783e6bd9'
+E         
+E         - 146bc1bf658f8ace3c512289cd4a45980d46e2b4b2893df5e757cdbe783e6bd9
+E         + d4fbacf56a610e47e34636b4ead1af5c5e8ea38f6fb705bec613b7483708c95d
+
+tests\test_flow.py:382: AssertionError
+________ test_rf03_c10_normalizacao_adendo[Caf\xe9-Cafe\u0301-titulo] _________
+
+campo = 'titulo', texto = 'Caf\xe9', equivalente = 'Cafe\u0301'
+
+    @pytest.mark.parametrize("campo", ["codigo", "titulo", "texto"])
+    @pytest.mark.parametrize("texto,equivalente", [("A\nB\nC", "A\r\nB\rC"),
+                                                    ("Caf\u00e9", "Cafe\u0301")])
+    def test_rf03_c10_normalizacao_adendo(campo, texto, equivalente):
+        adendo = Adendo(obra_id=1, codigo="ADO-01", titulo="Nota", texto="Texto")
+        setattr(adendo, campo, texto)
+        antes = hash_adendo(adendo)
+        setattr(adendo, campo, equivalente)
+>       assert hash_adendo(adendo) == antes
+E       AssertionError: assert 'f66c8abf6bfd...294c1388de142' == '47798502103d...062eb77f442a2'
+E         
+E         - 47798502103dfc042e4f6f4a2e95b07c176423788fbddf28a73062eb77f442a2
+E         + f66c8abf6bfdfb81db9c8e93f68b533eb2376ba3c09f12d1fc1294c1388de142
+
+tests\test_flow.py:382: AssertionError
+_________ test_rf03_c10_normalizacao_adendo[Caf\xe9-Cafe\u0301-texto] _________
+
+campo = 'texto', texto = 'Caf\xe9', equivalente = 'Cafe\u0301'
+
+    @pytest.mark.parametrize("campo", ["codigo", "titulo", "texto"])
+    @pytest.mark.parametrize("texto,equivalente", [("A\nB\nC", "A\r\nB\rC"),
+                                                    ("Caf\u00e9", "Cafe\u0301")])
+    def test_rf03_c10_normalizacao_adendo(campo, texto, equivalente):
+        adendo = Adendo(obra_id=1, codigo="ADO-01", titulo="Nota", texto="Texto")
+        setattr(adendo, campo, texto)
+        antes = hash_adendo(adendo)
+        setattr(adendo, campo, equivalente)
+>       assert hash_adendo(adendo) == antes
+E       AssertionError: assert '8ef55a32514b...86d90f3512ec7' == '3b6cf0e4c7ff...764be04aec885'
+E         
+E         - 3b6cf0e4c7ff9369d5533898d85bbde3b223ab2c1ae3aecd2a2764be04aec885
+E         + 8ef55a32514ba362ac075b100a9e121e702b80b500b326c104a86d90f3512ec7
+
+tests\test_flow.py:382: AssertionError
+______________ test_rf03_c10_hash_obra_normaliza_chave_do_adendo ______________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x00000207EC4C4C20>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...Data/Local/Temp/dem011-delta-v4-mutacao-eaejxzrv/normalizacao-tmp-mutante/test_rf03_c10_hash_obra_normal0/fontes.csv'))
+
+    def test_rf03_c10_hash_obra_normaliza_chave_do_adendo(fluxo):
+        from sqlmodel import select
+        sessao, flow, _, _, _ = fluxo
+        obra, _ = preparar(fluxo)
+        nota = sessao.exec(select(Adendo).where(Adendo.obra_id == obra.id)).one()
+        nota.codigo = "Caf\u00e9"
+        sessao.add(nota)
+        sessao.flush()
+        antes = hash_obra(sessao, obra.id)
+        nota.codigo = "Cafe\u0301"
+        sessao.add(nota)
+        sessao.flush()
+>       assert hash_obra(sessao, obra.id) == antes
+E       AssertionError: assert '6df882dc70aa...54ae0060b29bd' == '43c4094f516f...7a5abf2c53847'
+E         
+E         - 43c4094f516f7ad61cd7de21d5d990ea1262cbb1e64a0615c767a5abf2c53847
+E         + 6df882dc70aa81bc20394e0850efb3e4b6b9fc87741eec3f4a354ae0060b29bd
+
+tests\test_flow.py:397: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf03_c10_normalizacao_capitulo[A\nB\nC-A\r\nB\rC-titulo]
+FAILED tests/test_flow.py::test_rf03_c10_normalizacao_capitulo[A\nB\nC-A\r\nB\rC-conteudo_md]
+FAILED tests/test_flow.py::test_rf03_c10_normalizacao_capitulo[Caf\xe9-Cafe\u0301-titulo]
+FAILED tests/test_flow.py::test_rf03_c10_normalizacao_capitulo[Caf\xe9-Cafe\u0301-conteudo_md]
+FAILED tests/test_flow.py::test_rf03_c10_normalizacao_adendo[A\nB\nC-A\r\nB\rC-codigo]
+FAILED tests/test_flow.py::test_rf03_c10_normalizacao_adendo[A\nB\nC-A\r\nB\rC-titulo]
+FAILED tests/test_flow.py::test_rf03_c10_normalizacao_adendo[A\nB\nC-A\r\nB\rC-texto]
+FAILED tests/test_flow.py::test_rf03_c10_normalizacao_adendo[Caf\xe9-Cafe\u0301-codigo]
+FAILED tests/test_flow.py::test_rf03_c10_normalizacao_adendo[Caf\xe9-Cafe\u0301-titulo]
+FAILED tests/test_flow.py::test_rf03_c10_normalizacao_adendo[Caf\xe9-Cafe\u0301-texto]
+FAILED tests/test_flow.py::test_rf03_c10_hash_obra_normaliza_chave_do_adendo
+11 failed, 63 deselected in 1.01s

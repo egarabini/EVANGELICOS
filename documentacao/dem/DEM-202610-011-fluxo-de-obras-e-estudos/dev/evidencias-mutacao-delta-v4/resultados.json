@@ -1,0 +1,18 @@
+[
+  {
+    "mutacao": "normalizacao",
+    "seletor": "test_rf03_c10",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "resumo_baseline": "11 passed, 63 deselected in 1.03s",
+    "resumo_mutante": "11 failed, 63 deselected in 1.01s"
+  },
+  {
+    "mutacao": "evento",
+    "seletor": "test_rf08_f10_eventos_append_only_em_todas_as_operacoes",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "resumo_baseline": "1 passed, 73 deselected in 1.17s",
+    "resumo_mutante": "1 failed, 73 deselected in 0.83s"
+  }
+]

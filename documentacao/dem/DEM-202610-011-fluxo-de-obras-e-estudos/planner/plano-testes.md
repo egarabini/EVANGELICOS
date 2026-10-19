@@ -13,8 +13,13 @@
 | **F-03** | `recusar` em `em_revisao` | `devolvida` (o estado `devolvida` existe e é alcançável) |
 | **F-04** | `liberar` em `aguardando_admin` | `liberada`; o `hash_liberado`; o `Obra.status`; o `versao_liberada_id` |
 | **F-05** | `alterar` numa `liberada` | a versão N+1 em `em_revisao`; a liberada **não** é despublicada; o `versao_liberada_id` continua o anterior |
-| **F-06** | `contestar` numa liberada | a **versão contestada** volta a `em_revisao`; a `Obra.status` → `em_revisao`; o `versao_liberada_id` → NULL; **nenhuma versão nova** é criada; o evento `contestada` fica na versão contestada |
-| **F-06b** | `liberar` de uma v2 | a `Obra.status` → `liberada`; o `versao_liberada_id` → a v2; a **v1 anterior** → `substituida` |
+| **F-06** | **a versão nova** (o F-06 da v5 está ERRADO — ver a ADR-020) | o `alterar` (o Admin) cria a **N+1** em `em_revisao`; a **liberada N fica intacta** (`liberada`, a snapshot imutável); a disponibilidade → `suspensa_para_novos`; a `solicitar_revisao` do Revisor **não** muda o estado nem a disponibilidade |
+| **F-06b** | `liberar` a N+1 | a N → `substituida` (continua legível por quem está fixado); a disponibilidade → `aberta`; o `versao_liberada_id` → a N+1 |
+| **F-12** | a disponibilidade | `alterar`/`aceitar` → `suspensa_para_novos`; o `liberar`/`cancelar_ciclo` → `aberta`; o `solicitar_revisao` **não** muda |
+| **F-13** | a solicitação | o `solicitar_revisao` (Revisor) só registra; o `aceitar`/`dispensar` (Admin) — a dispensa **exige o motivo** |
+| **F-14** | o `versao_id` fixado | o `VinculoObra` fixa a versão; na suspensão, **novas** vinculações são bloqueadas e as **existentes** continuam |
+| **F-15** | o `cancelar_ciclo` | o Admin descarta a N+1; a disponibilidade → `aberta`; a N continua liberada |
+| **F-16** | a posição do Revisor | o `posicionar` registra o evento (não bloqueia) |
 | **F-07** | `reenviar` numa `devolvida` | o Admin ajusta e a versão volta a `em_revisao` (o reenvio registrado) |
 | **F-08** | o instantâneo **visto** | o `revisar` cria a cópia do conteúdo que o Revisor leu; a diferença com o liberado mostra o **texto** de cada item |
 | **F-09** | `alterar` com o conteúdo novo | a obra recebe os capítulos/adendos novos e nasce a versão N+1; a liberada fica |
@@ -70,6 +75,8 @@
 
 **Fora desta fatia**: as telas (fatia 2), o `Study` (a fatia seguinte), o `planejar` (a fatia
 posterior, a 9.5), o multi-ambiente real (D-06).
+
+
 
 
 

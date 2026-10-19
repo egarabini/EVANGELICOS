@@ -1,0 +1,8 @@
+{
+  "mutacao": "remover filtro de rodada das consultas de diferenca",
+  "seletor": "test_rf11_f11_diferenca_nao_inclui_itens_de_rodadas_antigas",
+  "baseline_exit": 0,
+  "mutante_exit": 1,
+  "baseline": "1 passed, 98 deselected in 0.88s",
+  "mutante": "1 failed, 98 deselected in 0.75s"
+}

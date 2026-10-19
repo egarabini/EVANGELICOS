@@ -1,0 +1,8 @@
+{
+  "mutacao": "remover recarregar=True no importar",
+  "seletor": "test_rf07_n01_importar_rele_inventario_com_cache_quente",
+  "baseline_exit": 0,
+  "mutante_exit": 1,
+  "baseline": "1 passed, 94 deselected in 1.01s",
+  "mutante": "1 failed, 94 deselected in 1.53s"
+}
