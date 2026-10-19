@@ -1,6 +1,6 @@
 # ADR-014: Saída do Reflex — a v1 na base nova (FastAPI + Jinja2 + HTMX)
 
-- **Status:** **Proposed** — aguarda o aceite do ARQUITECT.
+- **Status:** **Accepted** — aceito pelo ARQUITECT em **2026-10-19** (a v3: a v1 na base nova).
 - **Data:** 2026-10-18 (v1) · 2026-10-18 (v2 — emendas da revisão) · **2026-10-19 (v3 — a v1 é a base nova)**
 - **Decisores:** ARQUITECT (Eduardo) · redação e emendas pelo PLANNER
 - **Gatilho:** Novo Horizonte (troca de framework)
@@ -88,3 +88,4 @@ Adotar **FastAPI + Jinja2 + HTMX** como base **da v1**, com **uma única virada*
 - Revisão original: `documentacao/visao/REVISAO-ADR-014-e-DEM-005-aux-architect.md`
 - Intent: `documentacao/dem/DEM-202610-005-saida-do-reflex/planner/intent.md`
 - Definição da v1: `documentacao/visao/DEFINICAO-DA-V1.md`
+

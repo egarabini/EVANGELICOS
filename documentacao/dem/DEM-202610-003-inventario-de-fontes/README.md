@@ -24,7 +24,7 @@ exibido ao aluno. É a **DEM-A** da OLPF da frente de base de conhecimento.
 - [x] **EVAL rodada 1: FAIL** — 2 defeitos reais + 3 observações (`eval/jornada.md`)
 - [x] Correções: artefato **e instrumento** (o verificador não testava CA01 nem a regra do §6.1)
 - [x] **EVAL rodada 2: PASS** — `eval/jornada-rodada2.md`, hash `17fc665`
-- [ ] **Aceite do ARQUITECT** ← próximo
+- [x] **Aceite do ARQUITECT** e **revisão doutrinária** — **2026-10-19**
 
 > **Registro pós-veredito:** uma correção documental entrou **depois** do PASS (o corpo do caso F-10 ainda dizia "13 exclusões"). Não altera o CSV, portanto o veredito segue valendo para o artefato no hash `17fc665`.
 
@@ -60,3 +60,4 @@ escondida dentro de um projeto.
 | 2026-10-18 | EVAL rodada 3 **FAIL** (F-082 fora da §6.1) → corrigido + verificador endurecido (`3018146`) |
 | 2026-10-18 | EVAL rodada 4 **FAIL** (H-01: ponteiro no commit pré-merge) → apontado para `ba165d9` (`6d9d1cc`) |
 | 2026-10-18 | **EVAL rodada 5: PASS** (82 testes no hash pinado; verificador PASS, 86 linhas) — **aguarda aceite do ARQUITECT** |
+

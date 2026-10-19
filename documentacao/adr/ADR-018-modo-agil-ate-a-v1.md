@@ -1,6 +1,6 @@
 # ADR-018: Modo ágil até a v1 (processo proporcional ao risco)
 
-- **Status:** **Proposed** — aguarda o aceite do ARQUITECT.
+- **Status:** **Accepted** — aceito pelo ARQUITECT em **2026-10-19**.
 - **Data:** 2026-10-19
 - **Decisores:** ARQUITECT (Eduardo) · redação do PLANNER (a partir da proposta do AUXILIAR-ARCHITECT)
 - **Gatilho:** Operação — a cerimônia do método passou a custar mais do que protege na fase de construção
@@ -77,3 +77,4 @@ Na dúvida sobre nível ou escopo, **para e devolve ao PLANNER**.
 - Proposta original: [`PROPOSTA-ADR-017-modo-agil-aux-architect.md`](../visao/PROPOSTA-ADR-017-modo-agil-aux-architect.md)
 - Dívidas aceitas: [`DIVIDAS-ACEITAS-ATE-A-V1`](../visao/DIVIDAS-ACEITAS-ATE-A-V1.md)
 - Definição da v1: [`DEFINICAO-DA-V1`](../visao/DEFINICAO-DA-V1.md)
+

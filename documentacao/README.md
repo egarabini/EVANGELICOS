@@ -36,15 +36,15 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 |---|---|---|---|
 | [DEM-202610-001](dem/DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | **aceita e publicada** na v0.1.0 (deploy verde); o importador em produção é do ARQUITECT | — |
 | [DEM-202610-002](dem/DEM-202610-002-guarda-de-papel-admin/README.md) | Guarda de papel nas rotas `/admin` | **aceita** (2026-10-18) e **publicada** na v0.1.0 | — |
-| [DEM-202610-003](dem/DEM-202610-003-inventario-de-fontes/README.md) | DEM-A: inventário de fontes e licenças | **EVAL PASS** (rodada 5) — aguarda aceite do ARQUITECT + revisão doutrinária | DEM-001 entregue |
+| [DEM-202610-003](dem/DEM-202610-003-inventario-de-fontes/README.md) | DEM-A: inventário de fontes e licenças | **aceita** (2026-10-19) — inventário + **revisão doutrinária** (22 linhas, opção A; a FAJOPA `depende`) | DEM-001 entregue |
 | [DEM-202610-004](dem/DEM-202610-004-ci-cd-fase-a3/README.md) | CI/CD (Fase A3) | **entregue** — CI + CD no ar; a **v0.1.0 publicada pelo pipeline**; ADR-016 aceita | — |
-| [DEM-202610-005](dem/DEM-202610-005-saida-do-reflex/planner/intent.md) | **A v1 na base nova** (FastAPI + Jinja2 + HTMX, construída ao lado, virada única) | **intent reescrito** (ADR-014 v3) — aguarda o aceite da ADR-014 | ADR-014 |
+| [DEM-202610-005](dem/DEM-202610-005-saida-do-reflex/planner/intent.md) | **A v1 na base nova** (FastAPI + Jinja2 + HTMX, construída ao lado, virada única) | **intent reescrito** (ADR-014 v3 **aceita**) — 3 perguntas abertas (ordem, virada, retorno) | — |
 | DEM-202610-006 *(proposta)* | DEM-B: registro de fontes e proveniência | proposta | DEM-003 |
 | DEM-202610-007 *(proposta)* | DEM-C: ingestão do grafo (lugares, pessoas, eventos, jornadas) | proposta | DEM-006 |
 | DEM-202610-008 *(proposta)* | DEM-D: busca por assunto (coordenador e instrutor) | proposta | DEM-007 |
 | DEM-202610-009 *(futura)* | DEM-E: o agente **DAVID** no atendimento ao aluno (texto e voz) | futura | DEM-008 |
 | DEM-202610-010 *(proposta)* | Isolamento por ambiente (tenant) no RBAC — `can_manage` não confere o ambiente | proposta — **D-06** (gatilho: mais de um ambiente real) | DEM-002 |
-| [DEM-202610-011](dem/DEM-202610-011-fluxo-de-obras-e-estudos/planner/intent.md) | **O fluxo de obras e estudos** (admin → revisor → admin → liberada; adendos do coordenador) | **intent escrito** (nível 3) — implementa a D-07/ADR-011; aguarda as 4 respostas | DEM-005 |
+| [DEM-202610-011](dem/DEM-202610-011-fluxo-de-obras-e-estudos/planner/intent.md) | **O fluxo de obras e estudos** (admin → revisor → admin → liberada; adendos do coordenador) | **intent assinado** — as 4 decisões fechadas; a spec é o próximo passo | DEM-005 |
 | [DEM-202610-012](dem/DEM-202610-012-credencial-de-seed/planner/intent.md) | **Credencial de seed**: sem senha no código, troca obrigatória para todos | **intent assinado** (9.1: abortar) + spec/plano revisados (escopo da varredura + **D-10**) — executor: **Codex** | — |
 | DEM-202610-013 *(adiada)* | Publicação como serviço MCP | **adiada até a v1** (decisão de 19/10; ADR-017 Deferred) | — |
 | [DEM-202610-014](dem/DEM-202610-014-codex-como-devs/README.md) | **O Codex acumula DEVS e DEPLOY** (os gates preservam a independência) | **decidido** (uma página) — a DEM-012 é a próxima, executada por ele | DEM-012 |
@@ -71,4 +71,5 @@ Proposta do AUXILIAR-ARCHITECT, com as **12 perguntas fechadas** pelo ARQUITECT 
 - [x] ADRs 001–011
 - [x] GitFlow (`develop` nos dois repos; tags virão com o primeiro release)
 - [ ] CI/CD (`gh` autenticado + workflows + secrets) — **bloqueado**: precisa do `gh auth login`
+
 

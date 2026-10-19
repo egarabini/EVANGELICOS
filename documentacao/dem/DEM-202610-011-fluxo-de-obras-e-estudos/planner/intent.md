@@ -1,12 +1,12 @@
 # Intent: DEM-202610-011 / fluxo-de-obras-e-estudos
 
-status: draft
+status: signed
 owner: PLANNER
 signed_by: ARQUITECT
 origin: decisão do ARQUITECT (19/10) — o fluxo de obras e estudos; substitui o escopo antigo da DEM-011 ("aprovação em dupla")
-signed_at:
+signed_at: 2026-10-19
 supersedes: o escopo anterior ("aprovação em dupla do estudo") — o fluxo o engloba
-open_questions_open: 4
+open_questions_open: 0
 nivel_agil: 3 — aprovação e dados
 nota: implementa a **D-07** e a **ADR-011** (com a emenda do §9.1). É construída **na v1** (DEM-005) — não há o que migrar.
 
@@ -90,24 +90,18 @@ adendos, e uma alteração posterior **não passa** sem a revisão.
 | 8.4 | A alteração | é do **admin**; **depois de liberada**, volta como **pendente de revisão** |
 | 8.5 | O portão de licença | só entra obra com a fonte **`entra`** no inventário |
 
-## 9. Perguntas abertas — só o ARQUITECT fecha
+## 9. Decisões (fechadas pelo ARQUITECT em 2026-10-19)
 
-- [ ] **9.1 (a ADR-011)** — o admin altera conteúdo no passo 3 para cumprir o parecer, o que
-  invalidaria a assinatura do revisor. **(a)** os ajustes **no ciclo** não reabrem a revisão, e a
-  **diferença** (hash da versão vista × a liberada) fica registrada; a regra 5 vale depois de
-  `liberada`. **(b)** o revisor **reassina** a versão final. *Recomendação: (a) — o parecer é do
-  ciclo, a assinatura fica amarrada ao intervalo, e a diferença é auditável; a (b) transforma cada
-  ajuste numa ida e volta.*
-- [ ] **9.2 (as versões)** — a versão `liberada` continua disponível aos coordenadores enquanto a
-  alterada espera revisão, e o coordenador **decide quando adotar** a nova. *Recomendação: sim —
-  ninguém perde a versão que está usando.*
-- [ ] **9.3 (os adendos)** — a sobreposição por ambiente **não** altera a obra base nem passa por
-  revisão; o adendo é identificado como **do coordenador**. Depende do isolamento (D-06).
-  *Recomendação: sim; o D-06 mantém o gatilho de "mais de um ambiente real".*
-- [ ] **9.4 (o portão de licença)** — bloquear **na importação** (o `em_revisao` não nasce) ou na
-  **liberação**? *Recomendação: na importação — o esforço de revisar uma fonte que não pode entrar
-  é desperdício.*
+| # | Decisão |
+|---|---|
+| **9.1 (a)** | os ajustes **dentro do ciclo** não reabrem a revisão; a **diferença** (hash da versão vista pelo Revisor × a liberada pelo Admin) fica registrada; a regra 5 vale **depois de `liberada`** |
+| **9.2** | a versão `liberada` **permanece disponível** enquanto a alterada espera revisão; o coordenador **adota quando quiser** |
+| **9.3** | os adendos são **sobreposição por ambiente**, identificados como **do coordenador**; não alteram a obra base nem passam por revisão; o isolamento multi-ambiente fica com o gatilho do D-06 |
+| **9.4** | portão de licença em **duas etapas**: **`nao_entra` bloqueia na importação** (o `em_revisao` não nasce) e **`depende` bloqueia na liberação** (revisa, mas não libera até a fonte virar `entra`) |
 
-## 10. Fora de julgamento
+**Status:** o intent passa a `signed` — as 4 perguntas estão fechadas; o próximo passo é a spec.
+
+## 10.## 10. Fora de julgamento
 
 A estrutura das telas, o formato do parecer, o nome dos estados (internal), a linguagem do hash.
+

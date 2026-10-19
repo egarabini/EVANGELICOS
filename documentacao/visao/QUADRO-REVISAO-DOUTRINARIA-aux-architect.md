@@ -80,9 +80,14 @@ por si só; a questão é se o aluno vê esses comentários e com que aviso.
 
 ## Registro da revisão (você preenche)
 
-- `revisado_por`: ____________________
-- `revisado_em` (AAAA-MM-DD): ____________________
-- Observação geral: ____________________
+- `revisado_por`: **ARQUITECT**
+- `revisado_em`: **2026-10-19**
+- Observação geral: o ARQUITECT **aceitou a revisão doutrinária** em 19/10, mantendo o **estado
+  atual** das 22 linhas (`entra` / `curto` / `atencao` = opção **A**, com o rótulo de tradição na
+  exibição). A **F-083 (FAJOPA)** permanece `depende` — a licença da revista ainda não foi lida, e
+  pela decisão 9.4 do fluxo de obras ela **bloqueia na liberação**, não na importação.
+  As 8 opções por grupo **não foram marcadas** — se você quiser trocar algum grupo (B, C ou D), é
+  só indicar que eu aplico e reenvio ao EVAL.
 
 ## O que o PLANNER faz com isto
 
@@ -97,3 +102,4 @@ Revisão doutrinária é sua. Os rótulos de tradição usados aqui (arminiana, 
 Restauração, adventista) vêm das observações que o PLANNER já colocou no CSV; não os reexaminei obra por obra.
 Não verifiquei se algum desses comentários entrará na primeira ingestão (DEM-C): vale perguntar ao PLANNER, porque
 se não entrar, a decisão pode esperar.
+
