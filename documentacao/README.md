@@ -45,6 +45,9 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 | DEM-202610-009 *(futura)* | DEM-E: o agente **DAVID** no atendimento ao aluno (texto e voz) | futura | DEM-008 |
 | DEM-202610-010 *(proposta)* | Isolamento por ambiente (tenant) no RBAC — `can_manage` não confere o ambiente | proposta (achado da DEM-002) | DEM-002 |
 | DEM-202610-011 *(proposta)* | **Aprovação em dupla** do estudo (REVISOR + ADMIN, com hash — implementa a ADR-011) | proposta (achado da DEM-002) | DEM-002 |
+| DEM-202610-012 *(proposta)* | **Credencial de seed**: sem senha padrão no código, troca obrigatória para todos os papéis | proposta (achado de 19/10) | — |
+| [DEM-202610-013](dem/DEM-202610-013-publicacao-como-servico/planner/intent.md) | **Publicação como serviço MCP** (o DEPLOY vira API; os agentes são clientes) | **intent em rascunho** — aguarda ADR-017 + 3 decisões | DEM-004 |
+| DEM-202610-014 *(proposta)* | **Piloto do Codex como DEVS** (segundo modelo, julgado pelo EVAL) | proposta | DEM-013 |
 
 > A fonte é esta tabela. Não hardcode a "DEM atual" nos arquivos de guarda.
 
