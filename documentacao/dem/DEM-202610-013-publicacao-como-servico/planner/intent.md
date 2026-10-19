@@ -1,13 +1,17 @@
 # Intent: DEM-202610-013 / publicacao-como-servico
 
-status: draft
+status: deferred
 owner: PLANNER
 signed_by: ARQUITECT
-origin: ADR-017 (Proposed) + a experiência do deploy da v0.1.0 pelo pipeline
-signed_at:
+origin: ADR-017 (Deferred) + a experiência do deploy da v0.1.0 pelo pipeline
+signed_at: —
 supersedes: —
 open_questions_open: 3
-spec_citations: — (preenchido ao fechar a spec)
+spec_citations: — (não haverá spec antes da v1)
+nivel_agil: n/a — adiada
+adiada_em: 2026-10-19
+motivo_do_adiamento: decisão 2 do ARQUITECT (19/10) — prioridade é agilidade até a v1; a DEM resolve um risco que essa prioridade adiou, e o deploy.yml JÁ entrega os gates (backup com sha256, HTTP final). Mantém-se a ADR-016 como está.
+gatilho_de_reavaliacao: a virada da v1 — junto com as dívidas D-02/D-04/D-05
 
 ## 1. Problema
 

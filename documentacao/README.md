@@ -34,18 +34,20 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 
 | DEM | Assunto | Estado | Depende de |
 |---|---|---|---|
-| [DEM-202610-001](dem/DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | **aceito** — entrega aprovada; aguarda publicação (CI) | — |
-| [DEM-202610-002](dem/DEM-202610-002-guarda-de-papel-admin/README.md) | Guarda de papel nas rotas `/admin` | **aceito 2026-10-18** (`7cb2ee2`) — no release 0.1.0 (PR #2) | — |
-| [DEM-202610-003](dem/DEM-202610-003-inventario-de-fontes/README.md) | DEM-A: inventário de fontes e licenças | **EVAL PASS** (rodada 5) — aguarda aceite do ARQUITECT | DEM-001 entregue |
-| [DEM-202610-004](dem/DEM-202610-004-ci-cd-fase-a3/README.md) | CI/CD (Fase A3) | **Etapa 1 entregue** — CI verde + proteção em `develop`/`main`; Etapa 2 aguarda a chave | — |
-| [DEM-202610-005](dem/DEM-202610-005-saida-do-reflex/README.md) | **Saída do Reflex** (FastAPI + Jinja2 + HTMX), por rotas | **intent em rascunho** — aguarda ADR-014 + DEM-004 | DEM-004 |
+| [DEM-202610-001](dem/DEM-202610-001-estudo-capitulos/README.md) | Estudo: capítulos próprios + mapa de origem | **aceita e publicada** na v0.1.0 (deploy verde); o importador em produção é do ARQUITECT | — |
+| [DEM-202610-002](dem/DEM-202610-002-guarda-de-papel-admin/README.md) | Guarda de papel nas rotas `/admin` | **aceita** (2026-10-18) e **publicada** na v0.1.0 | — |
+| [DEM-202610-003](dem/DEM-202610-003-inventario-de-fontes/README.md) | DEM-A: inventário de fontes e licenças | **EVAL PASS** (rodada 5) — aguarda aceite do ARQUITECT + revisão doutrinária | DEM-001 entregue |
+| [DEM-202610-004](dem/DEM-202610-004-ci-cd-fase-a3/README.md) | CI/CD (Fase A3) | **entregue** — CI + CD no ar; a **v0.1.0 publicada pelo pipeline**; ADR-016 aceita | — |
+| [DEM-202610-005](dem/DEM-202610-005-saida-do-reflex/README.md) | **Saída do Reflex** (FastAPI + Jinja2 + HTMX), por rotas | **intent em rascunho** — aguarda o **aceite da ADR-014** (o spike de sessão vem depois) | ADR-014 |
 | DEM-202610-006 *(proposta)* | DEM-B: registro de fontes e proveniência | proposta | DEM-003 |
 | DEM-202610-007 *(proposta)* | DEM-C: ingestão do grafo (lugares, pessoas, eventos, jornadas) | proposta | DEM-006 |
 | DEM-202610-008 *(proposta)* | DEM-D: busca por assunto (coordenador e instrutor) | proposta | DEM-007 |
 | DEM-202610-009 *(futura)* | DEM-E: o agente **DAVID** no atendimento ao aluno (texto e voz) | futura | DEM-008 |
-| DEM-202610-010 *(proposta)* | Isolamento por ambiente (tenant) no RBAC — `can_manage` não confere o ambiente | proposta (achado da DEM-002) | DEM-002 |
-| DEM-202610-011 *(proposta)* | **Aprovação em dupla** do estudo (REVISOR + ADMIN, com hash — implementa a ADR-011) | proposta (achado da DEM-002) | DEM-002 |
-| DEM-202610-012 *(proposta)* | **Credencial de seed**: sem senha padrão no código, troca obrigatória para todos os papéis | proposta (achado de 19/10) | — |
+| DEM-202610-010 *(proposta)* | Isolamento por ambiente (tenant) no RBAC — `can_manage` não confere o ambiente | proposta — **D-06** (gatilho: mais de um ambiente real) | DEM-002 |
+| DEM-202610-011 *(proposta)* | **Aprovação em dupla** do estudo (REVISOR + ADMIN, com hash — implementa a ADR-011) | proposta — **D-07** (gatilho: liberar estudos a coordenadores reais) | DEM-002 |
+| [DEM-202610-012](dem/DEM-202610-012-credencial-de-seed/planner/intent.md) | **Credencial de seed**: sem senha no código, troca obrigatória para todos | **intent + spec + plano escritos** — executor: **Codex** (piloto); falha a resposta 9.1 | — |
+| DEM-202610-013 *(adiada)* | Publicação como serviço MCP | **adiada até a v1** (decisão de 19/10; ADR-017 Deferred) | — |
+| [DEM-202610-014](dem/DEM-202610-014-codex-como-devs/README.md) | **Piloto do Codex como DEVS** (na DEM-012; mede rodadas, defeitos, tempo) | **piloto aprovado** — aguarda o despacho (pergunta 9.2) | DEM-012 |
 | [DEM-202610-013](dem/DEM-202610-013-publicacao-como-servico/planner/intent.md) | **Publicação como serviço MCP** (o DEPLOY vira API; os agentes são clientes) | **intent em rascunho** — aguarda ADR-017 + 3 decisões | DEM-004 |
 | DEM-202610-014 *(proposta)* | **Piloto do Codex como DEVS** (segundo modelo, julgado pelo EVAL) | proposta | DEM-013 |
 

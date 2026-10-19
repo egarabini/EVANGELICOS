@@ -1,6 +1,6 @@
 # ADR-017: A publicação como serviço (MCP), com os agentes como clientes
 
-- **Status:** **Proposed** — aguarda o aceite do ARQUITECT.
+- **Status:** **Deferred** — adiada pelo ARQUITECT em **2026-10-19**, até a virada da v1 (decisão do dia, registrada na [ADR-018](ADR-018-modo-agil-ate-a-v1.md) §"Fim do modo ágil"). **Não construir agora.**
 - **Data:** 2026-10-19
 - **Decisores:** ARQUITECT (Eduardo) · redação do PLANNER
 - **Gatilho:** Operação — a ADR-016 delegou a publicação a um "perfil com shell"; a lista fechada virou regra de conduta, não controle
@@ -8,6 +8,13 @@
 - **Mantém:** ADR-008, ADR-009, o CI como caminho, o aceite de release
 
 ---
+
+> **ADIADA (2026-10-19).** O ARQUITECT decidiu priorizar **agilidade até a v1** (ADR-018) e adiar
+> esta ADR: ela resolve um risco que a prioridade adiou, e o `deploy.yml` **já entrega os gates**
+> (backup com `sha256`, HTTP final). A **ADR-016 continua como está** e é o que vale hoje.
+> **Gatilho de reavaliação:** a virada da v1 — junto com as dívidas D-02/D-04/D-05 (ver
+> [`DIVIDAS-ACEITAS-ATE-A-V1`](../visao/DIVIDAS-ACEITAS-ATE-A-V1.md)). **Nada deve ser construído
+> aqui antes disso.**
 
 ## Contexto
 
