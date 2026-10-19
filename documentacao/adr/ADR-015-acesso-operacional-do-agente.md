@@ -1,6 +1,6 @@
 # ADR-015: Acesso operacional do agente à VPS (escopo restrito)
 
-- **Status:** **Proposed** — aguarda o aceite do ARQUITECT.
+- **Status:** **Accepted** — aceite do ARQUITECT em **2026-10-19**
 - **Data:** 2026-10-19
 - **Decisores:** ARQUITECT (Eduardo) · redação do PLANNER
 - **Gatilho:** Operação — a instalação da chave de deploy não é deploy, mas hoje está coberta pelo "nunca" da ADR-010
