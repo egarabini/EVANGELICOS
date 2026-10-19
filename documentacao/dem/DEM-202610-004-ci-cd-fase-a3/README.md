@@ -19,8 +19,13 @@ porque a publicação depende de CI.
 
 - [x] **Intent assinado** — 5 decisões no §9 (`GATE: intent` vencido)
 - [x] Spec + design da Etapa 1
-- [x] **Etapa 1 (CI) entregue**: workflow verde (82 testes, 50 s) e **proteção** em `develop` e `main` exigindo o check `testes (pytest)`
-- [ ] **Etapa 2 (CD)** — aguarda a **chave de deploy** (decisão 9.3): pública no `authorized_keys` da VPS, privada em secret
+- [x] **Etapa 1 (CI) entregue**: workflow verde e **proteção** em `develop` e `main` exigindo o check `testes (pytest)`
+- [x] **Etapa 2 (CD) entregue e usada**: o deploy da **`v0.1.0`** passou pelo pipeline (run `39175867118`, job `118049517557`), todas as etapas verdes, com HTTP externo 200
+- [x] **ADR-016 aceita** (2026-10-19): o **perfil DEPLOY** executa a publicação pelo procedimento, sem aprovação por passo; **Environment `producao` sem required reviewer**, secrets e policies (`main` + `v*`) mantidos
+- [x] **Artifact do backup**: o run guarda o **manifesto** (log com caminho, tamanho e sha256); o dump fica na VPS
+- [x] **GitFlow encerrado**: `release/0.1.0` mergeada, tag `v0.1.0` e **back-merge `main` → `develop`**
+- [ ] **Rotação/revogação das chaves** (dívida): a chave operacional não tem `restrict`; a antiga será revogada — depois do fluxo verde, conforme o runbook
+- [ ] **Transferir o DUMP como artifact** (hoje só o manifesto) — follow-up
 - [ ] EVAL da Etapa 1 + aceite
 
 ## O que a lapidação mudou no rascunho do AUXILIAR
