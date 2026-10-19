@@ -1,6 +1,6 @@
 # ADR-001: Stack fixa: Python/Reflex
 
-- **Status:** Accepted — **proposta de substituição: [ADR-014](ADR-014-saida-do-reflex.md)** (Proposed, 2026-10-18)
+- **Status:** Accepted — **Superseded in part by [ADR-014](ADR-014-saida-do-reflex.md)** (aceita em 2026-10-19; só a cláusula do **framework** é substituída)
 - **Data:** 2026-10-16
 - **Decisores:** ARQUITECT (Eduardo)
 - **Gatilho:** Novo Horizonte (adoção de método) / decisão já implementada
@@ -33,3 +33,4 @@ do frontend do Reflex.
 
 - Toda DEM de código.
 - Proíbe trocar a stack ou introduzir libs TS como dependência da aplicação.
+

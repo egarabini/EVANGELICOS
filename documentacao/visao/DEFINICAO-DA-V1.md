@@ -50,7 +50,8 @@ cena.
 - [ ] **D-07** — **fechada pela DEM-011** (o fluxo com o hash)
 - [ ] **D-08** — **fechada por construção**: o `AdminState` é do Reflex; a v1 tem auth própria
 - [ ] **D-09** — limpar `eval/tmp-*`, usuários demo e o histórico de teste
-- [ ] **D-10** — o `create_gestor` e a tela sem a senha conhecida
+- [ ] **D-10** — o coordenador criado sem senha fixa (token de uso único ou senha aleatória nunca exibida)
+- [ ] **D-11** — a troca obrigatória **bloqueia** rota/evento protegido até a troca (não é só redirect)
 - [ ] **declarar o fim do modo ágil** (ADR-018) e voltar as ADR-006/007 ao processo cheio
 
 ## 6. Candidatas de produto pós-v1 (ordem recomendada, não decisão)
@@ -70,3 +71,4 @@ formato — o que a plataforma consome — e está na base editorial reformada. 
 O ARQUITECT declara, com o checklist fechado. O PLANNER registra a data, o hash do release e o
 fechamento das dívidas no painel; a ADR-018 ganha o status de encerrada (o nível 3 volta a ser o
 padrão) e o modo ágil termina.
+

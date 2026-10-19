@@ -25,15 +25,17 @@ estudo, gerencia usuários e vê leads.
 
 ## As ressalvas (o relatório final do EVAL — e eu concordo)
 
-1. **A-1 — o `.env` sozinho não é lido.** O `run_seed()` chama `seed_password()` (seed.py:695)
-   **antes** do `from rxconfig import config`, e é o `rxconfig` que faz o `load_dotenv()`. Com a
-   variável só no `.env` e o ambiente sem ela, o seed aborta. **A spec §4 (`os.environ`) está
-   correta; o `intent §5` (que fala do `.env`) é que era otimista.** Para o procedimento do D-01
-   funcionar, ou o seed **carrega o `.env` no início**, ou a variável vai no **shell**.
+1. **A-1 — no local apenas; NÃO é pré-requisito do D-01.** O `.env` sozinho não é lido (o
+   `seed_password()` roda antes do `load_dotenv()` do rxconfig) — mas **em produção o seed roda no
+   contêiner e o `.dockerignore` exclui o `.env` da imagem**: não há `.env` para carregar lá. O
+   A-1 só ajudaria rodadas locais. **Não despachar o Codex para isso.** Se tocar no `seed.py` por
+   outro motivo, aproveitar o **A-6**: `SEED_PASSWORD` com um espaço deve ser recusada (`.strip()`).
 2. **A-2 — o Compose não repassa `SEED_PASSWORD`** ao serviço `app` (linhas 72-97); o DEPLOY.md
-   documenta a pendência (117-120). O comando de deploy documentado **aborta em banco limpo** até
-   o repasse no Compose ou o uso de `exec -e`. É *fail-safe* (seguro), mas a **operação está
-   bloqueada**.
+   documenta a pendência (117-120). É *fail-safe* (o seed aborta), mas a **operação está
+   bloqueada**. **Duas opções** (decisão do ARQUITECT — infra, ADR-016):
+   **(a) preferida** — passar só no momento do seed: `docker compose exec -e SEED_PASSWORD ...`
+   no `subir.sh`, com o valor vindo do **ambiente do script** (não da linha de comando);
+   **(b)** gravar no `environment:` do Compose — fica **permanente** no contêiner.
 3. **A rotação das contas que já existem é manual e do ARQUITECT.** A `senha123` do admin **atual**
    continua valendo até ele trocar — a DEM **não fecha a D-01 nem a D-10**.
 4. **O banco de teste é SQLite temporário.** A verificação não cobre a produção.

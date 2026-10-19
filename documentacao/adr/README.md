@@ -35,3 +35,4 @@ diagnosticar (lista fechada), e continua proibido de publicar — a ADR-010 perm
 importa.
 
 
+

@@ -58,12 +58,28 @@ CI/CD (o `deploy.yml` e a imagem), e as DEMs seguintes (a busca, o DAVID — nas
 - **Testes desde o dia 1**: `StrictUndefined`, CSRF, cookie de sessão, a matriz — a spec exige.
 - **Níveis de risco** (ADR-018): as telas de segurança são **nível 3**; as de conteúdo, 2.
 
+## 5a. Requisitos herdados das dívidas (D-10 e D-11 — fecham na v1)
+
+As duas dívidas de autenticação **não recebem DEM na v0** (o Reflex é descartável; o gatilho de
+ambas é "antes de dados reais", e os dados reais só entram na v1). Elas **fecham por construção**
+aqui, como requisitos **testáveis** da base nova:
+
+- **[D-11]** Usuário com `must_change_password` ativo **só alcança a troca de senha e o logout** —
+  qualquer rota ou evento protegido **recusa antes** da troca (não é só um redirect no login).
+- **[D-10]** A criação de coordenador **não usa senha fixa**: **token de uso único com expiração**
+  (ou senha aleatória **nunca exibida**). O `senha123` do `create_gestor` não sobrevive à v1.
+
+Ambas entram na matriz papel × rota e no **plano de testes da v1** (o H-14/H-15 do §6), e ficam na
+**checklist de fechamento** ([`DEFINICAO-DA-V1`](../../../visao/DEFINICAO-DA-V1.md)).
+
 ## 6. Health metrics
 
 - **H-01** · a suíte da v1 verde (o número novo, com o baseline escrito)
 - **H-04/H-05** · a **matriz papel × rota** e o **inventário de rotas** existem e são testados
 - **H-06** · a lição do aluno (a última tela) funcional na v1: HTTP 200 + "João 3:16" e as relacionadas
 - **H-13** · o **retorno** da virada funciona (o Traefik volta ao v0 em ≤ 5 min)
+- **H-14** · a troca obrigatória **bloqueia** rota/evento protegido até a troca (só a troca e o logout passam) — **D-11**
+- **H-15** · o coordenador é criado **sem senha fixa** (token de uso único com expiração ou senha aleatória nunca exibida) — **D-10**
 
 ## 7. Sinal de sucesso
 
