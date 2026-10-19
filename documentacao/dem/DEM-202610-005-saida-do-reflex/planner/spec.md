@@ -12,7 +12,7 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 
 | # | Marco | O resultado visível | O que entra |
 |---|---|---|---|
-| **1** | **O esqueleto** | o login no **subdomínio de homologação** | a app FastAPI, o Jinja2, o HTMX, a **auth própria** (sessão, CSRF, cookie), a imagem, o pipeline e o **endereço de homologação** |
+| **1** | **O esqueleto** | o login no **subdomínio de homologação** | a app FastAPI, o Jinja2, o HTMX, a **auth própria** (sessão, CSRF, cookie), a imagem, o pipeline, o **endereço de homologação** e o **banco próprio** (`didasko_v1`) com o **baseline de Alembic** |
 | **2** | **O fluxo admin/revisor/obras** | importar → revisar → liberar na tela | as telas do admin e do revisor; a matriz papel × rota (a DEM-002) |
 | **3** | **O coordenador** | vincular e adendar | a tela do coordenador + o `Adendo.ambiente_id` |
 | **4** | **O instrutor e a correção** | ver a turma e corrigir | as telas do instrutor |
@@ -44,6 +44,7 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
   script**, nunca da linha de comando; **não** no `environment:` do Compose).
 - [ ] **RF08 — a homologação**: a v1 sobe num **subdomínio** ao lado da v0 (o DNS e o certificado
   são do ARQUITECT — avisar quando o marco 1 estiver pronto).
+- [ ] **RF10 — o banco da v1**: banco próprio (`didasko_v1`, no mesmo Postgres), schema do zero + o **baseline de Alembic**; a `DATABASE_URL` da v1 aponta para ele; a v0 fica no antigo. **Sem migração de schema no banco existente.**
 - [ ] **RF09 — a virada**: o Traefik aponta o domínio principal para a v1; a v0 fica de pé para o
   **retorno** — que basta **enquanto só houver dados de teste**. **Dados reais só entram depois de
   um período estável** (o plano de virada define); **a partir daí "voltar à v0" perde dados**, e a
@@ -74,8 +75,12 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 - [ ] **CA05** — o deploy da v1: a imagem, o pipeline, o `exec -e`, o backup e o HTTP (RF07).
 - [ ] **CA06** — a virada testada, com o **retorno** funcionando e o critério de dados reais escrito (RF09).
 - [ ] **CA07** — o Reflex sem dependência: a v0 desligável sem perda (com os dados de teste).
+- [ ] **CA08** — o banco da v1 criado com o **baseline de Alembic**; a `DATABASE_URL` correta; o banco da v0 **intocado**.
 
 ## 7. Fora da v1
 
 A busca (DEM-B/C/D), o DAVID (DEM-E), o `planejar` (a 9.5, fatia posterior), o multi-ambiente real
 (D-06), o serviço MCP (DEM-013, adiada).
+
+
+

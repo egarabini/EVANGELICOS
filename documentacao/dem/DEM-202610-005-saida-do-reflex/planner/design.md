@@ -33,6 +33,8 @@ ESTUDOS_BIBLICOS/GSI_EBD/
   um serviço novo ou o mesmo trocando a imagem) — decide-se no marco 1, com o teste local.
 - **A homologação**: o subdomínio (o Traefik com um `Host` novo; o DNS e o certificado são do
   ARQUITECT — avisar quando o marco 1 estiver pronto, com o nome do subdomínio e a porta).
+- **O banco**: criar o `didasko_v1` + o usuário de aplicação + o **baseline de Alembic** (o schema
+  do zero a partir dos modelos finais). A `DATABASE_URL` da v1 aponta para ele; a v0 fica no antigo.
 
 ## 3. O marco 2 (o fluxo admin/revisor/obras)
 
@@ -45,6 +47,7 @@ ESTUDOS_BIBLICOS/GSI_EBD/
 
 ## 4. O deploy (a RF07)
 
+- **O banco**: a `DATABASE_URL` da v1 aponta para o **banco próprio** (`didasko_v1`); a v0 continua no antigo. O Postgres é o mesmo serviço.
 - A imagem da v1: `deploy/app-v1.Dockerfile` (ou o mesmo Dockerfile com um entrypoint novo).
 - O pipeline: a tag dispara; o entry script da v1 faz o backup → o checkout → o compose da v1 →
   o HTTP. **O mesmo `restrict,command`** e a mesma cadeia de chaves (ADR-015/016).
@@ -53,7 +56,7 @@ ESTUDOS_BIBLICOS/GSI_EBD/
 
 ## 5. A virada (o marco 6) e o retorno
 
-- O Traefik: o host principal → o serviço da v1; a v0 de pé (o serviço antigo) para o retorno.
+- O Traefik: o host principal → o serviço da v1; a v0 de pé (o serviço antigo) para o retorno. **A v1 aponta para o banco novo; a v0 fica no antigo — sem migração de dados.** **A v0 está congelada na tag `v0.1.0`** (19/10): a `develop` pertence à v1, e correção urgente da v0 sai de um hotfix sobre a tag.
 - **O período estável**: um tempo com a v1 no subdomínio, com o EVAL e o ARQUITECT usando (o plano
   de virada define: recomendo 2 semanas ou o "estudo completo por 3 papéis").
 - **Os dados reais** só entram **depois** do período estável — e a partir daí "voltar à v0" **perde
@@ -62,9 +65,12 @@ ESTUDOS_BIBLICOS/GSI_EBD/
 
 ## 6. Riscos
 
-- **A migração de dados**: os modelos do `gsi_ebd/` (o `create_all`) — a v1 com o mesmo banco (as
-  tabelas novas do `ObraVersao`/o `Adendo.ambiente_id`; sem alembic, o `create_all` não altera a
-  tabela existente — o design da migração é o marco 1/2, com o `pg_dump` antes).
+- **O banco da v1 é próprio** (`didasko_v1`, no mesmo Postgres): o schema nasce do zero a partir dos
+  modelos finais, com um **baseline de Alembic na v1**. **Não há migração de schema no banco da v0**
+  — o `Obra.status`/`Adendo.ambiente_id` existem na v1 desde o primeiro dia. **Correção de fato**: o
+  Alembic **existe no repositório** (`alembic.ini`, `env.py`, 6 revisões), mas **não está no fluxo de
+  deploy** (`subir.sh`/`DEPLOY.md` não o chamam) e pode estar **defasado** dos modelos — o baseline
+  da v1 corrige isso para a frente.
 - **A sessão**: a do Reflex e a da v1 são independentes (a RF01) — não há ponte.
 - **As telas**: a matriz de rotas precisa cobrir **todas** as rotas da v1 (o teste que renderiza).
 - **O tempo**: a v1 é o maior item do projeto; os marcos dão resultado visível a cada um.
@@ -74,3 +80,7 @@ ESTUDOS_BIBLICOS/GSI_EBD/
 O plano de testes **por marco** (o `plano-testes.md` da DEM-005, escrito antes do marco 1 e
 acrescentado por marco): a matriz, os rendes, os fluxos, as dívidas (H-14/H-15), o deploy e a
 virada.
+
+
+
+

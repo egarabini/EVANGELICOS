@@ -95,9 +95,10 @@ v1, com a matriz papel × rota. **Nada disso nesta fatia.**
 
 ## 6. Riscos
 
-- **A migração** (o `Obra.status`/`Adendo.ambiente_id` novos): o SQLModel/SQLite nos testes e o PG
-  em produção; o `ALTER`/`create_all` — o design da migração fica com o deploy da v1 (sem
-  `alembic` ainda: o projeto não usa).
+- **Os modelos e o banco**: a v1 tem **banco próprio** (`didasko_v1`), com o schema do zero + o
+  **baseline de Alembic**; **não há `ALTER` no banco existente** — o `Obra.status`/`Adendo.ambiente_id`
+  nascem na v1. (O Alembic **existe** no repositório, mas **fora do deploy** e possivelmente
+  defasado — o baseline da v1 corrige para a frente.)
 - **A canonização** precisa ser **determinística** (a ordem, o separador, o encoding) — um
   capítulo reordenado muda o hash (é o desejado).
 - **O `Study` no mesmo fluxo** fica para a fatia seguinte (o estudo tem as `StudyVersion`).
@@ -107,3 +108,4 @@ v1, com a matriz papel × rota. **Nada disso nesta fatia.**
 Ver o [`plano-testes.md`](plano-testes.md) — os estados, os gates, os hashes, as permissões, os
 invariantes e a **prova de mutação** (remover o gate do `nao_entra`/a checagem do `revisor_id` e
 ver o teste falhar).
+

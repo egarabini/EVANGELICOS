@@ -7,7 +7,7 @@
 
 | Marco | Os testes | O que prova |
 |---|---|---|
-| **1 — esqueleto** | a **matriz papel × rota** (todas as rotas da v1 × os 4 papéis); o login/logout; o CSRF (o POST sem token recusado); o cookie (httponly/secure) | H-04/H-05; a auth própria |
+| **1 — esqueleto** | a **matriz papel × rota** (todas as rotas da v1 × os 4 papéis); o login/logout; o CSRF (o POST sem token recusado); o cookie (httponly/secure); o **banco `didasko_v1` com o baseline** | H-04/H-05; a auth própria; o banco próprio |
 | **2 — admin/revisor/obras** | o fluxo pela tela (importar → revisar → liberar → alterar → contestar); o **H-14**; o `exec -e` no script | o fluxo da DEM-011 nas telas |
 | **3 — coordenador** | vincular/desvincular + o adendo do ambiente; o **H-15** (o coordenador criado sem senha fixa) | a autonomia do coordenador sem a D-10 |
 | **4 — instrutor** | ver a turma, corrigir; a matriz | as telas do instrutor |
@@ -36,3 +36,4 @@
 ## 4. O que **não** é teste desta DEM
 
 A v0 (o Reflex) — ela só recebe correção até a virada; os testes dela são os 128 atuais.
+
