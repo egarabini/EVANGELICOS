@@ -26,6 +26,10 @@
 | **F-10** | a trilha imutável | cada operação acrescenta um `ObraVersaoEvento`; a recusa e o reenvio sucessivos ficam no histórico |
 | **F-11** | a **rodada de revisão** | após a contestação (ou o reenvio), o `revisar` cria o "visto" da **rodada nova**; a RF11b compara o visto × o liberado da **mesma rodada**; os instantâneos antigos ficam no histórico |
 
+> **A distinção editorial × publicação (a ADR-020)**: o F-02/F-03 movem o estado **editorial** da
+> versão (o Revisor); a **publicação** (`versao_liberada_id`) e a **disponibilidade** são só do Admin
+> (o F-06/F-12 provam). O `revisar`/`recusar` **nunca** alteram a obra no ar.
+
 ## 2. Gates e permissões (N)
 
 | ID | Caso | Esperado |
@@ -75,6 +79,7 @@
 
 **Fora desta fatia**: as telas (fatia 2), o `Study` (a fatia seguinte), o `planejar` (a fatia
 posterior, a 9.5), o multi-ambiente real (D-06).
+
 
 
 

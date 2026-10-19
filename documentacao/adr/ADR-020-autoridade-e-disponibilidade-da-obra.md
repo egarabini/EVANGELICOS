@@ -16,7 +16,9 @@
 2. **A liberação depende dos dois**: a assinatura válida do Revisor **para a versão vista** **e** a
    liberação do Admin. É o **único bloqueio duro**; não existe "forçar liberação".
 3. O Revisor é **auxiliar de qualidade**: parecer, ajustes propostos, assinatura e **solicitação de
-   revisão**. Ele **não** muda estado nem disponibilidade.
+   revisão**. Ele **não** muda o **estado de publicação** nem a **disponibilidade**; **dentro do
+   ciclo**, ele move o **estado editorial** da versão (o `revisar` a leva a `aguardando_admin`; o
+   `recusar`, a `devolvida`).
 4. **A versão liberada N é imutável.** Todo ciclo de revisão cria a **N+1**.
 5. Havendo necessidade de revisão numa obra liberada, ela fica **suspensa para novos alunos**; quem já
    usa continua na versão em que está e recebe o aviso de que uma nova versão está a caminho. A N fica
@@ -51,3 +53,22 @@
 [ADR-011](ADR-011-aprovacao-de-conteudo-assinada.md) · [ADR-019](ADR-019-fluxo-de-obras-e-estudos.md) ·
 [DEM-011](../../dem/DEM-202610-011-fluxo-de-obras-e-estudos/planner/design.md) (o design v7) ·
 [DEM-005](../../dem/DEM-202610-005-saida-do-reflex/planner/spec.md) (o 9.2 superado em parte)
+## A decisão do conflito (a pergunta do DEVS, 19/10)
+
+A regra 3 ("o Revisor não muda estado") e a tabela ("o `revisar` → `aguardando_admin`; o `recusar` →
+`devolvida`") pareciam contraditórias. **A distinção**:
+
+| Estado | Quem move |
+|---|---|
+| **Editorial** (da **versão**, dentro do ciclo): `em_revisao` → `aguardando_admin` (o parecer concluído) ou → `devolvida` (a recusa) | **o Revisor** — é o sinal do trabalho dele |
+| **De publicação** (a `Obra`): a `versao_liberada_id` (o que está no ar) | **só o Admin** |
+| **De disponibilidade** (a `Obra`): `aberta` / `suspensa_para_novos` | **só o Admin** |
+
+A **opção escolhida é a 1**: mantêm-se as transições **editoriais** do ciclo; a **publicação e a
+disponibilidade** são só do Admin. A opção 2 (remover também as editoriais) perderia o sinal: o
+Revisor concluiria o parecer e o Admin não teria como saber que a bola é dele — ou teria que
+consultar o parecer por conta própria.
+
+**A regra 3 permanece íntegra no que importa**: o Revisor **não** retira a obra do ar, **não** muda a
+versão vigente e **não** suspende para novos.
+

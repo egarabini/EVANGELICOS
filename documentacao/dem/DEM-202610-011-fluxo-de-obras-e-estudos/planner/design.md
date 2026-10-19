@@ -67,9 +67,11 @@ visível ao Admin. Custo: um tipo de evento e uma operação (`posicionar`).
 | `cancelar_ciclo(obra, admin)` | **Admin** | descarta a N+1 em revisão; a disponibilidade → `aberta` |
 | `posicionar(versao, revisor, posicao, texto)` | Revisor | o evento `posicao` (não bloqueia) |
 
-**Invariantes**: só o **Admin** abre, suspende, cancela e libera; o Revisor **nunca** muda estado nem
-disponibilidade; `liberar` exige `revisor_id` + `hash_visto`; a versão `liberada` **não** volta a
-`em_revisao` (a v5 está substituída).
+**Invariantes**: só o **Admin** abre, suspende, cancela e libera; o Revisor **nunca** muda o
+**estado de publicação** (`versao_liberada_id`) nem a **disponibilidade** — mas **move o estado
+editorial** da versão dentro do ciclo (`revisar` → `aguardando_admin`; `recusar` → `devolvida`);
+`liberar` exige `revisor_id` + `hash_visto`; a versão `liberada` **não** volta a `em_revisao` (a v5
+está substituída).
 
 ## 3. A disponibilidade (a regra 4)
 
@@ -110,3 +112,4 @@ dispensa).
 O plano **v4**: o F-06 reescrito (a versão nova; a liberada intacta; só o Admin abre ciclo; a
 solicitação não muda a disponibilidade) + os casos novos da disponibilidade, do cancelamento e do
 `versao_id` fixado + a regressão.
+
