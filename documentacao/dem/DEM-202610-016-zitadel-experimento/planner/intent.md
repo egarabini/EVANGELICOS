@@ -92,14 +92,14 @@ a migrar.
 | 8.5 | A versão e a arquitetura | **v4.19.5**: a API Zitadel + o **Login V2 separado**, com a API encaminhada por **`h2c`** (confirmado na doc oficial pelo DEVS em 2026-10-19) |
 | 8.6 | A licença | o núcleo **AGPL-3.0-only**; o login com **exceção MIT** (a `LICENSING.md` oficial da v4.19.5); usado como **serviço separado e não modificado** |
 | 8.7 | Os hosts (a proposta do DEVS) | `zitadel.homolog.didasko.app.br` (a API) e `oidc.homolog.didasko.app.br` (o FastAPI experimental) — o **DNS é do ARQUITECT** |
+| 8.9 | Os fatos do DNS (2026-10-19) | `didasko.app.br` e `homolog.didasko.app.br` resolvem para **84.46.250.57** (a VPS); **`zitadel.homolog...` e `oidc.homolog...` NÃO têm registro** (sem wildcard) — faltam os dois A records |
 | 8.8 | Os fatos da VPS (2026-10-19) | o SSH: `didasko-vps` (`didasko-deploy`); a rede do Traefik: **`deploy_didasko`**; o Postgres: o **`didasko_postgres`** (o projeto `deploy`, a rede `deploy_didasko`, o usuário `didasko`); os bancos hoje: o `didasko`; o **Zitadel** ganha o banco próprio (o `zitadel`) |
 
 ## 9. Perguntas abertas — só o ARQUITECT fecha
 
 - [ ] **9.1** O limite do E-05: **≤ 5 s** de ponta a ponta, **p95 de 3 medições** com o Ollama
   ocupado — confirmar.
-- [ ] **9.2** **O DNS**: os hosts propostos (`zitadel.homolog...` + `oidc.homolog...`) e o
-  `homolog.didasko.app.br` (o pai) — criar as entradas.
+- [ ] **9.2** **O DNS**: o pai `homolog.didasko.app.br` **já existe** (→ 84.46.250.57); faltam os **dois A records** (`zitadel.homolog...` + `oidc.homolog...` → 84.46.250.57) — ou um wildcard `*.homolog...`. Sem eles, o HTTPS (o LE por httpchallenge) não sobe.
 - [ ] **9.3** **O banco do Zitadel**: criar o banco/usuário (`zitadel`) no `didasko_postgres` (o
   mesmo servidor, o banco separado).
 - [ ] **9.4** **O roteador do Traefik**: a regra dos dois hosts (o DEVS prepara a config; o
@@ -108,4 +108,5 @@ a migrar.
 ## 10. Fora de escopo
 
 A migração de usuários da v0 (não há); o deploy/o pipeline da v1; a adoção (a decisão é depois).
+
 
