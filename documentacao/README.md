@@ -47,7 +47,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 | DEM-202610-008 *(proposta)* | DEM-D: busca por assunto (coordenador e instrutor) | proposta | DEM-007 |
 | DEM-202610-009 *(futura)* | DEM-E: o agente **DAVID** no atendimento ao aluno (texto e voz) | futura | DEM-008 |
 | DEM-202610-010 *(proposta)* | Isolamento por ambiente (tenant) no RBAC — `can_manage` não confere o ambiente | proposta — **D-06** (gatilho: mais de um ambiente real) | DEM-002 |
-| [DEM-202610-011](dem/DEM-202610-011-fluxo-de-obras-e-estudos/planner/intent.md) | **O fluxo de obras e estudos** (admin → revisor → admin → liberada; adendos do coordenador) | **spec aprovada + design da fatia 1** — o **Codex autorizado** a começar o domínio | DEM-005 |
+| [DEM-202610-011](dem/DEM-202610-011-fluxo-de-obras-e-estudos/README.md) | **O fluxo de obras e estudos** (admin → revisor → admin → liberada; adendos do coordenador) | **fatia 1 (o domínio) PASS** (269 testes; 39 casos; 9 mutações) e **mergeada** (`7670aec`); a fatia 2 (as telas, na v1) é a próxima | DEM-005 |
 | [DEM-202610-012](dem/DEM-202610-012-credencial-de-seed/README.md) | **Credencial de seed**: sem senha no código, troca obrigatória para todos | **EVAL PASS** (128 testes; RF01-RF07) e **mergeada no `develop`** (`dbbfc09`) — aguarda o aceite; a D-01/D-10/D-11 seguem abertas | — |
 | DEM-202610-013 *(adiada)* | Publicação como serviço MCP | **adiada até a v1** (decisão de 19/10; ADR-017 Deferred) | — |
 | [DEM-202610-014](dem/DEM-202610-014-codex-como-devs/README.md) | **O Codex acumula DEVS e DEPLOY** (os gates preservam a independência) | **decidido** (uma página) — a DEM-012 é a próxima, executada por ele | DEM-012 |
@@ -74,6 +74,7 @@ Proposta do AUXILIAR-ARCHITECT, com as **12 perguntas fechadas** pelo ARQUITECT 
 - [x] ADRs 001–011
 - [x] GitFlow (`develop` nos dois repos; tags virão com o primeiro release)
 - [ ] CI/CD (`gh` autenticado + workflows + secrets) — **bloqueado**: precisa do `gh auth login`
+
 
 
 
