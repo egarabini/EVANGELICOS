@@ -1,6 +1,6 @@
 # ADR-010: Publicação por CI/CD, nunca por agente
 
-- **Status:** Accepted
+- **Status:** Accepted — **acesso operacional restrito emendado pela [ADR-015](ADR-015-acesso-operacional-do-agente.md)**; a proibição de **deploy** permanece
 - **Data:** 2026-10-16
 - **Decisores:** ARQUITECT (Eduardo)
 - **Gatilho:** Novo Horizonte (adoção de método) / decisão já implementada

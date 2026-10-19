@@ -6,6 +6,12 @@
 > Base: ADR-008 (segredos), ADR-010 (agente não publica), DEM-004 intent §9.3.
 > Revisão: ajustada ao que existe de fato em `GSI_EBD`: `.github/workflows/deploy.yml` e
 > `deploy/didasko-deploy-entry.sh` (commit `3bf67af`).
+>
+> **Atualização 2026-10-19 — ADR-015 (Proposed):** o agente **pode** instalar/conferir a
+> chave **pública** e rodar diagnósticos READ-ONLY (lista fechada). A **privada** continua
+> exclusiva do ARQUITECT, e **deploy continua proibido**. Se aprovada, o passo 1 (cópia da
+> pública para o `authorized_keys`, com `restrict,command=...`) pode ser executado pelo
+> agente, com backup prévio e registro na jornada.
 
 ## Princípio
 
