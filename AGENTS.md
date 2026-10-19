@@ -15,7 +15,7 @@
 
 ## Regras absolutas
 
-- **IA não executa deploy em produção** (ADR-010). Publicação é do GitHub Actions.
+- **Publicação é do perfil DEPLOY, pelo GitHub Actions** (ADR-010, emendada pela **ADR-016**): o DEPLOY dispara, acompanha, diagnostica e reexecuta o pipeline, publica **tag já aceita** e faz rollback — pelo procedimento. Os demais perfis **não** publicam. Ato direto na VPS só quando o CI não puder, na lista do procedimento e com registro na jornada.
 - **Segredos nunca no repositório** (ADR-008). Token nunca em chat.
 - O **corpus bíblico é `:ro` e não versionado** (ADR-002).
 - **Escritura sempre do corpus**, nunca do modelo (ADR-003).

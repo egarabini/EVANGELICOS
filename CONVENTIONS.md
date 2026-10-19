@@ -20,7 +20,7 @@
 - `main` = produção (tags SemVer) · `develop` = integração.
 - `feature/DEM-AAAAMM-<seq>-<slug>` a partir de `develop`; PR → `develop`.
 - `release/x.y.z` e `hotfix/x.y.z` exigem back-merge em `develop` e tag.
-- Produção **só** por `release/*`/`hotfix/*` via CI (ADR-010).
+- Produção **só** por `release/*`/`hotfix/*` via CI (ADR-010, **ADR-016**): a execução do deploy é do perfil DEPLOY, sem aprovação por passo; o aceite de release continua do ARQUITECT.
 
 ## DEMs
 

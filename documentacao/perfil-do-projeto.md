@@ -18,7 +18,7 @@
 | DEVS | IA, em contexto próprio ou subagente |
 | EVAL | subagente cego (não lê a jornada do DEVS) |
 | VISION | Eduardo (não há navegador automatizado disponível) |
-| DEPLOY | GitHub Actions; o agente só abre PR e lê o resultado |
+| DEPLOY | IA, com autoridade delegada pela **ADR-016**: dispara/acompanha/reexecuta o pipeline, publica tag já aceita, faz rollback e opera a VPS **pelo procedimento**; os gates (aceite de release, EVAL, CI, backup verificado) permanecem |
 | KNOW / ORCHESTRATOR | não usados |
 
 ## 3. Stack e tecnologias

@@ -1,6 +1,6 @@
 # ADR-016: Delegação da publicação ao perfil DEPLOY
 
-- **Status:** **Proposed** — aguarda o aceite do ARQUITECT.
+- **Status:** **Accepted** — aceite do ARQUITECT em **2026-10-19**
 - **Data:** 2026-10-19
 - **Decisores:** ARQUITECT (Eduardo) · redação do PLANNER
 - **Gatilho:** Operação — o deploy da v0.1.0 passou pelo pipeline e a aprovação manual por deploy virou gargalo sem decisão nova
