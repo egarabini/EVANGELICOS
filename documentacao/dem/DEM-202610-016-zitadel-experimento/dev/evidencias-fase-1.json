@@ -1,0 +1,48 @@
+{
+  "dem": "DEM-202610-016",
+  "phase": 1,
+  "homologation_executed": false,
+  "branch": "feature/DEM-202610-016-zitadel",
+  "commit": "8d894aad283b2cb6a9639a63d6cc0d528a7f3d3f",
+  "pr": "https://github.com/egarabini/gsi_ebd/pull/6",
+  "local_tests": {
+    "command": "python -m pytest experiments/tests -q",
+    "passed": 40,
+    "failed": 0,
+    "warnings": 23
+  },
+  "compose_validation": {
+    "command": "docker compose -f experiments/zitadel/docker-compose.yml config --no-interpolate --quiet",
+    "exit_code": 0,
+    "daemon_used": false
+  },
+  "public_registry_metadata": [
+    {
+      "image": "ghcr.io/zitadel/zitadel:v4.19.5",
+      "index_digest": "sha256:a586456a208e0db4c633db0ba43c427c24b37846138b8b13ff16ad8e003a18d3",
+      "linux_amd64_default_user": "zitadel"
+    },
+    {
+      "image": "ghcr.io/zitadel/zitadel-login:v4.19.5",
+      "index_digest": "sha256:2f8e57672fcd4f9a285d99355fae9f85fd7495768c090c07c3bbc2d84fc06617",
+      "linux_amd64_default_user": "nextjs"
+    }
+  ],
+  "e04_idle_mb": null,
+  "e04_login_peak_mb": null,
+  "e05_seconds": null,
+  "e05_p95_seconds": null,
+  "interpretation": "Mock tests and configured limits are not homologation measurements.",
+  "ci": {
+    "experiment": {
+      "run": 39343258566,
+      "conclusion": "success",
+      "passed": 40
+    },
+    "regression": {
+      "run": 39343258578,
+      "conclusion": "success",
+      "passed": 269
+    }
+  }
+}

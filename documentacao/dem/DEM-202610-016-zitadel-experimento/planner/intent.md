@@ -51,7 +51,7 @@ a migrar.
 
 ## 4. Constraints
 
-- **1 a 2 dias**; **a homologação**; o banco/serviço próprios; **a v0 e a produção intocadas**.
+- **1 a 2 dias**; **a homologação**; o **Postgres próprio** (o contêiner dedicado); **a v0 e a produção intocadas**.
 - **Um host só**: o provedor em `oidc.homolog.didasko.app.br` (o nome é neutro ao fornecedor — se
   mudar, o host permanece; mas a URL do emissor pode ter caminho do fornecedor, e trocar de provedor
   ainda exige reconfigurar o cliente OIDC).
@@ -66,7 +66,7 @@ a migrar.
 | **E-02** | a provisão por API | o Didasko cria um instrutor e ele entra |
 | **E-03** | a D-11 | o primeiro acesso exige a troca, **sem código nosso** |
 | **E-04** | a memória | o conjunto do provedor **abaixo de 1 GB** em repouso |
-| **E-05** | a latência com o Ollama ocupado | o login **≤ 5 s** de ponta a ponta (a proposta; o p95 de 3 medições) |
+| **E-05** | a latência com o Ollama ocupado | **≥ 10 logins** com o Ollama ocupado; **mediana ≤ 2 s** e **máximo ≤ 5 s** (a decisão do ARQUITECT) |
 | **E-06** | o esforço | o relatório estima o custo restante, em dias, para o fluxo completo |
 | **E-07** | **a independência do fornecedor** | a URL do emissor, o `client_id` e o segredo vêm de **variáveis de ambiente**; **nenhum nome do fornecedor** aparece em caminho de código ou de rota do FastAPI — verificado pela **leitura do diff** |
 
@@ -82,11 +82,11 @@ O detalhe com a configuração pronta está em [`autorizacao-de-infra.md`](autor
 
 | # | Item | De quem |
 |---|---|---|
-| **a** | O **roteador do Traefik**: o host `oidc.homolog...` (o provedor) e o `/experimento` no `homolog...` | ARQUITECT |
-| **b** | O **banco e o papel próprios** no Postgres (o `zitadel`; **sem** acesso ao banco da v0) | ARQUITECT |
-| **c** | Os **limites de memória** dos contêineres do experimento | ARQUITECT |
-| **d** | A **geração dos segredos** (a chave mestra, a senha do admin) **na VPS, no `.env`** — nunca no repositório nem no chat (a ADR-008) | Codex gera na VPS; ARQUITECT autoriza |
-| **e** | O **desmonte** ao final (os contêineres, os volumes, os bancos) | ARQUITECT autoriza |
+| **a** | O **roteador do Traefik**: o host `oidc.homolog...` (o provedor) e o `/experimento` no `homolog...` — este com a **basic auth do Traefik** | **APROVADO** |
+| **b** | **MUDANÇA**: um **Postgres próprio** (o contêiner dedicado, a rede interna; **nunca** o `didasko_postgres`); só o serviço roteado na `deploy_didasko` | **APROVADO COM MUDANÇA** |
+| **c** | **AJUSTE**: o teto de **1 GB** na API (o `start-from-init`); o 256 no login e o 128 no FastAPI; o E-04 mede o **real** | **APROVADO COM AJUSTE** |
+| **d** | Os segredos com o `openssl rand` na VPS, no `.env` 600, **sem imprimir**; a senha do admin vai ao ARQUITECT por **canal seguro** | **APROVADO** |
+| **e** | O **desmonte**: o `down -v` do `experimento-oidc`; a execução com a **confirmação do ARQUITECT na hora**, os comandos listados antes | **PLANO APROVADO** |
 
 **O DNS**: o registro A de `oidc.homolog.didasko.app.br` → o mesmo IP do site — **já é do ARQUITECT e
 é a única parte feita** (o `didasko.app.br` e o `homolog.didasko.app.br` resolvem para a VPS; o host
@@ -102,7 +102,7 @@ novo falta).
 | A rede do Traefik | **`deploy_didasko`** (a externa, já existente) |
 | O `.env` | `/home/didasko-deploy/experimentos/didasko/experiments/zitadel/.env` (o modo **600**, o dono `didasko-deploy`) — **fora do git** |
 | Os volumes | os do projeto `experimento-oidc` (nomeados) — **nenhum volume da v0**; o banco é o **serviço Postgres existente** |
-| O Postgres | o **`didasko_postgres`** (o projeto `deploy`, a rede `deploy_didasko`, o usuário `didasko`); o banco **`zitadel`** + o papel **`zitadel`** (próprios; **sem** acesso ao `didasko`) |
+| O Postgres | **um contêiner próprio do experimento** (o projeto `experimento-oidc`, a **rede interna**); **nunca** o `didasko_postgres`; só o serviço **roteado** entra na `deploy_didasko` |
 
 ## 9. Decisões já registradas
 
@@ -115,12 +115,20 @@ novo falta).
 | 9.5 | A decisão | **o ARQUITECT**, com o relatório; se adotar, **ADR nova** + o RF01 + os marcos 1/2 |
 | 9.6 | A produção (se adotar) | o provedor numa **instância nova e limpa** em `oidc.didasko.app.br`; o host de homologação é **descartado**, não renomeado |
 
-## 10. Perguntas abertas — só o ARQUITECT fecha
+## 10. As autorizações (fechadas pelo ARQUITECT em 2026-10-19)
 
-- [ ] **10.1** A **autorização de infraestrutura** item a item (a §7, o a-e) — os detalhes prontos em
-  [`autorizacao-de-infra.md`](autorizacao-de-infra.md).
-- [ ] **10.2** O limite do E-05 (**≤ 5 s**, o p95 de 3) — confirmar.
+- [x] **10.1** A infraestrutura (a §7, o a-e) — **aprovada**, com a mudança do **Postgres próprio** e o ajuste do **1 GB**.
+- [x] **10.2** O E-05 — **≥ 10 logins**, a **mediana ≤ 2 s** e o **máximo ≤ 5 s**. O relatório diz "o código está pronto; o veredito depende da homologação" até os números existirem.
 
 ## 11. Fora de escopo
 
 A migração de usuários da v0 (não há); o deploy/o pipeline da v1; a adoção (a decisão é depois).
+
+
+
+
+
+
+
+
+

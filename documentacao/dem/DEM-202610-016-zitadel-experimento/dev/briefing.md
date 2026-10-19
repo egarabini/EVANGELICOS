@@ -17,7 +17,7 @@
 
 ## 2. A tarefa (os 7 itens + o E-07)
 
-1. O provedor em **`oidc.homolog.didasko.app.br`** (o banco próprio no `didasko_postgres`; o Traefik;
+1. O provedor em **`oidc.homolog.didasko.app.br`** (o **Postgres próprio**: o contêiner dedicado, a rede interna — **nunca** o `didasko_postgres`; o Traefik;
    o HTTPS), com a arquitetura oficial registrada (a API + o Login V2 separado; a API por `h2c`).
 2. O login **OIDC** (authorization code + PKCE) no FastAPI do experimento, em **`/experimento`** no
    `homolog.didasko.app.br`, com o `authlib` (ou equivalente) e o **papel lido do token**.
@@ -25,7 +25,7 @@
 4. A **provisão por API**: o Didasko cria um instrutor, e ele entra.
 5. A **troca obrigatória** no primeiro acesso, **pelo próprio provedor** (a D-11).
 6. A **medição**: a memória (em repouso e no login) e a **latência com o Ollama ocupado** (o login
-   com uma geração em andamento; o E-05: ≤ 5 s de ponta a ponta, o p95 de 3).
+   com uma geração em andamento; o E-05: **≥ 10 logins**, a **mediana ≤ 2 s** e o **máximo ≤ 5 s**).
 7. A **licença** (o AGPL-3.0-only no núcleo; o MIT no login; o uso como serviço separado e não
    modificado).
 8. **E-07 — a independência do fornecedor**: a URL do emissor, o `client_id` e o segredo vêm de
@@ -44,14 +44,14 @@ ambiente"; a implementação é trocável.
 | O projeto do Compose | **`experimento-oidc`** (o `-p experimento-oidc`) |
 | A rede do Traefik | **`deploy_didasko`** (a externa) |
 | O `.env` | `experiments/zitadel/.env` (o **600**; fora do git) |
-| Os volumes | os do projeto (nomeados); **o banco é o Postgres existente** (`didasko_postgres`), o banco **`zitadel`** + o papel **`zitadel`** |
+| Os volumes | os do projeto (nomeados); **o Postgres do experimento** é um **contêiner próprio** (a rede interna); **nunca** o `didasko_postgres` |
 
 ## 4. A infra (o que o ARQUITECT autoriza — os itens a-e)
 
-O Codex **prepara a config** e **pede a autorização** quando chegar: o roteador do Traefik (o
-`oidc.homolog...` + o `/experimento`), o banco/papel, os limites de memória, os segredos (a geração
-**na VPS**, nunca no chat) e o **desmonte** ao final (o `down -v` + o DROP — a exclusão de dados tem
-autorização específica).
+**A autorização do ARQUITECT (19/10) já veio** — com as condições: o `/experimento` com a **basic
+auth**; o **Postgres próprio** (nunca o `didasko_postgres`); o teto de **1 GB** na API; os segredos
+com o `openssl rand` (sem imprimir; a senha do admin por **canal seguro**); o **desmonte** com a
+confirmação na hora. E o **E-05**: ≥ 10 logins, a mediana ≤ 2 s e o máximo ≤ 5 s.
 
 **O DNS** (o `oidc.homolog...` → o IP do site) é a única parte **já feita**.
 
@@ -75,3 +75,5 @@ autorização específica).
 - o relatório na DEM-016 + o PR + o CI verde.
 
 > O EVAL cego julga **uma rodada** contra os critérios. A decisão é do ARQUITECT — não adote nada.
+
+
