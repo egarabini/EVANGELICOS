@@ -27,3 +27,11 @@ Branch do código: `feature/DEM-202610-012-credencial-de-seed`, criada a partir 
 - O subir.sh existente trata falha do seed como aviso (`|| aviso`); logo o seed aborta, mas esse script pode prosseguir. Não alterado, conforme escopo; informar ao PLANNER antes de uma publicação em banco novo.
 - D-10 e rotação de contas existentes fora do escopo. Sem alteração de schema, dependências, VPS, secrets, guardas ou CI. Sem deploy.
 - EVAL cego e CI do PR ainda pendentes nesta etapa do registro.
+
+## Entrega para revisão
+
+Commit `427e8bb`, branch enviada e PR https://github.com/egarabini/gsi_ebd/pull/3 aberto para develop. CI `39308015107` em execução; EVAL cego solicitado sobre o hash. Autenticação do GitHub confirmada fora das restrições de rede do sandbox; nenhum token exibido em claro. Sem merge ou deploy.
+
+## Verificação final
+
+CI `39308015107`: success, Python 3.12, todas as etapas verdes. EVAL cego: PASS em `427e8bbffee73b3f1146b3daa25a91736136dbe7`, suíte 128 passed. Parecer em `eval/parecer.md`; avaliador não consultou a jornada. PR #3 pronto para revisão. Sem merge ou publicação.

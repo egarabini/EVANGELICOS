@@ -15,6 +15,7 @@
 | **D-07** | **Aprovação de estudo por uma só assinatura** (ADR-011 não implementada) | o admin sozinho libera estudo; sem hash de conteúdo | **em implementação pela DEM-011** (o fluxo com o parecer e o hash por versão) | PLANNER (intent) |
 | **D-08** | **`logout` não limpa `AdminState`** (WARN da DEM-002) | resíduo de sessão na mesma aba | **fecha por construção na v1**: o `AdminState` é do Reflex; a base nova tem auth própria (DEM-005) | PLANNER |
 | **D-09** | **Dados de teste e lixo de EVAL** (`eval/tmp-*`, usuários demo) | confusão e vazamento de dado de teste | **na virada da v1**: limpeza de histórico antes de dados reais | PLANNER + ARQUITECT |
+| **D-11** | **A troca obrigatória é só um redirect**: `guarda_rota`/`exige` não verificam `must_change_password` — o usuário novo navega e executa ações sem trocar | a flag vira decoração; serve para o admin recém-criado e para o coordenador do `create_gestor` | **antes de dados reais** — a DEM-015 (bloquear rotas/eventos; preservar a troca e o logout) | PLANNER (intent) |
 | **D-10** | **Coordenador criado com senha conhecida**: `create_gestor` (`gsi_ebd/states/admin.py`) cria com `senha123` fixa, e a tela (`gsi_ebd/pages/admin.py`) exibe "Senha inicial: senha123" | quem cria/entrevê a tela sabe a senha inicial de todo coordenador novo | **antes de dados reais** — junto com o D-01, no fechamento | ARQUITECT (decisão) · PLANNER (intent) |
 
 ## Premissa (não é dívida, é limite)
@@ -30,4 +31,5 @@ agora.** Verificar é do ARQUITECT.
 
 Na **virada da v1** ([`DEFINICAO-DA-V1`](DEFINICAO-DA-V1.md)): cada item é fechado **ou**
 reclassificado com um novo gatilho. O documento não some — ele vira o **registro do fechamento**.
+
 

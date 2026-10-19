@@ -45,7 +45,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 | DEM-202610-009 *(futura)* | DEM-E: o agente **DAVID** no atendimento ao aluno (texto e voz) | futura | DEM-008 |
 | DEM-202610-010 *(proposta)* | Isolamento por ambiente (tenant) no RBAC — `can_manage` não confere o ambiente | proposta — **D-06** (gatilho: mais de um ambiente real) | DEM-002 |
 | [DEM-202610-011](dem/DEM-202610-011-fluxo-de-obras-e-estudos/planner/intent.md) | **O fluxo de obras e estudos** (admin → revisor → admin → liberada; adendos do coordenador) | **intent assinado** — as 4 decisões fechadas; a spec é o próximo passo | DEM-005 |
-| [DEM-202610-012](dem/DEM-202610-012-credencial-de-seed/planner/intent.md) | **Credencial de seed**: sem senha no código, troca obrigatória para todos | **intent assinado** (9.1: abortar) + spec/plano revisados (escopo da varredura + **D-10**) — executor: **Codex** | — |
+| [DEM-202610-012](dem/DEM-202610-012-credencial-de-seed/README.md) | **Credencial de seed**: sem senha no código, troca obrigatória para todos | **EVAL PASS** (128 testes; RF01-RF07) e **mergeada no `develop`** (`dbbfc09`) — aguarda o aceite; a D-01/D-10/D-11 seguem abertas | — |
 | DEM-202610-013 *(adiada)* | Publicação como serviço MCP | **adiada até a v1** (decisão de 19/10; ADR-017 Deferred) | — |
 | [DEM-202610-014](dem/DEM-202610-014-codex-como-devs/README.md) | **O Codex acumula DEVS e DEPLOY** (os gates preservam a independência) | **decidido** (uma página) — a DEM-012 é a próxima, executada por ele | DEM-012 |
 | [DEM-202610-013](dem/DEM-202610-013-publicacao-como-servico/planner/intent.md) | **Publicação como serviço MCP** (o DEPLOY vira API; os agentes são clientes) | **intent em rascunho** — aguarda ADR-017 + 3 decisões | DEM-004 |
@@ -71,5 +71,6 @@ Proposta do AUXILIAR-ARCHITECT, com as **12 perguntas fechadas** pelo ARQUITECT 
 - [x] ADRs 001–011
 - [x] GitFlow (`develop` nos dois repos; tags virão com o primeiro release)
 - [ ] CI/CD (`gh` autenticado + workflows + secrets) — **bloqueado**: precisa do `gh auth login`
+
 
 
