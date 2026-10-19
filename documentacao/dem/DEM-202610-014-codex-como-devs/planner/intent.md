@@ -1,75 +1,43 @@
-# Intent: DEM-202610-014 / codex-como-devs
+# Intent: DEM-202610-014 / codex-como-devs-e-deploy
 
-status: draft
+status: signed
 owner: PLANNER
 signed_by: ARQUITECT
-origin: decisão do ARQUITECT de 2026-10-19 (o Codex como DEVS, piloto na DEM-012)
-signed_at:
+origin: decisão do ARQUITECT de 2026-10-19
+signed_at: 2026-10-19
 supersedes: —
-open_questions_open: 2
-nivel_agil: 1 — é um experimento de processo, não código de produto
+open_questions_open: 0
+nivel_agil: 1 — decisão de processo, não código de produto
+nota: o Codex roda na máquina do ARQUITECT, em sessão própria; o modelo e a conta são informados por ele. A DEM-012 é a próxima DEM executada por ele.
 
 ## 1. Problema
 
-O papel **DEVS** é executado por **um único runtime** (o subagente DeepSeek). Não há dado de que
-ele seja o melhor executor — nem de que um modelo diferente cometeria menos defeitos, levaria menos
-rodadas de EVAL ou entregaria um diff mais limpo.
+O papel **DEVS** e o papel **DEPLOY** são papéis, não runtimes. O Codex já é DEVS no outro
+projeto do ARQUITECT e funciona bem; manter dois runtimes diferentes aqui só para separar
+implementar de publicar acrescenta operação sem acrescentar segurança.
 
-## 2. Outcome
+## 2. Decisão
 
-**Um dado comparável**: o **Codex** implementa a **DEM-012** como DEVS, o **EVAL cego** julga pelo
-mesmo plano de testes, e o resultado (rodadas, defeitos, tempo, aderência aos guardas) fica
-registrado e comparável ao histórico do subagente.
+**O Codex acumula DEVS e DEPLOY** neste projeto. A independência entre **implementar** e
+**publicar** é garantida pelos **gates**, não pelo runtime:
 
-## 3. Afetados
+- **EVAL cego** julga o código (o plano de testes da DEM);
+- **CI verde** é o portão do merge;
+- **o aceite na tag é do ARQUITECT** — a ADR-016 segue: o DEPLOY só publica **tag já aceita**;
+- **na DEM que ele implementa não há tag nem publicação**.
 
-O PLANNER (escreve o parecer e compara), o ARQUITECT (lê o resultado e decide o futuro do papel
-DEVS), e as DEMs seguintes (que podem usar o executor escolhido).
+## 3. O que não muda
 
-## 4. Escopo
+- A ADR-016 (publicação pelo CI, tag já aceita, os gates).
+- O fluxo branch + PR; o EVAL cego; o CI.
+- As rodadas e os defeitos do EVAL ficam no **registro normal** — sem métrica de piloto.
 
-**In**
-- o **despacho** do Codex: o que ele recebe (os guardas + o pacote da DEM-012 + o repositório);
-- a **execução** da DEM-012 por ele (branch + PR, sem publicar);
-- o **julgamento** pelo EVAL cego, com o plano da DEM-012;
-- o **parecer comparativo** do PLANNER (as métricas da tabela);
-- o **registro** no `README.md` desta DEM.
+## 4. Fora de escopo
 
-**Out (non-goals)**
-- trocar o DEVS oficialmente (é decisão posterior, com o dado na mão);
-- o Codex como **DEPLOY** (a publicação é do serviço/pipeline — ADR-016/017);
-- deixar o Codex publicar, mexer em chave, segredo, VPS ou CI.
+- **Métricas de piloto e parecer comparativo** — a decisão não é experimento.
+- O Codex publicar a **própria** DEM (a tag é do release, com o aceite do ARQUITECT).
 
-## 5. Constraints
+## 5. Sinal de sucesso
 
-- O **mesmo** EVAL, o **mesmo** plano, a **mesma** DEM — a comparação só vale assim.
-- O Codex **não** altera os guardas, o CI, o deploy nem os segredos.
-- O resultado é **registrado**, inclusive se for ruim.
-- O piloto é de **processo** (nível 1): não muda a arquitetura.
-
-## 6. Health metrics
-
-- **H-12** · as 5 métricas do piloto registradas (rodadas, defeitos, tempo, aderência, diff) · baseline: o histórico da 001/002/003 · porteiro **ARQUITECT**
-- **H-01** · a suíte da DEM-012 (a mesma exigência de antes)
-
-## 7. Sinal de sucesso
-
-O parecer responde, com número: **o Codex precisou de mais ou menos rodadas de EVAL que o
-subagente nas DEMs comparáveis?** Qualquer resposta é sucesso — a ausência de resposta é fracasso.
-
-## 8. Decisões já registradas
-
-| # | Questão | Decisão |
-|---|---|---|
-| 8.1 | A DEM do piloto | **DEM-012** (credencial de seed) |
-| 8.2 | Quem julga | o **EVAL cego** de sempre, pelo plano da 012 |
-| 8.3 | O que o Codex pode | branch + PR; **não** publica, **não** toca em segredo/VPS/CI |
-
-## 9. Perguntas abertas — só o ARQUITECT fecha
-
-- [ ] **9.1** O **despacho**: o Codex roda na **sua máquina** (a sessão, com o `codex exec`) ou há um ambiente próprio? *Recomendação: na máquina, com o repositório local, sem credencial de deploy.*
-- [ ] **9.2** O **modelo/auth** do Codex: usa a conta/modelo que você já tem configurado? *Preciso saber para não prometer um piloto que não roda.*
-
-## 10. Fora de julgamento
-
-O prompt do despacho, o formato do parecer, as ferramentas que o Codex usa.
+A DEM-012 sai do Codex, passa pelo EVAL e pelo CI, e a tag/ publicação acontece só no release
+— com o aceite do ARQUITECT. O executor não é juiz do próprio trabalho.
