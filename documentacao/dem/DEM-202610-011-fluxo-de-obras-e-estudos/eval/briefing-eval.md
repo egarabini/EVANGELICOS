@@ -18,7 +18,13 @@
 
 - Rodar a suíte **do diretório do app** (`ESTUDOS_BIBLICOS/GSI_EBD`) com `python -m pytest`
   (`--basetemp` fora do app, se o `tmp_path` falhar).
-- Executar os casos: **F-01..F-10**, **N-01..N-08**, **C-01..C-10**, os H.
+- Executar os casos: **F-01..F-16** (a **ADR-020** mudou a semântica: o **F-06 foi reescrito** — a
+  versão NOVA, a liberada intacta, só o Admin abre ciclo; o **F-06b** e o **F-12..F-16** são novos:
+  a disponibilidade, a solicitação, o `versao_id` fixado, o cancelamento, a posição), **N-01..N-08**,
+  **C-01..C-10**, os H.
+- **A distinção editorial × publicação (a ADR-020)**: o `revisar`/`recusar` movem o estado
+  **editorial** da versão (o Revisor) e **nunca** a `versao_liberada_id` nem a `disponibilidade`
+  (só o Admin). Prove isso: o `revisar` não muda a publicação.
 - Verificar os **invariantes no código**: as transições validadas no serviço (não no template); o
   `revisar`/`recusar` recusam com `hash_esperado` diferente; o `liberar` cria o instantâneo
   **liberado** e o `revisar` cria o **visto**; o `alterar` não remove; cada operação acrescenta um
@@ -44,3 +50,4 @@ mudar durante o julgamento, **não faça checkout** (verifique o diff e siga).
 
 Grave em `eval/jornada.md`. **Não leia** o `dev/jornada.md` nem o `dev/relatorio.md` (a cegueira).
 Não conserte nada — julgue.
+
