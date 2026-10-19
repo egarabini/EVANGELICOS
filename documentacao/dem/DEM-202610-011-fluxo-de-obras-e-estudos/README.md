@@ -11,7 +11,7 @@ a **ADR-011** (a aprovação assinada) com a **emenda da ADR-019** (a assinatura
 | Fatia | O quê | Estado |
 |---|---|---|
 | **1** | **O domínio**: as 12 operações, os hashes (normalização LF+NFC + JSON canônico), os gates de licença, a trilha append-only, a disponibilidade e o `VinculoObra` | **PASS** (269 testes; 39/39 casos; 9/9 mutações) e **mergeada** no `develop` (`7670aec`, o PR #4) |
-| **2** | **As telas** (na v1, a DEM-005): admin, revisor, coordenador | a próxima |
+| **2** | **As telas do fluxo** (na v1): o esqueleto mínimo + o admin + o revisor | **design + briefing escritos** — aguarda o despacho ao Codex |
 | **3** | **A coordenação**: o `desvincular`, o CRUD do **adendo do ambiente** e o `planejar` (a 9.5) | a fatia da coordenação |
 
 ## O PASS — e o que o EVAL registrou
@@ -38,3 +38,4 @@ novos; e o `contestar` **não existe** mais (é a `solicitar_revisao`).
 - A **ADR-020** (a autoridade e a disponibilidade), a **ADR-019** (emendada), a **ADR-011**
 - O **despacho** e o **briefing** do Codex, o **relatório**, a **jornada**, as **evidências de mutação**: [`dev/`](dev/)
 - O **EVAL**: [`eval/jornada.md`](eval/jornada.md) — o PASS da verificação
+
