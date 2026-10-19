@@ -123,3 +123,18 @@ atualiza nem apaga; a imutabilidade contra SQL direto (o trigger/ACL) é do depl
 **L4 — a remoção de item.** Nesta fatia o `alterar` **não remove** itens (só adiciona/atualiza); a
 remoção fica para a fatia com o mapa de origem e o adendo de ambiente, com a política das FKs
 explicitada. Registrado como limite da fatia 1, não como esquecimento.
+
+**L1a — a normalização antes do hash (o acréscimo do ARQUITECT, 19/10).** Antes de hashear, cada
+campo passa por: quebras de linha **LF** (`\r\n` e `\r` → `\n`) e texto em **NFC**
+(`unicodedata.normalize`). Os capítulos vêm de Markdown editado no **Windows** — sem isso, o mesmo
+texto salvo com CRLF e com LF gera **hashes diferentes**, e a assinatura desmente o conteúdo por
+causa do formato do arquivo. Os testes: **CRLF e LF dão o mesmo hash; NFC e NFD dão o mesmo hash.**
+
+**L4a — a próxima fatia precisa poder remover (o acréscimo do ARQUITECT).** O Admin precisará
+**desfazer uma importação equivocada**: "remover capítulo/adendo da base" é **requisito da fatia
+seguinte** (junto com o mapa de origem e o adendo de ambiente), com a política das FKs.
+
+**L5 — a transação é da camada de rotas (a DEM-005).** O domínio só faz `flush()`; a v1 abre e
+fecha a transação: **um `commit` por operação do fluxo**, com `rollback` em `FluxoBloqueado`.
+Registrado na DEM-005 (RF12).
+

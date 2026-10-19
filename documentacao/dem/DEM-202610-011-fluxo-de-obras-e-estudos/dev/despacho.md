@@ -77,8 +77,12 @@ Suas 4 lacunas foram decididas (o design §8). O delta no seu PR:
    assinatura persistida — a troca é livre.)
 2. **A `ObraVersaoEvento`** (a trilha append-only): `versao_id, tipo, autor_id, quando, detalhe
    (JSON)`; cada operação acrescenta o seu evento. Não se apaga nem atualiza.
+   **2a. A normalização antes do hash** (o acréscimo do ARQUITECT): cada campo em **LF**
+   (`\r\n`/`\r` → `\n`) e em **NFC** — o mesmo texto salvo no Windows e no Linux dá o **mesmo
+   hash**. Os testes novos: CRLF × LF e NFC × NFD (C-10).
 3. **O `liberar` relê o inventário** (`fonte_decisao(fonte_id, recarregar=True)`) — o gate não usa
    o cache.
 4. **A remoção**: nesta fatia o `alterar` não remove itens (registre no relatório).
 
 O EVAL só dispara depois do delta. O resto do escopo não muda.
+

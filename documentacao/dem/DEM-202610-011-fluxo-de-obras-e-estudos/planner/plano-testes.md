@@ -45,6 +45,7 @@
 | **C-07** | a independência do domínio | `services/flow.py` **não importa `reflex`** (o teste de grep) |
 | **C-08** | a canonização com `\|`/aspas/newline no texto | o **JSON canônico** não é ambíguo (dois textos diferentes → hashes diferentes) |
 | **C-09** | o `liberar` relê o inventário | a decisão é a **atual** (mudar o CSV e liberar → o gate usa a nova decisão) |
+| **C-10** | a normalização antes do hash | **CRLF e LF dão o mesmo hash**; **NFC e NFD dão o mesmo hash** |
 
 ## 4. Saúde (H)
 
@@ -67,6 +68,7 @@
 
 **Fora desta fatia**: as telas (fatia 2), o `Study` (a fatia seguinte), o `planejar` (a fatia
 posterior, a 9.5), o multi-ambiente real (D-06).
+
 
 
 
