@@ -60,4 +60,5 @@ escondida dentro de um projeto.
 | 2026-10-18 | EVAL rodada 3 **FAIL** (F-082 fora da §6.1) → corrigido + verificador endurecido (`3018146`) |
 | 2026-10-18 | EVAL rodada 4 **FAIL** (H-01: ponteiro no commit pré-merge) → apontado para `ba165d9` (`6d9d1cc`) |
 | 2026-10-18 | **EVAL rodada 5: PASS** (82 testes no hash pinado; verificador PASS, 86 linhas) — **aguarda aceite do ARQUITECT** |
+| 2026-10-19 | **Aceite do ARQUITECT + revisão doutrinária** — as 22 linhas revisadas recebem `revisado_por=ARQUITECT` / `revisado_em=2026-10-19` (estado atual mantido, opção A; a F-083 segue `depende`); verificador PASS após a alteração; **DEM FECHADA** (`2e55637`) |
 
