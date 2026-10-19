@@ -12,8 +12,8 @@
 | **D-04** | **Environment `producao` sem aprovador** (ADR-016) | deploy sem pausa humana | revisar na virada da v1 | ARQUITECT |
 | **D-05** | **Dump do banco só na VPS** (manifesto, não cópia) | perda da VPS = perda do backup | **antes de dados reais**: cópia fora do servidor | ARQUITECT |
 | **D-06** | **`can_manage` sem ambiente / posse por id do cliente** (DEM-010) | um coordenador age sobre usuário de outro ambiente | **antes de ter mais de um ambiente real** | PLANNER (intent) |
-| **D-07** | **Aprovação de estudo por uma só assinatura** (DEM-011, ADR-011 não implementada) | o admin sozinho libera estudo; sem hash de conteúdo | antes de liberar estudos a coordenadores reais | PLANNER (intent) |
-| **D-08** | **`logout` não limpa `AdminState`** (WARN da DEM-002) | resíduo de sessão na mesma aba | na migração do admin (DEM-005) | PLANNER |
+| **D-07** | **Aprovação de estudo por uma só assinatura** (ADR-011 não implementada) | o admin sozinho libera estudo; sem hash de conteúdo | **em implementação pela DEM-011** (o fluxo com o parecer e o hash por versão) | PLANNER (intent) |
+| **D-08** | **`logout` não limpa `AdminState`** (WARN da DEM-002) | resíduo de sessão na mesma aba | **fecha por construção na v1**: o `AdminState` é do Reflex; a base nova tem auth própria (DEM-005) | PLANNER |
 | **D-09** | **Dados de teste e lixo de EVAL** (`eval/tmp-*`, usuários demo) | confusão e vazamento de dado de teste | **na virada da v1**: limpeza de histórico antes de dados reais | PLANNER + ARQUITECT |
 | **D-10** | **Coordenador criado com senha conhecida**: `create_gestor` (`gsi_ebd/states/admin.py`) cria com `senha123` fixa, e a tela (`gsi_ebd/pages/admin.py`) exibe "Senha inicial: senha123" | quem cria/entrevê a tela sabe a senha inicial de todo coordenador novo | **antes de dados reais** — junto com o D-01, no fechamento | ARQUITECT (decisão) · PLANNER (intent) |
 
@@ -30,3 +30,4 @@ agora.** Verificar é do ARQUITECT.
 
 Na **virada da v1** ([`DEFINICAO-DA-V1`](DEFINICAO-DA-V1.md)): cada item é fechado **ou**
 reclassificado com um novo gatilho. O documento não some — ele vira o **registro do fechamento**.
+
