@@ -155,4 +155,22 @@ E o **N-01**: o `importar` precisa de `recarregar=True` — o cache serve à exi
 
 O `liberar` de uma v2 também corrige o estado: a `Obra.status` → `liberada`, o `versao_liberada_id`
 → a nova, e a **anterior** → `substituida` (o EVAL notou que o status `substituida` nunca era usado).
+## 10. A v6 — a rodada de revisão (a lacuna do DEVS pós-v5)
 
+A mesma versão pode ir à revisão **mais de uma vez**: a recusa → o reenvio → nova revisão; a
+contestação → nova revisão. Com só `momento` (`visto`/`liberado`), os instantâneos das rodadas
+**se sobrepõem** — e não há como dizer qual "visto" é o da revisão atual.
+
+**Decisão**: a versão tem uma **rodada**.
+
+- `ObraVersao.rodada: int = 0` — a rodada de revisão corrente.
+- As snapshots ganham `rodada: int` (além de `momento`): a chave única é `(versao_id, momento,
+  rodada)`. Cada `revisar` faz `rodada += 1` e cria o **"visto" da rodada nova**; o `liberar` cria
+  o **"liberado" da rodada corrente**.
+- A **RF11b** compara o "visto" **da rodada corrente** com o "liberado" da mesma rodada — nunca
+  contra uma rodada antiga.
+- A recusa/reenvio/contestação **não apagam** os instantâneos antigos (o histórico fica; os eventos
+  registram o que aconteceu). O parecer corrente é o da rodada corrente; os anteriores ficam na
+  trilha (`ObraVersaoEvento`).
+
+Isso fecha a lacuna **sem** tabela nova: é uma coluna na versão e uma nas duas snapshots.

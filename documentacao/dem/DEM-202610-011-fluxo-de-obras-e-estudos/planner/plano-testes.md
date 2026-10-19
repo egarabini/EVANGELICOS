@@ -19,6 +19,7 @@
 | **F-08** | o instantâneo **visto** | o `revisar` cria a cópia do conteúdo que o Revisor leu; a diferença com o liberado mostra o **texto** de cada item |
 | **F-09** | `alterar` com o conteúdo novo | a obra recebe os capítulos/adendos novos e nasce a versão N+1; a liberada fica |
 | **F-10** | a trilha imutável | cada operação acrescenta um `ObraVersaoEvento`; a recusa e o reenvio sucessivos ficam no histórico |
+| **F-11** | a **rodada de revisão** | após a contestação (ou o reenvio), o `revisar` cria o "visto" da **rodada nova**; a RF11b compara o visto × o liberado da **mesma rodada**; os instantâneos antigos ficam no histórico |
 
 ## 2. Gates e permissões (N)
 
@@ -69,6 +70,7 @@
 
 **Fora desta fatia**: as telas (fatia 2), o `Study` (a fatia seguinte), o `planejar` (a fatia
 posterior, a 9.5), o multi-ambiente real (D-06).
+
 
 
 
