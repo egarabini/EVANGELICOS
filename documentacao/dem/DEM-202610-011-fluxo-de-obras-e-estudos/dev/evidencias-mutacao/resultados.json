@@ -1,0 +1,44 @@
+[
+  {
+    "mutacao": "gate-nao-entra",
+    "seletor": "test_rf07_n01",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "resumo": "1 failed, 53 deselected in 0.67s"
+  },
+  {
+    "mutacao": "assinatura-revisor",
+    "seletor": "test_rf03_n03_assinatura_incompleta_bloqueia and revisor_id",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "resumo": "1 failed, 53 deselected in 0.97s"
+  },
+  {
+    "mutacao": "papel",
+    "seletor": "test_rf02_n04",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "resumo": "8 failed, 46 deselected in 1.46s"
+  },
+  {
+    "mutacao": "snapshot-liberado",
+    "seletor": "test_rf05_f05_f09_n07",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "resumo": "1 failed, 53 deselected in 0.75s"
+  },
+  {
+    "mutacao": "hash-esperado",
+    "seletor": "test_rf03_n08",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "resumo": "2 failed, 52 deselected in 1.02s"
+  },
+  {
+    "mutacao": "snapshot-visto",
+    "seletor": "test_rf11_f08",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "resumo": "1 failed, 53 deselected in 0.84s"
+  }
+]

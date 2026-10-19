@@ -1,0 +1,25 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+______________ test_rf05_f05_f09_n07_snapshot_liberada_imutavel _______________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x0000022ADC952660>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~.../AppData/Local/Temp/dem011-mutacao-4v651evf/snapshot-liberado-tmp-mutante/test_rf05_f05_f09_n07_snapshot0/fontes.csv'))
+
+    def test_rf05_f05_f09_n07_snapshot_liberada_imutavel(fluxo):
+        from gsi_ebd.models import ObraVersaoCapitulo, ObraVersaoAdendo
+        from sqlmodel import select
+        sessao, flow, admin, _, _ = fluxo
+        obra, versao = preparar(fluxo)
+        aprovar(fluxo, versao)
+        flow.liberar(sessao, versao, "Sem alteracao", admin)
+        capitulos = sessao.exec(select(ObraVersaoCapitulo).where(
+            ObraVersaoCapitulo.versao_id == versao.id, ObraVersaoCapitulo.momento == "liberado")).all()
+        notas = sessao.exec(select(ObraVersaoAdendo).where(
+            ObraVersaoAdendo.versao_id == versao.id, ObraVersaoAdendo.momento == "liberado")).all()
+>       assert len(capitulos) == len(notas) == 1
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests\test_flow.py:183: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf05_f05_f09_n07_snapshot_liberada_imutavel
+1 failed, 53 deselected in 0.75s

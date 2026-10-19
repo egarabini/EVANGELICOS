@@ -1,0 +1,46 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+______________ test_rf11_f08_c01_c04_c06_diferenca_mostra_texto _______________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x00000254191B2660>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...eto/AppData/Local/Temp/dem011-mutacao-4v651evf/snapshot-visto-tmp-mutante/test_rf11_f08_c01_c04_c06_dife0/fontes.csv'))
+
+    def test_rf11_f08_c01_c04_c06_diferenca_mostra_texto(fluxo):
+        from gsi_ebd.models import ObraVersaoCapitulo
+        from sqlmodel import select
+        sessao, flow, admin, _, _ = fluxo
+        obra, versao = preparar(fluxo)
+        aprovar(fluxo, versao)
+        visto = sessao.exec(select(ObraVersaoCapitulo).where(
+            ObraVersaoCapitulo.versao_id == versao.id,
+>           ObraVersaoCapitulo.momento == "visto")).one()
+                                                    ^^^^^
+
+tests\test_flow.py:217: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Projetos\EM_ESTUDO\EVANGELICOS\ESTUDOS_BIBLICOS\GSI_EBD\.venv\Lib\site-packages\sqlalchemy\engine\result.py:1840: in one
+    return self._only_one_row(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.engine.result.ScalarResult object at 0x000002541942C950>
+raise_for_second_row = True, raise_for_none = True, scalar = False
+
+    def _only_one_row(
+        self,
+        raise_for_second_row: bool,
+        raise_for_none: bool,
+        scalar: bool,
+    ) -> Optional[_R]:
+        onerow = self._fetchone_impl
+    
+        row: Optional[_InterimRowType[Any]] = onerow(hard_close=True)
+        if row is None:
+            if raise_for_none:
+>               raise exc.NoResultFound(
+                    "No row was found when one was required"
+                )
+E               sqlalchemy.exc.NoResultFound: No row was found when one was required
+
+C:\Projetos\EM_ESTUDO\EVANGELICOS\ESTUDOS_BIBLICOS\GSI_EBD\.venv\Lib\site-packages\sqlalchemy\engine\result.py:772: NoResultFound
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf11_f08_c01_c04_c06_diferenca_mostra_texto
+1 failed, 53 deselected in 0.84s

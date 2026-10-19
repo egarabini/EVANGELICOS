@@ -1,0 +1,23 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________ test_rf03_n03_assinatura_incompleta_bloqueia[revisor_id-None] ________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000002DD80462510>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...AppData/Local/Temp/dem011-mutacao-4v651evf/assinatura-revisor-tmp-mutante/test_rf03_n03_assinatura_incom0/fontes.csv'))
+campo = 'revisor_id', valor = None
+
+    @pytest.mark.parametrize("campo,valor", [("revisor_id", None), ("revisado_em", None), ("hash_visto", "")])
+    def test_rf03_n03_assinatura_incompleta_bloqueia(fluxo, campo, valor):
+        sessao, flow, admin, _, _ = fluxo
+        _, versao = preparar(fluxo)
+        aprovar(fluxo, versao)
+        setattr(versao, campo, valor)
+        sessao.add(versao)
+        sessao.flush()
+>       with pytest.raises(FluxoBloqueado, match="Assinatura"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:264: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf03_n03_assinatura_incompleta_bloqueia[revisor_id-None]
+1 failed, 53 deselected in 0.97s

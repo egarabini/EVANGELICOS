@@ -1,0 +1,164 @@
+FFFFFFFF                                                                 [100%]
+================================== FAILURES ===================================
+_____________ test_rf02_n04_papel_incorreto_na_revisao[revisar-1] _____________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000001A88F746510>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...eduardo.neto/AppData/Local/Temp/dem011-mutacao-4v651evf/papel-tmp-mutante/test_rf02_n04_papel_incorreto_0/fontes.csv'))
+papel = <Role.ADMIN: 1>, operacao = 'revisar'
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.REVISOR])
+    @pytest.mark.parametrize("operacao", ["revisar", "recusar"])
+    def test_rf02_n04_papel_incorreto_na_revisao(fluxo, papel, operacao):
+        sessao, flow, _, _, _ = fluxo
+        obra, versao = preparar(fluxo)
+        usuario = User(id=123, email="outro@example.test", role=papel)
+        argumentos = [sessao, versao, "Parecer"]
+        if operacao == "revisar":
+            argumentos.append([])
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:278: Failed
+_____________ test_rf02_n04_papel_incorreto_na_revisao[revisar-2] _____________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000001A88F977390>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...eduardo.neto/AppData/Local/Temp/dem011-mutacao-4v651evf/papel-tmp-mutante/test_rf02_n04_papel_incorreto_1/fontes.csv'))
+papel = <Role.COORDENADOR: 2>, operacao = 'revisar'
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.REVISOR])
+    @pytest.mark.parametrize("operacao", ["revisar", "recusar"])
+    def test_rf02_n04_papel_incorreto_na_revisao(fluxo, papel, operacao):
+        sessao, flow, _, _, _ = fluxo
+        obra, versao = preparar(fluxo)
+        usuario = User(id=123, email="outro@example.test", role=papel)
+        argumentos = [sessao, versao, "Parecer"]
+        if operacao == "revisar":
+            argumentos.append([])
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:278: Failed
+_____________ test_rf02_n04_papel_incorreto_na_revisao[revisar-3] _____________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000001A88FA70E10>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...eduardo.neto/AppData/Local/Temp/dem011-mutacao-4v651evf/papel-tmp-mutante/test_rf02_n04_papel_incorreto_2/fontes.csv'))
+papel = <Role.INSTRUTOR: 3>, operacao = 'revisar'
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.REVISOR])
+    @pytest.mark.parametrize("operacao", ["revisar", "recusar"])
+    def test_rf02_n04_papel_incorreto_na_revisao(fluxo, papel, operacao):
+        sessao, flow, _, _, _ = fluxo
+        obra, versao = preparar(fluxo)
+        usuario = User(id=123, email="outro@example.test", role=papel)
+        argumentos = [sessao, versao, "Parecer"]
+        if operacao == "revisar":
+            argumentos.append([])
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:278: Failed
+_____________ test_rf02_n04_papel_incorreto_na_revisao[revisar-4] _____________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000001A88F923BB0>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...eduardo.neto/AppData/Local/Temp/dem011-mutacao-4v651evf/papel-tmp-mutante/test_rf02_n04_papel_incorreto_3/fontes.csv'))
+papel = <Role.ALUNO: 4>, operacao = 'revisar'
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.REVISOR])
+    @pytest.mark.parametrize("operacao", ["revisar", "recusar"])
+    def test_rf02_n04_papel_incorreto_na_revisao(fluxo, papel, operacao):
+        sessao, flow, _, _, _ = fluxo
+        obra, versao = preparar(fluxo)
+        usuario = User(id=123, email="outro@example.test", role=papel)
+        argumentos = [sessao, versao, "Parecer"]
+        if operacao == "revisar":
+            argumentos.append([])
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:278: Failed
+_____________ test_rf02_n04_papel_incorreto_na_revisao[recusar-1] _____________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000001A88FB49480>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...eduardo.neto/AppData/Local/Temp/dem011-mutacao-4v651evf/papel-tmp-mutante/test_rf02_n04_papel_incorreto_4/fontes.csv'))
+papel = <Role.ADMIN: 1>, operacao = 'recusar'
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.REVISOR])
+    @pytest.mark.parametrize("operacao", ["revisar", "recusar"])
+    def test_rf02_n04_papel_incorreto_na_revisao(fluxo, papel, operacao):
+        sessao, flow, _, _, _ = fluxo
+        obra, versao = preparar(fluxo)
+        usuario = User(id=123, email="outro@example.test", role=papel)
+        argumentos = [sessao, versao, "Parecer"]
+        if operacao == "revisar":
+            argumentos.append([])
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:278: Failed
+_____________ test_rf02_n04_papel_incorreto_na_revisao[recusar-2] _____________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000001A88FB45EB0>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...eduardo.neto/AppData/Local/Temp/dem011-mutacao-4v651evf/papel-tmp-mutante/test_rf02_n04_papel_incorreto_5/fontes.csv'))
+papel = <Role.COORDENADOR: 2>, operacao = 'recusar'
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.REVISOR])
+    @pytest.mark.parametrize("operacao", ["revisar", "recusar"])
+    def test_rf02_n04_papel_incorreto_na_revisao(fluxo, papel, operacao):
+        sessao, flow, _, _, _ = fluxo
+        obra, versao = preparar(fluxo)
+        usuario = User(id=123, email="outro@example.test", role=papel)
+        argumentos = [sessao, versao, "Parecer"]
+        if operacao == "revisar":
+            argumentos.append([])
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:278: Failed
+_____________ test_rf02_n04_papel_incorreto_na_revisao[recusar-3] _____________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000001A88F9D1D00>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...eduardo.neto/AppData/Local/Temp/dem011-mutacao-4v651evf/papel-tmp-mutante/test_rf02_n04_papel_incorreto_6/fontes.csv'))
+papel = <Role.INSTRUTOR: 3>, operacao = 'recusar'
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.REVISOR])
+    @pytest.mark.parametrize("operacao", ["revisar", "recusar"])
+    def test_rf02_n04_papel_incorreto_na_revisao(fluxo, papel, operacao):
+        sessao, flow, _, _, _ = fluxo
+        obra, versao = preparar(fluxo)
+        usuario = User(id=123, email="outro@example.test", role=papel)
+        argumentos = [sessao, versao, "Parecer"]
+        if operacao == "revisar":
+            argumentos.append([])
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:278: Failed
+_____________ test_rf02_n04_papel_incorreto_na_revisao[recusar-4] _____________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000001A88F9D1F20>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...eduardo.neto/AppData/Local/Temp/dem011-mutacao-4v651evf/papel-tmp-mutante/test_rf02_n04_papel_incorreto_7/fontes.csv'))
+papel = <Role.ALUNO: 4>, operacao = 'recusar'
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.REVISOR])
+    @pytest.mark.parametrize("operacao", ["revisar", "recusar"])
+    def test_rf02_n04_papel_incorreto_na_revisao(fluxo, papel, operacao):
+        sessao, flow, _, _, _ = fluxo
+        obra, versao = preparar(fluxo)
+        usuario = User(id=123, email="outro@example.test", role=papel)
+        argumentos = [sessao, versao, "Parecer"]
+        if operacao == "revisar":
+            argumentos.append([])
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:278: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf02_n04_papel_incorreto_na_revisao[revisar-1]
+FAILED tests/test_flow.py::test_rf02_n04_papel_incorreto_na_revisao[revisar-2]
+FAILED tests/test_flow.py::test_rf02_n04_papel_incorreto_na_revisao[revisar-3]
+FAILED tests/test_flow.py::test_rf02_n04_papel_incorreto_na_revisao[revisar-4]
+FAILED tests/test_flow.py::test_rf02_n04_papel_incorreto_na_revisao[recusar-1]
+FAILED tests/test_flow.py::test_rf02_n04_papel_incorreto_na_revisao[recusar-2]
+FAILED tests/test_flow.py::test_rf02_n04_papel_incorreto_na_revisao[recusar-3]
+FAILED tests/test_flow.py::test_rf02_n04_papel_incorreto_na_revisao[recusar-4]
+8 failed, 46 deselected in 1.46s

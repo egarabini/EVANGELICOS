@@ -1,0 +1,52 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+___ test_rf03_n08_hash_esperado_impede_assinar_conteudo_nao_visto[revisar] ____
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000002113855E510>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...neto/AppData/Local/Temp/dem011-mutacao-4v651evf/hash-esperado-tmp-mutante/test_rf03_n08_hash_esperado_im0/fontes.csv'))
+operacao = 'revisar'
+
+    @pytest.mark.parametrize("operacao", ["revisar", "recusar"])
+    def test_rf03_n08_hash_esperado_impede_assinar_conteudo_nao_visto(fluxo, operacao):
+        from sqlmodel import select
+        sessao, flow, _, revisor, _ = fluxo
+        obra, versao = preparar(fluxo)
+        esperado = flow.hash_obra(sessao, obra.id)
+        capitulo = sessao.exec(select(ObraCapitulo).where(ObraCapitulo.obra_id == obra.id)).one()
+        capitulo.conteudo_md = "Mudou antes do parecer"
+        sessao.add(capitulo)
+        sessao.flush()
+        argumentos = [sessao, versao, "Parecer"]
+        if operacao == "revisar":
+            argumentos.append([])
+>       with pytest.raises(FluxoBloqueado, match="mudou"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:317: Failed
+___ test_rf03_n08_hash_esperado_impede_assinar_conteudo_nao_visto[recusar] ____
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000002113877B250>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...neto/AppData/Local/Temp/dem011-mutacao-4v651evf/hash-esperado-tmp-mutante/test_rf03_n08_hash_esperado_im1/fontes.csv'))
+operacao = 'recusar'
+
+    @pytest.mark.parametrize("operacao", ["revisar", "recusar"])
+    def test_rf03_n08_hash_esperado_impede_assinar_conteudo_nao_visto(fluxo, operacao):
+        from sqlmodel import select
+        sessao, flow, _, revisor, _ = fluxo
+        obra, versao = preparar(fluxo)
+        esperado = flow.hash_obra(sessao, obra.id)
+        capitulo = sessao.exec(select(ObraCapitulo).where(ObraCapitulo.obra_id == obra.id)).one()
+        capitulo.conteudo_md = "Mudou antes do parecer"
+        sessao.add(capitulo)
+        sessao.flush()
+        argumentos = [sessao, versao, "Parecer"]
+        if operacao == "revisar":
+            argumentos.append([])
+>       with pytest.raises(FluxoBloqueado, match="mudou"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:317: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf03_n08_hash_esperado_impede_assinar_conteudo_nao_visto[revisar]
+FAILED tests/test_flow.py::test_rf03_n08_hash_esperado_impede_assinar_conteudo_nao_visto[recusar]
+2 failed, 52 deselected in 1.02s

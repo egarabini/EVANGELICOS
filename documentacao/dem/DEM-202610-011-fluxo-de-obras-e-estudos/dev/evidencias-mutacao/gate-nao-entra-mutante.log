@@ -1,0 +1,18 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____________________ test_rf07_n01_nao_entra_nao_cria_obra ____________________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x000001497850E660>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...eto/AppData/Local/Temp/dem011-mutacao-4v651evf/gate-nao-entra-tmp-mutante/test_rf07_n01_nao_entra_nao_cr0/fontes.csv'))
+
+    def test_rf07_n01_nao_entra_nao_cria_obra(fluxo):
+        from sqlmodel import select
+        from gsi_ebd.models import ObraVersao
+        sessao, flow, admin, _, _ = fluxo
+>       with pytest.raises(FluxoBloqueado, match="fonte"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:241: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf07_n01_nao_entra_nao_cria_obra - Failed: DI...
+1 failed, 53 deselected in 0.67s
