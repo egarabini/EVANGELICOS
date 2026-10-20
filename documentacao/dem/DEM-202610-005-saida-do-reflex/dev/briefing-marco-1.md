@@ -28,9 +28,11 @@
 - a **matriz papel × rota** (a DEM-002, `gsi_ebd/utils/rbac.py`) aplicada como **dependências**;
 - o **H-14** (a D-11): a flag `must_change_password` **bloqueia** as rotas até a troca (a
   implementação própria; o 1b usa a do provedor);
-- o **`didasko_v1`** (o banco próprio) + o **baseline de Alembic**;
-- a **imagem** (o Dockerfile da v1) e o **pipeline** (a v1 no compose; o `subir.sh` com o
-  **`exec -e SEED_PASSWORD`** — o A-2 — e o **`--force-recreate`**, nunca o restart do Traefik);
+- o **Postgres próprio da homologação** (o contêiner dedicado, a **rede interna**, o **volume próprio**) com o banco **`didasko_v1`** + o **baseline de Alembic** — **NÃO** criar papel nem banco no `didasko_postgres` antes da virada (a condição b);
+- a **imagem** (o Dockerfile da v1) e o **pipeline** (a v1 no **Compose próprio** da homologação;
+  o `subir.sh` com o **`exec -e SEED_PASSWORD`** — o A-2, **a partir da próxima tag** — e o
+  **`--force-recreate`**; o **Traefik da v0 não é reiniciado nem reconfigurado** — os labels do
+  roteador vão no Compose da v1);
 - a **homologação** no `homolog.didasko.app.br` (o DNS já existe; o **certificado** — o RF14);
 - o **RF13** (o issuer alcançável do contêiner — a solução **versionada** no Compose).
 
@@ -43,6 +45,13 @@
 - **Nada de segredo no repositório**: o `.env.example`; o `.env` na VPS.
 - **Sem tocar no v0**: a produção (`/home/eduardo/didasko`) e o Traefik não mudam no marco 1.
 - **Sem a 1b**: o login do marco 1 é a implementação própria mínima, **atrás da interface**.
+- **Os limites de memória e de CPU** dos contêineres da v1 na homologação (os valores vão no
+  relatório; o E-04 e a latência medem o uso real) — a condição c.
+- **NÃO AUTORIZADO neste marco**: qualquer mudança no **Ollama**, no **Traefik** ou nos
+  contêineres da **v0**; o limite de CPUs do Ollama (o RF15) fica para o **marco 1b** — a condição f.
+- **O desmonte** da homologação exige a **confirmação do ARQUITECT na hora** — a condição g.
+- **Se a emissão do certificado falhar**: recriar **só** os contêineres do serviço da v1; se
+  persistir, **PARE e devolva ao PLANNER** — a condição a.
 - Se faltar uma decisão (a infra, um campo), **PARE e devolva ao PLANNER** — como nas fatias 1 e 2.
 
 ## 4. O Definition of Done
@@ -58,3 +67,6 @@
 - o **marco 1b** (a identidade pelo provedor — a ADR-021);
 - os **marcos 2–6** (as telas do fluxo, o coordenador, o instrutor, a lição, a virada);
 - o desmonte do experimento, o DNS, a infra do ARQUITECT.
+
+
+

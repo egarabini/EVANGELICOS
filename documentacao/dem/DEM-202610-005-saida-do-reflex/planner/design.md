@@ -47,7 +47,7 @@ ESTUDOS_BIBLICOS/GSI_EBD/
 
 ## 4. O deploy (a RF07)
 
-- **O banco**: a `DATABASE_URL` da v1 aponta para o **banco próprio** (`didasko_v1`); a v0 continua no antigo. O Postgres é o mesmo serviço.
+- **O banco**: a `DATABASE_URL` da v1 aponta para **um Postgres PRÓPRIO da homologação** (o contêiner dedicado, a rede interna, o volume próprio) com o banco `didasko_v1`; **não** o `didasko_postgres` (a condição b da autorização). A v0 continua no antigo.
 - A imagem da v1: `deploy/app-v1.Dockerfile` (ou o mesmo Dockerfile com um entrypoint novo).
 - O pipeline: a tag dispara; o entry script da v1 faz o backup → o checkout → o compose da v1 →
   o HTTP. **O mesmo `restrict,command`** e a mesma cadeia de chaves (ADR-015/016).
@@ -80,6 +80,7 @@ ESTUDOS_BIBLICOS/GSI_EBD/
 O plano de testes **por marco** (o `plano-testes.md` da DEM-005, escrito antes do marco 1 e
 acrescentado por marco): a matriz, os rendes, os fluxos, as dívidas (H-14/H-15), o deploy e a
 virada.
+
 
 
 

@@ -55,7 +55,7 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 - [ ] **RF14 — a emissão do certificado**: o Traefik **não repete** a obtenção após falha até o **roteador recarregar**. O procedimento é **recriar os contêineres do serviço afetado**, nunca reiniciar o Traefik. A versão da imagem (`latest`; em uso 3.7.14, o digest registrado) é **decisão do ARQUITECT**, no marco 1.
 - [ ] **RF15 — as CPUs do Ollama**: limitar as CPUs do Ollama na homologação e na produção da v1, para o login não competir com a inferência (a causa medida do E-05).
 - [ ] **RF11 — o inventário no contêiner**: o `inventario.csv` (o `documentacao/fontes/` do repositório de conteúdo) precisa estar **acessível no contêiner** da v1 — o Compose hoje só monta `conteudo/ESTUDOS_BIBLICOS`; a v1 monta ou copia o inventário e aponta o `CAMINHO_INVENTARIO` (o `services/fontes.py` da DEM-011 o lê).
-- [ ] **RF10 — o banco da v1**: banco próprio (`didasko_v1`, no mesmo Postgres), schema do zero + o **baseline de Alembic**; a `DATABASE_URL` da v1 aponta para ele; a v0 fica no antigo. **Sem migração de schema no banco existente.**
+- [ ] **RF10 — o banco da v1**: **um Postgres próprio da homologação** (o contêiner dedicado, a rede interna, o volume próprio) com o banco `didasko_v1`, schema do zero + o **baseline de Alembic**; a `DATABASE_URL` da v1 aponta para ele; a v0 fica no antigo. **Nada é criado no `didasko_postgres` antes da virada** (a condição b da autorização).
 - [ ] **RF09 — a virada**: o Traefik aponta o domínio principal para a v1; a v0 fica de pé para o
   **retorno** — que basta **enquanto só houver dados de teste**. **Dados reais só entram depois de
   um período estável** (o plano de virada define); **a partir daí "voltar à v0" perde dados**, e a
@@ -92,6 +92,7 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 
 A busca (DEM-B/C/D), o DAVID (DEM-E), o `planejar` (a 9.5, fatia posterior), o multi-ambiente real
 (D-06), o serviço MCP (DEM-013, adiada).
+
 
 
 
