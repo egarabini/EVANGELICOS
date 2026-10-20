@@ -35,12 +35,8 @@ base de conhecimento (2026-10-17). A **014** é a troca de framework pedida pelo
 A **015** separa **operação** de **deploy**: o agente pode instalar chave pública e
 diagnosticar (lista fechada), e continua proibido de publicar — a ADR-010 permanece no que
 importa.
+## Como uma ADR vira `Accepted` (a regra de processo, 2026-10-20)
 
-
-
-
-
-
-
-
-
+Uma ADR só vai a **`Accepted`** depois de a decisão constar **na conversa do ARQUITECT** ou de ele
+confirmá-la **por escrito**. Uma **recomendação** do AUXILIAR, do PLANNER ou de qualquer agente
+**não** é aceite — a `Accepted` é um ato do ARQUITECT, e o registro diz quem decidiu e quando.
