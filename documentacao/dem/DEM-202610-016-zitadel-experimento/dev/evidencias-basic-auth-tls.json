@@ -1,0 +1,30 @@
+{
+  "dem": "DEM-202610-016",
+  "commit": "dcf136a",
+  "clone_reused": true,
+  "basic_auth_generated_on_vps": true,
+  "credential_values_displayed": false,
+  "credential_values_versioned": false,
+  "password_file": "/home/didasko-deploy/experimentos/didasko/experiments/zitadel/basic-auth-password.txt",
+  "password_file_mode": "600",
+  "env_mode": "600",
+  "env_key": "EXPERIMENTO_BASIC_USERS",
+  "public_checks": [
+    {
+      "path": "/.well-known/openid-configuration",
+      "verify_code": 18,
+      "verify_message": "self-signed certificate"
+    },
+    {
+      "path": "/ui/v2/login/healthy",
+      "verify_code": 18,
+      "verify_message": "self-signed certificate"
+    }
+  ],
+  "app_started": false,
+  "tls_validation_bypassed": false,
+  "operations_stopped": true,
+  "teardown_executed": false,
+  "real_login_measurements": [],
+  "recommendation": null
+}

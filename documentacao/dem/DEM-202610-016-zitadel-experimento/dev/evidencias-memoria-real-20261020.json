@@ -1,0 +1,257 @@
+{
+  "idle_samples": [
+    {
+      "utc": "2026-10-20T10:45:37.613291+00:00",
+      "phase": "idle",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 119852236.8,
+        "experimento-oidc-identity-api-1": 112407347.2,
+        "experimento-oidc-identity-db-1": 86518005.76
+      },
+      "provider_bytes": 318777589.76,
+      "total_experiment_bytes": 369077780.48
+    },
+    {
+      "utc": "2026-10-20T10:45:40.797438+00:00",
+      "phase": "idle",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 119852236.8,
+        "experimento-oidc-identity-api-1": 112407347.2,
+        "experimento-oidc-identity-db-1": 86507520
+      },
+      "provider_bytes": 318767104,
+      "total_experiment_bytes": 369067294.72
+    },
+    {
+      "utc": "2026-10-20T10:45:43.945947+00:00",
+      "phase": "idle",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 119957094.4,
+        "experimento-oidc-identity-api-1": 136734310.4,
+        "experimento-oidc-identity-db-1": 86507520
+      },
+      "provider_bytes": 343198924.8,
+      "total_experiment_bytes": 393499115.52
+    },
+    {
+      "utc": "2026-10-20T10:45:47.161851+00:00",
+      "phase": "idle",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 119957094.4,
+        "experimento-oidc-identity-api-1": 112407347.2,
+        "experimento-oidc-identity-db-1": 86507520
+      },
+      "provider_bytes": 318871961.6,
+      "total_experiment_bytes": 369172152.32
+    },
+    {
+      "utc": "2026-10-20T10:45:50.335504+00:00",
+      "phase": "idle",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 119957094.4,
+        "experimento-oidc-identity-api-1": 112407347.2,
+        "experimento-oidc-identity-db-1": 86528491.52
+      },
+      "provider_bytes": 318892933.12,
+      "total_experiment_bytes": 369193123.84000003
+    },
+    {
+      "utc": "2026-10-20T10:45:53.501008+00:00",
+      "phase": "idle",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 119957094.4,
+        "experimento-oidc-identity-api-1": 112407347.2,
+        "experimento-oidc-identity-db-1": 86507520
+      },
+      "provider_bytes": 318871961.6,
+      "total_experiment_bytes": 369172152.32
+    },
+    {
+      "utc": "2026-10-20T10:45:56.649416+00:00",
+      "phase": "idle",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 119957094.4,
+        "experimento-oidc-identity-api-1": 112407347.2,
+        "experimento-oidc-identity-db-1": 86507520
+      },
+      "provider_bytes": 318871961.6,
+      "total_experiment_bytes": 369172152.32
+    },
+    {
+      "utc": "2026-10-20T10:45:59.869663+00:00",
+      "phase": "idle",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 119957094.4,
+        "experimento-oidc-identity-api-1": 112407347.2,
+        "experimento-oidc-identity-db-1": 86507520
+      },
+      "provider_bytes": 318871961.6,
+      "total_experiment_bytes": 369172152.32
+    },
+    {
+      "utc": "2026-10-20T10:46:03.237965+00:00",
+      "phase": "idle",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 119957094.4,
+        "experimento-oidc-identity-api-1": 112407347.2,
+        "experimento-oidc-identity-db-1": 86507520
+      },
+      "provider_bytes": 318871961.6,
+      "total_experiment_bytes": 369172152.32
+    },
+    {
+      "utc": "2026-10-20T10:46:06.383770+00:00",
+      "phase": "idle",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 119957094.4,
+        "experimento-oidc-identity-api-1": 112512204.8,
+        "experimento-oidc-identity-db-1": 86769664
+      },
+      "provider_bytes": 319238963.2,
+      "total_experiment_bytes": 369539153.92
+    }
+  ],
+  "login_samples": [
+    {
+      "utc": "2026-10-20T10:47:05.150467+00:00",
+      "phase": "login",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 120481382.4,
+        "experimento-oidc-identity-api-1": 114085068.8,
+        "experimento-oidc-identity-db-1": 86507520
+      },
+      "provider_bytes": 321073971.2,
+      "total_experiment_bytes": 371374161.92
+    },
+    {
+      "utc": "2026-10-20T10:47:08.292998+00:00",
+      "phase": "login",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 122054246.4,
+        "experimento-oidc-identity-api-1": 125514547.2,
+        "experimento-oidc-identity-db-1": 88185241.6
+      },
+      "provider_bytes": 335754035.2,
+      "total_experiment_bytes": 386054225.92
+    },
+    {
+      "utc": "2026-10-20T10:47:11.441950+00:00",
+      "phase": "login",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 122054246.4,
+        "experimento-oidc-identity-api-1": 125409689.6,
+        "experimento-oidc-identity-db-1": 88195727.36
+      },
+      "provider_bytes": 335659663.36,
+      "total_experiment_bytes": 385959854.08
+    },
+    {
+      "utc": "2026-10-20T10:47:14.584943+00:00",
+      "phase": "login",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 122054246.4,
+        "experimento-oidc-identity-api-1": 125409689.6,
+        "experimento-oidc-identity-db-1": 88195727.36
+      },
+      "provider_bytes": 335659663.36,
+      "total_experiment_bytes": 385959854.08
+    },
+    {
+      "utc": "2026-10-20T10:47:17.715461+00:00",
+      "phase": "login",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 122159104,
+        "experimento-oidc-identity-api-1": 125409689.6,
+        "experimento-oidc-identity-db-1": 88227184.64
+      },
+      "provider_bytes": 335795978.24,
+      "total_experiment_bytes": 386096168.96
+    },
+    {
+      "utc": "2026-10-20T10:47:20.872257+00:00",
+      "phase": "login",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 122159104,
+        "experimento-oidc-identity-api-1": 125409689.6,
+        "experimento-oidc-identity-db-1": 88457871.36
+      },
+      "provider_bytes": 336026664.96,
+      "total_experiment_bytes": 386326855.68
+    },
+    {
+      "utc": "2026-10-20T10:47:24.012117+00:00",
+      "phase": "login",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 122159104,
+        "experimento-oidc-identity-api-1": 125409689.6,
+        "experimento-oidc-identity-db-1": 88195727.36
+      },
+      "provider_bytes": 335764520.96,
+      "total_experiment_bytes": 386064711.68
+    },
+    {
+      "utc": "2026-10-20T10:47:27.192687+00:00",
+      "phase": "login",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 122159104,
+        "experimento-oidc-identity-api-1": 125409689.6,
+        "experimento-oidc-identity-db-1": 88478842.88
+      },
+      "provider_bytes": 336047636.48,
+      "total_experiment_bytes": 386347827.2
+    },
+    {
+      "utc": "2026-10-20T10:47:30.411906+00:00",
+      "phase": "login",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 122054246.4,
+        "experimento-oidc-identity-api-1": 125409689.6,
+        "experimento-oidc-identity-db-1": 88195727.36
+      },
+      "provider_bytes": 335659663.36,
+      "total_experiment_bytes": 385959854.08
+    },
+    {
+      "utc": "2026-10-20T10:47:33.586979+00:00",
+      "phase": "login",
+      "containers_bytes": {
+        "experimento-oidc-identity-app-1": 50300190.72,
+        "experimento-oidc-identity-login-1": 122054246.4,
+        "experimento-oidc-identity-api-1": 125409689.6,
+        "experimento-oidc-identity-db-1": 88206213.12
+      },
+      "provider_bytes": 335670149.12,
+      "total_experiment_bytes": 385970339.84000003
+    }
+  ],
+  "login_summary": {
+    "login_start_utc": "2026-10-20T10:47:03.774275+00:00",
+    "login_end_utc": "2026-10-20T10:47:07.524894+00:00",
+    "provider_console_login_completed": true,
+    "local_ca_used": false,
+    "sampler_exit_code": 0,
+    "samples": 10,
+    "samples_during_login": 1,
+    "provider_login_window_peak_mb": 336.04763648,
+    "provider_during_login_sampled_peak_mb": 321.07397119999996
+  }
+}

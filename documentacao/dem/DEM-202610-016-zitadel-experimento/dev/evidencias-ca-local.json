@@ -1,0 +1,21 @@
+{
+  "dem": "DEM-202610-016",
+  "commit": "320bdf56095cfb7340723aaf367b3d54e1bc55a4",
+  "ca_generated_on_vps": true,
+  "private_keys_recorded": false,
+  "files_mode": "600",
+  "directory_mode": "700",
+  "issuer": "Experiment CA",
+  "host_san": "oidc.homolog.didasko.app.br",
+  "ca_not_after_utc": "2026-10-22T09:29:27Z",
+  "ca_fingerprint_sha256": "42:00:B8:DA:BA:97:F0:5A:85:3A:5A:D0:38:94:86:E2:C1:3B:90:45:F4:12:23:D9:EE:61:4E:7B:9A:51:D8:06",
+  "openssl_file_verification": "server.pem: OK",
+  "local_tests_passed": 47,
+  "app_host_current_certificate": "TRAEFIK DEFAULT CERT",
+  "public_443_bound_by": "didasko_traefik",
+  "terminator_started": false,
+  "app_started": false,
+  "tls_verification_disabled": false,
+  "real_login_measurements": [],
+  "architecture_question_pending": true
+}

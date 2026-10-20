@@ -1,0 +1,24 @@
+{
+  "dem": "DEM-202610-016",
+  "commit": "dcf136acdc906b0eec9f3e81a7d3dcfbc3c3e1a6",
+  "ssh_user": "didasko-deploy",
+  "edge_network": "deploy_didasko",
+  "clone_check": {
+    "test": "test -d /home/didasko-deploy/experimentos/didasko/.git",
+    "result": "clone=absent"
+  },
+  "experiment_containers_returned": [],
+  "experiment_volumes_returned": [],
+  "remote_mutations": false,
+  "infrastructure_operations_stopped": true,
+  "local_tests_passed": 42,
+  "real_login_measurements": [],
+  "recommendation": null,
+  "ci": {
+    "experiment_run": 39344948691,
+    "experiment_passed": 42,
+    "regression_run": 39344948669,
+    "regression_passed": 269,
+    "conclusion": "success"
+  }
+}

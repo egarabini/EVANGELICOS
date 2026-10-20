@@ -48,6 +48,9 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 - [ ] **RF08 — a homologação**: a v1 sobe num **subdomínio** ao lado da v0 (o DNS e o certificado
   são do ARQUITECT — avisar quando o marco 1 estiver pronto).
 - [ ] **RF12 — a transação**: a camada de rotas da v1 abre e fecha a transação — **um `commit` por operação do fluxo**, com **`rollback`** em `FluxoBloqueado` (o domínio só faz `flush()`). Sem isso, um bloqueio no meio de uma operação deixa estado parcial.
+- [ ] **RF13 — o issuer alcançável do contêiner**: o contêiner da app precisa alcançar o **issuer pela URL pública**; no experimento foi preciso um `extra_hosts` (`oidc.homolog…` → o IP do Traefik na rede Docker) por causa do **hairpin** (o contêiner não alcança o IP público do próprio issuer). Versionar a solução no Compose — hoje ela existe **só no Compose da VPS**.
+- [ ] **RF14 — a emissão do certificado**: o Traefik **não repete** a obtenção após falha até o **roteador recarregar**. O procedimento é **recriar os contêineres do serviço afetado**, nunca reiniciar o Traefik. A versão da imagem (`latest`; em uso 3.7.14, o digest registrado) é **decisão do ARQUITECT**, no marco 1.
+- [ ] **RF15 — as CPUs do Ollama**: limitar as CPUs do Ollama na homologação e na produção da v1, para o login não competir com a inferência (a causa medida do E-05).
 - [ ] **RF11 — o inventário no contêiner**: o `inventario.csv` (o `documentacao/fontes/` do repositório de conteúdo) precisa estar **acessível no contêiner** da v1 — o Compose hoje só monta `conteudo/ESTUDOS_BIBLICOS`; a v1 monta ou copia o inventário e aponta o `CAMINHO_INVENTARIO` (o `services/fontes.py` da DEM-011 o lê).
 - [ ] **RF10 — o banco da v1**: banco próprio (`didasko_v1`, no mesmo Postgres), schema do zero + o **baseline de Alembic**; a `DATABASE_URL` da v1 aponta para ele; a v0 fica no antigo. **Sem migração de schema no banco existente.**
 - [ ] **RF09 — a virada**: o Traefik aponta o domínio principal para a v1; a v0 fica de pé para o
@@ -86,6 +89,7 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 
 A busca (DEM-B/C/D), o DAVID (DEM-E), o `planejar` (a 9.5, fatia posterior), o multi-ambiente real
 (D-06), o serviço MCP (DEM-013, adiada).
+
 
 
 

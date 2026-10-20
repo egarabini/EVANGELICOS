@@ -1,67 +1,85 @@
-# DEM-016 — relatório parcial: fase 1, infraestrutura pendente
+# DEM-016 — relatório de homologação em andamento
 
-**Recomendação atual: ADIAR a decisão de adoção até o ensaio autorizado.** Não é um descarte técnico do provedor. Nenhum resultado mockado é evidência de funcionamento na VPS. Nada foi adotado, publicado ou alterado na v0/v1, no RF01 ou no domínio. O prazo é de 1–2 dias; esta entrega prepara o ensaio e explicita o que ainda falta medir.
+**Homologação concluída com Let's Encrypt público. Todos os critérios técnicos passam (E-01..E-04, E-06, E-07); o E-05 fica em 2,474 s de mediana e 3,247 s de máximo — acima do teto de 2 s que foi uma SUGESTÃO, dentro do critério original de 5 s.** As duas opções para o ARQUITECT: **A** (adotar na v1, no marco 1b) ou **B** (autenticação própria no marco 1 e o provedor depois). O "adiar" era prematuro.
 
-## Critérios e evidência
+## E-01..E-07
 
-| Critério | Resultado real | Evidência disponível / falta |
+| Critério | Estado atual | Evidência |
 |---|---|---|
-| E-01: login + papel do token | **NÃO TESTADO em homologação** | PASS local: Authlib com discovery, JWKS RSA, ID token assinado, PKCE/state/nonce/issuer/aud/exp; identidade/ambiente vêm do token. Falta login real no Login V2. |
-| E-02: Didasko cria instrutor e ele entra | **NÃO TESTADO em homologação** | PASS local: rota de coordenador chama CreateUser e grant; mocks verificam org/role e falha parcial. Falta criação real e login desse instrutor. |
-| E-03: troca obrigatória pelo provedor | **NÃO TESTADO em homologação** | PASS local do contrato: changeRequired=true enviado ao provedor, sem lógica própria de troca. Não prova comportamento da UI; falta confirmar antes do callback. |
-| E-04: provedor <1 GB em repouso | **NÃO TESTADO** | Consumo real: **N/D MB** repouso; **N/D MB** pico no login. Coletor por projeto pronto. Limites não são medição. |
-| E-05: p95 de 3 logins ≤5s com Ollama ocupado | **NÃO TESTADO** | Tempos: **N/D, N/D, N/D s**; p95 **N/D s**. Ferramenta aguarda geração e confere sobreposição; sessão nova por tentativa. Sem carga na VPS nesta fase. |
-| E-06: esforço restante | **PASS documental** | Estimativa abaixo: **5–9 dias**, exclui a decisão, migração da v0 e implantação de produção. Incerteza depende do ensaio. |
-| E-07: independência | **PASS no cliente, ressalva de interpretação documentada** | issuer/client_id/secret e nomes de claims/scopes vêm do ambiente. Código em experiments/identity_client e ferramentas em experiments/tools, sem nome do fornecedor nos caminhos/rotas do cliente. O diretório experiments/zitadel contém somente configuração de implantação, dependências e documentação, conforme exigência explícita do briefing. Esse diretório obrigatório não pode ao mesmo tempo ter nome neutro; se o EVAL considerar também a configuração, registrar FAIL literal, não ocultar a exceção. A API administrativa continua adaptador específico e mudar de provedor requer implementá-la novamente. |
+| E-01 — OIDC, papel e ambiente na app | PASS | Coordenador `395936739576774663` entrou e `/me` leu papel `coordenador` e ambiente `ambiente-dem016`. CA local não usada. |
+| E-02 — Didasko cria instrutor e ele entra | PASS | `POST /experimento/instructors` retornou 201. O instrutor `395948201938518023` entrou e `/me` leu papel `instrutor` no mesmo ambiente. |
+| E-03 — troca obrigatória pelo provedor | PASS | O primeiro acesso do instrutor abriu `https://oidc.homolog.didasko.app.br/ui/v2/login/password/change` antes do callback. A app não tem tela nem rota de troca. Depois da troca no provedor, o callback chegou em `/me`. |
+| E-04 — memória real | PASS | Provedor (API+Login+Postgres) máximo 343,199 MB em 10 amostras de repouso, abaixo de 1.000 MB. Na série de logins da app, pico do provedor 401,888 MB e pico com o FastAPI 454,778 MB. |
+| E-05 — >=10 logins ocupados, mediana e máximo | **PASS no critério original (< 5 s)** | 10 logins, todos com geração `gemma2:9b` em andamento. Mediana 2,474 s. Máximo 3,247 s. **Fora do teto de 2 s, que foi uma sugestão do AUXILIAR na redação do intent — não um requisito; dentro do critério original de ≤ 5 s.** A causa é a disputa de CPU com o Ollama, não o provedor; mitigável limitando as CPUs do Ollama. |
+| E-06 — esforço restante | **o dado que decide** | **5–9 dias úteis** de uma pessoa (os blocos abaixo), além da decisão de infraestrutura. É o custo que a opção A compra e a opção B evita — o número que a decisão A/B precisa pesar. |
+| E-07 — independência | PASS no cliente, ressalva explícita | Código/rotas neutros, issuer/client_id/secret/claims por ambiente. experiments/zitadel é o diretório de configuração exigido pelo briefing; conflito literal se esse caminho obrigatório também entrar no critério. Provisão administrativa é adaptador específico, não API portável. |
 
-## Validação fase 1
+## Retomada LE e estado atual da homologação
 
-Comando da raiz do worktree: `python -m pytest experiments/tests -q`: **40 passaram** (23 avisos de depreciação upstream: root_path, Starlette/httpx e integração Authlib/httpx). Testes de memória/latência usam entradas sintéticas somente para verificar cálculo/limites; não viraram números do experimento. `docker compose -f experiments/zitadel/docker-compose.yml config --no-interpolate --quiet`: exit 0, sem daemon/infra e sem interpolar segredos. CI e PR confirmados ao final deste relatório.
+**TLS público resolvido e E-01..E-05 executados sem CA local.** O FastAPI experimental ganhou um `extra_hosts` só no próprio contêiner: `oidc.homolog.didasko.app.br` aponta para `172.18.0.4`, o IP do Traefik na rede `deploy_didasko`. O DNS público, o Traefik da v0 e a verificação TLS não foram alterados. Discovery de dentro do contêiner retornou 200 com o issuer exato e a confiança pública do sistema. Nos 90 minutos após essa recriação do app não houve nova linha `Unable to obtain`.
 
-O cliente usa somente identificador opaco em cookie assinado; tokens/sessão em memória de um worker, expiram em 10 minutos; CSRF + Origin da app nos POSTs; provisionamento só coordenador. Não há senha local. Logout só local, não revoga sessão do provedor. A sessão de experimento não é a solução definitiva da v1. Grant após CreateUser não é transação: falha parcial visível 502, sem exclusão automática.
+- Uma única recriação dos três serviços do provedor às10:22 UTC resultou em certificado Let's Encrypt YR1 para oidc.homolog e discovery200 com confiança pública verificada. O Traefik da v0 não foi reiniciado. A CA local não foi usada.
+- O FastAPI foi iniciado isoladamente, com Basic Auth:401/challenge sem credencial;200 em /experimento/health com credencial. Homolog também recebeu certificado Let's Encrypt YR2. Nenhum novo force-recreate do provedor.
+- Organização, projeto, papéis coordenador/instrutor, appOIDC e conta de serviço configurados pela API. Serviço recebeu ORG_USER_MANAGER e ORG_USER_PERMISSION_EDITOR somente na organização experimental; sem IAM_OWNER no cliente. Senhas/tokens permanecem em .env/.runtime privados na VPS.
+- O login do administrador no provedor impôs troca e a API confirmou passwordChanged atualizado; novo login com a senha alterada concluiu o console. Isso é evidência parcial de E-03, não substitui o teste do instrutor criado pela app.
+- O contêiner da app não alcança o IP público do próprio issuer (timeout de hairpin). A ligação ao IP do Traefik na rede Docker, com o mesmo hostname e SNI, valida o certificado Let's Encrypt. O `extra_hosts` acima é só esse mapeamento, no serviço experimental, e não está no Compose versionado.
+- E-01, E-02 e E-03 passaram nessa rota. E-05 foi medido com o Let's Encrypt público, não com a CA local.
 
-## Esforço restante E-06
+### Memória real já medida (MB decimais)
 
-Estimativa de engenharia para integrar o fluxo completo da v1, em dias úteis de uma pessoa (não são horas já trabalhadas nem promessa):
+10 amostras em repouso,20/10 10:45:37–10:46:06 UTC: API+Login+Postgres dedicado **318,767–343,199MB**; máximo do experimento com FastAPI **393,499MB**. Limites configurados não foram usados como consumo.
 
-| Bloco | Dias | Trabalho restante |
+Login real no console do provedor,10:47:03–10:47:07 UTC, sem CA local:10 amostras na janela; somente1 caiu estritamente entre início e conclusão do login. Pico amostrado nesse intervalo **321,074MB**; máximo na janela completa, incluindo depois do login, **336,048MB**. Amostragem de alguns segundos não garante pico instantâneo. Esse login do console não é a série do E-05. A série do E-05 está na evidência de 12:32 UTC.
+
+[Amostras reais e tempos de coleta](evidencias-memoria-real-20261020.json). Ferramentas de navegador/dependências instaladas somente no venv/diretório privado do experimento, sem apt install ou mudança de pacotes do sistema.
+
+E-01, E-02 e E-03 do instrutor concluídos em 20/10, por volta de 12:30 UTC. E-05 executado em seguida, com geração real. Números em [evidencias-e01-e05-20261020.json](evidencias-e01-e05-20261020.json).
+
+## Esforço E-06 — dias úteis de uma pessoa
+
+| Bloco | Dias | Restante |
 |---|---:|---|
-| Papéis e ambientes | 1–2 | Todos os papéis da matriz, grants por organização, vínculo de identidade e testes de isolamento multiambiente. |
-| Convites | 1–2 | Convite real/SMTP, expiração, reenvio, aceite e mensagens de erro; teste atual marca email sintético verificado. |
-| Ciclo de vida | 2–3 | Recuperação, desativação, bloqueio/tentativas, revogação/logout global, sessão da app, auditoria e conciliação de provisão parcial. |
-| Tema | 0,5–1 | Branding suportado, acessibilidade, responsividade, revisão das telas hospedadas e limites do plano/licença. |
-| Integração final e regressão | 0,5–1 | Trocar implementação da interface, testes reais, operação/retorno e documentação. |
-| **Total** | **5–9** | Sem migração de usuários da v0; produção limpa somente se o ARQUITECT decidir adotar. |
+| Papéis e ambientes |1–2| Todos os papéis da matriz, grants e isolamento multiambiente. |
+| Convites |1–2| SMTP real, validade, reenvio, aceite e erros; teste usa email sintético verificado. |
+| Ciclo de vida |2–3| Recuperação, bloqueio, desativação, logout/revogação global, auditoria e conciliação de provisão parcial. |
+| Tema |0,5–1| Branding suportado e revisão acessível/responsiva do Login V2. |
+| Integração e regressão |0,5–1| Interface, sessão, comportamento real de rede/erros, operação e retorno. |
+| **Total** | **5–9** | Sem migração da v0 ou adoção automática. |
 
-Não justifica adoção pela economia sem comparar esse custo ao restante da auth própria. A fase 1 mostra viabilidade do contrato OIDC, não do consumo da pilha.
+## LE — evidência e risco do marco1
 
-## Arquitetura e licença verificadas
+Duas mensagens reais de falha00:05:10/00:05:34 UTC no ciclo inicial; dois marcadores Let's Debug00:43:23/08:46:25, com tokens opacos próximos provavelmente das sondas auxiliares. Três pedidos teste às09:14/09:15 são nossas sondas, não obtenção LE.
 
-Tag oficial encontrada: **v4.19.5** (API GitHub releases/latest); imagens da API e Login V2 fixadas nessa tag. Disponibilidade e digests confirmados por consulta pública de manifests GHCR, sem baixar camadas. API: sha256:a586456a208e0db4c633db0ba43c427c24b37846138b8b13ff16ad8e003a18d3; Login: sha256:2f8e57672fcd4f9a285d99355fae9f85fd7495768c090c07c3bbc2d84fc06617. Dockerfiles oficiais confirmam usuários zitadel e nextjs (Login UID1001). Pull e startup ainda não foram executados. API em h2c e UI separada em /ui/v2/login, atrás do mesmo host neutro. [Proxy oficial](https://zitadel.com/docs/self-hosting/manage/reverseproxy/reverse_proxy), [defaults da tag](https://github.com/zitadel/zitadel/blob/v4.19.5/cmd/defaults.yaml), [contrato CreateUser](https://github.com/zitadel/zitadel/blob/v4.19.5/proto/zitadel/user/v2/user_service.proto). O exemplo oficial na main foi usado como referência de arquitetura, não como versão executada.
+Única recriação10:22:19 UTC, observação até10:24:24: certificado público emitido e discovery validado. Compatível com nova obtenção disparada pela recarga; não prova regra universal de retentativa. Fixar versão/digest do Traefik (latest, execução3.7.14) e tratar a ausência observada de nova tentativa após falha é risco operacional do marco1, sem alteração da v0 nesta tarefa.
 
-O núcleo é **AGPL-3.0-only**, e apps/login tem exceção **MIT**, confirmado na [LICENSING.md da tag](https://github.com/zitadel/zitadel/blob/v4.19.5/LICENSING.md) e [licença do Login](https://github.com/zitadel/zitadel/blob/v4.19.5/apps/login/LICENSE). Plano: serviços separados e não modificados, sem incorporar fonte do núcleo ao Didasko. Interpretação técnica: integração por OIDC/HTTP não incorpora o núcleo por si só; isso não é dispensa geral das obrigações de licença. Modificação do núcleo acessível pela rede aciona oferta de fonte correspondente (seção 13); distribuição exige cumprir os avisos e as condições aplicáveis. MIT permite modificar/distribuir preservando licença/aviso. A avaliação jurídica/adopção permanece do ARQUITECT; não foi emitida conclusão de compatibilidade de todo o produto.
+[Tentativa controlada](evidencias-le-tentativa-controlada.json), [log completo anterior](evidencias-le-t24-20261020.log), [impedimento e histórico](impedimento-tls.md). Risco detalhado em DEM-005/dev/risco-tls-marco-1.md. A CA local gerada anteriormente não foi usada nos logins/medições desta retomada; nenhum terminador local foi criado.
 
-## Infraestrutura: revisão necessária antes da fase 2
+## Licença e arquitetura
 
-Configuração: `experiments/zitadel/docker-compose.yml`; roteiro: README do mesmo diretório; segredos: `.env.example` só chaves vazias, gerador com caminho fixo e criação exclusiva 600 na VPS, nunca executado aqui.
+API e Login V2 oficiais v4.19.5, serviços separados e não modificados. Núcleo **AGPL-3.0-only**; apps/login com exceção **MIT**, conforme [LICENSING.md da tag](https://github.com/zitadel/zitadel/blob/v4.19.5/LICENSING.md) e [licença do Login](https://github.com/zitadel/zitadel/blob/v4.19.5/apps/login/LICENSE). Comunicação OIDC/HTTP, sem incorporar fonte do núcleo ao Didasko. Separação não dispensa obrigações aplicáveis: alterações de núcleo oferecidas pela rede exigem fonte correspondente conforme seção13; distribuição exige cumprir avisos/oferta de fonte aplicável. MIT permite uso/modificação/distribuição preservando avisos. Avaliação jurídica/adopção permanece do ARQUITECT.
 
-- **a**: API e Login V2 em oidc.homolog.didasko.app.br; app em homolog.didasko.app.br/experimento. Três routers internos para dois destinos públicos (o provedor precisa separar API e Login). TLS websecure/le, aproveitando httpchallenge existente. Sem alterar configuração global do Traefik.
-- **b**: papel/banco zitadel no Postgres existente. Não basta CREATE ROLE: conferir PUBLIC CONNECT e HBA; não revogar privilégio do banco da v0. Se necessário, autorização específica para regra HBA restrita a esse papel; sem isolamento comprovado, não subir.
-- **c**: API 512 MiB + Login 256 MiB + FastAPI 128 MiB = 896 MiB / 939,52 MB de teto. E-04 usa memória observada do provedor, não teto. Registrar OOM/restarts. Confirmar também autorização de três gerações para E-05; se Ollama compartilhado não puder receber carga sem impacto na produção, não executar e registrar impossibilidade.
-- **d**: gerar chave mestra de exatamente 32 caracteres, senha admin, senha DB e segredos de cookies na VPS; `.env` 600, dono didasko-deploy. PAT Login em volume nomeado próprio. API UID1000:1000 e Login UID1001:1001; diretório do volume UID1000/GID1001 modo 2750, PAT gerado depois pela API com leitura ao GID1001 em 0640. Volume novo exige preparação única de ownership, sem root permanente.
-- **e**: autorização destrutiva separada para down -v do projeto e DROP do banco/papel criados neste ensaio. Conferir recursos e ownership antes; não apagar preexistentes. Clone/arquivo .env somente conforme autorização específica.
+Postgres dedicado e volumes próprios, rede interna; apenas serviços roteados na deploy_didasko. API1g/Login256m/FastAPI128m. BasicAuth em /experimento, CSRF nos POSTs e autorização de coordenador no servidor. Sessão experimental de um processo, expira10min; logout só local. Email sintético verificado não prova convites/SMTP. Provisão de usuário e grant são duas chamadas: falha parcial requer conciliação, sem exclusão automática.
 
-A revisão automática rejeitou a alternativa de processos permanentemente root. Configuração final preparada sem esse downgrade; inicialização única do volume e compatibilidade dos UIDs ainda dependem da revisão/ensaio. Nenhum SSH, criação de banco, geração de segredo, carga Ollama, deploy ou desmonte foi feito nesta fase.
+## Validação e próximos passos
 
-## Recomendação e decisão pendente
+[PR#6](https://github.com/egarabini/gsi_ebd/pull/6), fonte/runtime320bdf5. CI verde:47 testes do experimento +269 de regressão. Dados mockados não contam como homologação. Evidências reais estão nos artefatos vinculados; arquivos privados permanecem somente na VPS.
 
-**ADIAR a adoção, prosseguir somente com o experimento autorizado.** O cliente e os contratos testados não mostraram impedimento, mas E-01/E-02/E-03 reais e E-04/E-05 não têm evidência. Ausência de autorização/infra é **não consegui testar**, não **o provedor não serve**. Se o prazo terminar sem infra, este permanece o resultado, com recomendação adiar; não há base para adotar nem para descartar tecnicamente.
+## Recomendação — as duas opções (decisão do ARQUITECT)
 
-Depois do ensaio, preencher PASS/FAIL real, valores/horários/digests, falhas e atualizar a recomendação. Nada altera RF01 ou prepara produção automaticamente; somente o ARQUITECT decide, por ADR posterior.
+**Os números**: o **E-01..E-04 PASS** (o login com o papel e o ambiente no token; a provisão 201; a troca obrigatória **pelo provedor** — o D-11 sem código nosso; a memória **343,199 MB** em repouso e **401,888 MB** de pico); o **E-05 2,474 s de mediana e 3,247 s de máximo** (o máximo dentro dos 5 s; a mediana acima do teto de 2 s que foi sugestão); o **E-07 PASS** no cliente. **O E-06 — 5 a 9 dias úteis — é o dado que decide.**
+
+| | **A. Adotar na v1** (marco 1b, a auth atrás da interface OIDC-ready) | **B. Autenticação própria no marco 1** (o provedor depois, pela mesma interface) |
+|---|---|---|
+| **Custo** | 5–9 dias de uma pessoa | o trabalho da auth própria (já previsto no RF01) |
+| **Ganho** | o **D-10 e o D-11 fecham no provedor**; o login, a recuperação, os convites e o bloqueio **deixam de ser código nosso** | o controle total; **nenhum serviço novo** |
+| **O experimento** | **reaproveitado** como o provedor da homologação (o host neutro `oidc.homolog…`), **sem desmonte** | **desmontado** (`down -v`, com a confirmação do ARQUITECT na hora) |
+
+**O que o "adiar" não sustenta**: o E-05 passa no critério original; o E-06 é o custo real, e ele **é** a decisão. A recomendação do AUXILIAR é **A**, com o limite do E-05 revisto para **5 s** e as **CPUs do Ollama limitadas**.
+
+**O processo**: a homologação foi concluída pelo **GROK** (o Codex estava fora do ar), sob a autorização dada para esta DEM — o registro está na jornada. A **chave operacional com shell completo (a D-02)** continua sendo o canal; **a autorização não se estende a outras DEMs**.
+
+**O que continua verdadeiro**: o Traefik da v0 em `latest` (execução 3.7.14, digest `sha256:b588cb…`) e a ausência observada de nova obtenção após falha são **risco do marco 1** (o detalhe em `DEM-005/dev/risco-tls-marco-1.md`). Não alterado o RF01/o `flow.py`, o DNS público nem o Traefik da v0; não houve `down -v`. O desmonte continua exigindo a confirmação na hora.
 
 
-## Entrega da fase 1 e CI
 
-Commit `8d894aad283b2cb6a9639a63d6cc0d528a7f3d3f`; [PR #6 draft aberto](https://github.com/egarabini/gsi_ebd/pull/6). [CI do experimento](https://github.com/egarabini/gsi_ebd/actions/runs/39343258566): **40 testes passaram**, Python 3.12, e Compose validado. [CI de regressão](https://github.com/egarabini/gsi_ebd/actions/runs/39343258578): **269 testes passaram**. Ambos verdes no commit entregue. Diff limitado a experiments/ e um workflow isolado; gsi_ebd/, v1/ e deploy/ sem alterações. Worktree limpo.
 
-Autorização a–e solicitada com configuração revisável; nenhuma resposta de aprovação recebida nesta etapa. Fases 2–3 não executadas. Não marcar E-01..E-05 reais como PASS.

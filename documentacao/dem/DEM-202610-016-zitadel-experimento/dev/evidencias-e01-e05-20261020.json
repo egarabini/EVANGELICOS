@@ -1,0 +1,46 @@
+{
+  "measured_utc": "2026-10-20T12:33:18Z",
+  "local_ca_used": false,
+  "public_issuer": "C = US, O = Let's Encrypt, CN = YR1",
+  "app_extra_hosts": ["oidc.homolog.didasko.app.br:172.18.0.4"],
+  "public_dns_changed": false,
+  "traefik_restarted": false,
+  "unable_to_obtain_since_recreate": 0,
+  "e01": {
+    "result": "PASS",
+    "subject": "395936739576774663",
+    "role": "coordenador",
+    "environment": "ambiente-dem016"
+  },
+  "e02": {
+    "result": "PASS",
+    "create_status": 201,
+    "subject": "395948201938518023",
+    "role": "instrutor",
+    "environment": "ambiente-dem016"
+  },
+  "e03": {
+    "result": "PASS",
+    "provider_change_ui": "https://oidc.homolog.didasko.app.br/ui/v2/login/password/change",
+    "before_callback": true,
+    "app_implements_change": false
+  },
+  "e04": {
+    "result": "PASS",
+    "idle_provider_bytes_max": 343198924.8,
+    "login_provider_bytes_peak": 401887723.52,
+    "login_total_bytes_peak": 454777896.96,
+    "login_sample_start_utc": "2026-10-20T12:32:48.856349+00:00",
+    "login_sample_end_utc": "2026-10-20T12:33:17.987528+00:00"
+  },
+  "e05": {
+    "result": "FAIL",
+    "reason": "mediana acima de 2 s",
+    "trials": 10,
+    "seconds": [2.423, 2.488, 2.372, 2.489, 2.424, 2.233, 2.527, 2.461, 2.49, 3.247],
+    "median_seconds": 2.474444671999663,
+    "max_seconds": 3.247144991008099,
+    "generation_overlap_all": true,
+    "model": "gemma2:9b"
+  }
+}

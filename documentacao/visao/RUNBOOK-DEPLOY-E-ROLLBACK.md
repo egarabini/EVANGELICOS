@@ -41,6 +41,17 @@ Lista fechada, com registro na jornada (comando, saída, motivo):
 - `subir.sh`;
 - `docker compose ps` / `logs` (diagnóstico).
 
+## 4a. O certificado (LE) e o Ollama
+
+- **O Traefik não repete** a obtenção de certificado após uma falha até o **roteador recarregar**.
+  Se um host novo não receber o cert: **recriar os contêineres do serviço afetado**
+  (`docker compose -p <projeto> up -d --force-recreate`) — **nunca** reiniciar o Traefik. Cada
+  tentativa conta no limite do LE (~5 falhas/hora por nome): **uma** tentativa por vez.
+- **O `latest` do Traefik** é um risco aberto (o marco 1 da v1): fixar a versão/digest é decisão do
+  ARQUITECT.
+- **O Ollama disputa a CPU**: o login no provedor deu **2,474 s de mediana** com o `gemma2:9b` em
+  CPU. Limitar as CPUs do Ollama (a homologação e a produção da v1) é requisito do marco 1.
+
 ## 5. Exige autorização específica e escrita (lista fechada)
 
 Exclusão de dados · **restauração de banco** · migração · seed/importação com escrita ·
@@ -62,3 +73,4 @@ Exclusão de dados · **restauração de banco** · migração · seed/importaç
 - transferir o **DUMP** como artifact (hoje o artifact é o manifesto);
 - restringir/rotacionar a chave operacional;
 - revogar a chave antiga e remover as privadas temporárias do disco.
+
