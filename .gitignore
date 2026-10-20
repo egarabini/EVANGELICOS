@@ -52,3 +52,6 @@ desktop.ini
 # Acervo de projetos de terceiros (alguns com direito reservado): NAO redistribuir.
 estudos/
 
+
+# worktrees do harness (nao versionados)
+.worktrees/
