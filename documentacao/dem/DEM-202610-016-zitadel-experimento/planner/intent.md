@@ -82,10 +82,10 @@ O detalhe com a configuração pronta está em [`autorizacao-de-infra.md`](autor
 
 | # | Item | De quem |
 |---|---|---|
-| **a** | O **roteador do Traefik**: o host `oidc.homolog...` (o provedor) e o `/experimento` no `homolog...` — este com a **basic auth do Traefik** | **APROVADO** |
+| **a** | O **roteador do Traefik**: o host `oidc.homolog...` (o provedor) e o `/experimento` no `homolog...` — este com a **basic auth do Traefik** (a credencial **gerada aleatoriamente na VPS**, nunca no chat/repo) | **APROVADO** |
 | **b** | **MUDANÇA**: um **Postgres próprio** (o contêiner dedicado, a rede interna; **nunca** o `didasko_postgres`); só o serviço roteado na `deploy_didasko` | **APROVADO COM MUDANÇA** |
 | **c** | **AJUSTE**: o teto de **1 GB** na API (o `start-from-init`); o 256 no login e o 128 no FastAPI; o E-04 mede o **real** | **APROVADO COM AJUSTE** |
-| **d** | Os segredos com o `openssl rand` na VPS, no `.env` 600, **sem imprimir**; a senha do admin vai ao ARQUITECT por **canal seguro** | **APROVADO** |
+| **d** | Os segredos com o `openssl rand` na VPS, no `.env`/no arquivo 600, **sem imprimir**; a **basic auth** é **aleatória** (é um teste); o ARQUITECT lê o valor na VPS | **APROVADO** |
 | **e** | O **desmonte**: o `down -v` do `experimento-oidc`; a execução com a **confirmação do ARQUITECT na hora**, os comandos listados antes | **PLANO APROVADO** |
 
 **O DNS**: o registro A de `oidc.homolog.didasko.app.br` → o mesmo IP do site — **já é do ARQUITECT e
@@ -123,6 +123,8 @@ novo falta).
 ## 11. Fora de escopo
 
 A migração de usuários da v0 (não há); o deploy/o pipeline da v1; a adoção (a decisão é depois).
+
+
 
 
 

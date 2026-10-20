@@ -49,7 +49,7 @@ ambiente"; a implementação é trocável.
 ## 4. A infra (o que o ARQUITECT autoriza — os itens a-e)
 
 **A autorização do ARQUITECT (19/10) já veio** — com as condições: o `/experimento` com a **basic
-auth**; o **Postgres próprio** (nunca o `didasko_postgres`); o teto de **1 GB** na API; os segredos
+auth**, com a credencial **gerada aleatoriamente na VPS**; o **Postgres próprio** (nunca o `didasko_postgres`); o teto de **1 GB** na API; os segredos
 com o `openssl rand` (sem imprimir; a senha do admin por **canal seguro**); o **desmonte** com a
 confirmação na hora. E o **E-05**: ≥ 10 logins, a mediana ≤ 2 s e o máximo ≤ 5 s.
 
@@ -75,5 +75,6 @@ confirmação na hora. E o **E-05**: ≥ 10 logins, a mediana ≤ 2 s e o máxim
 - o relatório na DEM-016 + o PR + o CI verde.
 
 > O EVAL cego julga **uma rodada** contra os critérios. A decisão é do ARQUITECT — não adote nada.
+
 
 

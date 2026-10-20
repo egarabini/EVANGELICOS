@@ -86,13 +86,15 @@ A infra entra quando o ARQUITECT aprovar os itens a-e.
 
 | # | Decisão |
 |---|---|
-| **a** | **APROVADO** — os routers; o `/experimento` **com a basic auth do Traefik** |
+| **a** | **APROVADO** — os routers; o `/experimento` **com a basic auth do Traefik** — a credencial **gerada aleatoriamente na VPS**, nunca no chat |
 | **b** | **APROVADO COM MUDANÇA** — o **Postgres próprio** (o contêiner dedicado, a rede interna); **nunca** o `didasko_postgres`; só o serviço **roteado** na `deploy_didasko` |
 | **c** | **APROVADO COM AJUSTE** — o teto de **1 GB** na API (o 512 pode matar o `start-from-init`); o 256 no login e o 128 no FastAPI; o E-04 mede o **real** |
-| **d** | **APROVADO** — o `openssl rand` na VPS, o `.env` 600, **sem imprimir**; a senha do admin por **canal seguro**, nunca no chat/log |
+| **d** | **APROVADO** — o `openssl rand` na VPS, o `.env`/o arquivo 600, **sem imprimir**; a **basic auth é aleatória** (é um teste) e o ARQUITECT lê o valor na VPS; a senha do admin nunca no chat/log |
 | **e** | **PLANO APROVADO** — o `down -v` do `experimento-oidc` (só os volumes dele); a execução com a **confirmação do ARQUITECT na hora**, os comandos exatos listados antes |
 | **E-05** | **≥ 10 logins** com o Ollama ocupado; a **mediana ≤ 2 s** e o **máximo ≤ 5 s** |
 
 O `experiment.yml` fica **aceito** e é **removido junto com o experimento**. O relatório diz "o código
 está pronto; o veredito depende da homologação" **até os números existirem** — a recomendação só
 vira "adotar/adiar/descartar" **depois** deles.
+
+
