@@ -108,3 +108,30 @@ confirmação do ARQUITECT na hora.
 
 **A troca de senha**: a bifurcação provisória (a v1 não chama o `on_password_changed`) fica
 registrada — o marco 1b a resolve do lado do provedor.
+
+## Reset do volume da v1 (20/10) — condição 4
+
+O commit `7524ac74d56380bea896d3b577cc2c87792a3d4a` troca o `--env-file` do `subir_v1`
+para `.env.v1-homolog` e exige `POSTGRES_USER=didasko_v1`. O CI do PR #7 ficou verde:
+https://github.com/egarabini/gsi_ebd/actions/runs/39502094527.
+
+O volume removido, conferido antes do `down`, foi exatamente `homolog-v1_didasko_v1_data`.
+O `ps` do projeto `homolog-v1` tinha só `didasko_v1_app` e `didasko_v1_postgres`. O `down`
+não usou `--remove-orphans`. Os volumes do projeto `deploy` (`deploy_chroma_data`,
+`deploy_letsencrypt`, `deploy_ollama_models`, `deploy_pgdata`) continuaram. A subida
+`bash deploy/subir.sh --v1`, no checkout `7524ac7`, recriou o volume vazio
+(`CreatedAt` 2026-10-20T18:42:38-03:00) e semeou 5 usuários. O Postgres da v1 ficou com
+`POSTGRES_USER=didasko_v1` e `POSTGRES_DB=didasko_v1`. Revisão Alembic `0001_baseline`.
+`https://homolog.didasko.app.br/login` respondeu 200, a produção 200 e `/experimento` 401.
+
+| Container | StartedAt antes | StartedAt depois |
+|---|---|---|
+| `didasko_v1_app` | 2026-10-20T15:55:50.90330865Z | 2026-10-20T21:42:46.489069386Z |
+| `didasko_v1_postgres` | 2026-10-20T15:55:43.493758956Z | 2026-10-20T21:42:39.20981457Z |
+| `didasko_app` | 2026-10-19T12:10:13.854096936Z | 2026-10-19T12:10:13.854096936Z |
+| `didasko_postgres` | 2026-10-18T17:27:43.532867086Z | 2026-10-18T17:27:43.532867086Z |
+| `didasko_chromadb` | 2026-10-18T17:27:43.520845985Z | 2026-10-18T17:27:43.520845985Z |
+| `didasko_ollama` | 2026-10-18T17:27:43.521563773Z | 2026-10-18T17:27:43.521563773Z |
+| `didasko_traefik` | 2026-10-18T17:27:43.522467189Z | 2026-10-18T17:27:43.522467189Z |
+
+Os cinco da v0 ficaram com o mesmo `StartedAt`. O Traefik não foi reiniciado.
