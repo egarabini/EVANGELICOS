@@ -12,7 +12,8 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 
 | # | Marco | O resultado visível | O que entra |
 |---|---|---|---|
-| **1** | **O esqueleto** | o login no **subdomínio de homologação** | a app FastAPI, o Jinja2, o HTMX, a **auth própria** (sessão, CSRF, cookie), a imagem, o pipeline, o **endereço de homologação** e o **banco próprio** (`didasko_v1`) com o **baseline de Alembic** |
+| **1** | **O esqueleto** | o login no **subdomínio de homologação** | a app FastAPI, o Jinja2, o HTMX, a **sessão/CSRF/cookie**, a imagem, o pipeline, o **endereço de homologação** e o **banco próprio** (`didasko_v1`) com o **baseline de Alembic** |
+| **1b** | **O provedor de identidade** (o Zitadel, a **ADR-021**) | o login no provedor, com o papel e o ambiente no token | a integração OIDC atrás da interface; a provisão; o D-10/D-11; os RF13-15; **5–9 dias** |
 | **2** | **O fluxo admin/revisor/obras** | importar → revisar → liberar na tela | as telas do admin e do revisor; a matriz papel × rota (a DEM-002) |
 | **3** | **O coordenador** | vincular e adendar | a tela do coordenador + o `Adendo.ambiente_id` |
 | **4** | **O instrutor e a correção** | ver a turma e corrigir | as telas do instrutor |
@@ -30,6 +31,8 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
   **Nota (19/10):** o experimento da **DEM-016** avalia o **Zitadel** como provedor externo; o RF01
   **não muda** até o resultado — se adotar, uma **ADR nova** + o RF01 + os marcos 1/2. De qualquer
   forma, a autenticação fica **atrás de uma interface** (OIDC-ready).
+  **Decisão (2026-10-20): a opção A — o Zitadel adotado (a ADR-021), no marco 1b.** O RF01 passa a
+  ser a autenticação **implementada pelo provedor**, atrás da interface; o D-10 e o D-11 fecham lá.
 - [ ] **RF02 — a matriz papel × rota** (a DEM-002, migrada inteira): uma dependência única de
   autorização, testada pela matriz, **na base nova**.
 - [ ] **RF03 — as telas por papel** (os marcos 2-5), com `StrictUndefined` no Jinja e um teste que
@@ -89,6 +92,8 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 
 A busca (DEM-B/C/D), o DAVID (DEM-E), o `planejar` (a 9.5, fatia posterior), o multi-ambiente real
 (D-06), o serviço MCP (DEM-013, adiada).
+
+
 
 
 

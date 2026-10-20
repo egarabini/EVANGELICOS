@@ -64,7 +64,11 @@ Postgres dedicado e volumes próprios, rede interna; apenas serviços roteados n
 
 [PR#6](https://github.com/egarabini/gsi_ebd/pull/6), fonte/runtime320bdf5. CI verde:47 testes do experimento +269 de regressão. Dados mockados não contam como homologação. Evidências reais estão nos artefatos vinculados; arquivos privados permanecem somente na VPS.
 
-## Recomendação — as duas opções (decisão do ARQUITECT)
+## Recomendação — **a decisão do ARQUITECT: A** (2026-10-20)
+
+**O ARQUITECT escolheu a opção A**: o Zitadel é adotado na v1, no **marco 1b**, a autenticação atrás da interface OIDC-ready; o experimento é **reaproveitado** como o provedor da homologação (**sem desmonte**); a **ADR-021** registra a decisão e as obrigações (a licença, o backup, as atualizações, os RF13-15). A opção B foi descartada: ela não zera os 5–9 dias — troca "integrar" por "escrever e manter" a mesma funcionalidade, incluindo onde a D-11 nasceu.
+
+## As duas opções (o registro da decisão)
 
 **Os números**: o **E-01..E-04 PASS** (o login com o papel e o ambiente no token; a provisão 201; a troca obrigatória **pelo provedor** — o D-11 sem código nosso; a memória **343,199 MB** em repouso e **401,888 MB** de pico); o **E-05 2,474 s de mediana e 3,247 s de máximo** (o máximo dentro dos 5 s; a mediana acima do teto de 2 s que foi sugestão); o **E-07 PASS** no cliente. **O E-06 — 5 a 9 dias úteis — é o dado que decide.**
 
@@ -79,6 +83,7 @@ Postgres dedicado e volumes próprios, rede interna; apenas serviços roteados n
 **O processo**: a homologação foi concluída pelo **GROK** (o Codex estava fora do ar), sob a autorização dada para esta DEM — o registro está na jornada. A **chave operacional com shell completo (a D-02)** continua sendo o canal; **a autorização não se estende a outras DEMs**.
 
 **O que continua verdadeiro**: o Traefik da v0 em `latest` (execução 3.7.14, digest `sha256:b588cb…`) e a ausência observada de nova obtenção após falha são **risco do marco 1** (o detalhe em `DEM-005/dev/risco-tls-marco-1.md`). Não alterado o RF01/o `flow.py`, o DNS público nem o Traefik da v0; não houve `down -v`. O desmonte continua exigindo a confirmação na hora.
+
 
 
 

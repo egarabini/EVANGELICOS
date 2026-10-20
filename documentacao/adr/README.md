@@ -26,6 +26,7 @@ ADR que a substitui **antes** da DEM começar.
 | [ADR-018](ADR-018-modo-agil-ate-a-v1.md) | **Modo ágil até a v1** — processo proporcional ao risco (3 níveis; emenda ADR-006 e ADR-007) | **Accepted** (2026-10-19) |
 | [ADR-019](ADR-019-fluxo-de-obras-e-estudos.md) | **O fluxo de obras e estudos** (5 passos, 3 estados) + **emenda da ADR-011** (a assinatura como intervalo) | **Accepted** (2026-10-19) — **emendada pela [ADR-020](ADR-020-autoridade-e-disponibilidade-da-obra.md)** |
 | [ADR-020](ADR-020-autoridade-e-disponibilidade-da-obra.md) | **A autoridade na obra e a disponibilidade** (o Admin altera; a liberação depende dos dois; a versão N é imutável; a suspensão para novos) | **Accepted** (2026-10-19) |
+| [ADR-021](ADR-021-provedor-de-identidade-da-v1.md) | **O provedor de identidade da v1** — o Zitadel adotado (emenda ADR-014 v3 no RF01: a auth atrás da interface, implementada pelo provedor) | **Accepted** (2026-10-20) |
 
 As **001–011** são **retroativas**: registram decisões já tomadas e implementadas, para o
 projeto deixar de depender de memória de sessão. As **012–013** nascem da OLPF da frente de
@@ -34,6 +35,7 @@ base de conhecimento (2026-10-17). A **014** é a troca de framework pedida pelo
 A **015** separa **operação** de **deploy**: o agente pode instalar chave pública e
 diagnosticar (lista fechada), e continua proibido de publicar — a ADR-010 permanece no que
 importa.
+
 
 
 

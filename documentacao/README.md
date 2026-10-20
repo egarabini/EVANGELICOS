@@ -41,7 +41,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 | [DEM-202610-002](dem/DEM-202610-002-guarda-de-papel-admin/README.md) | Guarda de papel nas rotas `/admin` | **aceita** (2026-10-18) e **publicada** na v0.1.0 | — |
 | [DEM-202610-003](dem/DEM-202610-003-inventario-de-fontes/README.md) | DEM-A: inventário de fontes e licenças | **aceita** (2026-10-19) — inventário + **revisão doutrinária** (22 linhas, opção A; a FAJOPA `depende`) | DEM-001 entregue |
 | [DEM-202610-004](dem/DEM-202610-004-ci-cd-fase-a3/README.md) | CI/CD (Fase A3) | **entregue** — CI + CD no ar; a **v0.1.0 publicada pelo pipeline**; ADR-016 aceita | — |
-| [DEM-202610-005](dem/DEM-202610-005-saida-do-reflex/planner/spec.md) | **A v1 na base nova** (FastAPI + Jinja2 + HTMX, construída ao lado, virada única) | **spec/design/plano escritos** (6 marcos; **banco próprio `didasko_v1`** com baseline de Alembic) — o marco 1 é o próximo | — |
+| [DEM-202610-005](dem/DEM-202610-005-saida-do-reflex/planner/spec.md) | **A v1 na base nova** (FastAPI + Jinja2 + HTMX, construída ao lado, virada única) | **spec/design/plano escritos** (6 marcos + o **1b**; o banco próprio; o **provedor de identidade pela ADR-021**) — o marco 1 é o próximo | — |
 | DEM-202610-006 *(proposta)* | DEM-B: registro de fontes e proveniência | proposta | DEM-003 |
 | DEM-202610-007 *(proposta)* | DEM-C: ingestão do grafo (lugares, pessoas, eventos, jornadas) | proposta | DEM-006 |
 | DEM-202610-008 *(proposta)* | DEM-D: busca por assunto (coordenador e instrutor) | proposta | DEM-007 |
@@ -51,7 +51,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 | [DEM-202610-012](dem/DEM-202610-012-credencial-de-seed/README.md) | **Credencial de seed**: sem senha no código, troca obrigatória para todos | **EVAL PASS** (128 testes; RF01-RF07) e **mergeada no `develop`** (`dbbfc09`) — aguarda o aceite; a D-01/D-10/D-11 seguem abertas | — |
 | DEM-202610-013 *(adiada)* | Publicação como serviço MCP | **adiada até a v1** (decisão de 19/10; ADR-017 Deferred) | — |
 | [DEM-202610-014](dem/DEM-202610-014-codex-como-devs/README.md) | **O Codex acumula DEVS e DEPLOY** (os gates preservam a independência) | **decidido** (uma página) — a DEM-012 é a próxima, executada por ele | DEM-012 |
-| [DEM-202610-016](dem/DEM-202610-016-zitadel-experimento/planner/intent.md) | **O experimento do Zitadel** (o provedor de identidade da v1: o go/no-go) | **intent + briefing escritos** (nível 2, 1-2 dias, a homologação) — aguarda o despacho e a infra | DEM-005 (o marco 1) |
+| [DEM-202610-016](dem/DEM-202610-016-zitadel-experimento/dev/relatorio.md) | **O experimento do provedor de identidade** (o Zitadel) | **concluído**: o E-01..E-07 (o E-05 no critério original), o E-06 de 5–9 dias; a decisão **A** (a ADR-021) — o experimento **reaproveitado**, sem desmonte | — |
 | [DEM-202610-013](dem/DEM-202610-013-publicacao-como-servico/planner/intent.md) | **Publicação como serviço MCP** (o DEPLOY vira API; os agentes são clientes) | **intent em rascunho** — aguarda ADR-017 + 3 decisões | DEM-004 |
 | DEM-202610-014 *(proposta)* | **Piloto do Codex como DEVS** (segundo modelo, julgado pelo EVAL) | proposta | DEM-013 |
 
@@ -75,6 +75,8 @@ Proposta do AUXILIAR-ARCHITECT, com as **12 perguntas fechadas** pelo ARQUITECT 
 - [x] ADRs 001–011
 - [x] GitFlow (`develop` nos dois repos; tags virão com o primeiro release)
 - [ ] CI/CD (`gh` autenticado + workflows + secrets) — **bloqueado**: precisa do `gh auth login`
+
+
 
 
 
