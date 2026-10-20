@@ -89,3 +89,22 @@ produção não rodou.
 O EVAL cego, o merge, o marco 1b, as telas dos marcos 2–6, o pin do Traefik, o limite
 de CPU do Ollama e o desmonte da homologação. O desmonte continua dependendo da
 confirmação do ARQUITECT na hora.
+## A conferência do ARQUITECT (20/10) — os 4 pontos
+
+1. **A prova completa do quase-acidente**: o `State.StartedAt` de **todos** os contêineres da v0
+   (a consulta do PLANNER em 20/10, 18:20): `didasko_app` 2026-10-19T12:10:13Z; `didasko_traefik`,
+   `didasko_postgres`, `didasko_chromadb` e `didasko_ollama` 2026-10-18T17:27:43Z — **todos
+   anteriores** à subida do marco 1. Nenhum contêiner da v0 foi recriado pelo `up` acidental do
+   projeto `deploy`.
+2. **As credenciais da homologação (o defeito confirmado)**: o `subir_v1()` usa o
+   `--env-file .env` (o da produção), **não** o `deploy/.env.v1-homolog` que o PR criou — o Postgres
+   da v1 herdou o `POSTGRES_USER`/`POSTGRES_PASSWORD` da v0. **Correção**: o `--env-file
+   .env.v1-homolog` no `subir_v1`, e o `.env.v1-homolog` com o `POSTGRES_USER=didasko_v1` e a
+   senha **aleatória** (a condição d).
+3. **O IP fixo do Traefik**: o `TRAEFIK_EDGE_IP` muda se o Traefik for recriado → o design do
+   marco 1b passa a prever o **`host-gateway`** (a alternativa estável), não testada ainda.
+4. **A homologação pública**: o `/login` 200, os 5 usuários do seed — até o EVAL, proteger com a
+   **basic auth** ou a lista de IPs (a decisão do ARQUITECT).
+
+**A troca de senha**: a bifurcação provisória (a v1 não chama o `on_password_changed`) fica
+registrada — o marco 1b a resolve do lado do provedor.

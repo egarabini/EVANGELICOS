@@ -76,8 +76,10 @@
 
 ## 7. O deploy (o ponto 7)
 
-- **O RF13** — o issuer alcançável do contêiner: o `extra_hosts` **versionado** no Compose (hoje só
-  na VPS).
+- **O RF13** — o issuer alcançável do contêiner: o `extra_hosts` **versionado** no Compose. **O
+  `TRAEFIK_EDGE_IP` (o IP do Traefik na rede de borda) muda se o contêiner for recriado** — a
+  alternativa estável é mapear o host para **`host-gateway`** (o endereço do host, que publica o
+  80/443), ou resolver o IP na subida. O `host-gateway` **não foi testado**; é a pista do marco 1b.
 - **O RF14** — a emissão do certificado: **recriar os contêineres do serviço, nunca reiniciar o
   Traefik**; a versão fixa da imagem é decisão do ARQUITECT.
 - **O RF15** — as CPUs do Ollama limitadas (a causa dos 2,474 s).
@@ -114,5 +116,6 @@
   provedor revogou) → o the the the the the the the.
 - **O the the the the the the**: a the the the the the the the.
 - O the the the the the the the the the the the the the the the.
+
 
 
