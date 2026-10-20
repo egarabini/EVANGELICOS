@@ -29,3 +29,11 @@ CI da correção v5 **verde** em Python 3.12 no commit `8c2e1bcc78078cdc36381be4
 - Lacuna da v5 encerrada; mesmo PR #4, sem merge/deploy/Alembic.
 
 CI do delta 3 / v6 **verde** em Python 3.12, commit `27c991b2691ae409715d5cd2a4824d1176779433`: https://github.com/egarabini/gsi_ebd/actions/runs/39321913528. PR #4 confirmado aberto e árvore do app limpa. Lacuna da v5 encerrada; sem merge/deploy/Alembic.
+
+## 2026-10-19 — ADR-020 / v7 no mesmo PR #4
+
+- `bab117e67ce8c5ed5ae684f0b9cd7483ab9fc5d0` — autoridade de publicação e disponibilidade só do Admin; contestar removido; pedidos, aceite/dispensa, cancelamento, posição e vínculos fixados na versão.
+- F-06/F-11 reescritos; F-12..F-16 e matriz de papéis. 269 testes verdes; três mutações detectadas.
+- V5 superada por decisão da ADR-020. Sem merge/deploy/telas/Alembic.
+
+CI da ADR-020/design v7 **verde** em Python 3.12, commit `bab117e67ce8c5ed5ae684f0b9cd7483ab9fc5d0`: https://github.com/egarabini/gsi_ebd/actions/runs/39326405453. PR #4 confirmado aberto, árvore do app limpa. Sem merge, deploy, telas ou Alembic. EVAL de verificação ainda não executado por este DEVS.

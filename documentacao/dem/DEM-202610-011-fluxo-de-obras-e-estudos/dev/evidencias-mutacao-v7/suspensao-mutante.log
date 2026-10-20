@@ -1,0 +1,100 @@
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+______ test_rf12_f12_disponibilidade_so_muda_pelo_admin[liberar-alterar] ______
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x0000022B1127A900>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~....neto/AppData/Local/Temp/dem011-v7-mutacao-izf37c5r/suspensao-mutante-tmp/test_rf12_f12_disponibilidade_0/fontes.csv'))
+abertura = 'alterar', fechamento = 'liberar'
+
+    @pytest.mark.parametrize("abertura", ["alterar", "aceitar"])
+    @pytest.mark.parametrize("fechamento", ["liberar", "cancelar"])
+    def test_rf12_f12_disponibilidade_so_muda_pelo_admin(fluxo, abertura, fechamento):
+        sessao, flow, admin, revisor, _ = fluxo
+        obra, original = obra_publicada(fluxo)
+        flow.solicitar_revisao(sessao, original, revisor, "Revisar a obra")
+        assert obra.disponibilidade == "aberta" and obra.versao_liberada_id == original.id
+        if abertura == "alterar":
+            nova = flow.alterar(sessao, obra, novo_conteudo(), admin)
+        else:
+            nova = flow.aceitar_solicitacao(sessao, obra, admin)
+>       assert obra.disponibilidade == "suspensa_para_novos"
+E       AssertionError: assert 'aberta' == 'suspensa_para_novos'
+E         
+E         - suspensa_para_novos
+E         + aberta
+
+tests\test_flow.py:796: AssertionError
+______ test_rf12_f12_disponibilidade_so_muda_pelo_admin[liberar-aceitar] ______
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x0000022B11582490>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~....neto/AppData/Local/Temp/dem011-v7-mutacao-izf37c5r/suspensao-mutante-tmp/test_rf12_f12_disponibilidade_1/fontes.csv'))
+abertura = 'aceitar', fechamento = 'liberar'
+
+    @pytest.mark.parametrize("abertura", ["alterar", "aceitar"])
+    @pytest.mark.parametrize("fechamento", ["liberar", "cancelar"])
+    def test_rf12_f12_disponibilidade_so_muda_pelo_admin(fluxo, abertura, fechamento):
+        sessao, flow, admin, revisor, _ = fluxo
+        obra, original = obra_publicada(fluxo)
+        flow.solicitar_revisao(sessao, original, revisor, "Revisar a obra")
+        assert obra.disponibilidade == "aberta" and obra.versao_liberada_id == original.id
+        if abertura == "alterar":
+            nova = flow.alterar(sessao, obra, novo_conteudo(), admin)
+        else:
+            nova = flow.aceitar_solicitacao(sessao, obra, admin)
+>       assert obra.disponibilidade == "suspensa_para_novos"
+E       AssertionError: assert 'aberta' == 'suspensa_para_novos'
+E         
+E         - suspensa_para_novos
+E         + aberta
+
+tests\test_flow.py:796: AssertionError
+_____ test_rf12_f12_disponibilidade_so_muda_pelo_admin[cancelar-alterar] ______
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x0000022B11583ED0>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~....neto/AppData/Local/Temp/dem011-v7-mutacao-izf37c5r/suspensao-mutante-tmp/test_rf12_f12_disponibilidade_2/fontes.csv'))
+abertura = 'alterar', fechamento = 'cancelar'
+
+    @pytest.mark.parametrize("abertura", ["alterar", "aceitar"])
+    @pytest.mark.parametrize("fechamento", ["liberar", "cancelar"])
+    def test_rf12_f12_disponibilidade_so_muda_pelo_admin(fluxo, abertura, fechamento):
+        sessao, flow, admin, revisor, _ = fluxo
+        obra, original = obra_publicada(fluxo)
+        flow.solicitar_revisao(sessao, original, revisor, "Revisar a obra")
+        assert obra.disponibilidade == "aberta" and obra.versao_liberada_id == original.id
+        if abertura == "alterar":
+            nova = flow.alterar(sessao, obra, novo_conteudo(), admin)
+        else:
+            nova = flow.aceitar_solicitacao(sessao, obra, admin)
+>       assert obra.disponibilidade == "suspensa_para_novos"
+E       AssertionError: assert 'aberta' == 'suspensa_para_novos'
+E         
+E         - suspensa_para_novos
+E         + aberta
+
+tests\test_flow.py:796: AssertionError
+_____ test_rf12_f12_disponibilidade_so_muda_pelo_admin[cancelar-aceitar] ______
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x0000022B1168C770>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~....neto/AppData/Local/Temp/dem011-v7-mutacao-izf37c5r/suspensao-mutante-tmp/test_rf12_f12_disponibilidade_3/fontes.csv'))
+abertura = 'aceitar', fechamento = 'cancelar'
+
+    @pytest.mark.parametrize("abertura", ["alterar", "aceitar"])
+    @pytest.mark.parametrize("fechamento", ["liberar", "cancelar"])
+    def test_rf12_f12_disponibilidade_so_muda_pelo_admin(fluxo, abertura, fechamento):
+        sessao, flow, admin, revisor, _ = fluxo
+        obra, original = obra_publicada(fluxo)
+        flow.solicitar_revisao(sessao, original, revisor, "Revisar a obra")
+        assert obra.disponibilidade == "aberta" and obra.versao_liberada_id == original.id
+        if abertura == "alterar":
+            nova = flow.alterar(sessao, obra, novo_conteudo(), admin)
+        else:
+            nova = flow.aceitar_solicitacao(sessao, obra, admin)
+>       assert obra.disponibilidade == "suspensa_para_novos"
+E       AssertionError: assert 'aberta' == 'suspensa_para_novos'
+E         
+E         - suspensa_para_novos
+E         + aberta
+
+tests\test_flow.py:796: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf12_f12_disponibilidade_so_muda_pelo_admin[liberar-alterar]
+FAILED tests/test_flow.py::test_rf12_f12_disponibilidade_so_muda_pelo_admin[liberar-aceitar]
+FAILED tests/test_flow.py::test_rf12_f12_disponibilidade_so_muda_pelo_admin[cancelar-alterar]
+FAILED tests/test_flow.py::test_rf12_f12_disponibilidade_so_muda_pelo_admin[cancelar-aceitar]
+4 failed, 128 deselected in 1.01s

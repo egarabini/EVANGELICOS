@@ -1,0 +1,26 @@
+[
+  {
+    "mutacao": "admin-alterar",
+    "seletor": "test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "baseline": "4 passed, 128 deselected in 1.45s",
+    "mutante": "4 failed, 128 deselected in 1.08s"
+  },
+  {
+    "mutacao": "suspensao",
+    "seletor": "test_rf12_f12_disponibilidade_so_muda_pelo_admin",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "baseline": "4 passed, 128 deselected in 1.40s",
+    "mutante": "4 failed, 128 deselected in 1.01s"
+  },
+  {
+    "mutacao": "editorial-publicacao",
+    "seletor": "test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "baseline": "4 passed, 128 deselected in 1.15s",
+    "mutante": "4 failed, 128 deselected in 1.18s"
+  }
+]

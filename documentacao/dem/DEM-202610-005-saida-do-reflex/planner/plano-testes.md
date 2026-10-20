@@ -35,5 +35,6 @@
 
 ## 4. O que **não** é teste desta DEM
 
-A v0 (o Reflex) — ela só recebe correção até a virada; os testes dela são os 128 atuais.
+A v0 (o Reflex) — ela só recebe correção até a virada; os testes dela são os **269 (a v0) + as da v1** atuais.
+
 

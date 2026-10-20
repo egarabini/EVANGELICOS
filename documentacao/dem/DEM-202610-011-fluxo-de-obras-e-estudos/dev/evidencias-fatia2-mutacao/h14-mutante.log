@@ -1,0 +1,670 @@
+...FFFFFFFFFFFFFFFFFFF                                                   [100%]
+================================== FAILURES ===================================
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/admin/obras-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x00000222582FEBA0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022258607820>, 'obra_id': 1, ...}
+metodo = 'GET', rota = '/admin/obras', chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obras · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="BbosUOeDN_0buqWVv_PfHBSeVUlH8kgrJj0qHGf0jes"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obras</h1></div><div class="barra"><p>Importe, acompanhe o parecer e libere cada versão.</p><a class="botao" href="/admin/obras/nova">Importar obra</a></div><section class="cartao"><table><thead><tr><th>Obra</th><th>Editorial</th><th>Disponibilidade</th><th>Versão publicada</th></tr></thead><tbody><tr><td><a href="/admin/obras/1">Obra de teste</a></td><td>em_revisao</td><td>aberta</td><td>Ainda não publicada</td></tr></tbody></table></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 200 in {403}
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/admin/obras/nova-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x00000222582FECF0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000002225877A780>, 'obra_id': 1, ...}
+metodo = 'GET', rota = '/admin/obras/nova', chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Importar obra · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="EZMMw6yDXOo2uWd4DEX7rruKsW6QNIEvmCOUrmZMMR8"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Importar obra</h1></div><section class="cartao"><form action="/admin/obras" method="post"><input name="csrf_token" type="hidden" value="EZMMw6yDXOo2uWd4DEX7rruKsW6QNIEvmCOUrmZMMR8"><label>Título da obra<input name="titulo" required></label><label>Fonte no inventário<input name="fonte_id" placeholder="F-004" required></label><label>Origem<input name="origem"></label><label>Descrição<textarea name="descricao" rows="3"></textarea></label>
+E         <section class="editor"><h3>Capítulos</h3><div data-grupo="capitulos"></div><button type="button" class="secundario" data-adicionar="capitulos">Adicionar capítulo</button>
+E         <template data-modelo="capitulos"><fieldset><legend>Novo capítulo</legend><label>Ordem<input name="capitulo_ordem" type="number" required></label><label>Título<input name="capitulo_titulo"></label><label>Conteúdo Markdown<textarea name="capitulo_texto" rows="8"></textarea></label></fieldset></template>
+E         <h3>Adendos da base</h3><div data-grupo="adendos"></div><button type="button" class="secundario" data-adicionar="adendos">Adicionar adendo</button>
+E         <template data-modelo="adendos"><fieldset><legend>Novo adendo</legend><label>Código<input name="adendo_codigo" required></label><label>Título<input name="adendo_titulo"></label><label>Texto<textarea name="adendo_texto" rows="4"></textarea></label></fieldset></template></section><p class="aviso">A fonte será conferida antes da importação.</p><button>Importar e abrir revisão</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 200 in {403}
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x0000022258398D70>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x00000222585F5010>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras', chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: 
+E       assert 303 in {403}
+E        +  where 303 = <Response [303 See Other]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/admin/obras/{obra_id}-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x0000022258398C20>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022258783DF0>, 'obra_id': 1, ...}
+metodo = 'GET', rota = '/admin/obras/{obra_id}', chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obra de teste · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="6TW70MnM1GAvZEEVKCjyOOx11DHrQA5e58mOd_Zs_Ms"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obra de teste</h1></div><div class="resumo"><span class="etiqueta">em_revisao</span><span class="etiqueta">aberta</span><span>Fonte F-001</span></div>
+E         <div class="colunas"><section class="cartao"><h2>Publicado</h2><p>Esta obra ainda não foi publicada.</p></section>
+E         <section class="cartao"><h2>Versão corrente</h2><p>Versão 1 · rodada 0 · em_revisao</p><article><h3>1. Capitulo</h3><pre>Texto inicial</pre></article><article><h3>ADO-01 · Nota</h3><pre>Nota inicial</pre></article></section></div>
+E         <section class="cartao"><h2>Parecer e diferença</h2><p>Aguardando parecer.</p><ul></ul><p>2 item(ns) diferente(s) na rodada corrente.</p><details><summary>adendo:ADO-01</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Nota inicial</pre></div></details><details><summary>capitulo:1</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Texto inicial</pre></div></details></section>
+E         <section class="cartao"><h2>Histórico</h2><article class="evento"><strong>importada</strong> · versão #1 · autor #1 · 2026-10-19 22:56:27.494411<dl><dt>hash</dt><dd>2d27fbdf4e8ca207afbfa388ca9172fbcc6c70e534af2476b3b704f87debadcf</dd><dt>rodada</dt><dd>0</dd><dt>fonte_id</dt><dd>F-001</dd></dl></article></section>
+E         <section class="cartao"><h2>Ações do administrador</h2>
+E         
+E         
+E         <div class="colunas"><form method="post" action="/admin/obras/1/aceitar"><input type="hidden" name="csrf_token" value="6TW70MnM1GAvZEEVKCjyOOx11DHrQA5e58mOd_Zs_Ms"><input type="hidden" name="versao_id" value="1"><p>Aceitar solicitação e abrir novo ciclo.</p><button>Aceitar solicitação</button></form><form method="post" action="/admin/obras/1/dispensar"><input type="hidden" name="csrf_token" value="6TW70MnM1GAvZEEVKCjyOOx11DHrQA5e58mOd_Zs_Ms"><input type="hidden" name="versao_id" value="1"><label>Motivo da dispensa<textarea name="motivo" required></textarea></label><button class="secundario">Dispensar solicitação</button></form></div>
+E         <form method="post" action="/admin/obras/1/cancelar"><input type="hidden" name="csrf_token" value="6TW70MnM1GAvZEEVKCjyOOx11DHrQA5e58mOd_Zs_Ms"><input type="hidden" name="versao_id" value="1"><p>Cancelar o ciclo pendente e retomar a disponibilidade da versão publicada.</p><button class="perigo">Cancelar ciclo</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 200 in {403}
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/liberar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x0000022258399E80>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022258A3C490>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/liberar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obra de teste · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="DuviTne4f0iCRoGUPLSf-AVHEtnEucNBjBHNkUeQRns"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obra de teste</h1></div><p class="erro" role="alert">Transicao invalida</p><div class="resumo"><span class="etiqueta">em_revisao</span><span class="etiqueta">aberta</span><span>Fonte F-001</span></div>
+E         <div class="colunas"><section class="cartao"><h2>Publicado</h2><p>Esta obra ainda não foi publicada.</p></section>
+E         <section class="cartao"><h2>Versão corrente</h2><p>Versão 1 · rodada 0 · em_revisao</p><article><h3>1. Capitulo</h3><pre>Texto inicial</pre></article><article><h3>ADO-01 · Nota</h3><pre>Nota inicial</pre></article></section></div>
+E         <section class="cartao"><h2>Parecer e diferença</h2><p>Aguardando parecer.</p><ul></ul><p>2 item(ns) diferente(s) na rodada corrente.</p><details><summary>adendo:ADO-01</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Nota inicial</pre></div></details><details><summary>capitulo:1</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Texto inicial</pre></div></details></section>
+E         <section class="cartao"><h2>Histórico</h2><article class="evento"><strong>importada</strong> · versão #1 · autor #1 · 2026-10-19 22:56:27.676742<dl><dt>hash</dt><dd>2d27fbdf4e8ca207afbfa388ca9172fbcc6c70e534af2476b3b704f87debadcf</dd><dt>rodada</dt><dd>0</dd><dt>fonte_id</dt><dd>F-001</dd></dl></article></section>
+E         <section class="cartao"><h2>Ações do administrador</h2>
+E         
+E         
+E         <div class="colunas"><form method="post" action="/admin/obras/1/aceitar"><input type="hidden" name="csrf_token" value="DuviTne4f0iCRoGUPLSf-AVHEtnEucNBjBHNkUeQRns"><input type="hidden" name="versao_id" value="1"><p>Aceitar solicitação e abrir novo ciclo.</p><button>Aceitar solicitação</button></form><form method="post" action="/admin/obras/1/dispensar"><input type="hidden" name="csrf_token" value="DuviTne4f0iCRoGUPLSf-AVHEtnEucNBjBHNkUeQRns"><input type="hidden" name="versao_id" value="1"><label>Motivo da dispensa<textarea name="motivo" required></textarea></label><button class="secundario">Dispensar solicitação</button></form></div>
+E         <form method="post" action="/admin/obras/1/cancelar"><input type="hidden" name="csrf_token" value="DuviTne4f0iCRoGUPLSf-AVHEtnEucNBjBHNkUeQRns"><input type="hidden" name="versao_id" value="1"><p>Cancelar o ciclo pendente e retomar a disponibilidade da versão publicada.</p><button class="perigo">Cancelar ciclo</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 409 in {403}
+E        +  where 409 = <Response [409 Conflict]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/alterar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x00000222585E4440>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022258A3C8D0>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/alterar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obra de teste · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="sXefYMVGK2m8Ybg30f1BbkRJGeMQ612LfaI39F6KB8A"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obra de teste</h1></div><p class="erro" role="alert">Obra ainda nao liberada</p><div class="resumo"><span class="etiqueta">em_revisao</span><span class="etiqueta">aberta</span><span>Fonte F-001</span></div>
+E         <div class="colunas"><section class="cartao"><h2>Publicado</h2><p>Esta obra ainda não foi publicada.</p></section>
+E         <section class="cartao"><h2>Versão corrente</h2><p>Versão 1 · rodada 0 · em_revisao</p><article><h3>1. Capitulo</h3><pre>Texto inicial</pre></article><article><h3>ADO-01 · Nota</h3><pre>Nota inicial</pre></article></section></div>
+E         <section class="cartao"><h2>Parecer e diferença</h2><p>Aguardando parecer.</p><ul></ul><p>2 item(ns) diferente(s) na rodada corrente.</p><details><summary>adendo:ADO-01</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Nota inicial</pre></div></details><details><summary>capitulo:1</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Texto inicial</pre></div></details></section>
+E         <section class="cartao"><h2>Histórico</h2><article class="evento"><strong>importada</strong> · versão #1 · autor #1 · 2026-10-19 22:56:27.801036<dl><dt>hash</dt><dd>2d27fbdf4e8ca207afbfa388ca9172fbcc6c70e534af2476b3b704f87debadcf</dd><dt>rodada</dt><dd>0</dd><dt>fonte_id</dt><dd>F-001</dd></dl></article></section>
+E         <section class="cartao"><h2>Ações do administrador</h2>
+E         
+E         
+E         <div class="colunas"><form method="post" action="/admin/obras/1/aceitar"><input type="hidden" name="csrf_token" value="sXefYMVGK2m8Ybg30f1BbkRJGeMQ612LfaI39F6KB8A"><input type="hidden" name="versao_id" value="1"><p>Aceitar solicitação e abrir novo ciclo.</p><button>Aceitar solicitação</button></form><form method="post" action="/admin/obras/1/dispensar"><input type="hidden" name="csrf_token" value="sXefYMVGK2m8Ybg30f1BbkRJGeMQ612LfaI39F6KB8A"><input type="hidden" name="versao_id" value="1"><label>Motivo da dispensa<textarea name="motivo" required></textarea></label><button class="secundario">Dispensar solicitação</button></form></div>
+E         <form method="post" action="/admin/obras/1/cancelar"><input type="hidden" name="csrf_token" value="sXefYMVGK2m8Ybg30f1BbkRJGeMQ612LfaI39F6KB8A"><input type="hidden" name="versao_id" value="1"><p>Cancelar o ciclo pendente e retomar a disponibilidade da versão publicada.</p><button class="perigo">Cancelar ciclo</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 409 in {403}
+E        +  where 409 = <Response [409 Conflict]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/reenviar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x00000222585E67B0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022258B17240>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/reenviar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obra de teste · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="R5YLFmvwOUuZww41nC2RAx6MsQIPWhpUvtIHoC4TOrU"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obra de teste</h1></div><p class="erro" role="alert">Transicao invalida</p><div class="resumo"><span class="etiqueta">em_revisao</span><span class="etiqueta">aberta</span><span>Fonte F-001</span></div>
+E         <div class="colunas"><section class="cartao"><h2>Publicado</h2><p>Esta obra ainda não foi publicada.</p></section>
+E         <section class="cartao"><h2>Versão corrente</h2><p>Versão 1 · rodada 0 · em_revisao</p><article><h3>1. Capitulo</h3><pre>Texto inicial</pre></article><article><h3>ADO-01 · Nota</h3><pre>Nota inicial</pre></article></section></div>
+E         <section class="cartao"><h2>Parecer e diferença</h2><p>Aguardando parecer.</p><ul></ul><p>2 item(ns) diferente(s) na rodada corrente.</p><details><summary>adendo:ADO-01</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Nota inicial</pre></div></details><details><summary>capitulo:1</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Texto inicial</pre></div></details></section>
+E         <section class="cartao"><h2>Histórico</h2><article class="evento"><strong>importada</strong> · versão #1 · autor #1 · 2026-10-19 22:56:27.935965<dl><dt>hash</dt><dd>2d27fbdf4e8ca207afbfa388ca9172fbcc6c70e534af2476b3b704f87debadcf</dd><dt>rodada</dt><dd>0</dd><dt>fonte_id</dt><dd>F-001</dd></dl></article></section>
+E         <section class="cartao"><h2>Ações do administrador</h2>
+E         
+E         
+E         <div class="colunas"><form method="post" action="/admin/obras/1/aceitar"><input type="hidden" name="csrf_token" value="R5YLFmvwOUuZww41nC2RAx6MsQIPWhpUvtIHoC4TOrU"><input type="hidden" name="versao_id" value="1"><p>Aceitar solicitação e abrir novo ciclo.</p><button>Aceitar solicitação</button></form><form method="post" action="/admin/obras/1/dispensar"><input type="hidden" name="csrf_token" value="R5YLFmvwOUuZww41nC2RAx6MsQIPWhpUvtIHoC4TOrU"><input type="hidden" name="versao_id" value="1"><label>Motivo da dispensa<textarea name="motivo" required></textarea></label><button class="secundario">Dispensar solicitação</button></form></div>
+E         <form method="post" action="/admin/obras/1/cancelar"><input type="hidden" name="csrf_token" value="R5YLFmvwOUuZww41nC2RAx6MsQIPWhpUvtIHoC4TOrU"><input type="hidden" name="versao_id" value="1"><p>Cancelar o ciclo pendente e retomar a disponibilidade da versão publicada.</p><button class="perigo">Cancelar ciclo</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 409 in {403}
+E        +  where 409 = <Response [409 Conflict]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/aceitar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x00000222585E7230>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022258CB4490>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/aceitar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obra de teste · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="HGXh1hrhssgylemCy8d0AFmPY01wOXuWK61IWdjYHOA"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obra de teste</h1></div><p class="erro" role="alert">Nenhuma solicitacao pendente</p><div class="resumo"><span class="etiqueta">em_revisao</span><span class="etiqueta">aberta</span><span>Fonte F-001</span></div>
+E         <div class="colunas"><section class="cartao"><h2>Publicado</h2><p>Esta obra ainda não foi publicada.</p></section>
+E         <section class="cartao"><h2>Versão corrente</h2><p>Versão 1 · rodada 0 · em_revisao</p><article><h3>1. Capitulo</h3><pre>Texto inicial</pre></article><article><h3>ADO-01 · Nota</h3><pre>Nota inicial</pre></article></section></div>
+E         <section class="cartao"><h2>Parecer e diferença</h2><p>Aguardando parecer.</p><ul></ul><p>2 item(ns) diferente(s) na rodada corrente.</p><details><summary>adendo:ADO-01</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Nota inicial</pre></div></details><details><summary>capitulo:1</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Texto inicial</pre></div></details></section>
+E         <section class="cartao"><h2>Histórico</h2><article class="evento"><strong>importada</strong> · versão #1 · autor #1 · 2026-10-19 22:56:28.121251<dl><dt>hash</dt><dd>2d27fbdf4e8ca207afbfa388ca9172fbcc6c70e534af2476b3b704f87debadcf</dd><dt>rodada</dt><dd>0</dd><dt>fonte_id</dt><dd>F-001</dd></dl></article></section>
+E         <section class="cartao"><h2>Ações do administrador</h2>
+E         
+E         
+E         <div class="colunas"><form method="post" action="/admin/obras/1/aceitar"><input type="hidden" name="csrf_token" value="HGXh1hrhssgylemCy8d0AFmPY01wOXuWK61IWdjYHOA"><input type="hidden" name="versao_id" value="1"><p>Aceitar solicitação e abrir novo ciclo.</p><button>Aceitar solicitação</button></form><form method="post" action="/admin/obras/1/dispensar"><input type="hidden" name="csrf_token" value="HGXh1hrhssgylemCy8d0AFmPY01wOXuWK61IWdjYHOA"><input type="hidden" name="versao_id" value="1"><label>Motivo da dispensa<textarea name="motivo" required></textarea></label><button class="secundario">Dispensar solicitação</button></form></div>
+E         <form method="post" action="/admin/obras/1/cancelar"><input type="hidden" name="csrf_token" value="HGXh1hrhssgylemCy8d0AFmPY01wOXuWK61IWdjYHOA"><input type="hidden" name="versao_id" value="1"><p>Cancelar o ciclo pendente e retomar a disponibilidade da versão publicada.</p><button class="perigo">Cancelar ciclo</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 409 in {403}
+E        +  where 409 = <Response [409 Conflict]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/dispensar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x00000222585E7CB0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022258DE57B0>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/dispensar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obra de teste · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="8bKBrhQusrJlpV1rApQAYO2iXgVGbaTBxgrRB0GhS7s"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obra de teste</h1></div><p class="erro" role="alert">Nenhuma solicitacao pendente</p><div class="resumo"><span class="etiqueta">em_revisao</span><span class="etiqueta">aberta</span><span>Fonte F-001</span></div>
+E         <div class="colunas"><section class="cartao"><h2>Publicado</h2><p>Esta obra ainda não foi publicada.</p></section>
+E         <section class="cartao"><h2>Versão corrente</h2><p>Versão 1 · rodada 0 · em_revisao</p><article><h3>1. Capitulo</h3><pre>Texto inicial</pre></article><article><h3>ADO-01 · Nota</h3><pre>Nota inicial</pre></article></section></div>
+E         <section class="cartao"><h2>Parecer e diferença</h2><p>Aguardando parecer.</p><ul></ul><p>2 item(ns) diferente(s) na rodada corrente.</p><details><summary>adendo:ADO-01</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Nota inicial</pre></div></details><details><summary>capitulo:1</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Texto inicial</pre></div></details></section>
+E         <section class="cartao"><h2>Histórico</h2><article class="evento"><strong>importada</strong> · versão #1 · autor #1 · 2026-10-19 22:56:28.263216<dl><dt>hash</dt><dd>2d27fbdf4e8ca207afbfa388ca9172fbcc6c70e534af2476b3b704f87debadcf</dd><dt>rodada</dt><dd>0</dd><dt>fonte_id</dt><dd>F-001</dd></dl></article></section>
+E         <section class="cartao"><h2>Ações do administrador</h2>
+E         
+E         
+E         <div class="colunas"><form method="post" action="/admin/obras/1/aceitar"><input type="hidden" name="csrf_token" value="8bKBrhQusrJlpV1rApQAYO2iXgVGbaTBxgrRB0GhS7s"><input type="hidden" name="versao_id" value="1"><p>Aceitar solicitação e abrir novo ciclo.</p><button>Aceitar solicitação</button></form><form method="post" action="/admin/obras/1/dispensar"><input type="hidden" name="csrf_token" value="8bKBrhQusrJlpV1rApQAYO2iXgVGbaTBxgrRB0GhS7s"><input type="hidden" name="versao_id" value="1"><label>Motivo da dispensa<textarea name="motivo" required></textarea></label><button class="secundario">Dispensar solicitação</button></form></div>
+E         <form method="post" action="/admin/obras/1/cancelar"><input type="hidden" name="csrf_token" value="8bKBrhQusrJlpV1rApQAYO2iXgVGbaTBxgrRB0GhS7s"><input type="hidden" name="versao_id" value="1"><p>Cancelar o ciclo pendente e retomar a disponibilidade da versão publicada.</p><button class="perigo">Cancelar ciclo</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 409 in {403}
+E        +  where 409 = <Response [409 Conflict]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/cancelar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x0000022258DE0830>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022258DE6F10>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/cancelar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obra de teste · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="sra4jpnkd3Gis2EqSqGiMjI4uMmN9gwTy7O-LL0WEyo"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obra de teste</h1></div><p class="erro" role="alert">Obra sem versao liberada para retomar</p><div class="resumo"><span class="etiqueta">em_revisao</span><span class="etiqueta">aberta</span><span>Fonte F-001</span></div>
+E         <div class="colunas"><section class="cartao"><h2>Publicado</h2><p>Esta obra ainda não foi publicada.</p></section>
+E         <section class="cartao"><h2>Versão corrente</h2><p>Versão 1 · rodada 0 · em_revisao</p><article><h3>1. Capitulo</h3><pre>Texto inicial</pre></article><article><h3>ADO-01 · Nota</h3><pre>Nota inicial</pre></article></section></div>
+E         <section class="cartao"><h2>Parecer e diferença</h2><p>Aguardando parecer.</p><ul></ul><p>2 item(ns) diferente(s) na rodada corrente.</p><details><summary>adendo:ADO-01</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Nota inicial</pre></div></details><details><summary>capitulo:1</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Texto inicial</pre></div></details></section>
+E         <section class="cartao"><h2>Histórico</h2><article class="evento"><strong>importada</strong> · versão #1 · autor #1 · 2026-10-19 22:56:28.403912<dl><dt>hash</dt><dd>2d27fbdf4e8ca207afbfa388ca9172fbcc6c70e534af2476b3b704f87debadcf</dd><dt>rodada</dt><dd>0</dd><dt>fonte_id</dt><dd>F-001</dd></dl></article></section>
+E         <section class="cartao"><h2>Ações do administrador</h2>
+E         
+E         
+E         <div class="colunas"><form method="post" action="/admin/obras/1/aceitar"><input type="hidden" name="csrf_token" value="sra4jpnkd3Gis2EqSqGiMjI4uMmN9gwTy7O-LL0WEyo"><input type="hidden" name="versao_id" value="1"><p>Aceitar solicitação e abrir novo ciclo.</p><button>Aceitar solicitação</button></form><form method="post" action="/admin/obras/1/dispensar"><input type="hidden" name="csrf_token" value="sra4jpnkd3Gis2EqSqGiMjI4uMmN9gwTy7O-LL0WEyo"><input type="hidden" name="versao_id" value="1"><label>Motivo da dispensa<textarea name="motivo" required></textarea></label><button class="secundario">Dispensar solicitação</button></form></div>
+E         <form method="post" action="/admin/obras/1/cancelar"><input type="hidden" name="csrf_token" value="sra4jpnkd3Gis2EqSqGiMjI4uMmN9gwTy7O-LL0WEyo"><input type="hidden" name="versao_id" value="1"><p>Cancelar o ciclo pendente e retomar a disponibilidade da versão publicada.</p><button class="perigo">Cancelar ciclo</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 409 in {403}
+E        +  where 409 = <Response [409 Conflict]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/revisor/obras-rota:/revisor/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x0000022258DE12B0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022258F0C7C0>, 'obra_id': 1, ...}
+metodo = 'GET', rota = '/revisor/obras', chave = 'rota:/revisor/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Fila de revisao · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/revisor/obras">Fila de revisão</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="bK8JKnGK3lRV6lXTGRMbPtjJZcvj06UCBVXPJyMgspo"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Fila de revisao</h1></div><section class="cartao"><h2>Em revisão e aguardando o Admin</h2><ul><li><a href="/revisor/obras/1">Obra de teste</a> · em_revisao</li></ul></section><section class="cartao"><h2>Obras publicadas</h2><ul><li>Nenhuma publicação disponível.</li></ul></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 200 in {403}
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/revisor/obras/{obra_id}-rota:/revisor/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x0000022258DE1D30>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022258F0F790>, 'obra_id': 1, ...}
+metodo = 'GET', rota = '/revisor/obras/{obra_id}', chave = 'rota:/revisor/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obra de teste · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/revisor/obras">Fila de revisão</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="cWewnr3OYg7Uo9W2-sFiGOxPlzDiaeQZIewxO412qxc"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obra de teste</h1></div><div class="resumo"><span class="etiqueta">em_revisao</span><span class="etiqueta">aberta</span><span>Fonte F-001</span></div>
+E         <div class="colunas"><section class="cartao"><h2>Publicado</h2><p>Esta obra ainda não foi publicada.</p></section>
+E         <section class="cartao"><h2>Versão corrente</h2><p>Versão 1 · rodada 0 · em_revisao</p><article><h3>1. Capitulo</h3><pre>Texto inicial</pre></article><article><h3>ADO-01 · Nota</h3><pre>Nota inicial</pre></article></section></div>
+E         <section class="cartao"><h2>Parecer e diferença</h2><p>Aguardando parecer.</p><ul></ul><p>2 item(ns) diferente(s) na rodada corrente.</p><details><summary>adendo:ADO-01</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Nota inicial</pre></div></details><details><summary>capitulo:1</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Texto inicial</pre></div></details></section>
+E         <section class="cartao"><h2>Histórico</h2><article class="evento"><strong>importada</strong> · versão #1 · autor #1 · 2026-10-19 22:56:28.708520<dl><dt>hash</dt><dd>2d27fbdf4e8ca207afbfa388ca9172fbcc6c70e534af2476b3b704f87debadcf</dd><dt>rodada</dt><dd>0</dd><dt>fonte_id</dt><dd>F-001</dd></dl></article></section><section class="cartao"><h2>Parecer do revisor</h2><form method="post" action="/revisor/obras/1/revisar"><input type="hidden" name="csrf_token" value="cWewnr3OYg7Uo9W2-sFiGOxPlzDiaeQZIewxO412qxc"><input type="hidden" name="versao_id" value="1"><input type="hidden" name="hash_esperado" value="409daf6e0394a487ad8b73d8531a222ff513478b0724cfb1fa62b0e17ae36558"><label>Parecer<textarea name="parecer" required rows="4"></textarea></label><label>Ajustes propostos (um por linha)<textarea name="ajustes" rows="4"></textarea></label><button>Assinar parecer</button><button formaction="/revisor/obras/1/recusar" class="secundario">Recusar</button></form></section>
+E         
+E         <section class="cartao"><h2>Registrar posição</h2><form method="post" action="/revisor/obras/1/posicionar"><input type="hidden" name="csrf_token" value="cWewnr3OYg7Uo9W2-sFiGOxPlzDiaeQZIewxO412qxc"><input type="hidden" name="versao_id" value="1"><label>Posição<select name="posicao"><option value="concordo">Concordo</option><option value="objeto">Objeto</option></select></label><label>Texto<textarea name="texto" required></textarea></label><button class="secundario">Registrar sem bloquear</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 200 in {403}
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/revisor/obras/{obra_id}/revisar-rota:/revisor/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x0000022258DE2E40>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000002225907B130>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/revisor/obras/{obra_id}/revisar'
+chave = 'rota:/revisor/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: 
+E       assert 303 in {403}
+E        +  where 303 = <Response [303 See Other]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/revisor/obras/{obra_id}/recusar-rota:/revisor/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x00000222592001A0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x00000222591B2250>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/revisor/obras/{obra_id}/recusar'
+chave = 'rota:/revisor/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: 
+E       assert 303 in {403}
+E        +  where 303 = <Response [303 See Other]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/revisor/obras/{obra_id}/solicitar-rota:/revisor/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x00000222592012B0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022259310F30>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/revisor/obras/{obra_id}/solicitar'
+chave = 'rota:/revisor/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obra de teste · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/revisor/obras">Fila de revisão</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="svCTBZWZgt7AQxeh-j7_86Oklq82_fmxKAM52P8P7Gc"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obra de teste</h1></div><p class="erro" role="alert">Obra ainda nao liberada</p><div class="resumo"><span class="etiqueta">em_revisao</span><span class="etiqueta">aberta</span><span>Fonte F-001</span></div>
+E         <div class="colunas"><section class="cartao"><h2>Publicado</h2><p>Esta obra ainda não foi publicada.</p></section>
+E         <section class="cartao"><h2>Versão corrente</h2><p>Versão 1 · rodada 0 · em_revisao</p><article><h3>1. Capitulo</h3><pre>Texto inicial</pre></article><article><h3>ADO-01 · Nota</h3><pre>Nota inicial</pre></article></section></div>
+E         <section class="cartao"><h2>Parecer e diferença</h2><p>Aguardando parecer.</p><ul></ul><p>2 item(ns) diferente(s) na rodada corrente.</p><details><summary>adendo:ADO-01</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Nota inicial</pre></div></details><details><summary>capitulo:1</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Texto inicial</pre></div></details></section>
+E         <section class="cartao"><h2>Histórico</h2><article class="evento"><strong>importada</strong> · versão #1 · autor #1 · 2026-10-19 22:56:29.168072<dl><dt>hash</dt><dd>2d27fbdf4e8ca207afbfa388ca9172fbcc6c70e534af2476b3b704f87debadcf</dd><dt>rodada</dt><dd>0</dd><dt>fonte_id</dt><dd>F-001</dd></dl></article></section><section class="cartao"><h2>Parecer do revisor</h2><form method="post" action="/revisor/obras/1/revisar"><input type="hidden" name="csrf_token" value="svCTBZWZgt7AQxeh-j7_86Oklq82_fmxKAM52P8P7Gc"><input type="hidden" name="versao_id" value="1"><input type="hidden" name="hash_esperado" value="409daf6e0394a487ad8b73d8531a222ff513478b0724cfb1fa62b0e17ae36558"><label>Parecer<textarea name="parecer" required rows="4"></textarea></label><label>Ajustes propostos (um por linha)<textarea name="ajustes" rows="4"></textarea></label><button>Assinar parecer</button><button formaction="/revisor/obras/1/recusar" class="secundario">Recusar</button></form></section>
+E         
+E         <section class="cartao"><h2>Registrar posição</h2><form method="post" action="/revisor/obras/1/posicionar"><input type="hidden" name="csrf_token" value="svCTBZWZgt7AQxeh-j7_86Oklq82_fmxKAM52P8P7Gc"><input type="hidden" name="versao_id" value="1"><label>Posição<select name="posicao"><option value="concordo">Concordo</option><option value="objeto">Objeto</option></select></label><label>Texto<textarea name="texto" required></textarea></label><button class="secundario">Registrar sem bloquear</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 409 in {403}
+E        +  where 409 = <Response [409 Conflict]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/revisor/obras/{obra_id}/posicionar-rota:/revisor/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x00000222592023C0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022259313F00>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/revisor/obras/{obra_id}/posicionar'
+chave = 'rota:/revisor/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: 
+E       assert 303 in {403}
+E        +  where 303 = <Response [303 See Other]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/obras/{obra_id}-rota:/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x0000022259203620>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x00000222591B0160>, 'obra_id': 1, ...}
+metodo = 'GET', rota = '/obras/{obra_id}', chave = 'rota:/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obra de teste · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="2waRd9pe2IEEKXrtgJ-JzuB1H0PCv-azIxf-Avj8RwY"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obra de teste</h1></div><div class="resumo"><span class="etiqueta">em_revisao</span><span class="etiqueta">aberta</span><span>Fonte F-001</span></div>
+E         <div class="colunas"><section class="cartao"><h2>Publicado</h2><p>Esta obra ainda não foi publicada.</p></section>
+E         <section class="cartao"><h2>Versão corrente</h2><p>Versão 1 · rodada 0 · em_revisao</p><article><h3>1. Capitulo</h3><pre>Texto inicial</pre></article><article><h3>ADO-01 · Nota</h3><pre>Nota inicial</pre></article></section></div>
+E         <section class="cartao"><h2>Parecer e diferença</h2><p>Aguardando parecer.</p><ul></ul><p>2 item(ns) diferente(s) na rodada corrente.</p><details><summary>adendo:ADO-01</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Nota inicial</pre></div></details><details><summary>capitulo:1</summary><div class="colunas"><pre>Ausente no visto</pre><pre>Texto inicial</pre></div></details></section>
+E         <section class="cartao"><h2>Histórico</h2><article class="evento"><strong>importada</strong> · versão #1 · autor #1 · 2026-10-19 22:56:29.457319<dl><dt>hash</dt><dd>2d27fbdf4e8ca207afbfa388ca9172fbcc6c70e534af2476b3b704f87debadcf</dd><dt>rodada</dt><dd>0</dd><dt>fonte_id</dt><dd>F-001</dd></dl></article></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 200 in {403}
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/login-rota:/login] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x0000022259578830>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x0000022259589D00>, 'obra_id': 1, ...}
+metodo = 'GET', rota = '/login', chave = 'rota:/login'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Entrar · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="kUssymp6olrgWY8NCg7b2wFhiVf1igDfy1G9hKYnF0I"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Entrar</h1></div><section class="cartao estreito"><h2>Acesse sua conta</h2><p>Entre para trabalhar nas obras do seu perfil.</p>
+E         <form method="post" action="/login"><input type="hidden" name="csrf_token" value="kUssymp6olrgWY8NCg7b2wFhiVf1igDfy1G9hKYnF0I"><label>Email<input name="email" type="email" required autocomplete="username"></label><label>Senha<input name="senha" type="password" required autocomplete="current-password"></label><button>Entrar</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 200 in {403}
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+_ test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/login-rota:/login] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x0000022259579A90>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000002225958B8A0>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/login', chave = 'rota:/login'
+
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS + [("GET", "/login", "rota:/login"), ("POST", "/login", "rota:/login")])
+    def test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        papel = PERMISSOES[chave][0]
+        token = entrar(c, papel)
+        with Session(sistema["engine"]) as session:
+            u = session.exec(select(User).where(User.role == papel)).one()
+            u.must_change_password = True
+            session.add(u)
+            session.commit()
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303} if rota in {"/perfil/alterar-senha", "/logout"} else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Entrar · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/admin/obras">Obras</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="sFmoPTj4NUFJBpoUNOIvDU-7iG_LwK9af27GqR8wgnA"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Entrar</h1></div><section class="cartao estreito"><h2>Acesse sua conta</h2><p>Entre para trabalhar nas obras do seu perfil.</p><p role="alert" class="erro">Email ou senha invalidos</p>
+E         <form method="post" action="/login"><input type="hidden" name="csrf_token" value="sFmoPTj4NUFJBpoUNOIvDU-7iG_LwK9af27GqR8wgnA"><label>Email<input name="email" type="email" required autocomplete="username"></label><label>Senha<input name="senha" type="password" required autocomplete="current-password"></label><button>Entrar</button></form></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 401 in {403}
+E        +  where 401 = <Response [401 Unauthorized]>.status_code
+
+tests\test_seguranca.py:57: AssertionError
+============================== warnings summary ===============================
+..\..\..\..\..\..\..\..\Projetos\EM_ESTUDO\EVANGELICOS\ESTUDOS_BIBLICOS\GSI_EBD\.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Projetos\EM_ESTUDO\EVANGELICOS\ESTUDOS_BIBLICOS\GSI_EBD\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_seguranca.py: 22 warnings
+  C:\Users\EDUARD~1.NET\AppData\Local\Temp\dem011-fatia2-mutacao-1ukj2k7f\h14\gsi_ebd\services\user_status_service.py:161: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    user.last_login_at = datetime.utcnow()
+
+tests/test_seguranca.py: 22 warnings
+  C:\Users\EDUARD~1.NET\AppData\Local\Temp\dem011-fatia2-mutacao-1ukj2k7f\h14\gsi_ebd\services\user_status_service.py:162: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    user.last_activity_at = datetime.utcnow()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/admin/obras-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/admin/obras/nova-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/admin/obras/{obra_id}-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/liberar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/alterar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/reenviar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/aceitar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/dispensar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/admin/obras/{obra_id}/cancelar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/revisor/obras-rota:/revisor/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/revisor/obras/{obra_id}-rota:/revisor/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/revisor/obras/{obra_id}/revisar-rota:/revisor/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/revisor/obras/{obra_id}/recusar-rota:/revisor/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/revisor/obras/{obra_id}/solicitar-rota:/revisor/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/revisor/obras/{obra_id}/posicionar-rota:/revisor/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/obras/{obra_id}-rota:/obras]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[GET-/login-rota:/login]
+FAILED tests/test_seguranca.py::test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca[POST-/login-rota:/login]
+19 failed, 3 passed, 125 deselected, 45 warnings in 4.62s

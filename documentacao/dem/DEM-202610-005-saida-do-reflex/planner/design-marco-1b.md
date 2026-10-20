@@ -10,7 +10,7 @@
   `oidc.homolog.didasko.app.br`; a produção, quando houver, em `oidc.didasko.app.br` (a instância
   nova).
 - **A app**: o cliente OIDC (`authlib`); o módulo `v1/identidade.py` com a **interface**:
-  `usuario_atual(request) -> User`, `exigir(papel)`, `ambiente_atual(request)`. O fluxo:
+  `usuario_atual(request) -> User`, **`exigir(chave)`** (a **chave da matriz**, `rota:/...` — uma rota admite vários papéis; a chave é o contrato que as telas já usam), `ambiente_atual(request)`. O fluxo:
   `/login` → o provedor → `/callback?code…` → o token → a sessão da app.
 - **O token** (o ID token + o access token): o `sub` (a identidade), o `email`, o `org_id` (a
   organização → o ambiente), os `roles` (o papel do **provedor**). **A verificação é explícita**:
@@ -26,6 +26,9 @@
   nem do token, nem do formulário, nem do botão.
 - **Os papéis do Didasko continuam dele**: o Admin decide (a ADR-020), o Revisor é o auxiliar de
   qualidade, o Coordenador vincula/adenda. O token do provedor **não concede** nada além do mapeado.
+- **O contrato da interface (a v1 já o usa)**: o `exigir(chave)` recebe a **chave da matriz**
+  (`rota:/...`); o marco 1b **conserva essa assinatura** — o que muda é **quem** põe o papel na
+  sessão (a própria × o provedor), não a chave.
 - O teste que prova: um token válido com o papel `coordenador` do provedor **não** passa numa rota
   de admin; e um token **forjado/inválido** é recusado antes da matriz.
 
@@ -111,3 +114,5 @@
   provedor revogou) → o the the the the the the the.
 - **O the the the the the the**: a the the the the the the the.
 - O the the the the the the the the the the the the the the the.
+
+

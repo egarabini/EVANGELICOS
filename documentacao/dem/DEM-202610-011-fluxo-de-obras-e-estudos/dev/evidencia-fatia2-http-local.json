@@ -1,0 +1,9 @@
+{
+  "login_get": 200,
+  "login_post": 303,
+  "h14": 403,
+  "troca": 303,
+  "admin": 200,
+  "htmx": 200,
+  "servidor_encerrado": true
+}

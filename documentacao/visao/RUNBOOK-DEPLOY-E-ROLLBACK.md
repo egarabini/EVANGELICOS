@@ -51,6 +51,11 @@ Lista fechada, com registro na jornada (comando, saída, motivo):
   ARQUITECT.
 - **O Ollama disputa a CPU**: o login no provedor deu **2,474 s de mediana** com o `gemma2:9b` em
   CPU. Limitar as CPUs do Ollama (a homologação e a produção da v1) é requisito do marco 1.
+- **O projeto do Compose é obrigatório e nomeado**: sempre `-p <projeto>` e o `name:` no arquivo.
+  Um `up` sem o nome, a partir de `deploy/`, entrou no projeto **`deploy`** (o da produção) — os
+  contêineres foram removidos por nome e nenhum serviço da v0 foi tocado, mas o acidente é a
+  lição: **o projeto é a fronteira**. A v1 da homologação usa `homolog-v1`, com dois testes que
+  proíbem o `container_name: didasko_traefik` e exigem o `-p homolog-v1`.
 
 ## 5. Exige autorização específica e escrita (lista fechada)
 
@@ -73,4 +78,5 @@ Exclusão de dados · **restauração de banco** · migração · seed/importaç
 - transferir o **DUMP** como artifact (hoje o artifact é o manifesto);
 - restringir/rotacionar a chave operacional;
 - revogar a chave antiga e remover as privadas temporárias do disco.
+
 

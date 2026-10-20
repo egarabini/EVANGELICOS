@@ -1,0 +1,124 @@
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+________ test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera[2] ________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x0000027D10DBA660>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...o/AppData/Local/Temp/dem011-v7-mutacao-izf37c5r/admin-alterar-mutante-tmp/test_rf11_f06_solicitacao_nao_0/fontes.csv'))
+papel = <Role.COORDENADOR: 2>
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.ADMIN])
+    def test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera(fluxo, papel):
+        from gsi_ebd.models import ObraVersao, ObraVersaoCapitulo, ObraVersaoAdendo
+        from sqlmodel import select
+        sessao, flow, admin, revisor, _ = fluxo
+        obra, versao = preparar(fluxo)
+        aprovar(fluxo, versao)
+        flow.liberar(sessao, versao, "Inicial", admin)
+        sessao.commit()
+        sessao.refresh(versao)
+        anterior = versao.model_dump()
+        caps = [c.model_dump() for c in sessao.exec(select(ObraVersaoCapitulo)).all()]
+        notas = [a.model_dump() for a in sessao.exec(select(ObraVersaoAdendo)).all()]
+        pedido = flow.solicitar_revisao(sessao, versao, revisor, "Reavaliar a fonte")
+        assert pedido.tipo == "revisao_solicitada" and pedido.versao_id == versao.id
+        assert obra.disponibilidade == "aberta" and obra.status == "liberada"
+        assert obra.versao_liberada_id == versao.id
+        assert len(sessao.exec(select(ObraVersao)).all()) == 1
+        usuario = User(id=123, email="outro@example.test", role=papel)
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:216: Failed
+________ test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera[3] ________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x0000027D110C25D0>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...o/AppData/Local/Temp/dem011-v7-mutacao-izf37c5r/admin-alterar-mutante-tmp/test_rf11_f06_solicitacao_nao_1/fontes.csv'))
+papel = <Role.INSTRUTOR: 3>
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.ADMIN])
+    def test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera(fluxo, papel):
+        from gsi_ebd.models import ObraVersao, ObraVersaoCapitulo, ObraVersaoAdendo
+        from sqlmodel import select
+        sessao, flow, admin, revisor, _ = fluxo
+        obra, versao = preparar(fluxo)
+        aprovar(fluxo, versao)
+        flow.liberar(sessao, versao, "Inicial", admin)
+        sessao.commit()
+        sessao.refresh(versao)
+        anterior = versao.model_dump()
+        caps = [c.model_dump() for c in sessao.exec(select(ObraVersaoCapitulo)).all()]
+        notas = [a.model_dump() for a in sessao.exec(select(ObraVersaoAdendo)).all()]
+        pedido = flow.solicitar_revisao(sessao, versao, revisor, "Reavaliar a fonte")
+        assert pedido.tipo == "revisao_solicitada" and pedido.versao_id == versao.id
+        assert obra.disponibilidade == "aberta" and obra.status == "liberada"
+        assert obra.versao_liberada_id == versao.id
+        assert len(sessao.exec(select(ObraVersao)).all()) == 1
+        usuario = User(id=123, email="outro@example.test", role=papel)
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:216: Failed
+________ test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera[4] ________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x0000027D111F8190>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...o/AppData/Local/Temp/dem011-v7-mutacao-izf37c5r/admin-alterar-mutante-tmp/test_rf11_f06_solicitacao_nao_2/fontes.csv'))
+papel = <Role.ALUNO: 4>
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.ADMIN])
+    def test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera(fluxo, papel):
+        from gsi_ebd.models import ObraVersao, ObraVersaoCapitulo, ObraVersaoAdendo
+        from sqlmodel import select
+        sessao, flow, admin, revisor, _ = fluxo
+        obra, versao = preparar(fluxo)
+        aprovar(fluxo, versao)
+        flow.liberar(sessao, versao, "Inicial", admin)
+        sessao.commit()
+        sessao.refresh(versao)
+        anterior = versao.model_dump()
+        caps = [c.model_dump() for c in sessao.exec(select(ObraVersaoCapitulo)).all()]
+        notas = [a.model_dump() for a in sessao.exec(select(ObraVersaoAdendo)).all()]
+        pedido = flow.solicitar_revisao(sessao, versao, revisor, "Reavaliar a fonte")
+        assert pedido.tipo == "revisao_solicitada" and pedido.versao_id == versao.id
+        assert obra.disponibilidade == "aberta" and obra.status == "liberada"
+        assert obra.versao_liberada_id == versao.id
+        assert len(sessao.exec(select(ObraVersao)).all()) == 1
+        usuario = User(id=123, email="outro@example.test", role=papel)
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:216: Failed
+________ test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera[5] ________
+
+fluxo = (<sqlmodel.orm.session.Session object at 0x0000027D10F93BB0>, <module 'gsi_ebd.services.flow' from 'C:\\Users\\EDUARD~...o/AppData/Local/Temp/dem011-v7-mutacao-izf37c5r/admin-alterar-mutante-tmp/test_rf11_f06_solicitacao_nao_3/fontes.csv'))
+papel = <Role.REVISOR: 5>
+
+    @pytest.mark.parametrize("papel", [p for p in Role if p != Role.ADMIN])
+    def test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera(fluxo, papel):
+        from gsi_ebd.models import ObraVersao, ObraVersaoCapitulo, ObraVersaoAdendo
+        from sqlmodel import select
+        sessao, flow, admin, revisor, _ = fluxo
+        obra, versao = preparar(fluxo)
+        aprovar(fluxo, versao)
+        flow.liberar(sessao, versao, "Inicial", admin)
+        sessao.commit()
+        sessao.refresh(versao)
+        anterior = versao.model_dump()
+        caps = [c.model_dump() for c in sessao.exec(select(ObraVersaoCapitulo)).all()]
+        notas = [a.model_dump() for a in sessao.exec(select(ObraVersaoAdendo)).all()]
+        pedido = flow.solicitar_revisao(sessao, versao, revisor, "Reavaliar a fonte")
+        assert pedido.tipo == "revisao_solicitada" and pedido.versao_id == versao.id
+        assert obra.disponibilidade == "aberta" and obra.status == "liberada"
+        assert obra.versao_liberada_id == versao.id
+        assert len(sessao.exec(select(ObraVersao)).all()) == 1
+        usuario = User(id=123, email="outro@example.test", role=papel)
+>       with pytest.raises(FluxoBloqueado, match="Papel"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE FluxoBloqueado
+
+tests\test_flow.py:216: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_flow.py::test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera[2]
+FAILED tests/test_flow.py::test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera[3]
+FAILED tests/test_flow.py::test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera[4]
+FAILED tests/test_flow.py::test_rf11_f06_solicitacao_nao_abre_ciclo_e_so_admin_altera[5]
+4 failed, 128 deselected in 1.08s

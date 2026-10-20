@@ -1,0 +1,323 @@
+FFFFFFFFFFFFFF                                                           [100%]
+================================== FAILURES ===================================
+________ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/login-publica] _________
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECEA3E900>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AECFBBE270>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/login', chave = 'publica'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 401 == 403
+E        +  where 401 = <Response [401 Unauthorized]>.status_code
+E        +    where <Response [401 Unauthorized]> = post('/login', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AECFBBE270>.post
+E        +      and   '/login' = <built-in method format of str object at 0x000001AECE87D710>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECE87D710> = '/login'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/logout-rota:/perfil/alterar-senha] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECEA3E660>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AECFEA6490>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/logout', chave = 'rota:/perfil/alterar-senha'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 303 == 403
+E        +  where 303 = <Response [303 See Other]>.status_code
+E        +    where <Response [303 See Other]> = post('/logout', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AECFEA6490>.post
+E        +      and   '/logout' = <built-in method format of str object at 0x000001AECE87DDA0>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECE87DDA0> = '/logout'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/perfil/alterar-senha-rota:/perfil/alterar-senha] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECFBBF0E0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AECFF4B4D0>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/perfil/alterar-senha'
+chave = 'rota:/perfil/alterar-senha'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 303 == 403
+E        +  where 303 = <Response [303 See Other]>.status_code
+E        +    where <Response [303 See Other]> = post('/perfil/alterar-senha', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AECFF4B4D0>.post
+E        +      and   '/perfil/alterar-senha' = <built-in method format of str object at 0x000001AECE9026F0>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECE9026F0> = '/perfil/alterar-senha'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECFBBEBA0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AED0074510>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras', chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 303 == 403
+E        +  where 303 = <Response [303 See Other]>.status_code
+E        +    where <Response [303 See Other]> = post('/admin/obras', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AED0074510>.post
+E        +      and   '/admin/obras' = <built-in method format of str object at 0x000001AECE902E70>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECE902E70> = '/admin/obras'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/liberar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECFBBEE40>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AED0075F30>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/liberar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 409 == 403
+E        +  where 409 = <Response [409 Conflict]>.status_code
+E        +    where <Response [409 Conflict]> = post('/admin/obras/1/liberar', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AED0075F30>.post
+E        +      and   '/admin/obras/1/liberar' = <built-in method format of str object at 0x000001AECEA39660>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECEA39660> = '/admin/obras/{obra_id}/liberar'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/alterar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECFC5DFD0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AECFEB7BF0>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/alterar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 409 == 403
+E        +  where 409 = <Response [409 Conflict]>.status_code
+E        +    where <Response [409 Conflict]> = post('/admin/obras/1/alterar', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AECFEB7BF0>.post
+E        +      and   '/admin/obras/1/alterar' = <built-in method format of str object at 0x000001AECEA39930>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECEA39930> = '/admin/obras/{obra_id}/alterar'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/reenviar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECFC5C980>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AED02C1260>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/reenviar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 409 == 403
+E        +  where 409 = <Response [409 Conflict]>.status_code
+E        +    where <Response [409 Conflict]> = post('/admin/obras/1/reenviar', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AED02C1260>.post
+E        +      and   '/admin/obras/1/reenviar' = <built-in method format of str object at 0x000001AECEA39980>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECEA39980> = '/admin/obras/{obra_id}/reenviar'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/aceitar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECFE8D2B0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AED0391BF0>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/aceitar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 409 == 403
+E        +  where 409 = <Response [409 Conflict]>.status_code
+E        +    where <Response [409 Conflict]> = post('/admin/obras/1/aceitar', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AED0391BF0>.post
+E        +      and   '/admin/obras/1/aceitar' = <built-in method format of str object at 0x000001AECEA399D0>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECEA399D0> = '/admin/obras/{obra_id}/aceitar'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/dispensar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECFE8DE80>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AED0393DF0>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/dispensar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 409 == 403
+E        +  where 409 = <Response [409 Conflict]>.status_code
+E        +    where <Response [409 Conflict]> = post('/admin/obras/1/dispensar', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AED0393DF0>.post
+E        +      and   '/admin/obras/1/dispensar' = <built-in method format of str object at 0x000001AECEA39A20>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECEA39A20> = '/admin/obras/{obra_id}/dispensar'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/cancelar-rota:/admin/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECFE8E900>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AED058C490>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/admin/obras/{obra_id}/cancelar'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 409 == 403
+E        +  where 409 = <Response [409 Conflict]>.status_code
+E        +    where <Response [409 Conflict]> = post('/admin/obras/1/cancelar', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AED058C490>.post
+E        +      and   '/admin/obras/1/cancelar' = <built-in method format of str object at 0x000001AECEA39A70>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECEA39A70> = '/admin/obras/{obra_id}/cancelar'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/revisor/obras/{obra_id}/revisar-rota:/revisor/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECFE8F380>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AED058C7C0>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/revisor/obras/{obra_id}/revisar'
+chave = 'rota:/revisor/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 303 == 403
+E        +  where 303 = <Response [303 See Other]>.status_code
+E        +    where <Response [303 See Other]> = post('/revisor/obras/1/revisar', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AED058C7C0>.post
+E        +      and   '/revisor/obras/1/revisar' = <built-in method format of str object at 0x000001AECEA39AC0>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECEA39AC0> = '/revisor/obras/{obra_id}/revisar'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/revisor/obras/{obra_id}/recusar-rota:/revisor/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AECFE8FE00>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AED0702360>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/revisor/obras/{obra_id}/recusar'
+chave = 'rota:/revisor/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 303 == 403
+E        +  where 303 = <Response [303 See Other]>.status_code
+E        +    where <Response [303 See Other]> = post('/revisor/obras/1/recusar', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AED0702360>.post
+E        +      and   '/revisor/obras/1/recusar' = <built-in method format of str object at 0x000001AECEA39B10>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECEA39B10> = '/revisor/obras/{obra_id}/recusar'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/revisor/obras/{obra_id}/solicitar-rota:/revisor/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AED073D010>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AED0839040>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/revisor/obras/{obra_id}/solicitar'
+chave = 'rota:/revisor/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 409 == 403
+E        +  where 409 = <Response [409 Conflict]>.status_code
+E        +    where <Response [409 Conflict]> = post('/revisor/obras/1/solicitar', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AED0839040>.post
+E        +      and   '/revisor/obras/1/solicitar' = <built-in method format of str object at 0x000001AECEA39B60>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECEA39B60> = '/revisor/obras/{obra_id}/solicitar'.format
+
+tests\test_seguranca.py:43: AssertionError
+_ test_rf03_todos_posts_rejeitam_sem_csrf[POST-/revisor/obras/{obra_id}/posicionar-rota:/revisor/obras] _
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000001AED073E120>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000001AED0839260>, 'obra_id': 1, ...}
+metodo = 'POST', rota = '/revisor/obras/{obra_id}/posicionar'
+chave = 'rota:/revisor/obras'
+
+    @pytest.mark.parametrize("metodo,rota,chave", POSTS)
+    def test_rf03_todos_posts_rejeitam_sem_csrf(sistema, metodo, rota, chave):
+        c = sistema["client"]
+        entrar(c, PERMISSOES[chave][0] if chave != "publica" else Role.ADMIN)
+        dados = payload(sistema, "")
+        dados.pop("csrf_token")
+>       assert c.post(rota.format(obra_id=sistema["obra_id"]), data=dados, follow_redirects=False).status_code == 403
+E       AssertionError: assert 303 == 403
+E        +  where 303 = <Response [303 See Other]>.status_code
+E        +    where <Response [303 See Other]> = post('/revisor/obras/1/posicionar', data={'titulo': 'Outra obra', 'fonte_id': 'F-001', 'capitulo_ordem': '1', 'capitulo_titulo': 'Capitulo', ...}, follow_redirects=False)
+E        +      where post = <starlette.testclient.TestClient object at 0x000001AED0839260>.post
+E        +      and   '/revisor/obras/1/posicionar' = <built-in method format of str object at 0x000001AECEA39BB0>(obra_id=1)
+E        +        where <built-in method format of str object at 0x000001AECEA39BB0> = '/revisor/obras/{obra_id}/posicionar'.format
+
+tests\test_seguranca.py:43: AssertionError
+============================== warnings summary ===============================
+..\..\..\..\..\..\..\..\Projetos\EM_ESTUDO\EVANGELICOS\ESTUDOS_BIBLICOS\GSI_EBD\.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Projetos\EM_ESTUDO\EVANGELICOS\ESTUDOS_BIBLICOS\GSI_EBD\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_seguranca.py: 14 warnings
+  C:\Users\EDUARD~1.NET\AppData\Local\Temp\dem011-fatia2-mutacao-7esq0nfj\csrf\gsi_ebd\services\user_status_service.py:161: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    user.last_login_at = datetime.utcnow()
+
+tests/test_seguranca.py: 14 warnings
+  C:\Users\EDUARD~1.NET\AppData\Local\Temp\dem011-fatia2-mutacao-7esq0nfj\csrf\gsi_ebd\services\user_status_service.py:162: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    user.last_activity_at = datetime.utcnow()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/login-publica]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/logout-rota:/perfil/alterar-senha]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/perfil/alterar-senha-rota:/perfil/alterar-senha]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/liberar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/alterar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/reenviar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/aceitar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/dispensar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/admin/obras/{obra_id}/cancelar-rota:/admin/obras]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/revisor/obras/{obra_id}/revisar-rota:/revisor/obras]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/revisor/obras/{obra_id}/recusar-rota:/revisor/obras]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/revisor/obras/{obra_id}/solicitar-rota:/revisor/obras]
+FAILED tests/test_seguranca.py::test_rf03_todos_posts_rejeitam_sem_csrf[POST-/revisor/obras/{obra_id}/posicionar-rota:/revisor/obras]
+14 failed, 133 deselected, 29 warnings in 2.39s

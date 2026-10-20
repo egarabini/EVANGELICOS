@@ -1,57 +1,76 @@
-# DEM-202610-011 — relatório da fatia 1, delta 3 / v6
+# DEM-202610-011 — relatório da fatia 1, ADR-020 / design v7
 
 - **Branch:** `feature/DEM-202610-011-fatia1-dominio`, criada de `develop` (`dbbfc09`).
 - **Mesmo PR:** https://github.com/egarabini/gsi_ebd/pull/4 → `develop`, aberto, sem merge.
-- **Commit deste delta:** `27c991b2691ae409715d5cd2a4824d1176779433`.
-- **Histórico:** `f202eb6` (inicial), `8f6608a` (v4, reprovado pelo EVAL), `8c2e1bc` (v5, 232 testes e lacuna de novos instantâneos registrada).
-- **Alvo:** design §10 (v6) e F-11 do plano. A lacuna da revisão posterior à contestação foi **fechada** pela decisão de rodada; não permanece pendente.
-- **Arquivos do delta:** `gsi_ebd/models/obra.py`, `gsi_ebd/services/flow.py`, `tests/test_flow.py`.
+- **Commit deste delta:** `bab117e67ce8c5ed5ae684f0b9cd7483ab9fc5d0`.
+- **Referência:** ADR-020 aceita, design v7 e plano v4, relidos antes da implementação e após a clarificação do ARQUITECT sobre estado editorial × publicação.
+- **Arquivos:** `gsi_ebd/models/obra.py`, `gsi_ebd/models/__init__.py`, `gsi_ebd/services/flow.py`, `tests/test_flow.py`.
 
-## O que mudou
+## A autoridade e a entrega
 
-`ObraVersao.rodada` inicia em zero. Após validar papel, estado, parecer, ajustes e hash esperado, `revisar` incrementa a rodada e cria o instantâneo visto correspondente. `liberar` cria o liberado da rodada corrente. As duas tabelas de instantâneos guardam a coluna `rodada`; nenhuma tabela nova foi criada.
+O estado editorial pertence à versão: `revisar` leva a `aguardando_admin` e `recusar` a `devolvida`. Isso **não altera o ponteiro publicado nem a disponibilidade**. Só o Admin importa, abre, suspende, cancela e libera ciclos. `Obra.status` acompanha o estado da versão corrente; o que está no ar é identificado por `versao_liberada_id`.
 
-A comparação RF11b consulta visto/liberado filtrando **a mesma rodada corrente** para capítulos e adendos. A prévia contra a cópia de trabalho usa o visto da rodada corrente. O evento de liberação continua registrando o tamanho da diferença, agora restrito à rodada atual. O JSON de detalhe dos eventos novos inclui `rodada`, sem atualizar eventos anteriores.
+`contestar` foi removido do serviço. O teste antigo que exigia reabrir e despublicar a mesma versão foi removido e substituído pelo F-06 do plano v4. A semântica v5 está superada pela ADR-020; os registros históricos dos deltas anteriores são mantidos na jornada.
 
-Contestar mantém a própria versão, suspende publicação e preserva os instantâneos anteriores, conforme v5. O próximo parecer abre rodada 2; a nova liberação volta a publicar a mesma versão sem colisão de chaves. Recusa/reenvio não incrementam rodada; o incremento acontece no parecer aprovado (`revisar`). Operações bloqueadas e rollback não consomem rodada. Nada é apagado ou sobrescrito no histórico de instantâneos/eventos.
+Modelos:
 
-### Unicidade por item dentro da rodada
+- `Obra.disponibilidade`: `aberta` ou `suspensa_para_novos`, separada do estado editorial.
+- Novo `VinculoObra`, registrado no metadata: ambiente, obra, versão fixada, coordenador, ativo e data.
+- Versões, snapshots LF/NFC, rodada e trilha de eventos continuam. A unicidade das snapshots inclui versão/momento/rodada e ordem/código porque há uma linha por item.
 
-Os modelos existentes têm **uma linha por item**, não uma linha por conjunto. A tripla `(versao_id, momento, rodada)` identifica o conjunto de instantâneos, e a restrição SQL inclui a identidade do item:
+Operações novas:
 
-- Capítulo: `(versao_id, momento, rodada, ordem)`.
-- Adendo: `(versao_id, momento, rodada, codigo)`.
+- `solicitar_revisao(sessao, versao, revisor, motivo)` registra evento/pedido e retorna o evento, sem mudar publicação, disponibilidade ou a versão liberada.
+- `aceitar_solicitacao(sessao, obra, admin)` cria a próxima versão e suspende novas vinculações; retorna a versão nova.
+- `dispensar_solicitacao(sessao, obra, admin, motivo)` exige motivo não vazio e retorna o evento da resposta, referenciando o pedido. O texto fica na trilha, acessível à futura UI do Revisor.
+- `cancelar_ciclo(sessao, obra, admin)` cancela logicamente a versão pendente e reabre a disponibilidade, mantendo N como liberada.
+- `posicionar(sessao, versao, revisor, posicao, texto)` registra `posicao`, com `concordo`/`objeto` e texto, sem bloquear o Admin.
+- `vincular(sessao, ambiente, obra, coordenador)` exige o dono do ambiente, disponibilidade aberta e versão liberada; grava `versao_id` fixo. A leitura posterior do vínculo/snapshots não depende da disponibilidade corrente.
 
-Isso acrescenta rodada às restrições já existentes e permite vários capítulos/adendos por momento da mesma rodada. Uma unicidade apenas na tripla bloquearia o segundo item. A interpretação foi informada antes da implementação e conferida com dois capítulos e dois adendos na rodada 2.
+Solicitações são representadas pela trilha append-only existente: `revisao_solicitada`, `solicitacao_aceita` e `solicitacao_dispensada`, as respostas com `solicitacao_id`. Um pedido pendente por obra e um ciclo pendente por obra. Não foi criada outra tabela de solicitações.
 
-## Testes e evidências
+`alterar` cria N+1 e suspende para novos, sem mudar a N publicada ou seus instantâneos. `liberar` exige assinatura e Admin; ao publicar N+1, marca N como `substituida`, atualiza o ponteiro e volta a `aberta`. Vínculos anteriores permanecem fixados em N, ainda legível. Pedido e posição do Revisor nunca suspendem nada.
 
-Do diretório do app, pelo Python:
+## Rodadas dentro da versão
 
-`.venv/Scripts/python.exe -m pytest -q --basetemp=C:/Windows/Temp/dem011-v6-suite-validada`
+A rodada continua apenas dentro de versão **ainda não publicada**. A recusa pode retirar um parecer em `aguardando_admin`; o Admin reenvia e o próximo `revisar` abre outra rodada. `revisar`/`recusar` não aceitam versão liberada. Snapshots e pareceres anteriores permanecem nas snapshots/trilha. F-11 foi reescrito para esse caminho, removendo a contestação da versão publicada.
 
-**236 passaram (232 + 4 novos)**, com os 18 avisos de depreciação existentes. Inclui o gate de páginas. Runtime local Python 3.14.6; Python 3.12 validado no CI existente. `git diff --check` passou e linhas novas de código/testes são ASCII.
+## Testes
 
-F-11 cobre:
+No diretório do app, sempre via Python:
 
-- Contestação → novo parecer → liberação da mesma versão, rodada 2; também com recusa/reenvio antes do novo parecer (dois casos parametrizados).
-- Diferença com o texto da rodada 2 e `tamanho_diferenca` no evento; a rodada 1 tinha outra diferença, que não interfere no resultado atual.
-- Preservação integral dos instantâneos da rodada 1 e dos eventos anteriores após commit/refresh, com vários itens na nova rodada.
-- Parecer com hash esperado inválido e rollback de um parecer válido não consomem rodada nem deixam instantâneos/eventos novos.
-- Consulta com itens exclusivamente históricos e linhas fora da ordem cronológica não inclui rodadas antigas.
+- `.venv/Scripts/python.exe -m pytest tests/test_flow.py tests/test_fontes.py -q --basetemp=C:/Windows/Temp/dem011-v7-dirigidos`: **141 passaram**.
+- `.venv/Scripts/python.exe -m pytest -q --basetemp=C:/Windows/Temp/dem011-v7-suite-final`: **269 passaram**, com 18 avisos de depreciação existentes. Inclui os 128 testes anteriores ao domínio e 141 de domínio/fontes, com o gate de páginas na suíte. A contagem anterior de 236 não é tratada como simples soma: os testes v5/v6 superados foram reescritos/removidos.
+- F-06: versão nova somente pelo Admin, N e snapshots intactos; pedido sem alteração; parecer/recusa da N+1 sem mudar a publicação/disponibilidade.
+- F-06b/F-12: ambos os caminhos de abertura (alterar/aceitar) suspendem; liberar/cancelar reabrem; a N é substituída só na nova liberação.
+- F-13: dispensa com motivo visível; vínculo entre pedido/resposta; matriz de papéis; pedido duplicado/ciclo paralelo bloqueados; rollback do aceite mantém o pedido pendente.
+- F-14: vínculo existente fixa N durante suspensão e depois da substituição; vínculo novo bloqueado na suspensão e fixado em N+1 após liberar; outro coordenador não vincula ao ambiente alheio.
+- F-15: cancelamento preserva evidências, impede liberar a descartada, não altera N e permite próximo ciclo.
+- F-16: posição concordo/objeto registrada e não bloqueia a liberação; só Revisor pode pedir/posicionar.
+- F-02/F-03, demais F/N/C e regressão da canonização/normalização, leitura fresca, assinatura, rodada, payload malformado e trilha permanecem verdes.
 
-**Prova adicional de mutação:** em cópia fiel fora do app, o F-11 de isolamento passou; retirando apenas os filtros de rodada das consultas de diferença, falhou por incluir itens históricos. Baseline exit 0, mutante exit 1 por AssertionError, sem erro de coleta. Logs e JSON: [`evidencias-mutacao-v6/`](evidencias-mutacao-v6/). O primeiro teste apenas com chaves repetidas deixava esse mutante sobreviver porque o mapa sobrescrevia os itens antigos; ele foi reforçado antes da entrega com itens exclusivamente históricos e a prova foi repetida com sucesso.
+`git diff --check` e ASCII nas linhas novas passaram. `flow.py` não importa Reflex. Runtime local Python 3.14.6; Python 3.12 no CI existente.
 
-Provas históricas preservadas, separadas desta execução: seis da entrega inicial em `evidencias-mutacao/`; normalização/evento da v4 em `evidencias-mutacao-delta-v4/`; leitura fresca da importação com cache quente da v5 em `evidencias-mutacao-v5/`. Não se afirma reexecução dessas provas históricas sobre este commit.
+## As três provas de mutação
 
-## Contratos e limites mantidos
+Cópias fiéis de código/testes fora do app, sem caches. Cada seletor passou antes da alteração e falhou por comportamento depois, sem erro de coleta. Originais intactos.
 
-Sete operações de domínio, permissões e estados no serviço; ambos os gates de licença relendo o CSV; JSON canônico LF/NFC; snapshots normalizados; `FonteInvalida` como `FluxoBloqueado`; conteúdo malformado bloqueado antes de gravar; substituição da versão anterior ao liberar uma nova. `alterar` só adiciona/atualiza e conserva os itens omitidos. Remover capítulo/adendo da base continua requisito da próxima fatia.
+| Mutação | Seletor | Baseline | Mutante |
+|---|---|---|---|
+| Remover checagem ADMIN de alterar | F-06, quatro papéis não Admin | 4 passaram | 4 falharam |
+| Remover suspensão para novos | F-12, quatro combinações abrir/fechar | 4 passaram | 4 falharam |
+| Fazer revisar alterar ponteiro publicado e disponibilidade | F-06 | 4 passaram | 4 falharam |
 
-A camada de rotas é dona de commit/rollback; o domínio só faz flush. Trigger/ACL de imutabilidade contra SQL direto permanece com o deploy da v1. `CAMINHO_INVENTARIO` precisa apontar para CSV acessível no contêiner.
+Logs/JSON: [`evidencias-mutacao-v7/`](evidencias-mutacao-v7/). Provas históricas preservadas em suas pastas, sem afirmar reexecução dos mutantes antigos neste commit.
 
-O schema da v1 deve incluir agora `ObraVersao.rodada` e `rodada` nas duas tabelas de snapshots, além das restrições únicas ajustadas e dos modelos/campos anteriores. `create_all` não altera colunas ou constraints existentes. Banco próprio/baseline são da DEM-005; não foi executada alteração de banco nem criada revisão Alembic.
+## Integração e limites
 
-Sem merge, deploy, telas, Alembic, Compose, segredos, corpus ou mudança do inventário/verificador. Study, planejar e multiambiente completo continuam fora. Relatório, jornada, changelog e logs ficam no repositório pai `EVANGELICOS/documentacao`, fora do Git do app. EVAL cego e aceite são posteriores ao delta.
+O cancelamento é lógico (`status=cancelada`, evento `ciclo_cancelado`), evitando apagar versão, snapshots ou eventos. A numeração continua monotônica, inclusive após cancelamento. **A v7 não define restauração da cópia de trabalho ao cancelar**: o serviço descarta o ciclo publicável, sem apagar a cópia de trabalho. A publicação retomada e os vínculos existentes leem N pelos instantâneos. Uma política de restauração/remoção do rascunho precisa considerar mapa de origem e adendos de ambiente; não foi inventada nesta fatia.
 
-CI do delta 3 / v6 **verde** em Python 3.12, commit `27c991b2691ae409715d5cd2a4824d1176779433`: https://github.com/egarabini/gsi_ebd/actions/runs/39321913528. PR #4 confirmado aberto e árvore do app limpa. Lacuna da v5 encerrada; sem merge/deploy/Alembic.
+A camada de rotas controla commit/rollback; o domínio só faz flush. Aviso aos já vinculados, telas de solicitação/posição e atribuições de Study são das fatias posteriores; esta entrega fixa e bloqueia **VinculoObra** no domínio, sem alterar Study. A exibição deve usar a versão fixada e seus instantâneos, inclusive quando N estiver `substituida`.
+
+Schema da v1 deve incluir `Obra.disponibilidade` e `vinculoobra` com suas FKs/índices, além dos modelos anteriores e rodada. `create_all` não acrescenta colunas a tabelas existentes; banco próprio/baseline permanecem com DEM-005. `CAMINHO_INVENTARIO` deve apontar para CSV acessível no contêiner; ambos os gates relêem. Trigger/ACL contra SQL direto é do deploy da v1.
+
+Sem merge, deploy, telas, revisão Alembic, Compose, segredos, corpus ou alteração do inventário/verificador. Remoção de capítulos/adendos, Study, planejar e multiambiente completo continuam fora. Documentação/evidências no repositório pai `EVANGELICOS/documentacao`, fora do Git do app. EVAL de verificação e aceite posteriores a este delta.
+
+CI da ADR-020/design v7 **verde** em Python 3.12, commit `bab117e67ce8c5ed5ae684f0b9cd7483ab9fc5d0`: https://github.com/egarabini/gsi_ebd/actions/runs/39326405453. PR #4 confirmado aberto, árvore do app limpa. Sem merge, deploy, telas ou Alembic. EVAL de verificação ainda não executado por este DEVS.

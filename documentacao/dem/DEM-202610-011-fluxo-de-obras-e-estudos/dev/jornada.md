@@ -83,3 +83,25 @@ Suíte final: 236 testes passaram (232 + 4), com 18 avisos existentes. A primeir
 Commit `27c991b2691ae409715d5cd2a4824d1176779433` enviado à mesma branch do PR #4. Relatório atualizado para a v6; lacuna pós-contestação encerrada. Sem novo PR, merge ou deploy. CI em acompanhamento.
 
 CI do delta 3 / v6 **verde** em Python 3.12, commit `27c991b2691ae409715d5cd2a4824d1176779433`: https://github.com/egarabini/gsi_ebd/actions/runs/39321913528. PR #4 confirmado aberto e árvore do app limpa. Lacuna da v5 encerrada; sem merge/deploy/Alembic.
+
+## 2026-10-19 — ADR-020, design v7 e plano v4
+
+Leitura da ADR-020 aceita, design v7 e plano v4 antes de codar. Branch limpa em `27c991b`, PR #4 mantido. Conflito entre a frase de autoridade e as transições editoriais perguntado ao ARQUITECT; resposta recebida: opção 1. `revisar`/`recusar` movem estado editorial, nunca o ponteiro de publicação ou a disponibilidade. Design/plano relidos após a clarificação, que já estava incorporada nos documentos.
+
+Lista executada: `models/obra.py` e registro em `models/__init__.py` (disponibilidade e VinculoObra); `services/flow.py` (retirada de contestar, solicitações, decisão exclusiva do Admin, cancelamento, posição e vinculação fixada); `tests/test_flow.py` (F-06 e F-11 reescritos, F-12..F-16 e matriz de papéis). Sem mudanças fora da fatia.
+
+Solicitação é evento `revisao_solicitada`; aceite/dispensa são novos eventos que referenciam o ID do pedido. Um pedido pendente por obra e um ciclo pendente por obra evitam decisões ambíguas. Nenhum pedido/evento é atualizado ou apagado. Dispensa exige motivo; o texto e o autor ficam na trilha para a fatia de telas.
+
+`alterar` e `aceitar_solicitacao` criam outra ObraVersao e suspendem para novos, preservando o ponteiro para N. Liberação substitui N e abre a disponibilidade. Cancelamento lógico usa estado terminal `cancelada`, preserva todas as evidências e impede liberar o ciclo descartado; a numeração continua monotônica. Vínculos novos passam pelo gate e pelo dono do ambiente; existentes mantêm versao_id e continuam lendo snapshots da N após substituição.
+
+Os antigos testes de reabrir a versão publicada foram removidos. F-11 foi reescrito para rodadas dentro da versão ainda não publicada, por recusa/reenvio; a recusa admite retirar um parecer aguardando Admin, exigindo novo parecer antes da liberação. Nenhum caminho editorial reabre versão liberada.
+
+Testes dirigidos: 141 passaram. O primeiro ensaio do novo F-06 apontou um erro de fixture (model_dump de objeto expirado após commit estava vazio); a captura foi corrigida com refresh explícito antes da comparação de imutabilidade. Código/testes depois verdes. Suíte completa e três mutações em andamento.
+
+## 2026-10-19 — Validação e commit v7
+
+Suíte completa: 269 passaram, 18 avisos existentes. Três cópias de mutação: sem Admin em alterar, F-06 falhou nos quatro papéis; sem suspensão, F-12 falhou nas quatro combinações; invasão da publicação por revisar, F-06 falhou nos quatro papéis. Cada seletor estava verde antes da alteração. Logs/JSON em `evidencias-mutacao-v7/`.
+
+Commit `bab117e67ce8c5ed5ae684f0b9cd7483ab9fc5d0` enviado ao mesmo PR #4. Relatório reescrito em torno da ADR-020/design v7, com a distinção confirmada pelo ARQUITECT e os limites de cancelamento/integração da v1. Sem merge/deploy; CI acompanhado a seguir.
+
+CI da ADR-020/design v7 **verde** em Python 3.12, commit `bab117e67ce8c5ed5ae684f0b9cd7483ab9fc5d0`: https://github.com/egarabini/gsi_ebd/actions/runs/39326405453. PR #4 confirmado aberto, árvore do app limpa. Sem merge, deploy, telas ou Alembic. EVAL de verificação ainda não executado por este DEVS.

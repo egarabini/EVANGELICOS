@@ -1,0 +1,29 @@
+[
+  {
+    "mutacao": "papel",
+    "arquivo": "v1/routers/admin_obras.py",
+    "seletor": "test_rf02_matriz_rotas_servidor",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "baseline": "100 passed, 47 deselected, 201 warnings in 10.37s",
+    "mutante": "4 failed, 96 passed, 47 deselected, 201 warnings in 10.29s"
+  },
+  {
+    "mutacao": "csrf",
+    "arquivo": "v1/auth.py",
+    "seletor": "test_rf03_todos_posts_rejeitam_sem_csrf",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "baseline": "14 passed, 133 deselected, 29 warnings in 1.31s",
+    "mutante": "14 failed, 133 deselected, 29 warnings in 2.39s"
+  },
+  {
+    "mutacao": "h14",
+    "arquivo": "v1/auth.py",
+    "seletor": "test_h14_flag_bloqueia_todas_as_rotas_antes_da_troca",
+    "baseline_exit": 0,
+    "mutante_exit": 1,
+    "baseline": "22 passed, 125 deselected, 45 warnings in 2.38s",
+    "mutante": "19 failed, 3 passed, 125 deselected, 45 warnings in 2.68s"
+  }
+]

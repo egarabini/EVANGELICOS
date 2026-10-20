@@ -1,0 +1,127 @@
+................FFFF.................................................... [ 72%]
+............................                                             [100%]
+================================== FAILURES ===================================
+____ test_rf02_matriz_rotas_servidor[GET-/admin/obras-rota:/admin/obras-2] ____
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000002764B355FD0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000002764B6387C0>, 'obra_id': 1, ...}
+papel = <Role.COORDENADOR: 2>, metodo = 'GET', rota = '/admin/obras'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("papel", list(Role))
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS)
+    def test_rf02_matriz_rotas_servidor(sistema, papel, metodo, rota, chave):
+        c = sistema["client"]
+        token = entrar(c, papel)
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303, 409} if papel in PERMISSOES[chave] else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obras · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="8bPMAROXTIgTqwrqibbiv2aq-2kuf6FCdOdd4YJCpg0"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obras</h1></div><div class="barra"><p>Importe, acompanhe o parecer e libere cada versão.</p><a class="botao" href="/admin/obras/nova">Importar obra</a></div><section class="cartao"><table><thead><tr><th>Obra</th><th>Editorial</th><th>Disponibilidade</th><th>Versão publicada</th></tr></thead><tbody><tr><td><a href="/admin/obras/1">Obra de teste</a></td><td>em_revisao</td><td>aberta</td><td>Ainda não publicada</td></tr></tbody></table></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 200 in {403}
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_seguranca.py:34: AssertionError
+____ test_rf02_matriz_rotas_servidor[GET-/admin/obras-rota:/admin/obras-3] ____
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000002764B354980>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000002764B638050>, 'obra_id': 1, ...}
+papel = <Role.INSTRUTOR: 3>, metodo = 'GET', rota = '/admin/obras'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("papel", list(Role))
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS)
+    def test_rf02_matriz_rotas_servidor(sistema, papel, metodo, rota, chave):
+        c = sistema["client"]
+        token = entrar(c, papel)
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303, 409} if papel in PERMISSOES[chave] else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obras · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="9r--8j0zVeEdLZZNrx5KWM7QKS-tr9q17_6V7ESmTrQ"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obras</h1></div><div class="barra"><p>Importe, acompanhe o parecer e libere cada versão.</p><a class="botao" href="/admin/obras/nova">Importar obra</a></div><section class="cartao"><table><thead><tr><th>Obra</th><th>Editorial</th><th>Disponibilidade</th><th>Versão publicada</th></tr></thead><tbody><tr><td><a href="/admin/obras/1">Obra de teste</a></td><td>em_revisao</td><td>aberta</td><td>Ainda não publicada</td></tr></tbody></table></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 200 in {403}
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_seguranca.py:34: AssertionError
+____ test_rf02_matriz_rotas_servidor[GET-/admin/obras-rota:/admin/obras-4] ____
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000002764B354AD0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000002764B32E7A0>, 'obra_id': 1, ...}
+papel = <Role.ALUNO: 4>, metodo = 'GET', rota = '/admin/obras'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("papel", list(Role))
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS)
+    def test_rf02_matriz_rotas_servidor(sistema, papel, metodo, rota, chave):
+        c = sistema["client"]
+        token = entrar(c, papel)
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303, 409} if papel in PERMISSOES[chave] else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obras · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="RK8ZybxD47YIm1VVwMEsu03bgicGc_u1K81dgfT_Ic4"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obras</h1></div><div class="barra"><p>Importe, acompanhe o parecer e libere cada versão.</p><a class="botao" href="/admin/obras/nova">Importar obra</a></div><section class="cartao"><table><thead><tr><th>Obra</th><th>Editorial</th><th>Disponibilidade</th><th>Versão publicada</th></tr></thead><tbody><tr><td><a href="/admin/obras/1">Obra de teste</a></td><td>em_revisao</td><td>aberta</td><td>Ainda não publicada</td></tr></tbody></table></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 200 in {403}
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_seguranca.py:34: AssertionError
+____ test_rf02_matriz_rotas_servidor[GET-/admin/obras-rota:/admin/obras-5] ____
+
+sistema = {'app': <fastapi.applications.FastAPI object at 0x000002764B5912B0>, 'engine': Engine(sqlite://), 'client': <starlette.testclient.TestClient object at 0x000002764B70D480>, 'obra_id': 1, ...}
+papel = <Role.REVISOR: 5>, metodo = 'GET', rota = '/admin/obras'
+chave = 'rota:/admin/obras'
+
+    @pytest.mark.parametrize("papel", list(Role))
+    @pytest.mark.parametrize("metodo,rota,chave", ROTAS)
+    def test_rf02_matriz_rotas_servidor(sistema, papel, metodo, rota, chave):
+        c = sistema["client"]
+        token = entrar(c, papel)
+        r = c.request(metodo, rota.format(obra_id=sistema["obra_id"]), data=payload(sistema, token) if metodo == "POST" else None, follow_redirects=False)
+>       assert r.status_code in ({200, 303, 409} if papel in PERMISSOES[chave] else {403}), r.text
+E       AssertionError: <!doctype html>
+E         <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+E         <title>Obras · Didasko</title><link rel="stylesheet" href="/static/app.css">
+E         <script src="/static/htmx.min.js" defer></script><script src="/static/app.js" defer></script></head>
+E         <body hx-boost="true"><header><a class="marca" href="/login">Didasko <span>obras e estudos</span></a>
+E         <nav aria-label="Principal"><a href="/revisor/obras">Fila de revisão</a><a href="/perfil/alterar-senha">Alterar senha</a>
+E         <form action="/logout" method="post"><input type="hidden" name="csrf_token" value="ux5uUy-t_WIawWVCU2Xzt4UoojRQROJJs5oh36bjh58"><button class="secundario">Sair</button></form></nav></header>
+E         <main><div class="cabecalho"><span class="sobretitulo">Biblioteca · fluxo editorial</span><h1>Obras</h1></div><div class="barra"><p>Importe, acompanhe o parecer e libere cada versão.</p><a class="botao" href="/admin/obras/nova">Importar obra</a></div><section class="cartao"><table><thead><tr><th>Obra</th><th>Editorial</th><th>Disponibilidade</th><th>Versão publicada</th></tr></thead><tbody><tr><td><a href="/admin/obras/1">Obra de teste</a></td><td>em_revisao</td><td>aberta</td><td>Ainda não publicada</td></tr></tbody></table></section></main>
+E         <footer>Didasko · revisão com autoria e histórico</footer></body></html>
+E       assert 200 in {403}
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_seguranca.py:34: AssertionError
+============================== warnings summary ===============================
+..\..\..\..\..\..\..\..\Projetos\EM_ESTUDO\EVANGELICOS\ESTUDOS_BIBLICOS\GSI_EBD\.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Projetos\EM_ESTUDO\EVANGELICOS\ESTUDOS_BIBLICOS\GSI_EBD\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_seguranca.py: 100 warnings
+  C:\Users\EDUARD~1.NET\AppData\Local\Temp\dem011-fatia2-mutacao-7esq0nfj\papel\gsi_ebd\services\user_status_service.py:161: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    user.last_login_at = datetime.utcnow()
+
+tests/test_seguranca.py: 100 warnings
+  C:\Users\EDUARD~1.NET\AppData\Local\Temp\dem011-fatia2-mutacao-7esq0nfj\papel\gsi_ebd\services\user_status_service.py:162: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    user.last_activity_at = datetime.utcnow()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_seguranca.py::test_rf02_matriz_rotas_servidor[GET-/admin/obras-rota:/admin/obras-2]
+FAILED tests/test_seguranca.py::test_rf02_matriz_rotas_servidor[GET-/admin/obras-rota:/admin/obras-3]
+FAILED tests/test_seguranca.py::test_rf02_matriz_rotas_servidor[GET-/admin/obras-rota:/admin/obras-4]
+FAILED tests/test_seguranca.py::test_rf02_matriz_rotas_servidor[GET-/admin/obras-rota:/admin/obras-5]
+4 failed, 96 passed, 47 deselected, 201 warnings in 10.29s

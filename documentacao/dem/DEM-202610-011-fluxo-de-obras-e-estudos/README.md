@@ -11,7 +11,7 @@ a **ADR-011** (a aprovação assinada) com a **emenda da ADR-019** (a assinatura
 | Fatia | O quê | Estado |
 |---|---|---|
 | **1** | **O domínio**: as 12 operações, os hashes (normalização LF+NFC + JSON canônico), os gates de licença, a trilha append-only, a disponibilidade e o `VinculoObra` | **PASS** (269 testes; 39/39 casos; 9/9 mutações) e **mergeada** no `develop` (`7670aec`, o PR #4) |
-| **2** | **As telas do fluxo** (na v1): o esqueleto mínimo + o admin + o revisor | **design + briefing escritos** — aguarda o despacho ao Codex |
+| **2** | **As telas do fluxo** (na v1): o esqueleto mínimo + o admin + o revisor | **implementada no PR #5** (157 testes v1 + 269 regressão); CI verde; aguarda EVAL e aceite |
 | **3** | **A coordenação**: o `desvincular`, o CRUD do **adendo do ambiente** e o `planejar` (a 9.5) | a fatia da coordenação |
 
 ## O PASS — e o que o EVAL registrou
@@ -39,3 +39,12 @@ novos; e o `contestar` **não existe** mais (é a `solicitar_revisao`).
 - O **despacho** e o **briefing** do Codex, o **relatório**, a **jornada**, as **evidências de mutação**: [`dev/`](dev/)
 - O **EVAL**: [`eval/jornada.md`](eval/jornada.md) — o PASS da verificação
 
+
+## Entrega da fatia 2
+
+Etapas A/B implementadas em `3b5f56c`, [PR #5](https://github.com/egarabini/gsi_ebd/pull/5), sem merge ou deploy. A suíte da v1 roda de `v1/`; matriz, CSRF, H-14, StrictUndefined, render e integração cobertos. Mutações de papel/CSRF/H-14 detectadas; login HTTP local verificado com banco e credenciais descartáveis.
+
+Instruções locais em `ESTUDOS_BIBLICOS/GSI_EBD/v1/README.md`. [Relatório](dev/relatorio-fatia-2.md), [jornada](dev/jornada-fatia-2.md) e [evidências finais](dev/evidencias-fatia2-mutacao-final/). Domínio/modelos da fatia 1 intactos; nenhum campo novo. Fatia 3 e demais marcos da DEM-005 continuam fora. **EVAL cego ainda pendente.**
+
+
+CI confirmado no commit `3b5f56c8964b7efcb10de085617717038abd2930`: **269 testes de regressao + 157 testes da v1 passaram**, com a suite da v1 executada de `v1/`. [Execucao verde](https://github.com/egarabini/gsi_ebd/actions/runs/39339058255). PR #5 permanece aberto para develop; EVAL e aceite pendentes.
