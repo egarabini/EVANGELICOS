@@ -67,3 +67,43 @@ e dump do banco da v0.
 ## Fora deste marco
 
 Marco 1b, telas dos marcos 2–6, pin do Traefik, Ollama, desmonte da homologação.
+
+## 2026-10-21 — marco 2L (a landing)
+
+Branch `feature/DEM-202610-005-landing` a partir do marco 1 (`3d28934`), worktree
+`.worktrees/DEM-005-landing`. O despacho do ARQUITECT autoriza a execução; a fatia 2
+e o checkout `feature/DEM-202610-011-fatia2-telas` nao foram alterados.
+
+### Think
+
+- A landing e um **servico separado** (`v1.landing:create_app`): o EVAL exige o
+  conteiner **sem** `DATABASE_URL` e **sem** rede para o banco. Colocar `/` na app-v1
+  quebraria essa prova, porque a app-v1 precisa do Postgres.
+- A base e o marco 1 (o compose da homologacao vive la, PR #7 ainda aberto). `develop`
+  ainda nao tem a v1. Assuncao registrada: a branch da landing sai do marco 1.
+- O `GET /` autenticado da app-v1 deixa de ser alcancavel pelo Traefik — a raiz publica
+  passa a ser a landing. O `/login` continua na app-v1. Nao mexo no `destino()`.
+- O `landing.yaml` entra vazio. Depoimentos so com `ativo: true`. Contato so com
+  `email`/`whatsapp`. Homenagens: lista vazia, sem cartoes de exemplo.
+- O porte e o HTML/CSS do prototipo; o Jinja so entra nos `{% if %}`.
+- Publicar na VPS e do DEPLOY (ADR-016). Este marco entrega o codigo, os testes, as
+  capturas locais e o compose; o `subir.sh --v1` fica pronto para o executor.
+
+### List
+
+1. `v1/landing.py` + `v1/landing_conteudo.py` + `v1/landing.yaml` — app sem banco.
+2. Templates Jinja2 (porte do `index.html` e do `homenagens.html`) + CSS + WebP.
+3. Servico `landing` no `docker-compose.v1-homolog.yml` (so a rede `borda`) e o
+   `subir.sh --v1` (recria a landing; confere `/` 200 e ausencia de `DATABASE_URL`).
+4. Testes do render (yaml vazio e preenchido), do compose e do orcamento.
+5. Suite da v1 + regressao 269; capturas 360/768/1024/1440 e o LCP.
+
+### Execucao
+
+- App em `v1.landing:create_app`. Recusa `DATABASE_URL`. Le `v1/landing.yaml`.
+- Porte do prototipo nos templates `v1/templates/landing/` e em `v1/static/landing/`.
+- Compose: servico `landing` so na rede `borda`, prioridade Traefik 100, sem Postgres.
+- `subir.sh --v1` recria a landing e confere `/`, `/homenagens` e `/login` em 200.
+- Testes: 54 na v1 (inclui yaml vazio e preenchido) e 269 na v0.
+- Capturas em `dev/capturas-landing/`. LCP 1064 ms (hero logo, 4G simulado). Peso 2x ~92 KB.
+- Nao publiquei na VPS (ADR-016). A raiz da homologacao continua 401 ate o DEPLOY subir a branch.

@@ -10,10 +10,13 @@
 #   um depoimento só entra com o CONSENTIMENTO de quem o deu — registrado na jornada;
 # - contato: cada canal (email, whatsapp) só aparece se existir;
 # - hero/sobre: o texto base está no template; este arquivo pode sobrepô-lo;
+# - homenagens: a lista da página /homenagens; vazia, a página mostra o convite;
 # - nenhum dado de teste: este arquivo entra vazio até o ARQUITECT fornecer os dados reais.
 # ============================================================
 
-# - cidade: "São Paulo"
+# - nome: "Maria"
+#   texto: "O acompanhamento do instrutor mudou o meu estudo."
+#   cidade: "São Paulo"
 #   estado: "SP"
 #   profissao_fe: "Batista"
 #   foto: "assets/depoimentos/nome.webp"   # opcional; sem imagem de terceiros sem direito
@@ -31,3 +34,8 @@ hero: {}
 
 # texto: "..."       # opcional
 sobre: {}
+
+# - titulo: "O homenageado"
+#   descricao: "Uma vida dedicada ao ensino da Palavra."
+#   referencia: "a referencia"
+homenagens: []
