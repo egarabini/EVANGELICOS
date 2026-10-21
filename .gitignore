@@ -58,3 +58,6 @@ estudos/
 
 # artefatos de auditoria do EVAL (fora do versionamento)
 .eval-*/
+
+# temporarios de geracao
+.tmp-*/

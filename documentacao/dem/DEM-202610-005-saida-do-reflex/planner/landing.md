@@ -31,6 +31,14 @@ cópia** e sai.
 **A fonte do conteúdo**: o `gsi_ebd/landing_content/sections` da v0 (o hero, o sobre, o nome, os
 níveis, os testemunhos, o rodapé) — o **texto é reaproveitado e refinado**, o componente não.
 
+**O logo (a decisão do ARQUITECT, 21/10)**: o **`logo-didasko-tec.png`** (o aprovado) convertido para
+**WebP com transparência** em **3 resoluções** — o **88** (o topo/o rodapé, o dobro dos 44/34), o
+**440** (o hero @1x) e o **880** (o hero @2x) — com o **`srcset`/o `sizes`**, o `width`/o `height`
+intrínsecos e a **prioridade só no hero** (`fetchpriority="high"`; o rodapé `lazy`). **Total: 86 KB**
+(o SVG de 5 MB **não** entra no diretório servido nem na imagem do Docker — ele é **fonte**, em
+`documentacao/design/`). As fontes de design (**o PNG original, o vetor e o `cores-padroes.md`**) foram
+movidas de `estudos/UI-UX` (pasta ignorada) para **`documentacao/design/`** — os direitos são nossos.
+
 ## 4. As regras de redação (do ARQUITECT)
 
 1. **A voz do visitante**: nada de termo de especificação (a "versão N+1", o "hash", o "snapshot", o
@@ -105,4 +113,5 @@ como está.
 `/home/didasko-deploy/homolog-v1/.env.v1-homolog` — na raiz do clone da homologação, **modo 600**,
 dono `didasko-deploy`, **fora** do git (o `.gitignore` cobre). O `--env-file` é resolvido a partir
 dessa raiz — é por isso que o arquivo vive ali, ao lado do `.env` da v0 (que **não** é lido pela v1).
+
 
