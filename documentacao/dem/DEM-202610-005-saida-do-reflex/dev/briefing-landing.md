@@ -62,3 +62,13 @@ O **protótipo já está corrigido** — o DEVS **porta o protótipo** para o Ji
 6. os **dados de contato reais** (os do protótipo são de teste) — o bloqueio está na §11 do `landing.md`.
 
 **Os critérios do EVAL** estão na §12 do `landing.md` — a régua do marco 2L.
+## 7. O conteúdo dinâmico vem do banco (a decisão do ARQUITECT)
+
+- **Os depoimentos**: a seção só renderiza com pelo menos um `Testemunho` **ativo** (`is_active`);
+  **sem** o "Em breve". O texto/rota do template é o `{% if testemunhos %}`.
+- **O contato**: o e-mail, o telefone e o WhatsApp vêm do **`SiteConfig`** (`rodape_email`,
+  `rodape_telefone`, `redes_whatsapp`); cada canal só aparece **se a chave existir**. O HTML do
+  protótipo já traz os comentários do Jinja2 e a nota "os canais aparecem quando estiverem
+  cadastrados" — **nenhum dado de teste**.
+- **A leitura do banco da v0**: o serviço da landing lê a v0 **somente leitura** (a `DATABASE_URL`
+  no `.env` da v1, 600, sem imprimir) — a v1 não escreve na v0.

@@ -190,10 +190,12 @@
         <div class="contato__cartao">
           <h2>Quero participar</h2>
           <p>Fale com a nossa equipe e conheça a plataforma e as próximas turmas.</p>
-          <div class="contato__acoes">
-            <a class="botao botao--primario botao--grande" href="mailto:contato@gsi-ebd.com.br" data-email>Falar por e-mail</a>
-            <a class="botao botao--texto" href="https://wa.me/5500000000000" data-whatsapp>Falar no WhatsApp →</a>
-          </div>
+          <!-- O CONTATO: os canais (o e-mail, o WhatsApp) só entram quando o SiteConfig os tiver
+               no banco (rodape_email / rodape_telefone / redes_whatsapp). Sem eles, a seção mostra
+               só o convite, sem link — nada de dado de teste no HTML.
+               No Jinja2: {% if contato_email %}<a href="mailto:{{ contato_email }}">…</a>{% endif %}
+                          {% if contato_whatsapp %}<a href="https://wa.me/{{ contato_whatsapp }}">…</a>{% endif %} -->
+          <p class="contato__nota">Os canais de contato aparecem quando estiverem cadastrados.</p>
         </div>
       </div>
     </section>
