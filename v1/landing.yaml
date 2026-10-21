@@ -1,0 +1,33 @@
+# ============================================================
+# A landing da v1 — o conteúdo condicional (versionado; SEM banco).
+#
+# O ARQUITECT preenche os dados reais; o que estiver vazio NÃO aparece na página.
+# O template (o Jinja2) lê este arquivo no build/serviço — a landing não recebe
+# DATABASE_URL, não tem rede para o banco e não lê nada da v0.
+#
+# As regras (o ARQUITECT, 21/10):
+# - depoimentos: a seção só renderiza com pelo menos um item com `ativo: true`;
+#   um depoimento só entra com o CONSENTIMENTO de quem o deu — registrado na jornada;
+# - contato: cada canal (email, whatsapp) só aparece se existir;
+# - hero/sobre: o texto base está no template; este arquivo pode sobrepô-lo;
+# - nenhum dado de teste: este arquivo entra vazio até o ARQUITECT fornecer os dados reais.
+# ============================================================
+
+# - cidade: "São Paulo"
+#   estado: "SP"
+#   profissao_fe: "Batista"
+#   foto: "assets/depoimentos/nome.webp"   # opcional; sem imagem de terceiros sem direito
+#   ativo: true
+#   ordem: 1
+depoimentos: []
+
+# email: "contato@didasko.app.br"
+# whatsapp: "5511999999999"   # só dígitos, com o DDI
+contato: {}
+
+# titulo: "..."      # opcional
+# subtitulo: "..."   # opcional
+hero: {}
+
+# texto: "..."       # opcional
+sobre: {}

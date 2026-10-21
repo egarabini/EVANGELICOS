@@ -152,7 +152,7 @@ dessa raiz — é por isso que o arquivo vive ali, ao lado do `.env` da v0 (que 
 A landing **não lê o banco da v0** e **não recebe `DATABASE_URL`** (nem somente leitura). O serviço
 segue **sem banco e sem rede para o banco** — a premissa original do plano, mantida.
 
-O conteúdo condicional vem de **`estudos/landing/landing.yaml`** (versionado, no lado da landing):
+O conteúdo condicional vem de **`v1/landing.yaml`** (versionado, no lado da landing):
 
 | O bloco | Os campos | A regra |
 |---|---|---|
@@ -172,3 +172,4 @@ passa a lê-los dali. É item da **DEM-005** (ou do pós-v1) — e a decisão de
 landing é do ARQUITECT.
 
 **O EVAL confere**: o contêiner da landing sobe **sem** variável de banco e **sem** rede para o banco.
+

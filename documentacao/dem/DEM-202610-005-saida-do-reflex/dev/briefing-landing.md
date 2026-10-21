@@ -65,7 +65,7 @@ O **protótipo já está corrigido** — o DEVS **porta o protótipo** para o Ji
 ## 7. O conteúdo condicional vem de um ARQUIVO, não do banco (a decisão do ARQUITECT)
 
 - **A landing NÃO recebe `DATABASE_URL`** e **não tem rede para o banco** — o serviço sobe sem banco.
-- O conteúdo vem de **`estudos/landing/landing.yaml`** (versionado, no lado da landing): os
+- O conteúdo vem de **`v1/landing.yaml`** (versionado, no lado da landing): os
   `depoimentos[]` (a seção só renderiza com pelo menos um `ativo: true`), o `contato` (o `email`/o
   `whatsapp` — cada canal só aparece se existir) e o `hero`/`sobre` (opcionais, sobrepõem o texto
   base do template).
@@ -73,3 +73,4 @@ O **protótipo já está corrigido** — o DEVS **porta o protótipo** para o Ji
 - Um depoimento só entra com o **consentimento** de quem o deu, **registrado na jornada**.
 - **Mudar um dado é alteração no arquivo, por PR e deploy por tag** (o runbook da landing).
 - O **EVAL** confere: o contêiner da landing **sem** variável de banco e **sem** rede para o banco.
+
