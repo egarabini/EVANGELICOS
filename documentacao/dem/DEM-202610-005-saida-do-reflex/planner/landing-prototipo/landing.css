@@ -199,6 +199,8 @@ a { color: inherit; }
 .contato__acoes { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; }
 .contato__cartao .botao--primario { background: #fff; color: var(--roxo); }
 .contato__cartao .botao--texto { color: #fff; }
+/* A nota dos canais: aparece enquanto o SiteConfig nao tiver o email/o WhatsApp cadastrados. */
+.contato__nota { margin: 0; color: rgba(255, 255, 255, .85); font-size: .92rem; }
 
 /* ── rodapé ───────────────────────────────────────────────── */
 .rodape { background: #0F172A; color: #CBD5E1; padding: 2.6rem 0; }
@@ -257,3 +259,4 @@ a { color: inherit; }
   .trilha { grid-template-columns: 1fr; }
   .contato__cartao { padding: 2.2rem 1.4rem; border-radius: 20px; }
 }
+
