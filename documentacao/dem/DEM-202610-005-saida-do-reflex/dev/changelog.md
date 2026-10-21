@@ -3,6 +3,9 @@
 ## 2026-10-21 — landing (marco 2L) entregue para revisão
 
 - Branch: `feature/DEM-202610-005-landing` (worktree `.worktrees/DEM-005-landing`), a partir do marco 1.
+- Commit do código: `f9aa301a4a4a44745b787746d7deea1cda860df3`.
+- PR: https://github.com/egarabini/gsi_ebd/pull/8 → `feature/DEM-202610-005-marco1`.
+- CI: https://github.com/egarabini/gsi_ebd/actions/runs/39689542371 — **success**
 - Código: serviço `v1.landing:create_app` (Jinja2, sem banco) + labels Traefik no compose da homologação.
 - Suíte da v1: 54 passaram. Regressão da v0: 269 passaram.
 - LCP local (4G simulado): 1 064 ms. Carga 2x: ~92 KB.

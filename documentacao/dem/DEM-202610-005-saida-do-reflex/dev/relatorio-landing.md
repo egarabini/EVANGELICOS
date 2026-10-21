@@ -3,6 +3,9 @@
 - **Branch:** `feature/DEM-202610-005-landing`, de `feature/DEM-202610-005-marco1` (`3d28934`).
 - **Worktree:** `.worktrees/DEM-005-landing` (o checkout da fatia 2 não foi alterado).
 - **Assunção:** a v1 e o compose da homologação vivem no marco 1; `develop` ainda não os tem.
+- **Commit:** `f9aa301a4a4a44745b787746d7deea1cda860df3`
+- **PR:** https://github.com/egarabini/gsi_ebd/pull/8
+- **CI:** https://github.com/egarabini/gsi_ebd/actions/runs/39689542371 — **success**
 
 ## O que a landing faz
 
