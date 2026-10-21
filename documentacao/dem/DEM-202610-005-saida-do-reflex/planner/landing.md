@@ -113,5 +113,37 @@ como está.
 `/home/didasko-deploy/homolog-v1/.env.v1-homolog` — na raiz do clone da homologação, **modo 600**,
 dono `didasko-deploy`, **fora** do git (o `.gitignore` cobre). O `--env-file` é resolvido a partir
 dessa raiz — é por isso que o arquivo vive ali, ao lado do `.env` da v0 (que **não** é lido pela v1).
+## 10. As correções da revisão do AUXILIAR (21/10) — aplicadas no protótipo
 
+| # | O item | O que foi feito |
+|---|---|---|
+| 2.1 | O botão "Quero participar" do topo ilegível | a regra `.menu > a:not(.botao)` deixou de tingir os botões; o `.menu .botao--primario { color: #fff }` e o `.menu .botao--contorno { color: var(--roxo) }` (o contraste AA) |
+| 2.2 | O menu quebrando em ~800 px | o corte do hambúrguer subiu de 720 para **1000 px**; os links com `white-space: nowrap`; o intervalo do menu reduzido em 1120 |
+| 2.3 | A seção de obras sem a definição | os dois cartões novos: **A obra** (a fonte) e **O estudo dirigido** (a obra aplicada: capítulos + questões + instrutor) |
+| 2.4 | A linguagem de bastidor ("no mesmo padrão visual desta casa") | removida; o texto revisado nas seções |
+| 2.5 | A página `/homenagens` não existia | criada (`homenagens.html`), no mesmo padrão da landing, com o conteúdo a ser preenchido do banco da v0 |
+| 3.1 | Os níveis divergiam do produto | alinhados a **Básico, Médio, Avançado, Master** (o `Study.level`); a hermenêutica/a liderança viraram as descrições de Avançado/Master |
+| 3.2 | Os depoimentos com "Em breve" | a seção **removida** até haver depoimentos reais e autorizados |
+| 3.3 | A citação de Mateus repetida | ficou **uma** vez (o parágrafo); as aspas curvas “ ” no lugar de « » |
+| 3.4 | O link "Entrar" fixo na v0 | todas as ocorrências marcadas com `data-entrar` (a URL vira parâmetro na v1) |
+| 3.5 | O logo pesado | só os 3 WebP (98,2 KB); a fonte é o `design/logo.svg` |
 
+## 11. Os bloqueios de publicação (o item 2.6 e a decisão 4.1)
+
+| O bloqueio | O que falta |
+|---|---|
+| **Os dados de contato** | o WhatsApp (`wa.me/5500000000000`) e o e-mail (`contato@gsi-ebd.com.br`, o domínio antigo) **não** podem ir à produção. O ARQUITECT precisa dar os **reais** (ou confirmar o único canal) — está no HTML com os marcadores `data-email`/`data-whatsapp` |
+| **O formulário de contato** | a decisão (a) (sem formulário) está **recomendada**; a seção de contato já a segue. A confirmação é do ARQUITECT |
+| **A publicação** | o roteador de produção (o `/` e o `/homenagens` pela v1, o resto na v0) exige a **autorização específica** — os itens da §6 |
+| **A raiz da homologação** | o executor sobe a landing no `homolog.didasko.app.br/` (hoje 401) e **avisa o ARQUITECT** para a validação |
+
+## 12. Os critérios do EVAL (o item 6)
+
+1. o **contraste** dos botões (AA) — o do topo, o do hero e o do rodapé;
+2. o **menu** em 360, 768, 1024 e 1440 px (com o hambúrguer abaixo de 1000);
+3. o **texto de obras e estudos** (a obra + o estudo dirigido);
+4. a **ausência de linguagem de bastidor** (versão, hash, snapshot, N+1);
+5. os **links sem dados de teste**;
+6. o **peso** da página (o orçamento: menos de 500 KB na carga inicial; sem JS de terceiros);
+7. a **raiz da homologação** servindo a landing;
+8. o **LCP** aceitável em conexão móvel simulada, com a medição registrada.

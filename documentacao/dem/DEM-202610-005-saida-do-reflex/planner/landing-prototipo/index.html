@@ -28,7 +28,7 @@
         <a href="#quem">Quem participa</a>
         <a href="#niveis">Níveis</a>
         <a href="#homenagens">Homenagens</a>
-        <a class="botao botao--contorno" href="https://didasko.app.br/login">Entrar</a>
+        <a class="botao botao--contorno" href="https://didasko.app.br/login" data-entrar>Entrar</a>
         <a class="botao botao--primario" href="#contato">Quero participar</a>
       </nav>
     </div>
@@ -69,16 +69,16 @@
         <div class="duas-colunas">
           <div>
             <p class="destaque">Didasko é o verbo grego que significa <em>ensinar</em> — a palavra
-              que Jesus usa na Grande Comissão: «fazei discípulos… ensinando-os a guardar todas as
-              coisas que vos tenho ordenado».</p>
+              que Jesus usa na Grande Comissão, quando diz: “fazei discípulos… ensinando-os a
+              guardar todas as coisas que vos tenho ordenado”.</p>
             <p>A Didasko é uma plataforma criada para facilitar o crescimento espiritual de forma
               <strong>estruturada, guiada e progressiva</strong>.</p>
             <p><strong>A missão:</strong> conectar pessoas à Palavra de Deus por meio de estudos
               estruturados e acompanhamento personalizado.</p>
           </div>
           <div class="cartao cartao--citacao">
-            <p class="citacao">«Fazei discípulos… ensinando-os a guardar todas as coisas que vos
-              tenho ordenado.»</p>
+            <p class="citacao">“Fazei discípulos… ensinando-os a guardar todas as coisas que vos
+              tenho ordenado.”</p>
             <p class="citacao__fonte">Mateus 28.19-20</p>
           </div>
         </div>
@@ -89,7 +89,19 @@
     <section class="secao secao--fundo" id="obras">
       <div class="secao__interno">
         <p class="rotulo">O fundamento</p>
-        <h2 class="secao__titulo">O texto primeiro</h2>
+        <h2 class="secao__titulo">Da obra ao estudo</h2>
+        <div class="grade grade--2 definicoes">
+          <article class="cartao cartao--definicao">
+            <h3>A obra</h3>
+            <p>É a fonte: um livro ou texto de referência, cristão e reconhecido, escolhido para
+              servir de base aos estudos.</p>
+          </article>
+          <article class="cartao cartao--definicao">
+            <h3>O estudo dirigido</h3>
+            <p>É a obra aplicada: dividida em capítulos, com questões para fixar o aprendizado e o
+              acompanhamento de um instrutor.</p>
+          </article>
+        </div>
         <div class="grade grade--2">
           <article class="cartao cartao--icone">
             <span class="icone" aria-hidden="true">
@@ -148,46 +160,41 @@
         <p class="secao__sub">Do fundamento ao aprofundamento — cada etapa pensada para quem está
           começando e para quem já caminha há mais tempo.</p>
         <div class="trilha" role="list">
-          <div class="trilha__passo" role="listitem"><span>01</span><h3>Básico</h3><p>Fundamentos da fé.</p></div>
-          <div class="trilha__passo" role="listitem"><span>02</span><h3>Aprofundamento</h3><p>Doutrina, com base sólida.</p></div>
-          <div class="trilha__passo" role="listitem"><span>03</span><h3>Hermenêutica</h3><p>Leitura e contexto.</p></div>
-          <div class="trilha__passo" role="listitem"><span>04</span><h3>Liderança</h3><p>Formar quem forma.</p></div>
+          <div class="trilha__passo" role="listitem">
+            <span>01</span><h3>Básico</h3><p>Fundamentos da fé — ideal para quem está iniciando.</p>
+          </div>
+          <div class="trilha__passo" role="listitem">
+            <span>02</span><h3>Médio</h3><p>Aprofundamento doutrinário — para quem já domina os fundamentos.</p>
+          </div>
+          <div class="trilha__passo" role="listitem">
+            <span>03</span><h3>Avançado</h3><p>Hermenêutica e teologia — estudo avançado e contextualização.</p>
+          </div>
+          <div class="trilha__passo" role="listitem">
+            <span>04</span><h3>Master</h3><p>Especialização e liderança — para a formação de líderes.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 6. Os depoimentos -->
-    <section class="secao" id="depoimentos">
-      <div class="secao__interno">
-        <p class="rotulo">Depoimentos</p>
-        <h2 class="secao__titulo">O que dizem nossos alunos</h2>
-        <p class="secao__sub">Histórias reais de transformação através do estudo da Palavra.</p>
-        <div class="cartao cartao--vazio">
-          <p><strong>Em breve</strong> — seja o primeiro a compartilhar a sua.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. As homenagens -->
+    <!-- 6. As homenagens -->
     <section class="secao secao--homenagens" id="homenagens">
       <div class="secao__interno">
         <p class="rotulo">Homenagens</p>
         <h2 class="secao__titulo">Gente que serviu antes de nós</h2>
-        <p class="secao__sub">Uma página dedicada a quem abriu caminho — no mesmo padrão visual desta
-          casa.</p>
-        <a class="botao botao--contorno" href="/homenagens">Conhecer as homenagens →</a>
+        <p class="secao__sub">Uma página dedicada a quem abriu caminho para o ensino da Palavra.</p>
+        <a class="botao botao--contorno botao--homenagens" href="homenagens.html">Conhecer as homenagens →</a>
       </div>
     </section>
 
-    <!-- 8. O contato -->
+    <!-- 7. O contato -->
     <section class="secao secao--contato" id="contato">
       <div class="secao__interno">
         <div class="contato__cartao">
           <h2>Quero participar</h2>
           <p>Fale com a nossa equipe e conheça a plataforma e as próximas turmas.</p>
           <div class="contato__acoes">
-            <a class="botao botao--primario botao--grande" href="mailto:contato@gsi-ebd.com.br">Falar por e-mail</a>
-            <a class="botao botao--texto" href="https://wa.me/5500000000000">Falar no WhatsApp →</a>
+            <a class="botao botao--primario botao--grande" href="mailto:contato@gsi-ebd.com.br" data-email>Falar por e-mail</a>
+            <a class="botao botao--texto" href="https://wa.me/5500000000000" data-whatsapp>Falar no WhatsApp →</a>
           </div>
         </div>
       </div>
@@ -203,12 +210,11 @@
       <nav class="rodape__links" aria-label="Links do rodapé">
         <a href="#didasko">O Didasko</a>
         <a href="#obras">Obras e estudos</a>
-        <a href="#homenagens">Homenagens</a>
-        <a href="https://didasko.app.br/login">Entrar</a>
+        <a href="homenagens.html">Homenagens</a>
+        <a href="https://didasko.app.br/login" data-entrar>Entrar</a>
       </nav>
       <p class="rodape__legal">© 2026 Didasko — Todos os direitos reservados.</p>
     </div>
   </footer>
 </body>
 </html>
-

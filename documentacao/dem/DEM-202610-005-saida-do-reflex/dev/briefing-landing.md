@@ -50,3 +50,15 @@
 - a **publicação em produção** — ela exige a **autorização específica do ARQUITECT** (o roteador/o
   serviço estático/os limites/a volta atrás, na §6 do `landing.md`);
 - as obras (a fatia 2) e o acesso (o 1b) — **depois** da landing validada.
+## 6. As correções obrigatórias (a revisão do AUXILIAR, 21/10)
+
+O **protótipo já está corrigido** — o DEVS **porta o protótipo** para o Jinja2, não o reescreve:
+
+1. o **contraste** dos botões do menu (o `.menu > a:not(.botao)`; o `#fff` no primário; o roxo no contorno);
+2. o **menu** vira hambúrguer **abaixo de 1000 px** (não 720); testar em **360, 768, 1024 e 1440**;
+3. a seção de obras **com as duas definições** (a obra = a fonte; o estudo dirigido = a obra aplicada);
+4. **sem linguagem de bastidor** (o texto do site é do visitante);
+5. a **página `/homenagens`** no padrão da landing (o conteúdo vem do banco da v0; sem imagem/texto de terceiros sem direito);
+6. os **dados de contato reais** (os do protótipo são de teste) — o bloqueio está na §11 do `landing.md`.
+
+**Os critérios do EVAL** estão na §12 do `landing.md` — a régua do marco 2L.

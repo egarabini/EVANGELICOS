@@ -1,6 +1,6 @@
 /* ============================================================
-   Didasko — landing. Linha: “Divine Light” (estudos/UI-UX),
-   paleta do logo (azul/roxo/ciano/laranja) sobre o branco suave.
+   Didasko — landing e homenagens. Linha: “Divine Light”
+   (estudos/UI-UX), paleta do logo (azul/roxo/ciano/laranja).
    Leve: sem framework, sem fonte externa, sem JS.
    ============================================================ */
 
@@ -55,14 +55,19 @@ a { color: inherit; }
 .topo__interno {
   max-width: var(--max); margin: 0 auto; padding: .7rem 1.4rem;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  position: relative;
 }
-.marca { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+.marca { display: flex; align-items: center; gap: .6rem; text-decoration: none; flex-shrink: 0; }
 .marca__logo { width: 44px; height: 44px; object-fit: contain; }
-.marca__nome { font-family: var(--serifa); font-weight: 700; font-size: 1.35rem; letter-spacing: .2px; }
+.marca__nome { font-family: var(--serifa); font-weight: 700; font-size: 1.35rem; letter-spacing: .2px; white-space: nowrap; }
 
-.menu { display: flex; align-items: center; gap: 1.4rem; }
-.menu a { text-decoration: none; font-size: .95rem; color: var(--texto-suave); }
-.menu a:hover { color: var(--roxo); }
+.menu { display: flex; align-items: center; gap: 1.2rem; }
+/* Só os links de navegação herdam a cor suave; os BOTÕES mantêm a cor própria. */
+.menu > a:not(.botao) { text-decoration: none; font-size: .95rem; color: var(--texto-suave); white-space: nowrap; }
+.menu > a:not(.botao):hover { color: var(--roxo); }
+.menu a.botao { text-decoration: none; }
+.menu .botao--primario { color: #fff; }          /* o contraste WCAG AA */
+.menu .botao--contorno { color: var(--roxo); }   /* o contraste WCAG AA */
 .menu__alternador, .menu__botao { display: none; }
 
 /* ── botões ───────────────────────────────────────────────── */
@@ -76,11 +81,12 @@ a { color: inherit; }
   box-shadow: 0 8px 20px rgba(75, 30, 140, .28);
 }
 .botao--primario:hover { transform: translateY(-2px); box-shadow: var(--sombra-forte); }
-.botao--contorno { color: var(--roxo); border: 1.5px solid rgba(75, 30, 140, .35); }
+.botao--contorno { color: var(--roxo); border: 1.5px solid rgba(75, 30, 140, .45); }
 .botao--contorno:hover { background: var(--azul-claro); }
 .botao--texto { color: var(--roxo); padding: .68rem .3rem; }
 .botao--texto:hover { transform: translateX(2px); }
 .botao--grande { padding: .85rem 1.7rem; font-size: 1rem; }
+.botao--homenagens { margin-top: .6rem; }
 
 /* ── seções ───────────────────────────────────────────────── */
 .secao { padding: 5.5rem 0; }
@@ -109,6 +115,7 @@ a { color: inherit; }
   position: relative; max-width: var(--max); margin: 0 auto; padding: 0 1.4rem;
   display: grid; grid-template-columns: 1.05fr .95fr; gap: 2.5rem; align-items: center;
 }
+.hero__interno--texto { grid-template-columns: 1fr; }
 .hero__titulo {
   font-family: var(--serifa); font-size: clamp(2.1rem, 4.6vw, 3.4rem); line-height: 1.1;
   letter-spacing: -.015em; margin: .4rem 0 1rem;
@@ -126,11 +133,13 @@ a { color: inherit; }
   width: min(100%, 440px); height: auto; object-fit: contain;
   filter: drop-shadow(0 26px 50px rgba(41, 171, 226, .18));
 }
+.hero--curto { padding: 3.5rem 0 3rem; }
 
 /* ── cartões ──────────────────────────────────────────────── */
 .grade { display: grid; gap: 1.1rem; }
 .grade--2 { grid-template-columns: repeat(2, 1fr); }
 .grade--3 { grid-template-columns: repeat(3, 1fr); }
+.definicoes { margin-bottom: 1.1rem; }
 .cartao {
   background: var(--superficie); border: 1px solid var(--borda); border-radius: var(--raio);
   padding: 1.5rem; box-shadow: var(--sombra);
@@ -139,6 +148,8 @@ a { color: inherit; }
 .cartao:hover { transform: translateY(-3px); box-shadow: var(--sombra-forte); border-color: rgba(109, 114, 195, .4); }
 .cartao h3 { font-family: var(--serifa); font-size: 1.18rem; margin: .4rem 0 .5rem; }
 .cartao p { margin: 0; color: var(--texto-suave); font-size: .97rem; }
+.cartao--definicao { background: linear-gradient(160deg, var(--azul-claro), #fff 70%); border-color: rgba(109, 114, 195, .3); }
+.cartao--definicao h3 { margin-top: 0; color: var(--roxo); }
 .cartao--icone .icone {
   display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px;
   border-radius: 14px; color: var(--roxo);
@@ -152,11 +163,8 @@ a { color: inherit; }
 .citacao { font-family: var(--serifa); font-style: italic; font-size: 1.22rem; margin: 0 0 .8rem; }
 .citacao__fonte { color: var(--texto-suave); font-size: .88rem; margin: 0; }
 .cartao--papel h3 { margin-top: 0; }
-.cartao--vazio {
-  text-align: center; border-style: dashed; border-width: 2px; box-shadow: none;
-  background: linear-gradient(160deg, #fff, var(--branco)); padding: 2.6rem 1.5rem;
-}
-.cartao--vazio p { color: var(--texto-suave); }
+.cartao--homenagem h3 { margin-top: 0; }
+.referencia { margin-top: .8rem !important; color: var(--roxo) !important; font-size: .88rem; font-weight: 600; }
 
 /* ── a trilha dos níveis ──────────────────────────────────── */
 .trilha { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; position: relative; }
@@ -212,6 +220,28 @@ a { color: inherit; }
 }
 
 /* ── responsivo (web/mobile) ──────────────────────────────── */
+@media (max-width: 1120px) {
+  .menu { gap: .9rem; }
+  .menu > a:not(.botao) { font-size: .9rem; }
+}
+@media (max-width: 1000px) {
+  .menu__botao {
+    display: flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 44px; height: 44px; border-radius: 12px; cursor: pointer;
+    border: 1px solid var(--borda); background: #fff; flex-shrink: 0;
+  }
+  .menu__botao span { display: block; width: 20px; height: 2px; background: var(--texto); margin: 0 auto; }
+  .menu {
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: .4rem;
+    background: rgba(248, 249, 250, .98); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--borda); padding: 1rem 1.4rem 1.4rem;
+    transform: translateY(-8px); opacity: 0; visibility: hidden; transition: .2s ease;
+  }
+  .menu__alternador:checked ~ .menu { transform: none; opacity: 1; visibility: visible; }
+  .menu > a:not(.botao) { padding: .55rem .2rem; }
+  .menu .botao { justify-content: center; }
+}
 @media (max-width: 960px) {
   .hero__interno { grid-template-columns: 1fr; }
   .hero__visual { order: -1; }
@@ -223,22 +253,6 @@ a { color: inherit; }
 }
 @media (max-width: 720px) {
   .secao { padding: 3.6rem 0; }
-  .menu__botao {
-    display: flex; flex-direction: column; justify-content: center; gap: 5px;
-    width: 44px; height: 44px; border-radius: 12px; cursor: pointer;
-    border: 1px solid var(--borda); background: #fff;
-  }
-  .menu__botao span { display: block; width: 20px; height: 2px; background: var(--texto); margin: 0 auto; }
-  .menu {
-    position: absolute; top: 100%; left: 0; right: 0;
-    flex-direction: column; align-items: stretch; gap: .4rem;
-    background: rgba(248, 249, 250, .98); backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--borda); padding: 1rem 1.4rem 1.4rem;
-    transform: translateY(-8px); opacity: 0; visibility: hidden; transition: .2s ease;
-  }
-  .menu__alternador:checked ~ .menu { transform: none; opacity: 1; visibility: visible; }
-  .menu a { padding: .55rem .2rem; }
-  .topo__interno { position: relative; }
   .grade--2, .grade--3 { grid-template-columns: 1fr; }
   .trilha { grid-template-columns: 1fr; }
   .contato__cartao { padding: 2.2rem 1.4rem; border-radius: 20px; }
