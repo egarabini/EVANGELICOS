@@ -56,9 +56,22 @@ A (c) fica para quando houver a política de privacidade e a base legal — e **
 
 ## 6. A publicação em produção — a hipótese a autorizar
 
-A hipótese (a desenhar, **sem executar**): **um serviço estático da v1, sem banco**, atendendo o `/`
-e o `/homenagens` no domínio principal por um **roteador de prioridade maior**, com o restante (o
-login e o app) na v0.
+**A substituição (a decisão do ARQUITECT, 21/10): a landing nova substitui a atual na produção desde a
+primeira publicação.** Recomendação do AUXILIAR; o ARQUITECT confirma na validação da homologação.
+
+Isso significa: **não há convivência** entre a landing nova e a antiga. No momento da publicação:
+
+- o **`/` da produção** passa a servir a **landing da v1** (o `v0` deixa de servir a landing atual);
+- o **`/homenagens`** passa a ser o da v1 (o padrão visual novo);
+- o **login e o app continuam na v0** até a virada — o roteador novo **não** os toca;
+- **a volta atrás** é remover o rótulo e recriar **só** o serviço da v1 — o `v0` volta a servir a
+  landing atual, sem reiniciar o Traefik.
+
+**O ganho**: a partir da publicação, a vitrine já é a da v1 — e o **401 da raiz** (o achado A-01)
+deixa de existir **na produção**, porque a raiz passa a ser a landing e não a app.
+
+**O desenho**: **um serviço estático da v1, sem banco**, atendendo o `/` e o `/homenagens` no domínio
+principal por um **roteador de prioridade maior**, com o restante (o login e o app) na v0.
 
 **Os itens que o ARQUITECT precisa autorizar antes de executar** (a autorização é **específica**):
 
@@ -92,3 +105,4 @@ como está.
 `/home/didasko-deploy/homolog-v1/.env.v1-homolog` — na raiz do clone da homologação, **modo 600**,
 dono `didasko-deploy`, **fora** do git (o `.gitignore` cobre). O `--env-file` é resolvido a partir
 dessa raiz — é por isso que o arquivo vive ali, ao lado do `.env` da v0 (que **não** é lido pela v1).
+
