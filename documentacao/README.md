@@ -41,7 +41,7 @@ Nenhuma spec abre sem `intent.md` com `status: signed`. Detalhe em [`metodo/00-v
 | [DEM-202610-002](dem/DEM-202610-002-guarda-de-papel-admin/README.md) | Guarda de papel nas rotas `/admin` | **aceita** (2026-10-18) e **publicada** na v0.1.0 | — |
 | [DEM-202610-003](dem/DEM-202610-003-inventario-de-fontes/README.md) | DEM-A: inventário de fontes e licenças | **aceita** (2026-10-19) — inventário + **revisão doutrinária** (22 linhas, opção A; a FAJOPA `depende`) | DEM-001 entregue |
 | [DEM-202610-004](dem/DEM-202610-004-ci-cd-fase-a3/README.md) | CI/CD (Fase A3) | **entregue** — CI + CD no ar; a **v0.1.0 publicada pelo pipeline**; ADR-016 aceita | — |
-| [DEM-202610-005](dem/DEM-202610-005-saida-do-reflex/planner/spec.md) | **A v1 na base nova** (FastAPI + Jinja2 + HTMX, construída ao lado, virada única) | **o marco 1 PASS no 2º EVAL cego** (o `3d28934`; 40 testes da v1 + 269 da v0; a homologação no ar; a v0 intocada) — o **1b** (a identidade) e os marcos 2–6 na fila | — |
+| [DEM-202610-005](dem/DEM-202610-005-saida-do-reflex/planner/spec.md) | **A v1 na base nova** (FastAPI + Jinja2 + HTMX, construída ao lado, virada única) | **o marco 1 PASS** (o `3d28934`) + a **landing (o marco 2L)** com o escopo fechado e o texto para aprovação — a fila: **a landing → as obras (a fatia 2) → o acesso (o 1b)** | — |
 | DEM-202610-006 *(proposta)* | DEM-B: registro de fontes e proveniência | proposta | DEM-003 |
 | DEM-202610-007 *(proposta)* | DEM-C: ingestão do grafo (lugares, pessoas, eventos, jornadas) | proposta | DEM-006 |
 | DEM-202610-008 *(proposta)* | DEM-D: busca por assunto (coordenador e instrutor) | proposta | DEM-007 |
@@ -75,6 +75,7 @@ Proposta do AUXILIAR-ARCHITECT, com as **12 perguntas fechadas** pelo ARQUITECT 
 - [x] ADRs 001–011
 - [x] GitFlow (`develop` nos dois repos; tags virão com o primeiro release)
 - [ ] CI/CD (`gh` autenticado + workflows + secrets) — **bloqueado**: precisa do `gh auth login`
+
 
 
 

@@ -14,6 +14,7 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 |---|---|---|---|
 | **1** | **O esqueleto** | o login no **subdomínio de homologação** | a app FastAPI, o Jinja2, o HTMX, a **sessão/CSRF/cookie**, a imagem, o pipeline, o **endereço de homologação** e o **banco próprio** (`didasko_v1`) com o **baseline de Alembic** |
 | **1b** | **O provedor de identidade** (o Zitadel, a **ADR-021**) | o login no provedor, com o papel e o ambiente no token | a integração OIDC atrás da interface; a provisão; o D-10/D-11; os RF13-15; **5–9 dias** |
+| **2L** | **A landing** (pública, sem login — a primeira da fila, 21/10) | o `/` e o `/homenagens` no domínio, com o texto aprovado | o Jinja2 + o HTML/CSS puro; as 8 seções; a acessibilidade; o contato sem formulário; **a autorização do roteador de produção é do ARQUITECT** |
 | **2** | **O fluxo admin/revisor/obras** | importar → revisar → liberar na tela | as telas do admin e do revisor; a matriz papel × rota (a DEM-002) |
 | **3** | **O coordenador** | vincular e adendar | a tela do coordenador + o `Adendo.ambiente_id` |
 | **4** | **O instrutor e a correção** | ver a turma e corrigir | as telas do instrutor |
@@ -92,6 +93,7 @@ ADR-018 · ADR-019 · DEM-011 (o fluxo) · DEM-010 (o ambiente) · DEM-012 (a cr
 
 A busca (DEM-B/C/D), o DAVID (DEM-E), o `planejar` (a 9.5, fatia posterior), o multi-ambiente real
 (D-06), o serviço MCP (DEM-013, adiada).
+
 
 
 
