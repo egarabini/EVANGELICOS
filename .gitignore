@@ -55,3 +55,6 @@ estudos/
 
 # worktrees do harness (nao versionados)
 .worktrees/
+
+# artefatos de auditoria do EVAL (fora do versionamento)
+.eval-*/

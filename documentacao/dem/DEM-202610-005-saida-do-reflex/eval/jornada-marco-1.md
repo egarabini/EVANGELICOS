@@ -78,3 +78,49 @@ O EVAL **não** aceitou o relatório: ele reobteve a evidência (a VPS em leitur
 mutações) e **pegou os dois defeitos** que o relatório não viu. O primeiro — o teste que passa com o
 guarda arrancado — é a **prova de mutação fazendo o seu trabalho**: o teste do marco 1 testava a
 **fiação** (a dependência existe), não a **decisão** (o guarda decide).
+## A 2ª rodada — o **PASS** (o head `3d28934`)
+
+> O EVAL rodou de novo, do zero, e **não leu o relatório nem a jornada** (a regra do briefing).
+> O veredito: **PASS**. O que segue é o essencial.
+
+### Os dois bloqueios — corrigidos e provados por mutação
+
+**A matriz**: o `v1/auth.py:96` tem o `if not pode(chave, usuario.role): raise 403`; o
+`test_rf02_aluno_recebe_403_na_rota_admin` monta o `Depends(exigir("rota:/admin"))` e afirma o
+anônimo 401, o aluno 403 e o admin 200; o `test_rf02_render_por_papel` usa a lista `LIBERADOS`
+**literal** (sem `pode()`). **A mutação**: removido o `if not pode(...)`, a suíte vai de **18
+passed** para **1 failed, 17 passed** (`assert 200 == 403`) — o teste **pega** a remoção.
+
+**O CSRF do HTMX**: o `base.html:9-10` com o `defer` nos dois scripts; o `app.js:2-5` gravando o
+`X-CSRF-Token` no `htmx:configRequest`; o `test_rf01_sessao.py:15-22` afirma os dois `defer` e as
+strings. **As mutações**: o `verificar_csrf` removido → 1 failed; os dois `defer` removidos → 1
+failed; o H-14 desligado → 5 failed. O HTML vivo da homologação traz os `defer`.
+
+### As contagens e o ambiente
+
+- a suíte da v1: **40 passed**; a regressão da v0: **269 passed**; o CI no head: **verde**
+  (`39585613381`, `head_sha=3d28934`);
+- a homologação roda o **`3d28934`** (o clone, a branch, o `git status` limpo; a imagem
+  `2026-10-21T10:38:12Z`; o contêiner `10:38:14Z`); o `/login` 200, o cert LE (YR2, até 18/01);
+  a produção 200;
+- a v0: os 5 contêineres com o `StartedAt` exato (o app 19/10 12:10; o Traefik e os outros 18/10
+  17:27); nada reiniciado; o `didasko_postgres` **sem** o `didasko_v1`;
+- as condições **a–g: PASS** (o cert/recriar a app; o `didasko_postgres` intocado; os 512 MB/0,50
+  CPU; o `.env`/`.env.v1-homolog` 600 e o `SEED_PASSWORD` fora dos Composes/containers; o `exec -T
+  -e` e a ausência de tag contendo o `3d28934`; a v0 intocada; sem `down`);
+- o **fail-fast** (`set -euo pipefail`, o `morrer`, a checagem antes do `up`) e o **`rota:/logout`
+  próprio** (`rbac.py:33`, o `login.py:67`) confirmados.
+
+### O que ele **não** testou
+
+O fluxo autenticado ao vivo (sem credenciais), o caminho de falha do cert (a condição a), o
+desmonte (a condição g, de propósito), e o log bruto do CI (a API exige auth). O `/` anônimo 401 é
+o **achado A-01**, não um bloqueio.
+
+### A ressalva de método
+
+O `git archive` não leva o `.git` e o sandbox nega o `tmp_path`; o EVAL usou um `git init` na cópia
+e um fixture de `tmp_path` pré-criado — **sem alterar** o código da entrega. O CI roda o `pytest
+tests -q` no checkout real e está verde.
+
+**O marco 1 está aprovado no mérito técnico. O merge é a decisão do ARQUITECT.**
