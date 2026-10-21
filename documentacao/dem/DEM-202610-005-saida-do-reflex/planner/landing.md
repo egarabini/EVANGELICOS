@@ -147,18 +147,28 @@ dessa raiz — é por isso que o arquivo vive ali, ao lado do `.env` da v0 (que 
 6. o **peso** da página (o orçamento: menos de 500 KB na carga inicial; sem JS de terceiros);
 7. a **raiz da homologação** servindo a landing;
 8. o **LCP** aceitável em conexão móvel simulada, com a medição registrada.
-## 13. O conteúdo dinâmico vem do banco (a decisão do ARQUITECT, 21/10)
+## 13. O conteúdo condicional vem de um ARQUIVO versionado — não do banco (a decisão do ARQUITECT, 21/10)
 
-Nada de conteúdo de teste nem de "em breve" na interface pública. As seções que dependem de dados
-**só aparecem quando o dado existe no banco** da v0:
+A landing **não lê o banco da v0** e **não recebe `DATABASE_URL`** (nem somente leitura). O serviço
+segue **sem banco e sem rede para o banco** — a premissa original do plano, mantida.
 
-| A seção | A fonte | A regra |
+O conteúdo condicional vem de **`estudos/landing/landing.yaml`** (versionado, no lado da landing):
+
+| O bloco | Os campos | A regra |
 |---|---|---|
-| **Os depoimentos** | a tabela **`Testemunho`** (o Admin cadastra: a cidade, o estado, a profissão de fé, a foto, o `is_active`, a ordem) | a seção **só renderiza** com pelo menos um `Testemunho` ativo; **sem** o "Em breve" |
-| **O contato** | o **`SiteConfig`**: o `rodape_email`, o `rodape_telefone`, o `redes_whatsapp` | cada canal **só aparece** quando a chave existe no `SiteConfig`; sem elas, a seção fica **só com o convite**, sem link |
-| **O hero e o "sobre"** | o `SiteConfig` (o `hero_titulo`, o `hero_subtitulo`, o `sobre_titulo`, o `sobre_texto`) | opcional — o texto base fica no template, o banco **sobrepõe** |
+| **`depoimentos[]`** | a cidade, o estado, a profissão de fé, a foto (opcional), o `ativo`, a ordem | a seção **só renderiza** com pelo menos um **`ativo: true`**; um depoimento só entra com o **consentimento** de quem o deu, **registrado na jornada** |
+| **`contato`** | o `email`, o `whatsapp` (cada um opcional) | cada canal **só aparece** se existir; sem canais, a seção fica **só com o convite** |
+| **`hero`/`sobre`** | o título/o subtítulo, o texto | opcional — o texto base do template; o arquivo **sobrepõe** |
 
-**A consequência para o deploy**: o serviço estático da v1 **não pode** ser puramente estático — ele
-lê o banco da v0 (em leitura) para montar essas seções. O `deploy` da landing (a homologação e a
-produção) precisa da `DATABASE_URL` **somente leitura** (a v0) — e o `subir.sh`/o Compose da landing
-ganham essa variável (o segredo no `.env`, 600, sem imprimir).
+**O arquivo entra VAZIO** (ou só com o texto base) até o ARQUITECT fornecer os dados reais — **nenhum
+dado de teste**, nenhum `mailto:`/`wa.me` de exemplo.
+
+**A operação**: **mudar um dado é alteração no arquivo**, por **PR e deploy por tag** — está no
+runbook da landing.
+
+**A dívida registrada (o pós-v1)**: depois da virada, os depoimentos e a configuração do site viram
+**entidades do `didasko_v1`**, editáveis pelo Admin; **só então** a landing ganha acesso a banco e
+passa a lê-los dali. É item da **DEM-005** (ou do pós-v1) — e a decisão de abrir o banco para a
+landing é do ARQUITECT.
+
+**O EVAL confere**: o contêiner da landing sobe **sem** variável de banco e **sem** rede para o banco.

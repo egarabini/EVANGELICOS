@@ -84,6 +84,6 @@ Exclusão de dados · **restauração de banco** · migração · seed/importaç
 - transferir o **DUMP** como artifact (hoje o artifact é o manifesto);
 - restringir/rotacionar a chave operacional;
 - revogar a chave antiga e remover as privadas temporárias do disco.
-
-
-
+- **O conteúdo da landing** (\studos/landing/landing.yaml\): os depoimentos e o contato vêm desse
+  arquivo versionado — **não** do banco. Mudar um dado é alteração no arquivo, por **PR e deploy por
+  tag**; o serviço da landing sobe **sem** variável de banco e **sem** rede para o banco.
