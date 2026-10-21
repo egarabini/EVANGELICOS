@@ -49,13 +49,17 @@ mantém `ativo` e renova a sessão. O login segue `on_login_success` / `on_login
 
 | Suíte | Onde | Resultado |
 |---|---|---|
-| v1 | diretório `v1/` | 37 passaram |
+| v1 | diretório `v1/` | 40 passaram |
 | v0 | raiz do worktree | 269 passaram |
 | imagem | `GET /login` local, limite de 512 MiB | 200 |
 | CI | os dois pushes do PR | verde |
 
 O plano de testes ainda cita 128 testes da v0. A contagem viva é 269. O texto do
 PLANNER ficou como está.
+
+O relatório dizia 37. No head `59abcf8` a suíte já era 38, por causa do fail-fast
+do `POSTGRES_USER`. A correção do EVAL acrescenta o teste negativo da matriz e o
+do CSRF do HTMX: 40.
 
 ## Homologação
 
@@ -135,3 +139,28 @@ não usou `--remove-orphans`. Os volumes do projeto `deploy` (`deploy_chroma_dat
 | `didasko_traefik` | 2026-10-18T17:27:43.522467189Z | 2026-10-18T17:27:43.522467189Z |
 
 Os cinco da v0 ficaram com o mesmo `StartedAt`. O Traefik não foi reiniciado.
+
+## Correção do EVAL (21/10)
+
+O parecer está em `eval/jornada-marco-1.md` (`63268ed`). O commit
+`3d289349a197a76b05496eb8e3a7601455285266` cobre os dois bloqueios. A sonda
+`Depends(exigir("rota:/admin"))` responde 403 ao aluno, 200 ao admin e 401 ao
+anônimo. Sem o `pode()` no `exigir`, esse teste falha. Os scripts do `base.html`
+levam `defer`, e o `app.js` grava o header `X-CSRF-Token`. O `/logout` usa a chave
+`rota:/logout`. O CI ficou verde:
+https://github.com/egarabini/gsi_ebd/actions/runs/39585613381.
+
+O clone da homologação saiu de `7524ac7` e foi para `3d28934`. O `subir.sh --v1`
+recriou só a app. O `defer` está no HTML de `/login` (HTTP 200).
+
+| Container | StartedAt antes | StartedAt depois |
+|---|---|---|
+| `didasko_v1_app` | 2026-10-20T21:42:46.489069386Z | 2026-10-21T10:38:14.638918934Z |
+| `didasko_v1_postgres` | 2026-10-20T21:42:39.20981457Z | 2026-10-20T21:42:39.20981457Z |
+| `didasko_app` | 2026-10-19T12:10:13.854096936Z | 2026-10-19T12:10:13.854096936Z |
+| `didasko_postgres` | 2026-10-18T17:27:43.532867086Z | 2026-10-18T17:27:43.532867086Z |
+| `didasko_chromadb` | 2026-10-18T17:27:43.520845985Z | 2026-10-18T17:27:43.520845985Z |
+| `didasko_ollama` | 2026-10-18T17:27:43.521563773Z | 2026-10-18T17:27:43.521563773Z |
+| `didasko_traefik` | 2026-10-18T17:27:43.522467189Z | 2026-10-18T17:27:43.522467189Z |
+
+O pin do Traefik ficou com o ARQUITECT.
