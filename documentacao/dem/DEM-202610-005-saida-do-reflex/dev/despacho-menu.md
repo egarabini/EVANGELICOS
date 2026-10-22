@@ -34,3 +34,30 @@ ordem de HTML**.
 
 O DEVS porta → o CI → o DEPLOY roda o `subir.sh --v1` → o ARQUITECT valida → o EVAL → a produção
 (com a autorização específica).
+## O porte do protótipo INTEIRO (o adendo — o commit `b0a1c9e` do protótipo)
+
+O **menuzinho** foi portado, mas o protótipo **avançou mais 4 arquivos** que a v1 **não tem**:
+
+| O arquivo do protótipo | O que portar para a v1 |
+|---|---|
+| o `landing.css` | o `.marca__logo { width: 45px; height: 45px }` (a v1 está em **44px**) |
+| o `index.html` | o `srcset` **90w** e o `sizes` **45px** no logo do topo (o rodapé os 34px) |
+| o `homenagens.html` | o mesmo `srcset`/`sizes` |
+| o `assets/logo-88.webp` | o **recorte novo** (o livro preenchendo os 45px, **7,7 KB**) — a v1 tem o antigo |
+
+**O recorte do logo é a diferença visual** — sem ele o logo parece "pequeno no canto" em vez de
+preencher o espaço.
+
+### O que o porte deve incluir
+
+1. os **4 arquivos** para o `v1/templates/landing` e o `v1/static/landing`;
+2. o **teste** do render: o `srcset`/o `sizes`/o `width`/o `height` do logo do topo (45) e do rodapé (34);
+3. **o `Cache-Control`** (o fix do sintoma "o deploy não mudou a página"):
+   - o CSS/o HTML da landing com o `Cache-Control: no-cache` (o browser revalida pelo `etag`;
+   - ou o cache busting `/static/landing/landing.css?v={{ versao }}`);
+   - os **WebP** com o long cache (o hash do conteúdo no nome, ou o `max-age=31536000, immutable`).
+
+### O DoD
+
+o CI verde → o DEPLOY roda o `subir.sh --v1` → a homologação mostra o logo novo (o recorte) e o
+menu novo → o `Ctrl+F5` **não** é necessário para o deploy aparecer → o ARQUITECT valida.
