@@ -1,0 +1,70 @@
+# Jornada do EVAL cego — DEM-005, marco 2L (a landing)
+
+> O EVAL julgou o PR #8 (o head `02eff4a`) na homologação, sem confiar no relatório. O veredito:
+> **FAIL** — um critério de contraste e uma decisão do despacho. O resto: PASS, com ressalvas.
+
+## O veredito: **FAIL**
+
+### Os dois bloqueios
+
+**1. O contraste AA do `.botao--primario` — FAIL.**
+O botão é `#fff` sobre `linear-gradient(120deg, #4B1E8C, #6D72C3 55%, #29ABE2)`. Medido **no pixel do
+texto** (a captura `landing-1024.png`, o bbox do texto x870..980/y30..43; a fórmula do gradiente
+validada contra o pixel):
+
+| O ponto do gradiente | O contraste |
+|---|---|
+| o pior ponto **sob o texto** | **3,11:1** (no x980) |
+| o stop **ciano** (`#29ABE2`) | **2,62:1** |
+| o stop **índigo** (`#6D72C3`) | 4,33:1 |
+
+O texto é 15,2 px/600 (o topo) e 16 px/600 (o hero) → **exige 4,5:1**. O defeito aparece no
+**"Quero participar"** do topo **e** do hero (a mesma regra). O **"Entrar"** (o contorno, `#4B1E8C`
+em `#F8F9FA`) = **10,69** ✓; os links do rodapé = 12,02/6,96 ✓; **a nota do contato** (o branco
+85%, 14,7 px) = **3,52** — **também abaixo**.
+
+**2. A decisão 3 do despacho (o contato) — FAIL.**
+Os canais estão corretos (nenhum `mailto:`/`wa.me`), **mas** o template acrescenta o placeholder
+*"Os canais de contato aparecem quando estiverem cadastrados."* (`index` l.229, `homenagens` l.61) —
+**na cara do visitante**. O despacho §2.3 diz: **sem canais, a seção fica só com o convite** — sem
+placeholder.
+
+### O que **PASS** (com as ressalvas)
+
+- **O menu**: PASS com ressalva — o CSS está certo (o `order: -1`, o painel lateral, o hover, o
+  checkbox); as capturas 768/1024/1440 são de **antes do head** (a de 768 mostra o hambúrguer à
+  direita — stale); **o teclado não abre** o menu (o checkbox é `display:none` e o label é
+  `aria-hidden`) — a observação de acessibilidade do DoD.
+- **As duas definições**: PASS (o HTML e a captura 1440).
+- **Sem bastidor**: PASS (o grep — nenhum n+1/hash/snapshot; o "papel" só na classe).
+- **Sem dados de teste**: PASS (o grep; o `landing.yaml` só com os exemplos **comentados**).
+- **O peso**: PASS — 60,2 KB (1x) / 96,5 KB (2x), o limite 512 KB; zero `<script>`, zero CDN.
+- **A raiz**: PASS — o `/` 200 (10.000 B), o `/homenagens` 200, o `/login` 200.
+- **O LCP**: PASS com ressalva — 1.064 ms, o `IMG.hero__logo` (o logo-880), o 4G simulado; medido
+  em `127.0.0.1:8010` e **antes** do `02eff4a` (as URLs sem hash); não reproduzido (sem browser).
+- **O cache**: PASS — o CSS versionado com `public, max-age=31536000, immutable`; o HTML com
+  `no-cache` + o `etag:"57c3afaaecc63f03"` e o **304** no `If-None-Match`; os nomes sem hash →
+  **404**; o hash = o `sha256(conteúdo)[:16]` (o CSS servido = `fbc3428c9a2a7e6a` ✓). Nuances: o
+  `curl -I /` → **405** (o HEAD não implementado); o WebP servido como `application/octet-stream`.
+- **As decisões**: B1/B2/B4/B5 PASS (o `landing.yaml` sem banco; o `create_app` recusa o
+  `DATABASE_URL`; o contêiner sem a variável; a seção dos depoimentos sem o `id` quando vazio; o
+  `inspect` com só o `LANDING_LOGIN_URL` e a rede `deploy_didasko`).
+- **A fonte única**: PASS (o `landing-prototipo/README.md` = CONGELADO; o diretório limpo).
+- **Os testes**: PASS — a v1 **60**, a v0 **269**, o CI do `02eff4a` (o run `39771652866`) success.
+
+### O que ele **não** testou
+
+O painel aberto no head (360/768) e o **hover real** (sem browser no sandbox); o **LCP** no head; o
+**teclado** do menu; o `curl -I /` (405). Não tocou na produção/no Traefik/na v0; não fez `up/down`.
+
+## O que falta para passar
+
+1. **O contraste do `.botao--primario` ≥ 4,5:1** sob o texto (escurecer o fim do gradiente, usar o
+   sólido ou o texto escuro no fim claro) no topo e no hero — **e a nota do contato**;
+2. **Remover a `contato__nota`** (e o teste que a exige) para a seção ficar **só com o convite**;
+3. **Re-tirar as capturas** 768/1024/1440 no head e **re-medir o LCP**;
+4. **(A qualidade)**: o `content-type: image/webp` e o **acesso por teclado** ao menu.
+
+**A lição do EVAL**: o contraste foi medido **no pixel**, com a fórmula do gradiente validada — não
+é "parece claro"; é **3,11:1 onde o texto está**. E o placeholder era o tipo de coisa que o autor
+acha que ajuda e o visitante lê como sistema inacabado.

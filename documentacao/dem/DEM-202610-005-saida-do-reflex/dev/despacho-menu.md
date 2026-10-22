@@ -62,3 +62,41 @@ Além do logo (o 45px, o `srcset` 90w), do menu e do cache, o porte inclui — e
 **O DEVS porta** → o **CI** → o **DEPLOY** (o `subir.sh --v1`) → a **validação do ARQUITECT** (a
 janela anônima) → o **EVAL cego do marco 2L** → a **produção** (com a autorização específica do
 roteamento).
+## O adendo do EVAL (o parecer do marco 2L) — o fix dos 2 bloqueios
+
+O EVAL deu **FAIL** em duas coisas. O resto passou (com ressalvas).
+
+### 1. O contraste do `.botao--primario` (o bloqueio de acessibilidade)
+
+Medido **no pixel do texto**: o pior ponto sob o texto = **3,11:1**; o stop ciano = 2,62; o índigo =
+4,33. O texto (15,2 px/600 no topo, 16 px/600 no hero) **exige 4,5:1**.
+
+**O fix**: o `.botao--primario` deixa o gradiente que termina no **ciano claro** e passa a um
+**fundo escuro** — o sólido `#4B1E8C` ou o `linear-gradient(120deg, #3B1470, #4B1E8C)` (o
+contraste do branco sobre o `#4B1E8C` é ~8,5:1). **A nota do contato** (`rgba(255,255,255,.85)`,
+14,7 px, o 3,52) sobe para o **branco a 100%** (ou o texto escuro) — e o mesmo vale para qualquer
+texto sobre o gradiente do `contato__cartao`.
+
+### 2. A `contato__nota` (a decisão 3 do despacho)
+
+O placeholder *"Os canais de contato aparecem quando estiverem cadastrados."* **sai do template** —
+a seção fica **só com o convite** (o título + a frase + o botão do CTA do contato). Remover também o
+teste que a exige (`test_landing.py` l.227) e o CSS `.contato__nota`.
+
+### 3. As provas a refazer (as ressalvas do EVAL)
+
+- **as capturas 768/1024/1440** de novo, **no head** (as atuais são de 21/10, antes do `02eff4a`);
+- **o painel aberto** (o hover) no 360/768 — a captura que o EVAL não tinha;
+- **o LCP** de novo, no head, da homologação (o medido foi em `127.0.0.1:8010`).
+
+### 4. A qualidade (não bloqueia, mas o EVAL registrou)
+
+- o `content-type: image/webp` nos WebP (hoje `application/octet-stream`);
+- o **acesso por teclado** ao menu (o checkbox é `display:none` + o label `aria-hidden`) — o
+  `:focus-within`/o `sr-only` ou o botão real (o JS mínimo) resolvem.
+
+## O DoD do fix
+
+O contraste **≥ 4,5:1** medido no pixel (o topo, o hero, a nota); **sem a `contato__nota`**; as
+capturas e o LCP **no head**; o CI; o DEPLOY roda o `subir.sh --v1`; a validação do ARQUITECT em
+janela anônima.
