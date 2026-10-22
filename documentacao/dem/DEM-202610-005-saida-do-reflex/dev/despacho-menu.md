@@ -123,3 +123,18 @@ cursor sai do label. **O fix**: o painel **encostar** no label (`top: calc(100% 
 
 O contraste do parágrafo **medido ≥ 4,5** (o 360 e o 1440); o painel **encostado** no label; o CI; o
 DEPLOY (o `subir.sh --v1`); a validação do ARQUITECT em janela anônima.
+## O adendo do VISION (a verificação do ARQUITECT, 22/10)
+
+O VISION confirmou o **mesmo ponto** do EVAL, agora no navegador real: o `.contato__cartao` (a home e
+o `/homenagens`) tem o gradiente até o `rgb(41,171,226)` com o texto pequeno branco — o **4,33:1** no
+meio e o **2,62:1** no canto. **O fix é o mesmo do botão** (as duas pontas escuras), **mais**:
+
+**O teste de contraste** (a exigência do VISION): um teste automatizado que **calcule a razão de
+contraste** (a fórmula da luminância relativa) do texto do `.contato__cartao` contra o **gradiente** —
+o pior ponto — e **falhe** se ficar abaixo de 4,5:1. O mesmo teste vale para o `.botao--primario`.
+
+**O `/homenagens` sem conteúdo**: a página tem só o título, a frase e o cartão. **A decisão de ela
+entrar na primeira publicação é do ARQUITECT** — o DEVS **não** a remove nem a esconde sem essa
+decisão; o portão fica registrado.
+
+**O LCP**: o registro atualizado — **1.924 ms** na 768 px, medido no navegador real pelo VISION.

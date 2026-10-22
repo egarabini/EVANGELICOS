@@ -77,3 +77,27 @@ executor subir esta branch.
 - o banco para a landing (dívida pós-v1);
 - as obras (fatia 2) e o acesso (marco 1b);
 - o merge do marco 1 (PR #7).
+## A verificação do ARQUITECT (VISION) na homologação — 22/10
+
+**PASSOU:**
+- os cabeçalhos: o `no-cache` + o `ETag` no HTML; o `immutable` com o hash nos assets; o `image/webp`;
+- sem dado de teste;
+- o botão do topo: **11,27–13,82:1**;
+- o menu em **1440/1024/768/375**, sem rolagem horizontal;
+- o teclado: o `Tab` chega ao controle, o `Espaço` abre o menu;
+- o `/login` 200;
+- o **LCP 1.924 ms** (a 768 px);
+- **~52 KB** na home.
+
+**CORRIGIR (bloqueia o aceite):**
+- o `.contato__cartao` (a home **e** o `/homenagens`) tem o gradiente até o `rgb(41,171,226)` com o
+  texto pequeno em branco: o **4,33:1** no meio e o **2,62:1** no canto — abaixo de 4,5:1;
+- **o tratamento**: o mesmo do `.botao--primario` (as duas pontas escuras, sem o ciano atrás do
+  texto) **e cobrir com teste de contraste**.
+
+**DECISÃO PENDENTE DO ARQUITECT:**
+- a página `/homenagens` está **sem conteúdo** (só o título, a frase e o cartão); aguardar a decisão
+  se ela entra na primeira publicação.
+
+**O LCP:** o registro atualizado — **1.924 ms** na 768 px (o anterior, 1.064 ms, era anterior ao
+`02eff4a`).
