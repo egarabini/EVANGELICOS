@@ -73,4 +73,16 @@ O **protótipo já está corrigido** — o DEVS **porta o protótipo** para o Ji
 - Um depoimento só entra com o **consentimento** de quem o deu, **registrado na jornada**.
 - **Mudar um dado é alteração no arquivo, por PR e deploy por tag** (o runbook da landing).
 - O **EVAL** confere: o contêiner da landing **sem** variável de banco e **sem** rede para o banco.
+## 8. A fonte única é a v1 — e o cache (as correções do ARQUITECT, 22/10)
 
+- **A v1 é a fonte da landing.** O `planner/landing-prototipo/` está **CONGELADO** (o README dele) —
+  ele é o histórico do desenho; **não se edita mais**. Todo ajuste visual nasce **direto na v1** e é
+  validado na homologação. (A regra anterior, "o protótipo é a fonte da verdade", **saiu** — ela só
+  administrava a duplicação.)
+- **O cache**: o **HTML** com `Cache-Control: no-cache` + **ETag**; os **assets** (o CSS, os WebP)
+  com `max-age` longo + `immutable` **SOMENTE** com o **hash do conteúdo na URL** (o nome
+  `logo-88.<hash>.webp` ou o `?v=<hash>`, gerado no build — nunca manual). **Trocar o conteúdo de
+  um asset troca a URL dele** — vale para o `srcset`.
+- **O EVAL confere**: as 5 decisões do arquivo (o sem-banco; os depoimentos só com o ativo; os canais
+  só se existirem; sem dados de teste; o contêiner sem a variável e sem a rede) + o cache + a fonte
+  única + os testes dos cabeçalhos e da URL versionada.

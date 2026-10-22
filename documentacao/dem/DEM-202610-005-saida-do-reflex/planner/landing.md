@@ -172,4 +172,12 @@ passa a lê-los dali. É item da **DEM-005** (ou do pós-v1) — e a decisão de
 landing é do ARQUITECT.
 
 **O EVAL confere**: o contêiner da landing sobe **sem** variável de banco e **sem** rede para o banco.
+## 14. O cache e a fonte única (as correções do ARQUITECT, 22/10)
 
+- **O HTML** da landing: `Cache-Control: no-cache` + o **ETag** (o navegador revalida a cada visita).
+- **O CSS e os WebP**: `max-age` longo + o `immutable` **somente** com o **hash do conteúdo na URL**
+  (o nome ou o `?v=`), gerado no build. **Mudou o conteúdo, muda a URL** — e o `srcset` acompanha.
+- **A fonte única**: a **v1** (`v1/templates/landing` + `v1/static/landing`). O
+  `planner/landing-prototipo/` está **CONGELADO** (o README dele); todo ajuste nasce na v1.
+- **Os testes do DoD**: os cabeçalhos (o no-cache + o ETag; o max-age + o immutable nos versionados);
+  a URL que muda com o conteúdo; a validação em **janela anônima** (sem o `Ctrl+F5`).

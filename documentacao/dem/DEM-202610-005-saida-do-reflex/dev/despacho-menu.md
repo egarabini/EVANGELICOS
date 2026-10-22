@@ -1,63 +1,64 @@
-# O despacho — o menu mobile da landing (o fix visual)
+# O despacho — o porte do protótipo INTEIRO para a v1 (+ o cache)
 
-- **Data:** 2026-10-21 · **Nível 2** (a ADR-018) — um fix dentro do marco 2L.
-- **O gatilho:** o ARQUITECT viu o menu aberto na homologação (o print) e não gostou: o painel cobria
-  o conteúdo, os botões ocupavam a largura toda e os títulos vazavam pelo fundo translúcido.
-- **A referência:** o protótipo **já está corrigido** (o commit `1135930`, o
-  `planner/landing-prototipo/`) — o DEVS **porta**, não redesenha.
+- **Data:** 2026-10-22 · **Nível 2** (a ADR-018) — o fix do marco 2L, aprovado pelo ARQUITECT com
+  **três correções**.
+- **O gatilho:** o protótipo avançou 4 arquivos (o logo/45px/90w/o recorte) e a v1 (`74e3ee3`) tem só
+  o menu; e o sintoma "o deploy não mudou a página" revelou o **cache heurístico**.
 
-## O que mudar
+## As três correções do ARQUITECT
 
-1. **`v1/templates/landing/index.html`** e **`v1/templates/landing/homenagens.html`**: a **ordem do
-   menu** — o `<input class="menu__alternador">` e o `<label class="menu__botao">` **antes** do
-   `<a class="marca">` (o hambúrguer à esquerda).
-2. **`v1/static/landing/landing.css`**: o bloco `@media (max-width: 1000px)`:
-   - o **hambúrguer à esquerda** (`order: -1`);
-   - o **menu como painel lateral** (`min(320px, 86vw)`, da esquerda, **fundo branco opaco**, a
-     sombra, o canto arredondado — **sem** o fundo translúcido que deixava o conteúdo vazar);
-   - ele abre no **hover** (o `.menu__botao:hover ~ .menu` e o `.menu:hover`), com o **checkbox
-     como fallback do toque**.
+### 1. O cache longo SÓ vale com a URL versionada
 
-## O que **não** muda
+- **O HTML**: `Cache-Control: no-cache` + o **ETag** — o navegador revalida a cada visita.
+- **O CSS, os WebP e os demais assets**: `max-age` longo + `immutable` **SOMENTE** com o **hash do
+  conteúdo no nome** (`logo-88.<hash>.webp`) ou em **`?v=<hash>`** nas referências. O hash é
+  **gerado no build a partir do conteúdo**, nunca um número de versão manual.
+- **Trocar o conteúdo de um asset troca a URL dele** — vale também para o **`srcset`**.
+- **O motivo**: o `logo-88.webp` mudou de conteúdo mantendo o nome; o `immutable` com o nome fixo
+  repetiria o sintoma — quem já visitou continuaria vendo o logo antigo.
 
-O conteúdo, o `v1/landing.yaml`, as rotas, a regra do **sem banco**. O fix é **só de CSS e de
-ordem de HTML**.
+### 2. O porte carrega as decisões anteriores, não só o visual
 
-## O DoD
+Além do logo (o 45px, o `srcset` 90w), do menu e do cache, o porte inclui — e o **EVAL confere**:
 
-- o **CI verde**;
-- o **DEPLOY** roda o `bash deploy/subir.sh --v1` na branch da landing;
-- a **homologação** mostra o menu novo — o ARQUITECT valida;
-- o **EVAL** confere (o menu em 360/1024, o hover, o painel lateral).
+1. o **conteúdo condicional vem de arquivo versionado** (`v1/landing.yaml`), **SEM banco** e **SEM
+   `DATABASE_URL`** (a opção A, já decidida);
+2. a seção de **depoimentos só renderiza com pelo menos um item `ativo: true`**; sem item ativo,
+   **ela não existe no HTML**;
+3. **cada canal de contato só aparece se estiver no arquivo**; sem canais, a seção fica **só com o
+   convite**;
+4. o arquivo entra **sem nenhum dado de teste** (nenhum `mailto:`/`wa.me` de exemplo);
+5. o **contêiner da landing sobe sem variável de banco e sem rede para o banco**.
 
-## A ordem
+### 3. Uma só fonte da landing: a V1
 
-O DEVS porta → o CI → o DEPLOY roda o `subir.sh --v1` → o ARQUITECT valida → o EVAL → a produção
-(com a autorização específica).
-## O porte do protótipo INTEIRO (o adendo — o commit `b0a1c9e` do protótipo)
+- **Depois do porte, a `v1` é a única fonte.** O `landing-prototipo/` vira **histórico** (o README
+  dele marcado como **CONGELADO**) — ou é removido da DEM.
+- **Todo ajuste visual nasce direto na v1** e é validado na homologação.
+- **A regra anterior** ("o protótipo é a fonte da verdade visual") **sai do briefing** — ela só
+  administrava a duplicação, e a duplicação acabou.
 
-O **menuzinho** foi portado, mas o protótipo **avançou mais 4 arquivos** que a v1 **não tem**:
+## O que portar (o visual)
 
 | O arquivo do protótipo | O que portar para a v1 |
 |---|---|
-| o `landing.css` | o `.marca__logo { width: 45px; height: 45px }` (a v1 está em **44px**) |
+| o `landing.css` | o `.marca__logo { width: 45px; height: 45px }` (a v1 está em 44px) |
 | o `index.html` | o `srcset` **90w** e o `sizes` **45px** no logo do topo (o rodapé os 34px) |
 | o `homenagens.html` | o mesmo `srcset`/`sizes` |
-| o `assets/logo-88.webp` | o **recorte novo** (o livro preenchendo os 45px, **7,7 KB**) — a v1 tem o antigo |
+| o `assets/logo-88.webp` | o **recorte novo** (o livro preenchendo os 45px) — com o **hash no nome** |
 
-**O recorte do logo é a diferença visual** — sem ele o logo parece "pequeno no canto" em vez de
-preencher o espaço.
+## O DoD (os acréscimos do ARQUITECT)
 
-### O que o porte deve incluir
+- o **CI verde**; o **DEPLOY** roda o `bash deploy/subir.sh --v1`;
+- o **teste automatizado dos cabeçalhos**: o HTML com o `no-cache` + o `ETag`; os assets versionados
+  com o `max-age` longo + o `immutable`;
+- o **teste de que o nome/a URL do asset muda quando o conteúdo muda**;
+- a **validação do ARQUITECT em janela anônima** na homologação (**sem** o `Ctrl+F5`): o **logo do
+  recorte**, o **menu**, a **versão de celular**, os **textos de obra e estudo dirigido**;
+- o **EVAL confere**: as 5 decisões do item 2 + o cache (o item 1) + a fonte única (o item 3).
 
-1. os **4 arquivos** para o `v1/templates/landing` e o `v1/static/landing`;
-2. o **teste** do render: o `srcset`/o `sizes`/o `width`/o `height` do logo do topo (45) e do rodapé (34);
-3. **o `Cache-Control`** (o fix do sintoma "o deploy não mudou a página"):
-   - o CSS/o HTML da landing com o `Cache-Control: no-cache` (o browser revalida pelo `etag`;
-   - ou o cache busting `/static/landing/landing.css?v={{ versao }}`);
-   - os **WebP** com o long cache (o hash do conteúdo no nome, ou o `max-age=31536000, immutable`).
+## A ordem (mantida)
 
-### O DoD
-
-o CI verde → o DEPLOY roda o `subir.sh --v1` → a homologação mostra o logo novo (o recorte) e o
-menu novo → o `Ctrl+F5` **não** é necessário para o deploy aparecer → o ARQUITECT valida.
+**O DEVS porta** → o **CI** → o **DEPLOY** (o `subir.sh --v1`) → a **validação do ARQUITECT** (a
+janela anônima) → o **EVAL cego do marco 2L** → a **produção** (com a autorização específica do
+roteamento).
