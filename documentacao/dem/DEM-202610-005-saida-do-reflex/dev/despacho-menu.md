@@ -100,3 +100,26 @@ teste que a exige (`test_landing.py` l.227) e o CSS `.contato__nota`.
 O contraste **≥ 4,5:1** medido no pixel (o topo, o hero, a nota); **sem a `contato__nota`**; as
 capturas e o LCP **no head**; o CI; o DEPLOY roda o `subir.sh --v1`; a validação do ARQUITECT em
 janela anônima.
+## O adendo do 3º parecer (a 2ª rodada do EVAL) — o cartão do contato
+
+Os dois bloqueios anteriores estão **corrigidos** (o `.botao--primario` 11,27:1; a `contato__nota`
+0). O que reprova agora:
+
+### 1. O parágrafo do `.contato__cartao` (o contraste)
+
+O cartão usa o `linear-gradient(125deg, #4B1E8C, #6D72C3 60%, #29ABE2)` — o **ciano** de novo no fim.
+O parágrafo (16 px/400, branco, `opacity: .92`): o **4,21:1** (o branco puro) / **3,84** (o glifo com o
+92%) no 1440; **~3,7** no head; **~3,2** no 360. A norma exige **4,5**.
+
+**O fix**: o gradiente do cartão com as **duas pontas roxas** (o `#3B1470` → o `#4B1E8C`) e o
+`opacity: 1`; **remedir** o pior pixel em **360 e 1440 ≥ 4,5**.
+
+### 2. O vão do menu no hover (a ressalva)
+
+O vão de **~13,7 px** entre o label e o painel (`top: 100%`) — o painel pode **fechar** quando o
+cursor sai do label. **O fix**: o painel **encostar** no label (`top: calc(100% - X)` ou o `padding`).
+
+### O DoD
+
+O contraste do parágrafo **medido ≥ 4,5** (o 360 e o 1440); o painel **encostado** no label; o CI; o
+DEPLOY (o `subir.sh --v1`); a validação do ARQUITECT em janela anônima.

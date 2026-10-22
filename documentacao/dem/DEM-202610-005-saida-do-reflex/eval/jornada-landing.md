@@ -68,3 +68,48 @@ O painel aberto no head (360/768) e o **hover real** (sem browser no sandbox); o
 **A lição do EVAL**: o contraste foi medido **no pixel**, com a fórmula do gradiente validada — não
 é "parece claro"; é **3,11:1 onde o texto está**. E o placeholder era o tipo de coisa que o autor
 acha que ajuda e o visitante lê como sistema inacabado.
+## A 2ª rodada — o FAIL no cartão do contato (o head `a703389`)
+
+O EVAL julgou de novo, do zero, sem confiar em documento. Os **dois bloqueios do parecer anterior
+estão CORRIGIDOS** e PASS:
+
+- o `.botao--primario`: o `linear-gradient(120deg, #3B1470, #4B1E8C)` — o `#3B1470` = **13,82:1**, o
+  `#4B1E8C` = **11,27:1**, e a varredura de **1001 pontos** do gradiente: o pior = **11,27** (≥ 4,5);
+- a `contato__nota`: **0 ocorrências** de "cadastrados"/`contato__nota` no HTML servido, no CSS e nos
+  templates; o teste que a exigia saiu.
+
+O resto também PASS: o **cache** (o `no-cache` + o `ETag` + o **304**; o `immutable` com o hash; o
+**404** sem hash; o `?v=` → 404, não usado); o **`image/webp`**; as **decisões** (o sem banco; os
+depoimentos só com o `ativo`; os canais; o contêiner só na `borda`); a **fonte única** (o CONGELADO);
+os **testes 60/269** (o EVAL rodou os 329 juntos); o **CI**; o **peso** (60,4/125,8 KiB); a **raiz**;
+as **definições**.
+
+### O FAIL: o parágrafo do `contato__cartao`
+
+O cartão usa o `linear-gradient(125deg, #4B1E8C, #6D72C3 60%, #29ABE2)` — **o ciano de novo no
+fim**. O parágrafo (16 px/400, branco, `opacity: .92`) sobre o fim claro:
+
+| O ponto | O contraste |
+|---|---|
+| o 1440 (o fim da 1ª linha, o fundo `#6876C5`) | **4,21:1** (o branco puro) / **3,84** (o glifo com o 92%) |
+| o head (o cartão mais baixo, sem a nota) | **~3,7:1** |
+| o 360 (o fim da 2ª linha, o fundo `#4C8DD2`) | **~3,2:1** |
+
+A norma exige **4,5:1**. A `opacity: .92` **piora**: o branco puro ainda dá **4,08** no 1440 e 3,44 no
+360 — **o fundo tem de escurecer**.
+
+### O fix
+
+O gradiente do cartão com as **duas pontas roxas** (o `#3B1470` → o `#4B1E8C`, como o botão) e o
+`opacity: 1`; **remedir** o pior pixel do parágrafo em **360 e 1440 ≥ 4,5**.
+
+### A ressalva do menu (o hover)
+
+O vão de **~13,7 px** entre o label (40 px, o fim em y=53,7) e o painel (o `top: 100%`, o y=67,4) —
+no hover o cursor pode sair do label e o painel **fechar**. O clique/o checkbox funciona. O fix é o
+painel **encostar** no label (o `top: calc(100% - X)` ou o `padding`).
+
+### O que **não** deu
+
+O pixel real no head (sem browser); o hover/o teclado/o painel aberto; o LCP no head (o registro é do
+`127.0.0.1:8010`, antes do head); o `HEAD /` (405). **O EVAL não fabricou nada.**
