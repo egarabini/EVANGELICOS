@@ -1,5 +1,19 @@
 # Changelog — DEM-005
 
+## 2026-10-23 — ARQUITECT: link condicional das homenagens
+
+- Menu "Homenagens", seção `#homenagens` e link do rodapé no `index.html`
+  só renderizam com `{% if homenagens %}` (item `ativo: true` no
+  `v1/landing.yaml`). Mesma regra dos depoimentos.
+- `_homenagem` exige `ativo`. `homenagens: []` no arquivo commitado.
+- Testes: sem homenagens, o HTML do `/` não contém `href="/homenagens"` nem
+  `#homenagens`; com uma ativa, contém; só inativa, não abre o link.
+- Homologação mantém `Path(/homenagens)`. Produção da v1 (proposta de
+  autorização): só `/` e `/static/landing`; `/homenagens`, `/login` e o resto
+  seguem na v0.
+- Commit `906a6dd`. Local: **67** da v1 + **269** da v0. DEPLOY: `subir.sh --v1`
+  (não executado aqui). EVAL confere o HTML do `/` sem o link.
+
 ## 2026-10-22 — VISION: cartão de contato, teste de contraste, LCP, portão /homenagens
 
 - `.contato__cartao` (home e `/homenagens`): `linear-gradient(125deg, #3B1470, #4B1E8C)`

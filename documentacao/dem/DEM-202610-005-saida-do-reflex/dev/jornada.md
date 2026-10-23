@@ -1,5 +1,32 @@
 # Jornada — DEM-005, marco 1 (o esqueleto da v1)
 
+## 2026-10-23 — ARQUITECT: link condicional das homenagens (22-23/10)
+
+Adendo em `dev/despacho-menu.md`. O cartao de contato ja esta resolvido
+(`52495cd`). Esta sessao fecha o link da home.
+
+Think:
+- a mesma regra dos depoimentos: `{% if homenagens %}` no menu, na secao
+  `#homenagens` e no rodape do `index.html`; `_homenagem` exige `ativo`;
+- `homenagens: []` no yaml commitado — nada aparece; o ARQUITECT preenche e
+  o link volta sozinho;
+- a pagina `/homenagens` permanece na app e na homologacao; o roteador de
+  producao da v1 (proposta de autorizacao) cobre so `/` e `/static/landing`;
+  `/homenagens`, `/login` e o resto ficam na v0;
+- DEPLOY (`subir.sh --v1`) nao e deste perfil (ADR-016); prototipo congelado.
+
+List:
+1. `v1/landing_conteudo.py` — `_homenagem` exige `ativo`;
+2. `v1/landing.yaml` — lista vazia; comentario alinhado;
+3. `v1/templates/landing/index.html` — gate Jinja no menu, secao e rodape;
+4. `v1/tests/test_landing.py` — `/` vazio sem `href="/homenagens"` nem
+   `#homenagens`; com homenagem ativa, contem; inativa nao abre o link;
+5. compose homolog/producao + `test_rf07_pipeline.py` — producao sem
+   `didasko-v1-landing` e sem `Path(/homenagens)`.
+
+Validacao local: **67** testes da v1 + **269** da v0. Commit `906a6dd`, push.
+Nao rodei `subir.sh`.
+
 ## 2026-10-22 — VISION: contraste do contato__cartao, teste AA, LCP, portao /homenagens
 
 Adendo do VISION no `despacho-menu.md`. O cartao ainda tinha o ciano no fim do
