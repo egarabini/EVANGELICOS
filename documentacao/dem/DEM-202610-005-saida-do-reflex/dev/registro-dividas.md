@@ -116,3 +116,26 @@ são uma **decisão editorial**.
   antes de subir de novo;
 - a **tag `v0.1.1`** segue no repositório (a referência de "a landing em produção"), mas **a
   produção fica na `v0.1.0`** até a decisão.
+### 8. O "por quê" do rollback — uma LACUNA no registro (23/10)
+
+**O registro tem o QUANDO e o COMO, não o PORQUÊ:**
+
+- **o quando**: o deploy da `v0.1.1` correu de 16:36:42Z a 16:43:17Z; o rollback veio ~5 min depois
+  (~16:47);
+- **o como**: o `docker stop/rm didasko_landing` + o `git checkout --force refs/tags/v0.1.0` + o
+  `subir.sh --pular-import`;
+- **o porquê**: **não está no registro**.
+
+**O que o registro PROVA:**
+
+- **o deploy da `v0.1.1` foi um SUCESSO** — o run `39988210363`, o job "publicar na VPS" =
+  **`success`** (16:36:42→16:43:17); a landing **foi ao ar**;
+- **o rollback NÃO foi a recuperação de uma falha técnica** — foi uma **DECISÃO**, tomada ~5 min
+  depois de um deploy que funcionou.
+
+**A decisão do ARQUITECT (a orientação 4)**: **antes de qualquer novo deploy da `v0.1.1`**, ele
+**explica** por que a produção voltou à `v0.1.0` e o que (se algo) precisa mudar.
+
+**A LACUNA a fechar**: o "porquê" precisa ser **registrado** (na jornada do DEPLOY ou neste registro)
+**no momento em que for dito** — **um rollback sem motivo registrado é um rollback que ninguém
+consegue repetir nem evitar**.
