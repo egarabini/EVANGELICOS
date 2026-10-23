@@ -112,3 +112,16 @@ executor subir esta branch.
   conteúdo. **O EVAL confere**: sem homenagens, o HTML do `/` **não contém link para `/homenagens`**.
 - **A produção**: o roteador cobre **só o `/`** (e os assets estáticos da landing); o `/homenagens`, o
   `/login` e o resto **seguem na v0**.
+## O aceite do ARQUITECT (o VISION) — 23/10
+
+**O ARQUITECT deu o ACEITE do marco 2L (a landing)** — após a validação em janela anônima e o parecer
+do 4º EVAL (o PASS no `2ca4610`).
+
+- **O aceite cobre**: a landing (o conteúdo, o visual, o **AA**, o **cache versionado**, o **link
+  condicional**, o **sem banco**), a homologação no `2ca4610`.
+- **As ressalvas aceitas** (registradas, não bloqueantes): o **0,7 px** residual do menu; o **LCP/as
+  capturas** não re-medidos no head; os **exemplos comentados** no YAML; os **6 casos** de contraste
+  (não 3).
+- **O que falta para a produção** (o ato separado): o **fix do hero** (o `display: none` no 360) e a
+  **AUTORIZAÇÃO da produção** (a proposta das 5 peças — o roteador, os limites, a volta atrás, o teste,
+  a substituição).
