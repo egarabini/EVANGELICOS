@@ -105,3 +105,20 @@ da v0 tem a `priority` > 200.
 - o **certificado** — o `tls=true` usa o existente, **sem** o let's Encrypt novo;
 - o **Traefik** (sem restart) e o **domínio** (o mesmo `didasko.app.br`);
 - os **5 contêineres da v0** (o `StartedAt` inalterado).
+## O aceite do ARQUITECT — 23/10
+
+**O ARQUITECT deu o ACEITE da proposta de autorização da produção** (a revisão dos 7 pontos).
+
+**A execução (a ordem do ARQUITECT):**
+
+1. **A etapa (a)** — o contêiner da landing sobe na produção **SEM os rótulos de roteador** (o
+   `traefik.enable=false`) e é **testado por dentro** (o `docker exec curl` → o `/` 200, o HTML da
+   landing; o `/homenagens` 200; o contêiner sem o `DATABASE_URL` e só na borda); os **5 contêineres
+   da v0 não são recriados**;
+2. **A etapa (b)** — **o ato do ARQUITECT**: os rótulos do §1 (o `tls=true` **sem** o
+   `certresolver`; o `priority=200`); o teste do **§5** (a base × o depois);
+3. **A volta atrás** = remover os rótulos e recriar **só** o serviço da landing; **o Traefik NUNCA
+   reinicia**.
+
+**O que NÃO muda**: o `/login` (o 307) e o app da v0; o `/homenagens` (o 307); o certificado (o
+`tls=true` usa o existente); os **5 contêineres da v0** (o `StartedAt` inalterado).
