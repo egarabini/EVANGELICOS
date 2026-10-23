@@ -11,8 +11,10 @@
 - Homologação mantém `Path(/homenagens)`. Produção da v1 (proposta de
   autorização): só `/` e `/static/landing`; `/homenagens`, `/login` e o resto
   seguem na v0.
-- Commit `906a6dd`. Local: **67** da v1 + **269** da v0. DEPLOY: `subir.sh --v1`
-  (não executado aqui). EVAL confere o HTML do `/` sem o link.
+- Commit `906a6dd`. Local: **67** da v1 + **269** da v0. CI:
+  https://github.com/egarabini/gsi_ebd/actions/runs/39931396359 (success).
+  DEPLOY: `subir.sh --v1` (não executado aqui). EVAL confere o HTML do `/`
+  sem o link.
 
 ## 2026-10-22 — VISION: cartão de contato, teste de contraste, LCP, portão /homenagens
 

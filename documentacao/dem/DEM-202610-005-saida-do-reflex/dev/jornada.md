@@ -25,6 +25,7 @@ List:
    `didasko-v1-landing` e sem `Path(/homenagens)`.
 
 Validacao local: **67** testes da v1 + **269** da v0. Commit `906a6dd`, push.
+CI: https://github.com/egarabini/gsi_ebd/actions/runs/39931396359 (success).
 Nao rodei `subir.sh`.
 
 ## 2026-10-22 — VISION: contraste do contato__cartao, teste AA, LCP, portao /homenagens
