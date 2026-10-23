@@ -271,3 +271,42 @@ landing (o contêiner órfão com os rótulos do Traefik). **A proposta do `--re
    mudou** antes da nova subida.
 
 **A produção**: **na `v0.1.0`** até a ordem do ARQUITECT.
+## A RE-SUBIDA da `v0.1.1` — a decisão do ARQUITECT (23/10)
+
+### 1. O motivo do rollback
+
+**"Motivo não registrado"** — registrado **assim**, **sem hipótese**. **Não inventar causa.**
+
+### 2. A ordem
+
+**Subir a `v0.1.1` de novo na produção**, como **deploy planejado**, **pelo pipeline**:
+
+- o **`workflow_dispatch`** do `deploy.yml` com a **tag `v0.1.1`** e o **`environment producao`**;
+- **a aprovação do environment é do ARQUITECT** (no GitHub);
+- o **DEPLOY dispara, acompanha e diagnostica** (o ADR-016).
+
+### 3. As condições (obrigatórias)
+
+**ANTES:**
+1. **a janela curta e avisada** pelo ARQUITECT — o `up -d --build` **recria o app da v0**;
+2. **a volta atrás escrita ANTES** — agora com **DOIS passos**:
+   - **(a)** o `git checkout --force refs/tags/v0.1.0` + o `subir.sh`;
+   - **(b)** o **`docker rm -f didasko_landing`** (ou o `--remove-orphans`).
+   **Sem o (b), o rollback é ilusório** (o contêiner órfão continua servindo o `/`);
+3. **a linha de base registrada**: o `/` **200** com **45299 bytes**; o `/login`, o `/homenagens`, o
+   `/aluno`, o `/admin` **307**; o `/static/landing/x.css` **404**.
+
+**DEPOIS (a conferência):**
+4. o `/` **contém** o `/static/landing/landing.<hash>.css`; **esse CSS** → **200** com o
+   `cache-control: immutable`;
+5. o `/login`, o `/homenagens`, o `/aluno`, o `/admin` → **307**; o `x.css` → **404**;
+6. **a v0 funcionando** (o `/login`);
+7. o **clone da VPS** com o **`git status` LIMPO** na **tag `v0.1.1`**;
+8. os **`StartedAt` registrados na jornada**.
+
+**SE QUALQUER ITEM FALHAR: PARAR e avisar o ARQUITECT antes de qualquer rollback.**
+
+### 4. As obras e a infraestrutura
+
+- **as obras seguem** (o EVAL cego do #9 em curso);
+- **nada de infraestrutura nova** (o `--remove-orphans` no script) **sem a autorização do ARQUITECT**.
