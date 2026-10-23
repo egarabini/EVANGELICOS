@@ -113,3 +113,34 @@ painel **encostar** no label (o `top: calc(100% - X)` ou o `padding`).
 
 O pixel real no head (sem browser); o hover/o teclado/o painel aberto; o LCP no head (o registro é do
 `127.0.0.1:8010`, antes do head); o `HEAD /` (405). **O EVAL não fabricou nada.**
+## A 3ª rodada — o **PASS com ressalvas** (o `52495cd`)
+
+O EVAL julgou o `52495cd` (o CI `39856130366`; o container up; o CSS servido byte-idêntico ao head).
+
+**PASS:**
+- **o contraste**: o `.contato__cartao` — o **11,2687** (o pior, no `#4B1E8C`) a 13,8158 (o
+  `#3B1470`), em **4097 amostras**; o `.botao--primario` idem; o **360 e o 1440 sem media query de
+  cor** → o pior ponto possível é o `#4B1E8C` → **≥ 11,27 nas duas larguras**;
+- **o teste WCAG**: o `test_contraste_landing.py` (**3 testes**: o cartão, o botão e a **prova do
+  ciano**) rodam e passam; a prova extra existe — com o CSS real do `02eff4a`, a mesma função dá
+  **2,43** (cartão) e **2,619** (botão), abaixo de 4,5;
+- **o `/homenagens`**: 200 na homologação; o `docker-compose.producao.yml` do head **não** tem o
+  serviço landing nem o `Path(/homenagens)` — o roteador da v1 não a inclui. **Nuance**: a v0 tem a
+  própria página `/homenagens`; a URL de produção é a da v0, não a da v1;
+- **o cache** (a URL `b7d755afbdfcf7fc.css`; o `no-cache` + o `ETag` + o 304; o `immutable`; o 404
+  sem hash; a URL muda `fbc3428c → e8784ecb → b7d755af`); as **decisões**; a **fonte única**; os
+  **64/269**; o **CI**; o **peso** (61.901 B 1x / 99.143 B 2x); a **raiz**; as **definições**.
+
+**As ressalvas:**
+- **o vão do menu (o 13,7 px) NÃO foi corrigido** — o `.menu { top: 100% }` do `@media ≤1000` no head;
+  o **DoD "painel encostado" não está cumprido**; o VISION validou o teclado/o clique, mas o **hover
+  pode fechar**. **Se o aceite exigir o DoD literal, é FAIL**;
+- as **capturas** 360/768/1024/1440 do repositório são de 21/10 (pré-head); não há a do **painel no
+  head**;
+- **fora do critério medido** — o `.rotulo` laranja (`#E87722`) **2,42–2,96:1** em texto pequeno; o
+  **número dos níveis** (o branco sobre o roxo→ciano) **2,62 no ciano** / ~4,29 no canto do glifo. **O
+  AA da página inteira não passaria**; os **2 alvos do foco** (o botão e o cartão) passam.
+
+**O worktree sujo** durante a auditoria (7 arquivos) é o **WIP das homenagens/produção** — o
+`{% if homenagens %}`, o filtro do `ativo`, o roteador de produção comentado e 3 testes — **não está
+no `52495cd` nem na homologação**; ele julgou o HEAD pelo `git archive`.
