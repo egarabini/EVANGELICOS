@@ -1,5 +1,31 @@
 # Jornada — DEM-005, marco 1 (o esqueleto da v1)
 
+## 2026-10-23 — EVAL/VISION: vao do menu e AA do texto pequeno
+
+2o adendo + ressalva da 3a rodada do EVAL. Sobre o `906a6dd`. Prototipo congelado.
+
+Think:
+- o painel `.menu` no `@media ≤1000` tinha `top: 100%` (y=67,4) e o label 40px
+  termina em y=53,7 — vao de 13,7px, hover fecha. Fix: `top: calc(100% - 13px)`,
+  ainda abaixo do label;
+- `.rotulo` `#E87722` no fundo claro = 2,42-2,96. O exemplo `#B45309` passa no
+  branco (~5,0) e **falha** no `--azul-claro` (4,11). Usei `#9A3412` (pior 5,98
+  no azul-claro) para ter folga no glifo;
+- numero dos niveis: fundo `roxo-escuro → roxo`, as duas pontas escuras do
+  botao/cartao; o numero permanece no CSS;
+- DEPLOY (`subir.sh --v1`) nao e deste perfil.
+
+List:
+1. `v1/static/landing/landing.css` — top do painel, cor do `.rotulo`, gradiente
+   do `.trilha__passo span`;
+2. `v1/tests/test_landing.py` — `calc(100% - 13px)` no bloco 1000px;
+3. `v1/tests/test_contraste_landing.py` — `.rotulo` e numero >= 4,5; prova de
+   que `#E87722` reprova.
+
+Validacao local: **70** testes da v1 + **269** da v0. Commit `2ca4610`, push.
+CI: https://github.com/egarabini/gsi_ebd/actions/runs/39933115533 (success).
+Nao rodei `subir.sh`.
+
 ## 2026-10-23 — ARQUITECT: link condicional das homenagens (22-23/10)
 
 Adendo em `dev/despacho-menu.md`. O cartao de contato ja esta resolvido

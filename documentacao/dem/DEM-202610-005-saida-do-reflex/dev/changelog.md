@@ -1,5 +1,19 @@
 # Changelog — DEM-005
 
+## 2026-10-23 — vao do menu e AA do texto pequeno
+
+- Painel `.menu` no `@media ≤1000`: `top: calc(100% - 13px)` (antes `100%`).
+  Encosta no label; o vão de 13,7 px fechava o hover.
+- `.rotulo`: `#9A3412` (texto pequeno AA). `#E87722` era 2,42–2,96; o exemplo
+  `#B45309` falha no `--azul-claro` (4,11).
+- Número dos níveis: `linear-gradient(140deg, --roxo-escuro, --roxo)` (mesmo
+  tratamento do botão/cartão). O número permanece no CSS.
+- Testes: painel encostado; `.rotulo` e `.trilha__passo span` ≥ 4,5:1.
+- Commit `2ca4610`. Local: **70** da v1 + **269** da v0. CI:
+  https://github.com/egarabini/gsi_ebd/actions/runs/39933115533 (success).
+  DEPLOY: `subir.sh --v1` (não executado aqui; publica `906a6dd` + este fix).
+  VISION valida o hover e o AA.
+
 ## 2026-10-23 — ARQUITECT: link condicional das homenagens
 
 - Menu "Homenagens", seção `#homenagens` e link do rodapé no `index.html`
