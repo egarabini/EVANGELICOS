@@ -11,7 +11,7 @@ a **ADR-011** (a aprovação assinada) com a **emenda da ADR-019** (a assinatura
 | Fatia | O quê | Estado |
 |---|---|---|
 | **1** | **O domínio**: as 12 operações, os hashes (normalização LF+NFC + JSON canônico), os gates de licença, a trilha append-only, a disponibilidade e o `VinculoObra` | **PASS** (269 testes; 39/39 casos; 9/9 mutações) e **mergeada** no `develop` (`7670aec`, o PR #4) |
-| **2** | **As telas do fluxo** (na v1): inclusão, desenvolvimento, aprovação e estudo com alunos fake | **branch nova a partir da develop `5c0bc3e`** (`feature/DEM-202610-011-fatia2-obras`); **não** o PR #5; aguarda CI, EVAL cego e aceite |
+| **2** | **As telas do fluxo** (na v1): inclusão, desenvolvimento, aprovação e estudo com alunos fake | **PR #9** a partir da develop `5c0bc3e` (`3f9246e`); CI verde; **não** o PR #5; aguarda EVAL cego e aceite |
 | **3** | **A coordenação**: o `desvincular`, o CRUD do **adendo do ambiente** e o `planejar` (a 9.5) | a fatia da coordenação |
 
 ## O PASS — e o que o EVAL registrou
@@ -46,6 +46,6 @@ Branch **nova** a partir da `develop` `5c0bc3e` (`feature/DEM-202610-011-fatia2-
 
 Contrato: `rbac.py` com as 3 chaves (`/admin/obras` = ADMIN; `/revisor/obras` = REVISOR; `/obras` = os dois). Matriz de 15 células com permitido **e** negado; prova de vacuidade (monkeypatch remove as 3 chaves). ADR-020 nas telas. Alunos fake só no seed de homologação (`v1/seed_homolog_estudo.py`); o seed de produção não os recebe.
 
-Suíte local: **130 testes v1 + 272 regressão**. CI a disparar nesta branch. **EVAL cego** (máximo de 2 rodadas, ADR-018) **ainda pendente** antes do aceite.
+Suíte local e CI: **130 testes v1 + 272 regressão**. [CI verde](https://github.com/egarabini/gsi_ebd/actions/runs/40038005779) no `3f9246e`. [PR #9](https://github.com/egarabini/gsi_ebd/pull/9). **EVAL cego** (máximo de 2 rodadas, ADR-018) **ainda pendente** antes do aceite.
 
 [Despacho](../DEM-202610-005-saida-do-reflex/dev/despacho-obras-fatia2.md) · [plano de testes](../DEM-202610-005-saida-do-reflex/dev/plano-testes-obras.md) · [jornada](dev/jornada-fatia-2.md)

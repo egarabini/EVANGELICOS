@@ -8,7 +8,7 @@ Worktree isolado `.worktrees/DEM-011-fatia2`, branch `feature/DEM-202610-011-fat
 
 Matriz de 15 células com as duas asserções; monkeypatch remove as 3 chaves e o permitido vira 403. ADR-020: só o Admin muda publicação/disponibilidade; o Revisor assina e move o editorial; a liberação exige os dois; N imutável e N+1; hash LF+NFC; `aberta | suspensa_para_novos`. Modo estudo com alunos fake no SQLite de teste e seed `v1/seed_homolog_estudo.py` que recusa produção e qualquer banco que não seja `didasko_v1`. O `gsi_ebd.data.seed` de produção não ganhou fake.
 
-Suíte local: 130 v1 + 272 v0. Sem `subir.sh`, sem merge, sem tocar no PR #5. EVAL cego pendente (máximo de 2 rodadas, ADR-018).
+Suíte local: 130 v1 + 272 v0. Commit `3f9246e`. [CI verde](https://github.com/egarabini/gsi_ebd/actions/runs/40038005779). [PR #9](https://github.com/egarabini/gsi_ebd/pull/9). Sem `subir.sh`, sem merge, sem tocar no PR #5. EVAL cego pendente (máximo de 2 rodadas, ADR-018).
 
 ## 2026-10-19 — Leitura, Think e List
 

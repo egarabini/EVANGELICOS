@@ -4,7 +4,7 @@
 
 - Branch **nova** `feature/DEM-202610-011-fatia2-obras` a partir da `develop` `5c0bc3e` (marco 1 + landing). **Não** reusa o PR #5.
 - 3 chaves no `rbac.py`; matriz 15 células (permitido e negado) + prova de vacuidade; ADR-020; seed de alunos fake só na homologação `didasko_v1`.
-- Suíte local: 130 testes v1 + 272 regressão. EVAL cego pendente (máximo de 2 rodadas).
+- Suíte local e CI: 130 testes v1 + 272 regressão. Commit `3f9246e`. [CI verde](https://github.com/egarabini/gsi_ebd/actions/runs/40038005779). [PR #9](https://github.com/egarabini/gsi_ebd/pull/9). EVAL cego pendente (máximo de 2 rodadas).
 
 ## 2026-10-19
 
