@@ -310,3 +310,25 @@ landing (o contêiner órfão com os rótulos do Traefik). **A proposta do `--re
 
 - **as obras seguem** (o EVAL cego do #9 em curso);
 - **nada de infraestrutura nova** (o `--remove-orphans` no script) **sem a autorização do ARQUITECT**.
+## A `v0.1.1` **EM PRODUÇÃO** (23/10) — o deploy pelo pipeline
+
+O DEPLOY disparou o **`deploy.yml`** com a **tag `v0.1.1`** (o run **`40040835237`**); **todos os
+passos success**, incluindo o **`pg_dump` verificado** e a **verificação HTTP externa do próprio
+pipeline**.
+
+**Os 5 itens do "depois", todos confirmados:**
+
+1. o `/` **contém** o `/static/landing/landing.dfa7e29213827a3a.css`; esse CSS → **200** +
+   **`immutable`**;
+2. o `/login`, o `/homenagens`, o `/aluno`, o `/admin` → **307**; o `/static/landing/x.css` → **404**;
+3. a **v0 funcionando**: o `/login` → **200**, o título correto;
+4. o **clone da VPS**: o **`git status` LIMPO**, na **tag `v0.1.1`**;
+5. os **`StartedAt`**: os **4** (`postgres`/`chromadb`/`ollama`/`traefik`) **idênticos ao de 18/10** —
+   o **Traefik nunca reiniciado** em nenhum ato de hoje; o **`app` e o `landing`** recriados pelo
+   **próprio pipeline**.
+
+**Nenhum item falhou**; a **volta atrás** (os 2 passos corretos) **não precisou ser usada**.
+
+**A nota do ADR-016**: o deploy **entrou direto**, sem a aprovação manual do `environment producao` —
+**consistente com o ADR-016** (o *required reviewer* foi removido; a **autorização é por release
+aceito**).
