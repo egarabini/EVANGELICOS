@@ -122,3 +122,25 @@ da v0 tem a `priority` > 200.
 
 **O que NÃO muda**: o `/login` (o 307) e o app da v0; o `/homenagens` (o 307); o certificado (o
 `tls=true` usa o existente); os **5 contêineres da v0** (o `StartedAt` inalterado).
+## A etapa (a) — EXECUTADA (23/10)
+
+O DEVS subiu o serviço `landing` no `deploy/docker-compose.producao.yml` (**o commit `8805705`**, o CI
+verde) com o **`traefik.enable=false`** e **nenhum outro rótulo** — o Traefik **não o enxerga**. O up
+isolado, com o `--no-deps landing`.
+
+**Verificado:**
+- `didasko_app`, `didasko_postgres`, `didasko_chromadb`, `didasko_ollama`, `didasko_traefik`: o
+  **`StartedAt` idêntico** antes/depois — **nenhum recriado**;
+- o **`didasko_landing`**: criado, rodando, o `StartedAt` novo;
+- **por dentro** (sem o `curl` na imagem — o Python do container): o `/` → **200** com o título da
+  landing; o `/homenagens` → **200**;
+- **sem o `DATABASE_URL`**; só na rede **`deploy_didasko`** (a única da produção — não há o split
+  interna/borda como na homologação).
+
+**A divergência que o DEVS encontrou e resolveu com o ARQUITECT antes de agir**: o clone de produção
+estava no **HEAD destacado da tag `v0.1.0`** (sem a árvore `v1/`). Ele fez o **checkout cirúrgico dos
+3 caminhos** necessários, mantendo o clone identificado como `v0.1.0`. **O estado deixado**: o clone
+de produção fica com esses 3 caminhos **modificados na árvore de trabalho** (não comitados) sobre a
+tag — **esperado** até a etapa (b) ou uma limpeza.
+
+**A etapa (b)** — os rótulos de rota — é **ato separado do ARQUITECT**.
