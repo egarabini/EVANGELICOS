@@ -144,3 +144,36 @@ O EVAL julgou o `52495cd` (o CI `39856130366`; o container up; o CSS servido byt
 **O worktree sujo** durante a auditoria (7 arquivos) é o **WIP das homenagens/produção** — o
 `{% if homenagens %}`, o filtro do `ativo`, o roteador de produção comentado e 3 testes — **não está
 no `52495cd` nem na homologação**; ele julgou o HEAD pelo `git archive`.
+## A 4ª rodada — o **PASS** (o `2ca4610`)
+
+O EVAL audiu o estado **final** da homologação do zero — o CSS/HTML servido + o git + o docker — sem
+confiar na jornada. O veredito: **PASS com ressalvas**.
+
+**O timing (a nota dele)**: às 07:17 a homologação ainda servia o `906a6dd`; o deploy fez o
+fast-forward para o `2ca4610` às 07:19:45, o rebuild 07:20:01 e a recriação 07:20:14 — e o estado
+**julgado é o head**: o CSS `landing.9175a181a37bc78b.css` (o sha256 `9175a181…`), o HTML com o
+`ETag "1f1a62524fc7f0e9"`, a imagem `homolog-v1-landing b3d2aa767190`, o contêiner sem o
+`DATABASE_URL` e só na `deploy_didasko`; a URL antiga `b7d755…` → **404**.
+
+**Os critérios:**
+
+| # | O critério | O resultado |
+|---|---|---|
+| 1 | **O vão do menu** | **PASS com 0,7 px** de ressalva (antes 13,7): o `top: calc(100% - 13px)` → o painel em 54,4; o label 13,7..53,7; sem sobrepor |
+| 2 | **O AA** | **PASS** — o `.rotulo` `#9A3412`: **7,3071** no `#FFF`, **6,9320** no `#F8F9FA`, **5,9802** no `#DDEAF7`, 5,5348 no blend do hero; o número dos níveis/o cartão/o botão: **11,2687** (o pior) |
+| 3 | **O link condicional** | **PASS** — o HTML do `/`: **0** `href`, 0 `#`, 0 `id`; com uma ativa: 2 href/1 #/1 id; com `ativo: false`: 0 |
+| 4 | **O cache** | **PASS** — o `no-cache` + o `ETag` + o 304; o `immutable`; o `image/webp`; o 404 sem hash e o hash errado |
+| 5 | **As decisões** | **PASS** — o YAML sem banco; o contêiner sem o `DATABASE_URL`; o `postgres-v1` só na interna; os depoimentos só com o ativo; os canais condicionais; sem o `contato__nota` |
+| 6 | **A fonte única** | **PASS** — o `CONGELADO`; o protótipo limpo; a v1 é a fonte |
+| 7 | **Os testes** | **PASS** — a v1 **70**; a v0 **269**; o **6** do `test_contraste_landing` (3 originais + 3 novos; a prova do ciano 2,4297 e a do laranja 2,423); o CI `39933115533` success |
+| 8 | **O LCP** | o **1.924 ms @768** (o VISION, 22/10); **não re-medido no head** (sem browser) |
+| 9 | **O peso** | **PASS** — 61.738 B (1x) / 128.698 B (2x); 0 script/CDN |
+| 10 | **A raiz** | **PASS** — o `/` 200, o `/homenagens` 200, o `/login` 200; as definições; sem bastidor |
+
+**As ressalvas:**
+1. **O 0,7 px residual** no menu (a folga sub-pixel; sem browser, o hover real não foi testado);
+2. **O LCP/as capturas** não no head (sem browser);
+3. **Os exemplos comentados no YAML** (não ativos, não renderizados — **nota**, não FAIL);
+4. **Os 6 casos de contraste**, não 3 (a documentação precisava do número certo).
+
+**O worktree limpo**; o `.eval4-tmp/` (o que o sandbox deixou) não é código do PR.
