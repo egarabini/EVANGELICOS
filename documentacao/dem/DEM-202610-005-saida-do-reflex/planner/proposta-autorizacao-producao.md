@@ -170,3 +170,44 @@ explícita > 200**. Se houver, **PARAR** e devolver ao ARQUITECT.
 **6. Manter**: o `priority=200`, o `Path(/)` **exato**, **sem o `certresolver`**, o
 `traefik.docker.network`, o `--force-recreate --no-deps`, **NUNCA reiniciar o Traefik**, a **v0
 intocada** (o `StartedAt` dos 5 contêineres inalterado).
+## A etapa (b) — EXECUTADA (23/10) — **a landing NO AR (a raiz de `didasko.app.br`)**
+
+**O passo 0 (a base, 5x)**: o `/` **200**, **45299 bytes estável** (o "43 bytes" do despacho **não
+reproduzido** — é a página real); o `/login`, o `/homenagens`, o `/aluno`, o `/admin` → **307**; o
+`/static/landing/x.css` → **404**.
+
+**O passo 1 (a parada obrigatória)**: o `didasko_app` **sem nenhum `priority` explícito** — a condição
+satisfeita, seguiu.
+
+**O passo 2**: os 6 rótulos (**o commit `5d625ed`**). **O CI falhou na primeira tentativa** — o
+comentário "seguem na v0" → "seguem no roteador da v0" quebrou um teste que cobra a **frase literal**
+no arquivo. O **`c6d5d86`** corrigiu, o CI verde — **nada tocou a VPS enquanto estava vermelho**.
+
+**O passo 3**: o `--force-recreate --no-deps landing`; **o Traefik NÃO reiniciado**.
+
+**O passo 4 (a prova de origem — não o `<title>`)**:
+- o `/` contém **`/static/landing/landing.dfa7e29213827a3a.css`**;
+- esse CSS → **200** com o **`Cache-Control: public, max-age=31536000, immutable`**;
+- um asset da v0 (**`/assets/manifest-8ba4429c.js`**) → **200** — **o resto continua na v0**;
+- o `/login`, o `/homenagens`, o `/aluno`, o `/admin` → **307**, inalterados.
+
+**O passo 5**: os **5 `StartedAt` da v0 idênticos** ao início da sessão (nenhum tocado em **nenhuma**
+das duas etapas); o `didasko_landing` com o `StartedAt` novo do force-recreate.
+
+**A volta atrás** (escrita e pronta, **não usada**):
+
+```bash
+cd /home/didasko-deploy/didasko
+git checkout 8805705 -- deploy/docker-compose.producao.yml
+sudo -n docker compose --env-file .env -f deploy/docker-compose.producao.yml up -d --force-recreate --no-deps landing
+```
+
+**A raiz pública de `didasko.app.br` já serve a landing da v1.**
+
+## A dívida com prazo — ABERTA (resolver antes de qualquer outro deploy em produção)
+
+- **O que**: o clone de produção no **HEAD destacado da `v0.1.0`** com os **3 caminhos da v1** e os
+  **rótulos novos** como alterações **não commitadas**;
+- **Como resolver**: um **commit na branch certa** (a da landing ou uma branch de produção dedicada) —
+  **NUNCA** o `git add -A`;
+- **Até lá**: **nenhum outro deploy em produção** sem resolver.
