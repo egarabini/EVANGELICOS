@@ -125,3 +125,27 @@ do 4º EVAL (o PASS no `2ca4610`).
 - **O que falta para a produção** (o ato separado): o **fix do hero** (o `display: none` no 360) e a
   **AUTORIZAÇÃO da produção** (a proposta das 5 peças — o roteador, os limites, a volta atrás, o teste,
   a substituição).
+## A validação do ARQUITECT no celular (23/10) — o marco 2L **ACEITO VISUALMENTE**
+
+O ARQUITECT validou o **`67f0623`** no celular: **o marco 2L está ACEITO VISUALMENTE**. O head final é
+o `67f0623` (o CI `39951215227`; o CSS `landing.dfa7e29213827a3a.css`; o `.hero__visual
+{ display: none }` no mobile; o `.menu { top: calc(100% - 14px) }`).
+
+**O próximo**: a **proposta de autorização da produção** (a revisão dos 7 pontos, no
+`planner/proposta-autorizacao-producao.md`). **O ato é do ARQUITECT.** **Nenhum ato em produção até
+o aceite; o Traefik NÃO reinicia.**
+
+## O ajuste ao registro do ciclo do "não mudou"
+
+Os **três conferires** (a correção do ARQUITECT):
+
+1. **O hash do CSS** (o **cache** e o **build**) — a URL versionada prova que o navegador vai buscar o
+   novo;
+2. **O commit do clone / o `headSha` do CI** (o **deploy**) — o clone está no commit que o DEVS
+   mandou?
+3. **O arquivo no build** (o Dockerfile copiou o arquivo certo?).
+
+**O hash do CSS NÃO prova o commit do clone.** Ele prova que o **conteúdo servido** é versionado — e
+o hash pode ser o de **um commit antigo** (o `9175a181…` do `2ca4610` × o `dfa7e292…` do `67f0623`).
+**Conferir os DOIS**: o `git -C /home/didasko-deploy/homolog-v1 rev-parse --short HEAD` (o clone) e o
+`git log --oneline -1` (a mensagem do commit).
