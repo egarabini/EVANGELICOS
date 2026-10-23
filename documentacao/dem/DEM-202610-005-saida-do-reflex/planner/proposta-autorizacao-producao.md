@@ -144,3 +144,29 @@ de produção fica com esses 3 caminhos **modificados na árvore de trabalho** (
 tag — **esperado** até a etapa (b) ou uma limpeza.
 
 **A etapa (b)** — os rótulos de rota — é **ato separado do ARQUITECT**.
+## A decisão da etapa (b) — **AUTORIZADA** com 6 condições (23/10)
+
+**1. A prova de origem do `/` NÃO é o `<title>`** — a v0 tem o **mesmo** título ("Didasko — Estudos
+Bíblicos Dirigidos"). A prova é:
+- (a) o HTML do `/` contém **`/static/landing/landing.<hash>.css`**;
+- (b) esse CSS responde **200** com o **`cache-control: immutable`**;
+- (c) o HTML da v0 usa **`/assets/...`** — conferir um desses assets respondendo **200 depois**, para
+  provar que **o resto continua na v0**.
+
+**2. Repetir a linha de base do `/` várias vezes antes do ato** (o ARQUITECT observou um **200 de 43
+bytes, `Server: granian`**, que pode ser artefato). **A base atual**: o `/` **200**; o `/login`, o
+`/homenagens`, o `/aluno`, o `/admin` **307**; o `/static/landing/x.css` **404**.
+
+**3. A DÍVIDA COM PRAZO** — **"resolver antes de qualquer outro deploy em produção"**: o clone de
+produção no **HEAD destacado da `v0.1.0`** com os **3 caminhos da v1** e os **rótulos novos** como
+alterações **não commitadas**. Resolver com **commit na branch certa**, **NUNCA** com o `git add -A`.
+
+**4. O comando exato da volta atrás** — **escrito e à mão** (o remover os rótulos + o recriar só o
+serviço da landing) e, de preferência, **validado antes do ato**.
+
+**5. O passo 1 é OBRIGATÓRIO** — o `docker inspect didasko_app`: **nenhum rótulo com `priority`
+explícita > 200**. Se houver, **PARAR** e devolver ao ARQUITECT.
+
+**6. Manter**: o `priority=200`, o `Path(/)` **exato**, **sem o `certresolver`**, o
+`traefik.docker.network`, o `--force-recreate --no-deps`, **NUNCA reiniciar o Traefik**, a **v0
+intocada** (o `StartedAt` dos 5 contêineres inalterado).
