@@ -62,3 +62,21 @@
 nele** — e é por isso que elas **não** devem ser "resolvidas" por conveniência: o D-01 (a rotação) é
 uma **decisão de segurança**, o D-06 (o pin) é uma **decisão de estabilidade**, e os **dados reais**
 são uma **decisão editorial**.
+## As decisões do ARQUITECT (23/10) — o registro atualizado
+
+- **D-01** (a rotação das contas e da senha `senha123` do admin da v0): **EM EXECUÇÃO PELO
+  ARQUITECT — AGORA**. Não entra no 1b; fica neste registro como **em execução**, até a confirmação
+  dele.
+- **A ORDEM**: **as obras antes do 1b** (a decisão do ARQUITECT).
+- **A tag `v0.1.1`**: **tratada como DEPLOY PLANEJADO** — o `v*` dispara o `deploy.yml` (o backup do
+  banco, o `checkout --force` da tag, o `subir.sh`, a conferência HTTP). O `checkout --force` resolve
+  a divergência do clone; a garantia deixa de ser o "`StartedAt` inalterado" (o `subir.sh` roda o
+  `$COMPOSE up -d --build` — o compose inteiro) e passa a ser **"a v0 e a landing no ar, conferidas
+  pelos códigos da linha de base"**. O despacho reescrito: o `dev/despacho-divida-clone.md`.
+- **O PLANNER leu o `subir.sh`/o `deploy-entry`** e confirmou: o deploy sem `--v1` sobe o compose
+  inteiro e **mantém o `didasko_landing`** — **a condição está satisfeita**, não é preciso mudar o
+  script de entrada.
+- **Nenhum despacho do clone antes do merge do PR #8** (o ARQUITECT o mescla) **e da leitura do
+  `subir.sh`** (feita). Os despachos das obras seguem **depois do merge do #8**, na branch recriada a
+  partir da `develop`.
+- **O PR #8**: **rebaseado na `develop`** (o `f8ffe0a`, os 71 testes) — **o ARQUITECT o mescla**.
