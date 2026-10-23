@@ -80,3 +80,22 @@ são uma **decisão editorial**.
   `subir.sh`** (feita). Os despachos das obras seguem **depois do merge do #8**, na branch recriada a
   partir da `develop`.
 - **O PR #8**: **rebaseado na `develop`** (o `f8ffe0a`, os 71 testes) — **o ARQUITECT o mescla**.
+## As novas de 23/10 (a tarde)
+
+### 4. O CI não aparece no PR empilhado (a proteção exige o check)
+
+- **O quê**: o check `testes (pytest)` não aparece nos PRs cuja **base é uma `feature/*`** (o
+  `pull_request: branches: [develop, main]` do `ci.yml` não dispara); a proteção da develop **exige**
+  o check → o merge **exige o `--admin`** (foi o caso do #8);
+- **A correção proposta** (a decisão do ARQUITECT): o `pull_request` **sem o `branches`** (ou o
+  `branches: [develop, main, "feature/**"]`) — o `dev/despacho-ci-protecao.md`;
+- **O prazo**: antes dos próximos PRs.
+
+### 5. O PR #8 mesclado — a tag `v0.1.1` preparada
+
+- **O merge**: o `5c0bc3e` (23/10, 16:32 UTC), com o `--admin` (a causa acima);
+- **A tag `v0.1.1`**: **criada localmente** no `5c0bc3e` (a anotada, a mensagem "a landing da v1 na
+  producao (o marco 2L)");
+- **O push da tag e a aprovação do `environment: producao`**: **do ARQUITECT**;
+- **A volta atrás**: o deploy da `v0.1.0` (`git checkout --force refs/tags/v0.1.0` + o `subir.sh`);
+- **Nada em produção** sem o aceite do ARQUITECT.
