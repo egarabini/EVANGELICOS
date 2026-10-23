@@ -1,5 +1,11 @@
 # Changelog — DEM-202610-011, fatia 2
 
+## 2026-10-23
+
+- Branch **nova** `feature/DEM-202610-011-fatia2-obras` a partir da `develop` `5c0bc3e` (marco 1 + landing). **Não** reusa o PR #5.
+- 3 chaves no `rbac.py`; matriz 15 células (permitido e negado) + prova de vacuidade; ADR-020; seed de alunos fake só na homologação `didasko_v1`.
+- Suíte local: 130 testes v1 + 272 regressão. EVAL cego pendente (máximo de 2 rodadas).
+
 ## 2026-10-19
 
 - `3b5f56c8964b7efcb10de085617717038abd2930` — etapas A/B: v1 local, sessão/CSRF/H-14/matriz, telas Admin/Revisor, integração e CI separado.

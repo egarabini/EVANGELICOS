@@ -11,7 +11,7 @@ a **ADR-011** (a aprovação assinada) com a **emenda da ADR-019** (a assinatura
 | Fatia | O quê | Estado |
 |---|---|---|
 | **1** | **O domínio**: as 12 operações, os hashes (normalização LF+NFC + JSON canônico), os gates de licença, a trilha append-only, a disponibilidade e o `VinculoObra` | **PASS** (269 testes; 39/39 casos; 9/9 mutações) e **mergeada** no `develop` (`7670aec`, o PR #4) |
-| **2** | **As telas do fluxo** (na v1): o esqueleto mínimo + o admin + o revisor | **implementada no PR #5** (157 testes v1 + 269 regressão); CI verde; aguarda EVAL e aceite |
+| **2** | **As telas do fluxo** (na v1): inclusão, desenvolvimento, aprovação e estudo com alunos fake | **branch nova a partir da develop `5c0bc3e`** (`feature/DEM-202610-011-fatia2-obras`); **não** o PR #5; aguarda CI, EVAL cego e aceite |
 | **3** | **A coordenação**: o `desvincular`, o CRUD do **adendo do ambiente** e o `planejar` (a 9.5) | a fatia da coordenação |
 
 ## O PASS — e o que o EVAL registrou
@@ -42,9 +42,10 @@ novos; e o `contestar` **não existe** mais (é a `solicitar_revisao`).
 
 ## Entrega da fatia 2
 
-Etapas A/B implementadas em `3b5f56c`, [PR #5](https://github.com/egarabini/gsi_ebd/pull/5), sem merge ou deploy. A suíte da v1 roda de `v1/`; matriz, CSRF, H-14, StrictUndefined, render e integração cobertos. Mutações de papel/CSRF/H-14 detectadas; login HTTP local verificado com banco e credenciais descartáveis.
+Branch **nova** a partir da `develop` `5c0bc3e` (`feature/DEM-202610-011-fatia2-obras`). O PR #5 (`fatia2-telas`) **não** é o veículo: duplicava o esqueleto do marco 1. Esta fatia traz **só as telas** para a v1 que já está na develop.
 
-Instruções locais em `ESTUDOS_BIBLICOS/GSI_EBD/v1/README.md`. [Relatório](dev/relatorio-fatia-2.md), [jornada](dev/jornada-fatia-2.md) e [evidências finais](dev/evidencias-fatia2-mutacao-final/). Domínio/modelos da fatia 1 intactos; nenhum campo novo. Fatia 3 e demais marcos da DEM-005 continuam fora. **EVAL cego ainda pendente.**
+Contrato: `rbac.py` com as 3 chaves (`/admin/obras` = ADMIN; `/revisor/obras` = REVISOR; `/obras` = os dois). Matriz de 15 células com permitido **e** negado; prova de vacuidade (monkeypatch remove as 3 chaves). ADR-020 nas telas. Alunos fake só no seed de homologação (`v1/seed_homolog_estudo.py`); o seed de produção não os recebe.
 
+Suíte local: **130 testes v1 + 272 regressão**. CI a disparar nesta branch. **EVAL cego** (máximo de 2 rodadas, ADR-018) **ainda pendente** antes do aceite.
 
-CI confirmado no commit `3b5f56c8964b7efcb10de085617717038abd2930`: **269 testes de regressao + 157 testes da v1 passaram**, com a suite da v1 executada de `v1/`. [Execucao verde](https://github.com/egarabini/gsi_ebd/actions/runs/39339058255). PR #5 permanece aberto para develop; EVAL e aceite pendentes.
+[Despacho](../DEM-202610-005-saida-do-reflex/dev/despacho-obras-fatia2.md) · [plano de testes](../DEM-202610-005-saida-do-reflex/dev/plano-testes-obras.md) · [jornada](dev/jornada-fatia-2.md)
