@@ -44,9 +44,10 @@ Carga inicial medida em `http://127.0.0.1:8010/` (sem JS de terceiros; a página
 
 Orçamento: **500 KB**. Folga ampla.
 
-**LCP** em viewport 360×800, DPR 2, 4G simulado (1,6 Mbps down, RTT 150 ms, CPU 4×):
-**1 064 ms**, elemento `IMG.hero__logo` (`logo-880.webp`). Abaixo do limiar “bom” (2,5 s).
-Registro: `dev/capturas-landing/lcp.json`.
+**LCP vigente (VISION, 22/10, navegador real na homologação, 768 px): 1 924 ms.**
+Abaixo do limiar “bom” (2,5 s). Registro: `dev/capturas-landing/lcp.json`.
+
+Medição anterior (21/10, local, 360×800, 4G simulado): 1 064 ms, `IMG.hero__logo`.
 
 ## Capturas (360 / 768 / 1024 / 1440)
 
@@ -89,11 +90,10 @@ executor subir esta branch.
 - o **LCP 1.924 ms** (a 768 px);
 - **~52 KB** na home.
 
-**CORRIGIR (bloqueia o aceite):**
-- o `.contato__cartao` (a home **e** o `/homenagens`) tem o gradiente até o `rgb(41,171,226)` com o
-  texto pequeno em branco: o **4,33:1** no meio e o **2,62:1** no canto — abaixo de 4,5:1;
-- **o tratamento**: o mesmo do `.botao--primario` (as duas pontas escuras, sem o ciano atrás do
-  texto) **e cobrir com teste de contraste**.
+**CORRIGIR (bloqueia o aceite) — fix em `52495cd`:**
+- o `.contato__cartao` passou a `linear-gradient(125deg, #3B1470, #4B1E8C)` com
+  parágrafo em `opacity: 1`; pior ponto **11,27:1**;
+- teste WCAG no pior ponto do gradiente (cartão e `.botao--primario`), limiar 4,5:1.
 
 **DECISÃO PENDENTE DO ARQUITECT:**
 - a página `/homenagens` está **sem conteúdo** (só o título, a frase e o cartão); aguardar a decisão

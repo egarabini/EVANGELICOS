@@ -187,3 +187,40 @@ Nenhuma migração, seed ou alteração de produção. Pendente: avisar o ARQUIT
 de que a URL do CSS versionada (`landing.fbc3428c9a2a7e6a.css`) está no ar —
 validação em **janela anônima** (sem `Ctrl+F5`): o logo recortado, o menu, o
 celular, os textos de obra/estudo.
+
+## Fix do parecer do EVAL — commit a703389 (2026-10-22)
+
+O ARQUITECT despachou a publicação do `a703389` (o fix dos dois bloqueios do
+EVAL: o contraste do `.botao--primario` e a remoção do placeholder do
+contato). Antes de publicar, disparado o CI manualmente (mesmo motivo do
+`02eff4a`: a branch só recebe `workflow_dispatch`, nunca automático) — run
+`39835747275`, **success**, head `a703389`.
+
+No clone `/home/didasko-deploy/homolog-v1`: `git fetch` (`FETCH_HEAD` =
+`a703389`), `git merge --ff-only` a partir de `02eff4a`, `subir.sh --v1` exit 0.
+Verificado: `/`, `/homenagens`, `/login` **200**; Traefik e app de produção com
+os mesmos horários de início (não reiniciados); placeholder com **0**
+ocorrências no HTML; CSS novo (`landing.e8784ecbc0f4a9c1.css`) com o gradiente
+escuro do botão; `Content-Type: image/webp` no logo.
+
+## Fix do cartão de contato — commit 52495cd (2026-10-22)
+
+Novo despacho: publicar o `52495cd` (escurece o `.contato__cartao` com o mesmo
+par de pontas escuras do botão, mais os testes de contraste WCAG). CI
+disparado manualmente de novo (mesma causa) — run `39856130366`, **success**,
+head `52495cd`.
+
+No clone de homologação: `git fetch` (`FETCH_HEAD` = `52495cd`), `git merge
+--ff-only` a partir de `a703389` — trouxe também um comentário no
+`docker-compose.v1-homolog.yml` (sem mudança funcional de rota/label).
+`subir.sh --v1` exit 0. Verificado: `/`, `/homenagens`, `/login` **200**;
+Traefik e app de produção com os mesmos horários de início (não reiniciados);
+CSS novo (`landing.b7d755afbdfcf7fc.css`) com
+`background: linear-gradient(125deg, #3B1470, #4B1E8C)` no `.contato__cartao`.
+
+## Próximo gate (52495cd)
+
+Nenhuma migração, seed ou alteração de produção, nem do Traefik. Pendente:
+avisar o ARQUITECT de que o cartão e os assets novos estão no ar — validação
+em **janela anônima**: o cartão do contato em **360 e 1440**, o contraste
+**>= 4,5**.

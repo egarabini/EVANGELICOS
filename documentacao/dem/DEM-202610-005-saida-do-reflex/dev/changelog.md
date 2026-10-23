@@ -1,5 +1,17 @@
 # Changelog — DEM-005
 
+## 2026-10-22 — VISION: cartão de contato, teste de contraste, LCP, portão /homenagens
+
+- `.contato__cartao` (home e `/homenagens`): `linear-gradient(125deg, #3B1470, #4B1E8C)`
+  e parágrafo com `opacity: 1`. Pior ponto medido **11,27:1** (limiar 4,5:1).
+- Teste WCAG: luminância relativa no pior ponto do gradiente; falha abaixo de
+  4,5:1 no cartão e no `.botao--primario`; prova de que o ciano reprova.
+- `/homenagens` permanece na app e na homologação. Fora do roteador de produção
+  da v1 até o ARQUITECT autorizar (homenagens reais).
+- LCP vigente: **1.924 ms** (768 px, VISION, navegador real).
+- Commit `52495cd`. Local: **64** da v1 + **269** da v0. DEPLOY: `subir.sh --v1`
+  (não executado aqui).
+
 ## 2026-10-22 — fix do parecer do EVAL (marco 2L): contraste e placeholder
 
 - Commit `a703389` na branch `feature/DEM-202610-005-landing` (sobre o `02eff4a`).

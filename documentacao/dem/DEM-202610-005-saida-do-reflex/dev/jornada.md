@@ -1,5 +1,30 @@
 # Jornada — DEM-005, marco 1 (o esqueleto da v1)
 
+## 2026-10-22 — VISION: contraste do contato__cartao, teste AA, LCP, portao /homenagens
+
+Adendo do VISION no `despacho-menu.md`. O cartao ainda tinha o ciano no fim do
+gradiente (2,62:1 no canto). Nao editei o prototipo.
+
+Think:
+- o mesmo tratamento do botao (duas pontas `#3B1470` → `#4B1E8C`) e `opacity: 1`
+  no paragrafo; CSS compartilhado cobre home e `/homenagens`;
+- o VISION exige teste que **calcule** a razao (luminancia relativa) no pior
+  ponto do gradiente, limiar 4,5:1 — o mesmo para `.botao--primario`;
+- `/homenagens` **nao** se remove nem se esconde; homologacao a mantem; fica
+  fora do roteador de producao da v1 ate o ARQUITECT autorizar;
+- LCP vigente: **1924 ms** na 768, medido pelo VISION (nao refiz a medicao).
+- DEPLOY (`subir.sh --v1`) nao e deste perfil.
+
+List:
+1. `v1/static/landing/landing.css` — gradiente do cartao e opacity 1;
+2. `v1/tests/test_contraste_landing.py` — WCAG no pior ponto + prova de que o
+   ciano reprova;
+3. compose homolog + teste: pagina existe; producao sem `Path(/homenagens)`;
+4. `dev/capturas-landing/lcp.json` e o relatorio — 1924 ms.
+
+Validacao local: **64** testes da v1 + **269** da v0. Commit `52495cd`, push.
+Nao rodei `subir.sh`.
+
 ## 2026-10-22 — as 3 correções do ARQUITECT (hash no nome, ETag, fonte única)
 
 Despacho relido em `dev/despacho-menu.md` (data 22/10). O porte visual já estava

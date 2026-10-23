@@ -1,40 +1,16 @@
 {
-  "lcp": {
-    "startTime": 1064,
-    "size": 168705,
-    "url": "http://127.0.0.1:8010/static/landing/logo-880.webp",
-    "tag": "IMG",
-    "id": "hero__logo"
+  "medicao": {
+    "startTime_ms": 1924,
+    "viewport": 768,
+    "fonte": "VISION",
+    "ambiente": "homologacao, navegador real",
+    "data": "2026-10-22",
+    "limiar_bom_ms": 2500
   },
-  "nav": {
-    "transferSize": 10164,
-    "encodedBodySize": 9864,
-    "duration": 986.3999999761581,
-    "domContentLoaded": 583.3999999761581
-  },
-  "peso": 77424,
-  "resources": [
-    {
-      "name": "/static/landing/landing.css",
-      "transferSize": 0,
-      "encodedBodySize": 13562,
-      "duration": 5
-    },
-    {
-      "name": "/static/landing/logo-88.webp",
-      "transferSize": 0,
-      "encodedBodySize": 3838,
-      "duration": 2
-    },
-    {
-      "name": "/static/landing/logo-880.webp",
-      "transferSize": 67260,
-      "encodedBodySize": 66960,
-      "duration": 160
-    }
-  ],
-  "menu": {
-    "visivelAntes": "flex",
-    "visivelDepois": "visible"
+  "anterior_local_2026-10-21": {
+    "startTime_ms": 1064,
+    "viewport": 360,
+    "ambiente": "127.0.0.1:8010, 4G simulado",
+    "elemento": "IMG.hero__logo"
   }
 }
