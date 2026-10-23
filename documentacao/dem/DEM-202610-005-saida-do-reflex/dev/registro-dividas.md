@@ -170,3 +170,19 @@ O DEVS implementou a **opção A** no **PR #9** (o commit **`8ae1a3c`**):
 
 **A verificação**: o PR #9 mostra o check verde — **o problema do #8** (o merge com o `--admin`)
 **não se repete**. **A dívida fecha.**
+### 11. O `environment producao` **SEM aprovador** (a correção do AUXILIAR, 23/10)
+
+**O fato**: o `environment producao` **NÃO tem aprovador** — é uma **dívida aceita até a v1**.
+**Qualquer tag `v*` ou `workflow_dispatch` do `deploy.yml` executa na hora** (o deploy do
+`40040835237` entrou direto, sem a parada de aprovação).
+
+**A REGRA (registrada)**: **enviar a tag `v*` = autorizar o deploy.** O **push da tag é o ato** — o
+pipeline **não pergunta**. **A decisão de "subir" é no momento do push**, não numa aprovação
+posterior.
+
+**A dívida a decidir (o ARQUITECT)**: **recolocar o *required reviewer*** no `environment producao`
+**antes de a v1 ter dados reais**. Até lá, **a autorização é por release aceito** (o ADR-016) — e a
+**tag é o gatilho**.
+
+**A consequência prática**: **não empurrar uma tag `v*` para "testar"** — cada push de tag é um
+deploy em produção, com o `up -d --build` recriando o `app` da v0.
