@@ -1,5 +1,28 @@
 # Jornada — DEM-005, marco 1 (o esqueleto da v1)
 
+## 2026-10-23 — aceite 2L: hero no celular, vao zero, yaml sem exemplo, higiene
+
+Aceite do ARQUITECT no marco 2L; ajustes finais no mesmo branch. Prototipo congelado.
+
+Think:
+- no `@media ≤960` o `.hero__visual` some (`display: none`); a marca 45px do
+  topo ja identifica o Didasko; desktop (`display: flex`) fica igual;
+- o vao de 0,7px (13px) e o fio do cursor; PLANNER pede zero; o ARQUITECT
+  listou o ajuste — `top: calc(100% - 14px)`;
+- yaml sem e-mail/telefone/item de exemplo, mesmo comentado;
+- gitignore `.eval*/` e `.eval4-tmp/`; apagar `.eval4-tmp/` da raiz;
+- DEPLOY (`subir.sh --v1`) nao e deste perfil.
+
+List:
+1. `v1/static/landing/landing.css` — hero oculto no 960; menu `-14px`;
+2. `v1/landing.yaml` — so campos vazios e comentarios de estrutura;
+3. testes do hero, do vao e do yaml sem `@`/telefone;
+4. `.gitignore` (worktree + umbrella); remover `.eval4-tmp/`.
+
+Validacao local: **71** testes da v1 + **269** da v0. Commit `67f0623`, push.
+CI: https://github.com/egarabini/gsi_ebd/actions/runs/39951215227 (success).
+Worktree `git status` limpo. Nao rodei `subir.sh`.
+
 ## 2026-10-23 — EVAL/VISION: vao do menu e AA do texto pequeno
 
 2o adendo + ressalva da 3a rodada do EVAL. Sobre o `906a6dd`. Prototipo congelado.

@@ -57,7 +57,8 @@ estudos/
 .worktrees/
 
 # artefatos de auditoria do EVAL (fora do versionamento)
-.eval-*/
+.eval*/
+.eval4-tmp/
 
 # temporarios de geracao
 .tmp-*/

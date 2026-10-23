@@ -1,5 +1,16 @@
 # Changelog — DEM-005
 
+## 2026-10-23 — aceite 2L: hero no celular, vão zero, yaml sem exemplo
+
+- `@media ≤960`: `.hero__visual { display: none; }`. Desktop inalterado.
+- Menu: `top: calc(100% - 14px)` (zera o vão de 0,7 px do `-13px`).
+- `v1/landing.yaml` sem e-mail/telefone/item de exemplo, mesmo comentado.
+- `.gitignore`: `.eval*/` e `.eval4-tmp/`. Removido `.eval4-tmp/` da raiz.
+- Commit `67f0623`. Local: **71** da v1 + **269** da v0. CI:
+  https://github.com/egarabini/gsi_ebd/actions/runs/39951215227 (success).
+  DEPLOY: `subir.sh --v1` (não executado aqui). VISION: 360 sem logo do hero,
+  painel encostado, rótulo AA, link de homenagens ausente.
+
 ## 2026-10-23 — vao do menu e AA do texto pequeno
 
 - Painel `.menu` no `@media ≤1000`: `top: calc(100% - 13px)` (antes `100%`).
