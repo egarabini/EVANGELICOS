@@ -138,3 +138,17 @@ entrar na primeira publicação é do ARQUITECT** — o DEVS **não** a remove n
 decisão; o portão fica registrado.
 
 **O LCP**: o registro atualizado — **1.924 ms** na 768 px, medido no navegador real pelo VISION.
+## O adendo da verificação do ARQUITECT (22-23/10) — o link condicional das homenagens
+
+O cartão do contato está **resolvido** (o `11,27:1`) — o item 1 fecha. A **decisão nova**:
+
+- **O `/homenagens` fica FORA da produção** até haver homenagens reais.
+- **A consequência**: o link **"Homenagens"** (o menu **e** a seção `#homenagens` da home) **só
+  renderiza se houver homenagem ativa** no `v1/landing.yaml` — a **mesma regra dos depoimentos**:
+  - o `{% if homenagens %}` no item do menu e na seção;
+  - o `homenagens: []` no arquivo vazio → **nada** aparece;
+  - quando o ARQUITECT preencher o arquivo, o link **volta sozinho**.
+- **O teste**: sem homenagens, o HTML do `/` **não contém** `href="/homenagens"` nem `#homenagens`; com
+  uma homenagem ativa, **contém**. O **EVAL confere**.
+- **A produção**: o **roteador cobre só o `/`** (e os assets estáticos); o `/homenagens`, o `/login` e
+  o resto **seguem na v0** — é o que a proposta de autorização vai registrar.

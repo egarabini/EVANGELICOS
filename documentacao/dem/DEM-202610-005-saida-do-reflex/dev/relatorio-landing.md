@@ -101,3 +101,14 @@ executor subir esta branch.
 
 **O LCP:** o registro atualizado — **1.924 ms** na 768 px (o anterior, 1.064 ms, era anterior ao
 `02eff4a`).
+## A verificação do ARQUITECT (22-23/10) — o `52495cd`
+
+- **O cartão do contato**: o gradiente `#3B1470 → #4B1E8C`, o pior contraste **11,27:1** (antes
+  2,62:1). **O item 1 resolvido.**
+- **O `/homenagens`**: **DECISÃO DO ARQUITECT** — fica **FORA da produção** até haver homenagens reais.
+- **A consequência**: o link **"Homenagens"** (o menu **e** a seção `#homenagens` da home) **não pode
+  aparecer** quando não há homenagens. **A mesma regra dos depoimentos**: só renderiza se existir item
+  **ativo** no arquivo versionado (`landing.yaml`), para o link **voltar sozinho** quando houver
+  conteúdo. **O EVAL confere**: sem homenagens, o HTML do `/` **não contém link para `/homenagens`**.
+- **A produção**: o roteador cobre **só o `/`** (e os assets estáticos da landing); o `/homenagens`, o
+  `/login` e o resto **seguem na v0**.
