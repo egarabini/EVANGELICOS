@@ -224,3 +224,37 @@ Nenhuma migração, seed ou alteração de produção, nem do Traefik. Pendente:
 avisar o ARQUITECT de que o cartão e os assets novos estão no ar — validação
 em **janela anônima**: o cartão do contato em **360 e 1440**, o contraste
 **>= 4,5**.
+
+## Link de homenagens escondido sem item ativo — commit 906a6dd (2026-10-23)
+
+Relatório do DEVS: `906a6dd` esconde o menu, a seção `#homenagens` e o link do
+rodapé do `index.html` quando `v1/landing.yaml` não tem nenhuma homenagem
+`ativo: true` (hoje vazio). `/homenagens` continua acessível direto na
+homologação (Path), fora do escopo deste commit. DoD do DEVS: 67+269 testes,
+CI https://github.com/egarabini/gsi_ebd/actions/runs/39931396359 — reconferido
+antes de publicar: `headSha` = `906a6dd`, `success`. `subir.sh --v1` não foi
+rodado pelo DEVS (ADR-016).
+
+No clone de homologação: `git fetch` (`FETCH_HEAD` = `906a6dd`), `git merge
+--ff-only` a partir de `906a6dd` (sic, de `52495cd`) — trouxe também
+`deploy/docker-compose.producao.yml` (4 linhas) e um ajuste no
+`docker-compose.v1-homolog.yml`; conferido em `deploy/subir.sh` que o `--v1`
+troca a variável `COMPOSE` para o arquivo da v1-homolog (linha 99) e nunca
+aplica o compose de produção — o `docker-compose.producao.yml` alterado é só
+a **proposta** de roteamento da v1 para produção, ainda sem autorização, sem
+efeito neste deploy.
+
+`subir.sh --v1` exit 0 (build sem cache desta vez — a digest da imagem
+`python:3.12-slim` mudou; só mais lento, sem erro). Verificado: `/`,
+`/homenagens`, `/login` **200**; produção `/` **200**; Traefik e app de
+produção com os mesmos horários de início (não reiniciados); o HTML do `/`
+com **zero** ocorrências de `href="/homenagens"`, `id="homenagens"` ou
+"Homenagens" — confirma que o link some com o `landing.yaml` vazio.
+
+## Próximo gate (906a6dd)
+
+Nenhuma migração, seed ou alteração de produção/Traefik. Pendente: o EVAL
+confere o HTML do `/` sem o link (conforme o relatório do DEVS); quando o
+ARQUITECT preencher uma homenagem com `ativo: true` no `landing.yaml`, o link
+deve voltar sozinho — não testado nesta rodada (o arquivo commitado continua
+vazio).
