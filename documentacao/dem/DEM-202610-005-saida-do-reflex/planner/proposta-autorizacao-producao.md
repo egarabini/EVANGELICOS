@@ -251,3 +251,23 @@ tag** (o compose sem o serviço) **e a remoção do contêiner** (o `stop/rm` ou
 **Sem a segunda, a primeira é uma ilusão**: o compose diz "não há landing" e o `/` continua sendo a
 landing (o contêiner órfão com os rótulos do Traefik). **A proposta do `--remove-orphans`**: o
 `dev/despacho-subir-remove-orphans.md` — **infraestrutura, só com a autorização do ARQUITECT**.
+## O motivo do rollback — **REGISTRADO** (23/10)
+
+**A resposta do ARQUITECT**: **motivo NÃO REGISTRADO**.
+
+**O que o registro tem**: o **quando** (o deploy de 16:36 a 16:43; o rollback ~16:47), o **como** (o
+`docker stop/rm didasko_landing` + o `git checkout --force refs/tags/v0.1.0` + o `subir.sh`), e a
+**prova** de que o **deploy da `v0.1.1` foi `success`** (o run `39988210363`, "publicar na VPS") e o
+**logo foi descartado** (o fix está na `v0.1.1`). **O porquê não foi registrado.**
+
+## O critério de "resolvido" antes da próxima subida
+
+**A decisão do ARQUITECT** (as 3 condições):
+
+1. **o motivo ser dito e registrado** (na jornada do DEPLOY ou neste documento) — **sem isso, não há o
+   que verificar**: um rollback sem motivo escrito não tem como ser evitado nem repetido;
+2. **a ordem do ARQUITECT** — a produção **segue na `v0.1.0`** até ela;
+3. **se o motivo for o visual ou a janela** (as hipóteses que o registro permite), o **registro do que
+   mudou** antes da nova subida.
+
+**A produção**: **na `v0.1.0`** até a ordem do ARQUITECT.

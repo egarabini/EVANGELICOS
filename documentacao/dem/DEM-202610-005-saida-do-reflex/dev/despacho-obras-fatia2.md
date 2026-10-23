@@ -63,3 +63,29 @@
 | o **dado fake** na produção | o seed de **homologação**; a produção **nunca** recebe o fake |
 | o **Revisor** com autoridade demais | o **ADR-020**: só o Admin muda a publicação; a liberação **exige** os dois |
 | o escopo inflar (o fluxo inteiro de uma vez) | a fatia 2 entrega o **fluxo mínimo** (a inclusão → o teste); o resto na fatia 3 |
+## A correção do CI (a opção A) — o mesmo despacho (a decisão do ARQUITECT, 23/10)
+
+**O quê**: o `ci.yml` com o **`pull_request` sem o filtro de `branches`** — todo PR dispara o CI:
+
+```yaml
+on:
+  pull_request:
+  push:
+    branches: [develop, main]
+  workflow_dispatch:
+```
+
+**O porquê**: o **`pull_request: branches: [develop, main]`** não dispara os PRs cuja **base é uma
+`feature/*`** — e a proteção da develop **exige** o check `testes (pytest)` (o nome do job já bate com
+a proteção; **a opção C é redundante**). Sem o CI no PR, o merge **exige o `--admin`** (foi o caso do
+#8).
+
+**O DoD**: um **PR `feature/x` → `develop`** mostra o check `testes (pytest)` **verde no PR**, e o
+**merge passa sem o `--admin`**.
+
+**O teste**: o PR de teste (o PLANNER o cria depois da correção, com a base na develop e uma mudança
+trivial).
+
+**O risco**: o CI roda em **todo** PR (o custo de runner); o benefício é o check **antes** do merge —
+e a **alternativa** (a opção B, o `feature/**`) **esquece** branches fora do padrão (a decisão do
+ARQUITECT).
