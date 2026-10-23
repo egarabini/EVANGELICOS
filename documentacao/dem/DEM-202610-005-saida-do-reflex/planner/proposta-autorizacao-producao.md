@@ -1,60 +1,107 @@
 # A proposta de autorização da produção — a landing (o marco 2L)
 
-> **O ato é do ARQUITECT.** Esta proposta descreve o que será feito; o aceite é o seu. **Nada é
+> **A revisão do ARQUITECT (23/10)** — os 7 pontos incorporados. **O ato é do ARQUITECT; nada é
 > executado sem ele.**
 
-## 1. O roteador (o Traefik)
+## 1. O roteador (o Traefik) — os rótulos
 
-O serviço da **landing** (a v1) ganha um **roteador próprio**, com a prioridade **maior** que a da v0:
+O serviço da landing (a v1) entra com um roteador próprio, na **mesma rede de borda** da v0, com a
+**prioridade explícita** maior:
 
 ```yaml
-# no serviço da landing (o Compose da v1 na produção), os labels:
-traefik.http.routers.landing-prod.rule=Host(`didasko.app.br`) && (Path(`/`) || PathPrefix(`/static/landing/`))
-traefik.http.routers.landing-prod.priority=200          # > a prioridade da v0
-traefik.http.routers.landing-prod.entrypoints=websecure
-traefik.http.routers.landing-prod.tls=true
-traefik.http.routers.landing-prod.tls.certresolver=le
+- traefik.enable=true
+- traefik.docker.network=deploy_didasko
+- traefik.http.routers.landing-prod.rule=Host(`didasko.app.br`) && (Path(`/`) || PathPrefix(`/static/landing/`))
+- traefik.http.routers.landing-prod.priority=200
+- traefik.http.routers.landing-prod.entrypoints=websecure
+- traefik.http.routers.landing-prod.tls=true
 ```
 
-- **O que a landing atende**: **só o `/` (o exato) e o `/static/landing/*`**.
-- **O que continua na v0**: o `/login`, o `/aluno`, o `/admin` e **todo o resto** — porque o
-  `Path(/)` é **exato** (`/login` não é `/`) e o `PathPrefix(/static/landing)` não os alcança.
-- **O roteador da v0 não muda** (o `didasko_app` continua com o catch-all dele); o novo serviço
-  entra com a prioridade maior no **mesmo host**.
+**O `tls=true` só — sem o `certresolver`** (a revisão, o ponto 5): o certificado do `didasko.app.br`
+**já existe** (o Traefik o serve pelos rótulos da v0); o `tls=true` usa o certificado existente, e
+**nenhum pedido novo ao Let's Encrypt é feito**.
 
-## 2. Os limites
+**A regra**: o `Path(/)` é **exato** (o `/login` não é o `/`) e o `PathPrefix(/static/landing/)` só
+alcança os assets da landing. O `/login`, o `/homenagens`, o `/aluno` e o resto **não casam** com a
+regra nova → **continuam na v0**, pelo roteador dela.
 
-- O serviço da landing: **sem banco** e sem a rede interna; só na rede de borda.
-- Os limites: a **memória** e a **CPU** definidos (o serviço é estático, só serve o HTML/CSS/WebP).
-- O disseram os limites **de acordo com o que a aplicação consome** — o valor final no relatório.
+## 2. Os limites (os números)
 
-## 3. A volta atrás
+- **A memória**: **`mem_limit: 512m`** (512 MiB);
+- **A CPU**: **`cpus: 0.50`** (meio vCPU);
+- **A rede**: **só a `deploy_didasko`** (a borda); sem a `interna`; **sem `DATABASE_URL`**.
 
-- **Remover o rótulo** do serviço da landing (ou o `docker compose -p … down` do **serviço** da
-  landing) e **recriar só ele** — o **`--force-recreate --no-deps landing`**.
-- **NUNCA** reiniciar o Traefik: ele relê os rótulos sozinho (o docker provider).
-- **O efeito**: o `/` volta a servir a landing da v0 — **a substituição é reversível em uma linha**.
+São os mesmos valores da homologação (o §2 do compose `v1-homolog.yml`), e o serviço é estático (só
+serve o HTML/CSS/WebP).
 
-## 4. O teste (depois da mudança)
+## 3. Como o contêiner chega à produção
 
-- o **`/`** → 200 e é a landing da v1 (o `<title>` e o CSS `landing.<hash>.css`);
-- o **`/login`** → 200 (a v0, o login);
-- o **`/homenagens`** → 200 (a v0 — a página própria dela);
-- o **`/aluno`** (ou o app da v0) → 200/redireciona como hoje;
-- a **v0 intocada** (o `StartedAt` dos 5 contêineres da produção **inalterado**).
+- **O stack**: o `deploy/app-v1.Dockerfile` (o `python:3.12-slim`), o comando
+  `python -m uvicorn v1.landing:create_app --factory`;
+- **O projeto do Compose**: o **`deploy`** (o mesmo da v0), com o serviço **`landing`** — o
+  `container_name: didasko_v1_landing`;
+- **A tag**: o `v*` (o SemVer) **pelo `deploy.yml`** (o GitHub Actions) — o pipeline que já publica a
+  v0; **o mesmo processo**, o serviço a mais;
+- **Os 5 contêineres da v0 NÃO são recriados**: o deploy sobe **só o serviço `landing`** (o
+  `--force-recreate --no-deps landing`) — o `didasko_app`, o `didasko_traefik`, o `didasko_postgres`,
+  o `didasko_chromadb` e o `didasko_ollama` **ficam com o `StartedAt` inalterado**.
 
-## 5. A substituição
+## 4. As duas etapas (a subida)
 
-A landing nova **substitui** a atual no `/` desde a primeira publicação (a decisão do ARQUITECT) —
-**não há convivência**: o `/` é a nova, o resto é a v0.
+**(a) O contêiner SEM os rótulos de roteador** — a subida só do serviço, sem o Traefik o enxergar
+(o `traefik.enable=false` na primeira subida); o teste **por dentro** da VPS:
+- o `docker exec didasko_v1_landing curl -sS -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/` →
+  **200**, o HTML com o `<title>` da landing;
+- o `/homenagens` → **200** (o layout, a página sem o link);
+- o contêiner sem o `DATABASE_URL` e só na borda.
+
+**(b) Só então os rótulos** — o **ato do ARQUITECT**: a subida com os rótulos do §1. Depois:
+- a **base** do §5 (o antes × o depois);
+- o **teste** do `/login` (o 307), do `/homenagens` (o 307) e do app da v0;
+- o `StartedAt` dos 5 contêineres da v0 **inalterado**.
+
+**A volta atrás** = remover os rótulos (o `traefik.enable=false` ou o down **do serviço** da landing)
+e recriar **só** o serviço — **o Traefik nunca reinicia**; ele relê os rótulos sozinho.
+
+## 5. A base (os códigos de hoje — a produção não foi tocada)
+
+| A rota | Hoje (a v0) | Depois (o esperado) |
+|---|---|---|
+| `/` | **200** | **200** (a landing da v1) |
+| `/login` | **307** | **307** (a v0; o redirect) |
+| `/homenagens` | **307** | **307** (a v0) |
+
+**A regra do teste (a revisão, o ponto 1)**: **registrar os códigos de hoje ANTES** e comparar os
+**mesmos códigos DEPOIS** — o `/` deve mudar de **origem** (a v0 → a v1), **não** de código; o
+`/login` e o `/homenagens` devem **continuar iguais**.
+
+## 6. Os rótulos reais do roteador da v0 (a prova do ponto 6)
+
+```
+traefik.http.routers.didasko.entrypoints = websecure
+traefik.http.routers.didasko.rule = Host(`didasko.app.br`) || Host(`www.didasko.app.br`)
+traefik.http.routers.didasko.tls.certresolver = le
+```
+
+**Nenhum `priority`** — o roteador da v0 usa a **prioridade padrão** (calculada pelo Traefik pelo
+tamanho da regra, não explícita). O `priority=200` da landing **vence** qualquer rota da v0 no `/`.
+**A verificação antes de executar**: `docker inspect didasko_app` para conferir que **nenhum** rótulo
+da v0 tem a `priority` > 200.
+
+## 7. A ordem (a revisão, o ponto 7)
+
+1. **O DEPLOY** roda o `subir.sh --v1` **com o head `67f0623`** (o fix do hero/o menu a zero/o YAML
+   limpo/o `.gitignore`), na homologação;
+2. **O ARQUITECT valida em janela anônima** (o 360 sem o logo do hero, o painel encostado, o rótulo
+   AA, o link das homenagens ausente);
+3. **A proposta** (este documento) — o **ato do ARQUITECT**;
+4. **A etapa (a)** — o contêiner sem os rótulos, o teste por dentro;
+5. **A etapa (b)** — os rótulos (o ato), o teste do §5 (a base × o depois).
 
 ## O que **não** muda
 
-- o **`/login`** e o app (a v0) — o roteador novo não os toca;
-- o **`/homenagens`** — a v0 tem a própria (a v1 não entra, pela decisão do ARQUITECT);
-- o **Traefik** (sem restart) e o **domínio** (o mesmo `didasko.app.br`).
-
-## O pedido
-
-**A sua aprovação**, com o VISION revisando antes: (1) o roteador preserva o `/login` e o resto na
-v0 **pela prioridade**; (2) a **volta atrás nunca reinicia o Traefik**; (3) a substituição do `/`.
+- o **`/login`** e o app da v0 — o roteador novo não os toca;
+- o **`/homenagens`** — a v0 tem a própria (a v1 não entra);
+- o **certificado** — o `tls=true` usa o existente, **sem** o let's Encrypt novo;
+- o **Traefik** (sem restart) e o **domínio** (o mesmo `didasko.app.br`);
+- os **5 contêineres da v0** (o `StartedAt` inalterado).
