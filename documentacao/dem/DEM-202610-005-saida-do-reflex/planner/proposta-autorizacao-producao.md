@@ -241,3 +241,13 @@ serviço saiu do arquivo), mas ele **continua rodando** com os **rótulos do Tra
 **A regra**: a **volta atrás** de um serviço que entra no compose é **duas coisas** — o **checkout da
 tag** (o compose sem o serviço) **e a remoção do contêiner** (o `stop/rm` ou o `--remove-orphans`).
 **Sem a segunda, a primeira é uma ilusão**: o `/` continua sendo o serviço novo.
+## A REGRA do rollback (23/10)
+
+**Voltar de um serviço que entrou no compose exige DUAS ações:**
+
+1. o **`checkout --force` da tag antiga** (o compose sem o serviço);
+2. a **remoção do contêiner** (o `docker rm -f` do serviço **ou** o `--remove-orphans`).
+
+**Sem a segunda, a primeira é uma ilusão**: o compose diz "não há landing" e o `/` continua sendo a
+landing (o contêiner órfão com os rótulos do Traefik). **A proposta do `--remove-orphans`**: o
+`dev/despacho-subir-remove-orphans.md` — **infraestrutura, só com a autorização do ARQUITECT**.

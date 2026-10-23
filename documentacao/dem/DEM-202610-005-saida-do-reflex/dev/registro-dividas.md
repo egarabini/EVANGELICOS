@@ -99,3 +99,20 @@ são uma **decisão editorial**.
 - **O push da tag e a aprovação do `environment: producao`**: **do ARQUITECT**;
 - **A volta atrás**: o deploy da `v0.1.0` (`git checkout --force refs/tags/v0.1.0` + o `subir.sh`);
 - **Nada em produção** sem o aceite do ARQUITECT.
+### 6. O rollback manual (23/10)
+
+- **o quê**: o rollback da `v0.1.1` foi **manual, fora do pipeline** (o `docker rm` do
+  `didasko_landing` + o `checkout --force` da `v0.1.0` + o `subir.sh`); o clone da produção está de
+  novo no **HEAD destacado da `v0.1.0`**;
+- **a janela de indisponibilidade do app**: o `app` foi **recriado duas vezes** (a etapa a/b + o
+  rollback) — a janela real, a registrar na jornada do DEPLOY;
+- **a proposta da correção**: o `--remove-orphans` no `subir.sh`/`deploy-entry` (o
+  `dev/despacho-subir-remove-orphans.md`) — **infraestrutura, só com a autorização do ARQUITECT**.
+
+### 7. A produção na `v0.1.0` até a decisão do ARQUITECT
+
+- **nenhum deploy novo da `v0.1.1`** sem a ordem dele;
+- **antes** dele explicar **por que a produção voltou à `v0.1.0`** e **o que (se algo) precisa mudar**
+  antes de subir de novo;
+- a **tag `v0.1.1`** segue no repositório (a referência de "a landing em produção"), mas **a
+  produção fica na `v0.1.0`** até a decisão.
