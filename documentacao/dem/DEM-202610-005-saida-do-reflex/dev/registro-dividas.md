@@ -139,3 +139,22 @@ são uma **decisão editorial**.
 **A LACUNA a fechar**: o "porquê" precisa ser **registrado** (na jornada do DEPLOY ou neste registro)
 **no momento em que for dito** — **um rollback sem motivo registrado é um rollback que ninguém
 consegue repetir nem evitar**.
+### 9. A hipótese do logo — DESCARTADA (a verificação de 23/10)
+
+**A hipótese do ARQUITECT**: o rollback teria sido ocasionado pela **alteração do logo** que "não
+funcionava em homologação".
+
+**A verificação (o código, não a memória):**
+
+- o CSS **dentro do merge `5c0bc3e`** (o commit da `v0.1.1`) tem o **`.hero__visual { display: none }`**
+  dentro do `@media (max-width: 960px)` — **o fix do logo está na `v0.1.1`**;
+- o **`67f0623`** (o commit original do fix) **não é ancestral** do `5c0bc3e` — ele foi **rebaseado**
+  no **`5d82b0a`** (o mesmo conteúdo, o SHA novo); a **ancestralidade** não é o teste certo, o
+  **conteúdo** é — e o conteúdo entrou;
+
+**A conclusão**: **o logo NÃO foi a causa do rollback** — a `v0.1.1` **levou o fix**, e o deploy da
+`v0.1.1` foi **`success`** (o run `39988210363`, "publicar na VPS"). **A produção subiu com o logo
+correto.**
+
+**A hipótese fica descartada**; **a causa do rollback continua sem registro** — o "porquê" é do
+ARQUITECT (a orientação 4), e o registro espera por ele.
