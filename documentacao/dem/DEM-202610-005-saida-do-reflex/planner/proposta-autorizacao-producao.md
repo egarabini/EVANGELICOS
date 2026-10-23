@@ -211,3 +211,33 @@ sudo -n docker compose --env-file .env -f deploy/docker-compose.producao.yml up 
 - **Como resolver**: um **commit na branch certa** (a da landing ou uma branch de produção dedicada) —
   **NUNCA** o `git add -A`;
 - **Até lá**: **nenhum outro deploy em produção** sem resolver.
+## O rollback (23/10) — a produção de volta à `v0.1.0`
+
+O DEPLOY rolou a produção para a **`v0.1.0`**:
+
+1. **o `docker stop/rm didasko_landing`** — **a lacuna identificada antes de executar**: o
+   `checkout --force` tira o `landing` do **arquivo do compose**, mas **sem o `--remove-orphans`** o
+   contêiner **órfão continuaria no ar** com os rótulos do Traefik, **servindo o `/`** — o `docker rm`
+   do contêiner foi o passo que faltava;
+2. o **`git checkout --force refs/tags/v0.1.0`** (confirmado);
+3. o **`bash deploy/subir.sh --pular-import`** (exit 0).
+
+**Verificado:**
+- o **`postgres`, o `chromadb`, o `ollama` e o `traefik`**: o `StartedAt` **idêntico ao de 18/10** —
+  **nunca tocados hoje**, em **nenhuma** das três ações (a etapa a, a etapa b, o rollback);
+- o **`app`**: recriado (esperado — voltou à imagem da `v0.1.0`);
+- o **`didasko_landing`**: **não existe mais**, nem parado;
+- o **`https://didasko.app.br/`**: **200**, **45299 bytes** (o tamanho original da v0), **sem o CSS da
+  landing**.
+
+**A produção está de volta EXATAMENTE ao estado anterior à landing.**
+
+## A lição do rollback
+
+**O rollback de um serviço novo exige o `docker rm` do contêiner (ou o `--remove-orphans`)**: o
+`checkout --force` sozinho **NÃO derruba** o contêiner órfão — o compose **não o gerencia mais** (o
+serviço saiu do arquivo), mas ele **continua rodando** com os **rótulos do Traefik** e **serve o `/`**.
+
+**A regra**: a **volta atrás** de um serviço que entra no compose é **duas coisas** — o **checkout da
+tag** (o compose sem o serviço) **e a remoção do contêiner** (o `stop/rm` ou o `--remove-orphans`).
+**Sem a segunda, a primeira é uma ilusão**: o `/` continua sendo o serviço novo.
