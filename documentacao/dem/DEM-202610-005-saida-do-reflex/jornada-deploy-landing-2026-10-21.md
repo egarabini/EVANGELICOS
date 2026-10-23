@@ -258,3 +258,43 @@ confere o HTML do `/` sem o link (conforme o relatório do DEVS); quando o
 ARQUITECT preencher uma homenagem com `ativo: true` no `landing.yaml`, o link
 deve voltar sozinho — não testado nesta rodada (o arquivo commitado continua
 vazio).
+
+## Head final do marco 2L — commit 2ca4610 (2026-10-23)
+
+Despacho do ARQUITECT: publicar o `2ca4610` (o painel do menu encostado no
+hover, o AA do rótulo e do passo da trilha). CI já informado no despacho —
+reconferido antes de publicar: `headSha` = `2ca4610`, `success`, run
+`39933115533`.
+
+No clone de homologação: `git fetch` (`FETCH_HEAD` = `2ca4610`), `git merge
+--ff-only` a partir de `906a6dd` — só CSS e testes, sem compose/infra.
+`subir.sh --v1` exit 0. Verificado: `/`, `/homenagens`, `/login` **200**;
+produção `/` **200**; Traefik e app de produção com os mesmos horários de
+início (não reiniciados); link de homenagens continua ausente no `/`; CSS
+novo (`landing.9175a181a37bc78b.css`) confirma os três pontos do fix:
+`.menu { top: calc(100% - 13px); ... }` (o painel encostado — o `top: 100%`
+deixava 13,7px de vão e o hover fechava ao atravessar), `.rotulo { color:
+#9A3412; }` (o laranja original caía a 2,42–2,96:1) e o `.trilha__passo span`
+com o mesmo gradiente de pontas escuras do botão/cartão.
+
+## Próximo gate (2ca4610)
+
+Nenhuma migração, seed ou alteração de produção/Traefik. Pendente: avisar o
+ARQUITECT — validação em **janela anônima**: o painel encostado no hover, o
+AA do rótulo, o link das homenagens ausente.
+## O deploy do `2ca4610` — o head final do 2L (23/10)
+
+O DEPLOY publicou o `2ca4610` na homologação: o CI `39933115533` reconferido (o `headSha` =
+`2ca4610`, success); o fast-forward `906a6dd..2ca4610` (só CSS e testes); o `subir.sh --v1` exit 0.
+
+**O CSS servido** (`landing.9175a181a37bc78b.css`):
+- o `.menu { top: calc(100% - 13px) }` — o painel **encosta** no hover (o `top: 100%` deixava os
+  13,7 px que fechavam o menu ao atravessar o cursor);
+- o `.rotulo { color: #9A3412 }` — o laranja original caía a 2,42–2,96:1; agora o AA;
+- o `.trilha__passo span` com o mesmo gradiente de pontas escuras do botão/cartão.
+
+**As rotas**: o `/`, o `/homenagens` e o `/login` **200**; a produção `/` **200**; o Traefik e o app
+da produção **não reiniciados**; **o link das homenagens continua ausente no `/`** (o yaml vazio).
+
+**Para a validação do VISION** (a janela anônima): o painel encostado no hover, o AA do rótulo, o
+link das homenagens ausente.
