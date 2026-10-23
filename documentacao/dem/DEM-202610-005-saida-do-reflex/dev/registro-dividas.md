@@ -158,3 +158,15 @@ correto.**
 
 **A hipótese fica descartada**; **a causa do rollback continua sem registro** — o "porquê" é do
 ARQUITECT (a orientação 4), e o registro espera por ele.
+### 10. O CI (a opção A) — **FECHADO** (o PR #9, o `8ae1a3c`)
+
+O DEVS implementou a **opção A** no **PR #9** (o commit **`8ae1a3c`**):
+
+- o **`ci.yml`**: o **`pull_request:` sem o filtro de `branches`** — todo PR dispara o CI;
+- o **`tests/test_ci.py`**: trava o contrato (se alguém reintroduzir o filtro, o teste quebra);
+- **o push no PR #9 disparou o `pull_request` sozinho** — **sem o `workflow_dispatch`, sem o
+  `--admin`**;
+- o check **`testes (pytest)` verde no PR** (o run `40038703819`).
+
+**A verificação**: o PR #9 mostra o check verde — **o problema do #8** (o merge com o `--admin`)
+**não se repete**. **A dívida fecha.**
