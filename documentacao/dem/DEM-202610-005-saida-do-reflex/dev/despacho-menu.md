@@ -152,3 +152,18 @@ O cartão do contato está **resolvido** (o `11,27:1`) — o item 1 fecha. A **d
   uma homenagem ativa, **contém**. O **EVAL confere**.
 - **A produção**: o **roteador cobre só o `/`** (e os assets estáticos); o `/homenagens`, o `/login` e
   o resto **seguem na v0** — é o que a proposta de autorização vai registrar.
+## O adendo do VISION (23/10) — o logo do hero no celular
+
+**O pedido**: no celular, o logo dentro do `.hero__logo` (o `.hero__visual`) **não deve aparecer** —
+a marca do topo (o `.marca`, os 45 px) já mostra o Didasko; na tela pequena o logo grande é
+**redundante** e ocupa a primeira dobra.
+
+**O fix** (no `v1/static/landing/landing.css`, no `@media (max-width: 960px)`):
+
+```css
+.hero__visual { display: none; }
+```
+
+**O teste**: no 360, o `#hero` **não** tem o `.hero__visual`; no 1024/1440, **tem**.
+**O que não muda**: o desktop; o `hero` fica com o título direto no celular.
+**A validação**: o VISION (a janela anônima, no 360).
