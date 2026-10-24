@@ -74,3 +74,37 @@ REVISOR **não** vê as do ADMIN; o anônimo não vê o menu).
 | o painel virar **escrita** (o escopo) | o teste 6 (nenhuma rota nova escreve) |
 | a **consulta** pesada (o N+1) | o **resumo** com as consultas agregadas; o EVAL mede |
 | o escopo inflar (a criação do Estudo) | **a fatia 2** — o despacho diz |
+## O PROMPT PARA O DEVS (a entrega obrigatória)
+
+> **A regra (anotada em 24/10)**: a cada despacho, a entrega é **O PROMPT PARA O DEVS** — o texto que
+> o ARQUITECT **cola** no DEVS. O despacho explica; **o prompt é o que se envia**. Sem o prompt, o
+> despacho **não está entregue**.
+
+```text
+A fatia 1 da DEM-202610-017 — o painel do Admin e do Revisor (só leitura).
+
+O QUE:
+1. O /admin (o painel do ADMIN, só leitura): as obras/os estudos (as disponíveis e em estudo); os
+   coordenadores com os estudos escolhidos; os instrutores (o EquipeInstrutor) com os alunos (o
+   TurmaMembro); a lista de todos os alunos com os estudos feitos/a fazer e os resultados (o
+   StudyAssignment/o Progress).
+2. O /revisor (o painel do REVISOR, só leitura): a fila de revisão; o histórico das
+   avaliações/liberações.
+3. O MENU por perfil DERIVADO do gsi_ebd/utils/rbac.py (a fonte única): o base.html renderiza só as
+   rotas que o papel pode; o ADMIN vê o Painel/as Obras/Os Estudos/Os Alunos/Sair; o REVISOR vê o
+   Painel/A Revisão/Sair; o anônimo não vê o menu.
+4. As ROTAS novas na matriz: o /admin = ADMIN; o /revisor = REVISOR.
+
+O TESTE (o plano de testes, o dev/despacho-fatia1-painel.md):
+- o painel do Admin (200 + os dados); o do Revisor (200 + a fila/o histórico);
+- a matriz (o permitido 200 E o negado 403 nas rotas novas);
+- a vacuidade (o monkeypatch remove as chaves -> 403);
+- o menu (o HTML do ADMIN tem os links do ADMIN; o do REVISOR NÃO tem os do ADMIN; o anônimo não tem
+  o menu);
+- o só leitura (nenhuma rota nova escreve: o POST -> 405/403).
+
+O DoD: os painéis; o menu derivado; a matriz não vacuosa; o EVAL cego (o máximo de 2); o CI verde; a
+documentação da DEM-017 atualizada.
+
+NÃO: a criação de obras/estudos (a fatia 2); o banco da v0; o roteamento de produção.
+```
