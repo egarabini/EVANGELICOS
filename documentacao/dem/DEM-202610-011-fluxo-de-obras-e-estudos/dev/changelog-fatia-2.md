@@ -11,7 +11,7 @@
 
 - Branch **nova** `feature/DEM-202610-011-fatia2-obras` a partir da `develop` `5c0bc3e` (marco 1 + landing). **Não** reusa o PR #5.
 - 3 chaves no `rbac.py`; matriz 15 células (permitido e negado) + prova de vacuidade; ADR-020; seed de alunos fake só na homologação `didasko_v1`.
-- Suíte local: 130 testes v1 + 273 regressão. `3f9246e` (obras) + `8ae1a3c` (CI opção A: `pull_request` sem filtro de `branches`). [CI verde no `pull_request`](https://github.com/egarabini/gsi_ebd/actions/runs/40038703819). Check `testes (pytest)` no [PR #9](https://github.com/egarabini/gsi_ebd/pull/9), sem `--admin`. EVAL cego pendente (máximo de 2 rodadas).
+- Suíte local: 130 testes v1 + 272 regressão (o 273 inclui o tests/test_ci.py, que so existe a partir do 8ae1a3c). `3f9246e` (obras) + `8ae1a3c` (CI opção A: `pull_request` sem filtro de `branches`). [CI verde no `pull_request`](https://github.com/egarabini/gsi_ebd/actions/runs/40038703819). Check `testes (pytest)` no [PR #9](https://github.com/egarabini/gsi_ebd/pull/9), sem `--admin`. EVAL cego pendente (máximo de 2 rodadas).
 
 ## 2026-10-19
 

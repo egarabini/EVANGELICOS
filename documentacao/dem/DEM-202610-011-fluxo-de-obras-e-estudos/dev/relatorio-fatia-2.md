@@ -59,7 +59,7 @@ Perfil/logout são comuns aos cinco papéis. Coordenador/instrutor não ganham t
 | mesma invocação na raiz do app | raiz do app | **273 passaram** (272 da regressão + `tests/test_ci.py`) |
 | Integração/render após simplificar o apresentador | `v1/` | **7 passaram** |
 
-A matriz cobre as **20 rotas protegidas × cinco papéis (100 casos)**; inventário via schema interno cobre também GET/POST login. GET autorizado renderiza 200; papel negado recebe 403. POST autorizado pode retornar 303 ou recusa do domínio 409; os testes de integração verificam as transições positivas, não tratam 409 como sucesso de negócio.
+A matriz cobre as **27 entradas protegidas × cinco papéis** (o 	est_rf02_matriz); o inventário via schema interno cobre também GET/POST login. GET autorizado renderiza 200; papel negado recebe 403. POST autorizado pode retornar 303 ou recusa do domínio 409; os testes de integração verificam as transições positivas, não tratam 409 como sucesso de negócio.
 
 Mais cobertura: 14 POSTs sem CSRF, token de outra sessão, cookie adulterado/revogado, header HTMX, rotação, senha errada/status inativo, cookie Secure/HttpOnly/SameSite, StrictUndefined, HTML escapado, bootstrap seguro, banco legado recusado, H-14 em todas as rotas e troca real para os cinco papéis. Integração: importação/parecer/liberação com ajustes/nova versão, hash obsoleto, gates de licença/rollback, solicitação/aceite/dispensa com motivo, posição, cancelamento e recusa/reenvio.
 
@@ -94,3 +94,4 @@ CI foi ampliado apenas para instalar dependências e executar a suíte da v1 no 
 
 
 CI da 1ª rodada no head `8ae1a3c`: [pull_request 40038006423](https://github.com/egarabini/gsi_ebd/actions/runs/40038006423) (head `3f9246e`) e [pull_request 40038703819](https://github.com/egarabini/gsi_ebd/actions/runs/40038703819) (head `8ae1a3c`, opção A). CI do fix: [pull_request 40043436945](https://github.com/egarabini/gsi_ebd/actions/runs/40043436945) no head `48f97f8`. Check `testes (pytest)` verde no [PR #9](https://github.com/egarabini/gsi_ebd/pull/9). O PR #5 permanece aberto e **não** é o veículo. 2ª rodada do EVAL (máximo do ADR-018) pendente.
+

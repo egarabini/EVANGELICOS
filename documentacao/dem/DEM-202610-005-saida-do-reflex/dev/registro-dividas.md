@@ -186,3 +186,20 @@ posterior.
 
 **A consequência prática**: **não empurrar uma tag `v*` para "testar"** — cada push de tag é um
 deploy em produção, com o `up -d --build` recriando o `app` da v0.
+### 13. O seed dos alunos fake **não wired** ao `subir.sh` (a dívida, 23/10)
+
+- **o quê**: o `v1/seed_homolog_estudo.py` **não é chamado** pelo `subir.sh` (0 refs); a homologação
+  sobe **sem** os alunos fake;
+- **a decisão (o ARQUITECT)**: rodar o seed **UMA VEZ**, à mão, no **despacho do deploy** da
+  homologação (com o `DIDASKO_AMBIENTE=homologacao`) — **sem isso a validação visual vê as telas
+  vazias**;
+- **a dívida**: decidir depois se vira **passo do script** (a decisão de infraestrutura é do
+  ARQUITECT);
+- **a regra**: **o seed NUNCA roda em produção** — o `recusar_producao` é o guard (o
+  `DIDASKO_AMBIENTE=homologacao` obrigatório).
+
+### 14. As obras NÃO vão à produção (a decisão do ARQUITECT, 23/10)
+
+- **nada das obras vai à produção** (o seed nunca roda em produção);
+- **o 1b (o Zitadel)** continua **depois da validação visual** das obras, e exige a **autorização de
+  infraestrutura** do ARQUITECT (o Zitadel em produção) e a **avaliação da licença AGPL**.
