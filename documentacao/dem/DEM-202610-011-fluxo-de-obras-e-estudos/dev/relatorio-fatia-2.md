@@ -59,7 +59,7 @@ Perfil/logout são comuns aos cinco papéis. Coordenador/instrutor não ganham t
 | mesma invocação na raiz do app | raiz do app | **273 passaram** (272 da regressão + `tests/test_ci.py`) |
 | Integração/render após simplificar o apresentador | `v1/` | **7 passaram** |
 
-A matriz cobre as **27 entradas protegidas × cinco papéis** (o 	est_rf02_matriz); o inventário via schema interno cobre também GET/POST login. GET autorizado renderiza 200; papel negado recebe 403. POST autorizado pode retornar 303 ou recusa do domínio 409; os testes de integração verificam as transições positivas, não tratam 409 como sucesso de negócio.
+A matriz cobre as **27 entradas protegidas × cinco papéis** (o `test_rf02_matriz`); o inventário via schema interno cobre também GET/POST login. GET autorizado renderiza 200; papel negado recebe 403. POST autorizado pode retornar 303 ou recusa do domínio 409; os testes de integração verificam as transições positivas, não tratam 409 como sucesso de negócio.
 
 Mais cobertura: 14 POSTs sem CSRF, token de outra sessão, cookie adulterado/revogado, header HTMX, rotação, senha errada/status inativo, cookie Secure/HttpOnly/SameSite, StrictUndefined, HTML escapado, bootstrap seguro, banco legado recusado, H-14 em todas as rotas e troca real para os cinco papéis. Integração: importação/parecer/liberação com ajustes/nova versão, hash obsoleto, gates de licença/rollback, solicitação/aceite/dispensa com motivo, posição, cancelamento e recusa/reenvio.
 
