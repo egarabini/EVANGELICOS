@@ -358,3 +358,17 @@ silêncio**, sem o estudo nem o assignment.
 
 **Os `StartedAt`**: o **`app-v1`** e o **`landing`** recriados; o **`postgres-v1`** e o **Traefik**
 **intocados**.
+## O merge do #10 (24/10) — o seed **fail-closed** na develop
+
+O ARQUITECT deu a **ordem expressa**; o **#10** foi mesclado: o **merge commit `0d86a25`** (24/10,
+10:18 UTC).
+
+**A `develop` agora é o `0d86a25`**: o marco 1 + a landing + a fatia 2 (+ o **seed fail-closed**).
+
+**O próximo** (a ordem):
+1. o **DEPLOY** sobe a `0d86a25` na homologação (o `subir.sh --v1`);
+2. o **ARQUITECT** valida o **fluxo de liberação** (a obra criada **por ele**);
+3. o **DEPLOY** libera a obra e **re-executa o seed** — agora o seed **exige a obra** (o
+   `_exigir_obra_liberada`) e **falha com a mensagem clara** se ela não estiver liberada;
+4. o **AUXILIAR** faz a passada técnica (os papéis);
+5. o **VISION** valida as telas.
