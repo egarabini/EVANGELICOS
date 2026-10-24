@@ -1,5 +1,12 @@
 # Changelog — DEM-202610-011, fatia 2
 
+## 2026-10-23 — fix do EVAL (critério 5)
+
+- `test_estudo_fake.py`: login real `aluno.fake.a`, GET 200, POST 303, `UserResponse`/`Progress` pelo handler; `aluno.fake.b` na obra não liberada → vazio/403.
+- `recusar_producao` exige `DIDASKO_AMBIENTE=homologacao`; vazio/desconhecido recusa; `popular()`/`run()` no SQLite `didasko_v1.db`.
+- Caminho HTTP mínimo `v1/routers/aluno.py` (sem a UI completa do aluno).
+- Commit `48f97f8`. Suíte local: **138** v1 + **273** v0. [CI `pull_request` 40043436945](https://github.com/egarabini/gsi_ebd/actions/runs/40043436945). Relatório e briefing atualizados (#9/`3f9246e`/130+272 na 1ª rodada; 2ª rodada neste fix).
+
 ## 2026-10-23
 
 - Branch **nova** `feature/DEM-202610-011-fatia2-obras` a partir da `develop` `5c0bc3e` (marco 1 + landing). **Não** reusa o PR #5.

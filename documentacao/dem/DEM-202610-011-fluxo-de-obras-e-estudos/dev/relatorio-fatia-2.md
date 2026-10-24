@@ -1,10 +1,23 @@
 # DEM-202610-011 — relatório da fatia 2 (etapas A e B)
 
-- **Branch:** `feature/DEM-202610-011-fatia2-telas`, criada de `develop` em `7670aec` (fatia 1 mergeada).
-- **Commit:** `3b5f56c8964b7efcb10de085617717038abd2930`.
-- **PR:** https://github.com/egarabini/gsi_ebd/pull/5 → `develop`, sem merge.
-- **Alvo:** briefing/design da fatia 2, design v7/plano v4 e ADRs 002/003/008/020; estrutura mínima da DEM-005.
-- **Escopo do código:** nova pasta `v1/`, três chaves adicionais de rota em `gsi_ebd/utils/rbac.py` e passo da suíte v1 em `.github/workflows/ci.yml`. **flow.py e models da fatia 1 não foram alterados; nenhum campo novo foi necessário.**
+- **Branch:** `feature/DEM-202610-011-fatia2-obras`, a partir da `develop` `5c0bc3e` (marco 1 + landing). **Não** o PR #5 (`feature/DEM-202610-011-fatia2-telas` / `3b5f56c` / 157+269), que duplicava o esqueleto do marco 1.
+- **Commits das telas:** `3f9246e` (obras) + `8ae1a3c` (CI opção A: `pull_request` sem filtro de `branches`) + `48f97f8` (fix do critério 5).
+- **PR:** https://github.com/egarabini/gsi_ebd/pull/9 → `develop`, sem merge.
+- **Suíte no `3f9246e`/`8ae1a3c`:** v1 **130** + v0 **272** (a suíte completa no head `8ae1a3c` dá **273** com o `tests/test_ci.py`).
+- **Alvo:** despacho e plano de testes do commit `146f374`; ADR-020; 3 chaves no `gsi_ebd/utils/rbac.py`; modo estudo com alunos fake só em `didasko_v1`.
+- **Escopo do código:** telas Admin/Revisor/catálogo na v1 já existente na develop; **flow.py e models da fatia 1 não foram alterados.**
+
+## Fix do EVAL — critério 5 (o fluxo do aluno fake)
+
+A 1ª rodada do EVAL (head `8ae1a3c`; `pull_request` `40038006423` e `40038703819`) deu **FAIL em 1 de 7**: o `test_estudo_fake.py` inseria `UserResponse`/`Progress` direto no banco, sem `entrar(aluno)` nem GET/POST; o `recusar_producao` aceitava ambiente vazio/desconhecido (fail-open).
+
+O fix (despacho `dev/despacho-fatia2-fix.md`):
+
+- login real como `aluno.fake.a`; GET `/aluno` e `/aluno/licao/{id}` da obra **liberada** → 200; POST da resposta → 303; `UserResponse`/`Progress` gravados pelo handler; `aluno.fake.b` na obra **não liberada** → lista vazia e 403 na lição;
+- `DIDASKO_AMBIENTE=homologacao` obrigatório; `ambiente=""` e desconhecido recusam; `popular()`/`run()` exercitados num SQLite `didasko_v1.db`;
+- caminho HTTP mínimo em `v1/routers/aluno.py` (as telas completas do aluno continuam fora desta fatia).
+
+Suíte local após o fix: **138** v1 + **273** v0.
 
 ## A — esqueleto e login local
 
@@ -36,14 +49,14 @@ A matriz conserva todas as permissões da v0 e acrescenta:
 | rota:/revisor/obras | Revisor |
 | rota:/obras | Admin/Revisor, os papéis de leitura do catálogo |
 
-Perfil/logout são comuns aos cinco papéis. Coordenador/instrutor/aluno não ganham telas nesta fatia. Negação de papel é 403 no servidor; não depende de ocultar botão.
+Perfil/logout são comuns aos cinco papéis. Coordenador/instrutor não ganham telas nesta fatia. O aluno ganhou só o caminho HTTP mínimo (`GET /aluno`, `GET`/`POST /aluno/licao/{id}`) para o plano §3 — sem a UI completa da v0. Negação de papel é 403 no servidor; não depende de ocultar botão.
 
 ## Testes
 
 | Suíte | Diretório | Resultado local |
 |---|---|---|
-| `..\.venv\Scripts\python.exe -m pytest tests -q --basetemp=C:/Windows/Temp/dem011-fatia2-v1-final2` | `v1/` | **157 passaram**, 329 avisos de depreciação (serviço legado utcnow e TestClient/Starlette) |
-| `.venv/Scripts/python.exe -m pytest tests -q --basetemp=C:/Windows/Temp/dem011-fatia2-regressao` | raiz do app | **269 passaram**, 18 avisos existentes |
+| `.venv` do GSI_EBD, `pytest tests -q` a partir de `v1/` (worktree DEM-011-fatia2, após o fix do critério 5) | `v1/` | **138 passaram** |
+| mesma invocação na raiz do app | raiz do app | **273 passaram** (272 da regressão + `tests/test_ci.py`) |
 | Integração/render após simplificar o apresentador | `v1/` | **7 passaram** |
 
 A matriz cobre as **20 rotas protegidas × cinco papéis (100 casos)**; inventário via schema interno cobre também GET/POST login. GET autorizado renderiza 200; papel negado recebe 403. POST autorizado pode retornar 303 ou recusa do domínio 409; os testes de integração verificam as transições positivas, não tratam 409 como sucesso de negócio.
@@ -74,10 +87,10 @@ Todos os baselines exit 0, mutantes exit 1 por comportamento, sem erro de coleta
 - SQLite é o ambiente local/teste. Provisão e integração real com PostgreSQL didasko_v1, baseline de schema e homologação são da DEM-005; esta fatia valida a configuração e o create_all com banco descartável, sem usar credenciais de infraestrutura.
 - `CAMINHO_INVENTARIO` precisa estar acessível na v1; ambos os gates continuam no domínio, com leitura fresca. Corpus não foi lido, copiado ou incluído.
 - HTMX **2.0.4**, licença incluída e servido localmente; SHA-256 do asset: `e209dda5c8235479f3166defc7750e1dbcd5a5c1808b7792fc2e6733768fb447`. Sem CDN em runtime, Node ou TS. Alpine não foi adicionado porque os formulários só exigem melhoria progressiva leve.
-- Sem deploy, imagem, DNS, homologação, Alembic, segredo no repositório, telas instrutor/aluno ou fatia 3 (desvincular/adendo do ambiente/planejar). Não foi executado fluxo de email.
+- Sem deploy, imagem, DNS, homologação, Alembic, segredo no repositório, telas completas de instrutor/aluno (só o GET/POST mínimo do plano §3) ou fatia 3 (desvincular/adendo do ambiente/planejar). Não foi executado fluxo de email.
 - Avisos/transições históricas e limites do domínio, como cancelamento lógico/cópia de trabalho, continuam conforme a fatia 1; sem correções adjacentes.
 
 CI foi ampliado apenas para instalar dependências e executar a suíte da v1 no seu próprio diretório, preservando a regressão da raiz. Relatório/jornada/evidências ficam no repositório pai, fora do Git do app. EVAL cego e aceite permanecem posteriores ao PR.
 
 
-CI confirmado no commit `3b5f56c8964b7efcb10de085617717038abd2930`: **269 testes de regressao + 157 testes da v1 passaram**, com a suite da v1 executada de `v1/`. [Execucao verde](https://github.com/egarabini/gsi_ebd/actions/runs/39339058255). PR #5 permanece aberto para develop; EVAL e aceite pendentes.
+CI da 1ª rodada no head `8ae1a3c`: [pull_request 40038006423](https://github.com/egarabini/gsi_ebd/actions/runs/40038006423) (head `3f9246e`) e [pull_request 40038703819](https://github.com/egarabini/gsi_ebd/actions/runs/40038703819) (head `8ae1a3c`, opção A). CI do fix: [pull_request 40043436945](https://github.com/egarabini/gsi_ebd/actions/runs/40043436945) no head `48f97f8`. Check `testes (pytest)` verde no [PR #9](https://github.com/egarabini/gsi_ebd/pull/9). O PR #5 permanece aberto e **não** é o veículo. 2ª rodada do EVAL (máximo do ADR-018) pendente.

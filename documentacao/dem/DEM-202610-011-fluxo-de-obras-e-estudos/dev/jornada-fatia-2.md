@@ -1,5 +1,11 @@
 # Jornada — DEM-202610-011, fatia 2
 
+## 2026-10-23 — Fix do EVAL (critério 5)
+
+A 1ª rodada falhou só no fluxo do aluno fake: o teste inseria linhas no banco e o seed aceitava ambiente vazio. O despacho `despacho-fatia2-fix.md` pediu o HTTP real e o fail-open fechado, sem inflar as telas de aluno.
+
+Implementado o GET/POST mínimo em `/aluno` e `/aluno/licao/{id}` (matriz `rota:/aluno` e `rota:/aluno/licao` já existentes), o `entrar_como(aluno.fake.a)`, o POST que grava `UserResponse`/`Progress`, o 403/vazio do `aluno.fake.b` na obra não liberada, o `DIDASKO_AMBIENTE=homologacao` obrigatório e o `popular()`/`run()` no SQLite `didasko_v1.db`. Suíte local 138+273. Sem `subir.sh`, sem merge, sem 2ª rodada do EVAL (quem dispara é o Architect).
+
 ## 2026-10-23 — Recriação a partir da develop `5c0bc3e`
 
 O despacho (`dev/despacho-obras-fatia2.md` no DEM-005) e o plano de testes já estavam escritos no commit `146f374`. A branch do PR #5 (`feature/DEM-202610-011-fatia2-telas`) duplicava o esqueleto do marco 1 e **não** foi despachada.
