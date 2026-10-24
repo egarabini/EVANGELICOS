@@ -332,3 +332,14 @@ pipeline**.
 **A nota do ADR-016**: o deploy **entrou direto**, sem a aprovação manual do `environment producao` —
 **consistente com o ADR-016** (o *required reviewer* foi removido; a **autorização é por release
 aceito**).
+## O merge do #9 (24/10) — a fatia 2 na develop
+
+O ARQUITECT mesclou o **#9** na `develop`: o **merge commit `d927467`** (24/10, 03:58 UTC),
+**SEM o `--admin`** — o **CI no `pull_request` verde**.
+
+**A opção A do CI funcionou**: o check `testes (pytest)` **no PR**, e o merge **sem o `--admin`** —
+exatamente o que a correção prometia (o problema do #8 não se repete).
+
+**O próximo**: o **DEPLOY** sobe a **`develop` pós-merge** (o `d927467`) na **homologação** (o
+`subir.sh --v1`) + o **seed dos alunos fake UMA VEZ** (o `DIDASKO_AMBIENTE=homologacao`). **A
+produção NÃO é tocada; o seed nunca roda em produção.**
