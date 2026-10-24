@@ -238,3 +238,25 @@ deploy em produção, com o `up -d --build` recriando o `app` da v0.
   corretamente);
 - **a consequência**: a **validação visual** das telas do aluno fake **vê as telas vazias** até a
   obra ser liberada e o seed re-executado — **o gap é de conteúdo, não de código**.
+### 16. A passada técnica do AUXILIAR (24/10) — a homologação sem credencial
+
+**O resultado (a homologação):**
+
+- o `/admin/obras`, o `/admin/obras/nova`, o `/revisor/obras`, o `/obras`, o `/aluno`, o
+  `/aluno/licao/1`: **401** para o **anônimo** (a autenticação);
+- o `POST /admin/obras` **sem sessão/CSRF**: **403** (o CSRF);
+- o `/openapi.json` e o `/docs`: **404** (o **não exposto**);
+- o `/login`: **200**;
+- a **produção** (`didasko.app.br`): o `/admin/obras`, o `/revisor/obras`, o `/obras`: **404** —
+  **nada das obras vazou**.
+
+**NÃO verificado**: a **matriz de papéis com login real** (Admin/Revisor/aluno) — **sem a
+credencial**; a cobertura atual = os testes (a matriz de 15 células, o EVAL PASS). **Fica para a
+validação visual do ARQUITECT.**
+
+**Os pedidos do AUXILIAR** (a #17):
+
+1. o **seed fail-closed** (o `dev/despacho-seed-fail-closed.md`) — o seed **falha** com mensagem clara
+   sem a obra liberada;
+2. **depois** da validação do **fluxo de liberação** pelo ARQUITECT na homologação, **usar a obra
+   criada por ele** para liberar e **re-executar o seed** dos alunos fake.
