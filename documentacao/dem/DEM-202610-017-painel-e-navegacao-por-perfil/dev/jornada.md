@@ -21,7 +21,7 @@ Não é nova rodada do EVAL — conferência rápida do ARQUITECT.
    `rota:/perfil/alterar-senha`. O Sair permanece no `base.html` para qualquer autenticado. O
    restante do menu dos demais papéis fica na fatia 3.
 
-Suíte local: 172 v1 + 277 v0. Sem `subir.sh`, sem merge.
+Suíte: 172 v1 + 277 v0. [CI verde](https://github.com/egarabini/gsi_ebd/actions/runs/40100843953) (`testes (pytest)`). Sem `subir.sh`, sem merge.
 
 ## 2026-10-24 — Painéis só leitura e menu derivado
 

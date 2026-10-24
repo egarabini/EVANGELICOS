@@ -9,7 +9,7 @@ permite**. A fonte única é `gsi_ebd/utils/rbac.py`. A fatia 1 é **só leitura
 
 | Fatia | O quê | Estado |
 |---|---|---|
-| **1** | Painel do Admin (`/admin`) e do Revisor (`/revisor`), menu derivado da matriz, rotas novas sem teste vacuoso | **PR #11** — fix das 4 ressalvas do EVAL; conferência rápida do ARQUITECT; sem merge |
+| **1** | Painel do Admin (`/admin`) e do Revisor (`/revisor`), menu derivado da matriz, rotas novas sem teste vacuoso | **PR #11** — fix das 4 ressalvas; [CI verde](https://github.com/egarabini/gsi_ebd/actions/runs/40100843953); conferência rápida do ARQUITECT; sem merge |
 | **2** | Criação do Estudo (`/admin/estudos`) + visão das avaliações/liberações + testes dos alunos fake no painel | proposta |
 | **3** | Painéis do Coordenador, do Instrutor e do Aluno | proposta |
 | **4** | Navegação hierárquica coordenador → instrutor → aluno | proposta |

@@ -2,7 +2,7 @@
 
 - **Branch:** `feature/DEM-202610-017-fatia1-painel`, a partir da `develop` `0d86a25`. Commits `9efe747` (fatia 1) + `a18fcb1` (fix das 4 ressalvas).
 - **PR:** https://github.com/egarabini/gsi_ebd/pull/11 → `develop`, sem merge.
-- **CI:** [40097452147](https://github.com/egarabini/gsi_ebd/actions/runs/40097452147) — check `testes (pytest)` verde.
+- **CI:** fatia 1 [40097452147](https://github.com/egarabini/gsi_ebd/actions/runs/40097452147); fix das 4 ressalvas [40100843953](https://github.com/egarabini/gsi_ebd/actions/runs/40100843953) — check `testes (pytest)` verde (277 v0 + 172 v1).
 - **Worktree:** `.worktrees/DEM-017-painel` (GSI_EBD).
 - **Alvo:** despacho `dev/despacho-fatia1-painel.md`; menu derivado do `rbac.py`; matriz não vacuosa.
 - **Escopo:** painéis só leitura + menu + duas chaves na matriz. Sem criação de estudo, sem banco da v0, sem Traefik.
