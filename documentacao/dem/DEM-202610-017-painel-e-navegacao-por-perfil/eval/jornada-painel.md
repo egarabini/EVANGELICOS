@@ -47,3 +47,19 @@ exercitou os três e todos renderizam**. **A recomendação**: acrescentar.
 O **"Sair" estático** (o `base.html` L23 — fora do `itens_do_menu`) e o **menu vazio** para o ALUNO/o
 COORDENADOR/o INSTRUTOR (**perderam o "Trocar a senha"** que existia). **Fora da fatia 1**; **a revisar
 na fatia 3**.
+## A correção das 4 ressalvas (o `a18fcb1`) — a conferência rápida
+
+1. **As casas POR VERSÃO**: as chaves **compartilhadas** (o `rota:/admin` = ADMIN; o `rota:/revisor` =
+   REVISOR); o **`HOME_DO_PAPEL` da v0 → o REVISOR → o `/admin`** (revertido ao que era); a **v1 ganhou
+   o `HOME_DO_PAPEL_V1` → o REVISOR → o `/revisor`**; o teste **`revisor entra: 9.2a` REVERTIDO** (a
+   v0 congelada); a **invariante da casa em cada mapa** (o `test_invariante_casa_do_papel` e o
+   `test_rf02_invariante_casa_v1`).
+2. **A cobertura**: o `test_painel_admin` cobre a **obra disponível** (o `versao_liberada_id` + a
+   `aberta`), o **`completed=True`** e o **`recusada`** no histórico.
+3. **O `VinculoObra` RENDERIZADO** ("Obras vinculadas") — a recomendação do PLANNER.
+4. **O "Alterar senha" e o "Sair" no menu de TODOS os papéis** (o ADMIN, o REVISOR, o COORDENADOR, o
+   INSTRUTOR e o ALUNO); o **teste por papel**; o restante do menu dos demais papéis **na fatia 3**.
+
+**O CI `40100843953`**: o `testes (pytest)` **SUCCESS** — **277 da v0 + 172 da v1**.
+**Sem o EVAL** (a conferência rápida, não uma rodada 2). **Sem o `subir.sh`.** A **ordem do merge é do
+ARQUITECT**.
