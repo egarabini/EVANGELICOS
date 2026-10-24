@@ -9,7 +9,7 @@ permite**. A fonte única é `gsi_ebd/utils/rbac.py`. A fatia 1 é **só leitura
 
 | Fatia | O quê | Estado |
 |---|---|---|
-| **1** | Painel do Admin (`/admin`) e do Revisor (`/revisor`), menu derivado da matriz, rotas novas sem teste vacuoso | **implementada** — branch `feature/DEM-202610-017-fatia1-painel`; EVAL cego pendente (máximo de 2, ADR-018) |
+| **1** | Painel do Admin (`/admin`) e do Revisor (`/revisor`), menu derivado da matriz, rotas novas sem teste vacuoso | **PR #11** — CI verde; EVAL cego pendente (máximo de 2, ADR-018) |
 | **2** | Criação do Estudo (`/admin/estudos`) + visão das avaliações/liberações + testes dos alunos fake no painel | proposta |
 | **3** | Painéis do Coordenador, do Instrutor e do Aluno | proposta |
 | **4** | Navegação hierárquica coordenador → instrutor → aluno | proposta |

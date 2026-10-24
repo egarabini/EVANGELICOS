@@ -25,5 +25,6 @@ da matriz; POST 405/403. Inventário RF-02 e destino RF-01 atualizados: login do
 a `/admin`, o do REVISOR a `/revisor`; Coordenador ainda cai na raiz (casa ainda não
 existe na v1).
 
-Suíte local: 166 v1 + 274 v0. Sem `subir.sh`, sem EVAL (quem dispara é o Architect), sem
-merge.
+Suíte local: 166 v1 + 274 v0. [PR #11](https://github.com/egarabini/gsi_ebd/pull/11).
+[CI verde](https://github.com/egarabini/gsi_ebd/actions/runs/40097452147) (`testes (pytest)`).
+Sem `subir.sh`, sem EVAL (quem dispara é o Architect), sem merge.
