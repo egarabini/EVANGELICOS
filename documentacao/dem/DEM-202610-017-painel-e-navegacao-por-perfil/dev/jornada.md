@@ -1,5 +1,28 @@
 # Jornada — DEM-202610-017, fatia 1
 
+## 2026-10-24 — Fix das 4 ressalvas do EVAL (PR #11)
+
+Despacho `dev/despacho-fatia1-fix.md`. As 4 ressalvas no mesmo commit, no #11, **antes** do merge.
+Não é nova rodada do EVAL — conferência rápida do ARQUITECT.
+
+1. **Casas por versão.** `HOME_DO_PAPEL` da v0 volta exatamente ao que era (REVISOR → `/admin`).
+   A v1 ganha `HOME_DO_PAPEL_V1` (REVISOR → `/revisor`); o `destino()` da v1 consulta esse mapa,
+   não o `AuthService.redirect_for_role`. As chaves `rota:/admin` e `rota:/revisor` continuam
+   compartilhadas. O `guarda_rota` da v0 deixa o papel entrar na própria casa, para o REVISOR
+   não cair em 404 nem em loop. O teste `revisor entra: 9.2a` foi revertido. A invariante da
+   casa vale para cada mapa (`test_invariante_casa_do_papel` na v0; `test_rf02_invariante_casa_v1`
+   na v1).
+
+2–3. **Cobertura e VinculoObra.** O painel do Admin renderiza `bloco.obras`. A fixture libera a
+   obra (`versao_liberada_id` + `aberta`), cria `VinculoObra`, um assignment `completed=True` e o
+   fluxo do Revisor passa por `recusar` antes de reenviar/revisar/liberar.
+
+4. **Alterar senha e Sair.** `ITENS_MENU` ganha Alterar senha com a chave `_TODOS`
+   `rota:/perfil/alterar-senha`. O Sair permanece no `base.html` para qualquer autenticado. O
+   restante do menu dos demais papéis fica na fatia 3.
+
+Suíte local: 172 v1 + 277 v0. Sem `subir.sh`, sem merge.
+
 ## 2026-10-24 — Painéis só leitura e menu derivado
 
 Despacho `dev/despacho-fatia1-painel.md` (já na develop, `e7afc82`). Worktree isolado

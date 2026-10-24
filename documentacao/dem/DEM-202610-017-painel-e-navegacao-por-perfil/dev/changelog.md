@@ -1,5 +1,11 @@
 # Changelog — DEM-202610-017, fatia 1
 
+## 2026-10-24 — fix das 4 ressalvas do EVAL
+
+- Casas por versão: `HOME_DO_PAPEL` da v0 (REVISOR → `/admin`); `HOME_DO_PAPEL_V1` (REVISOR → `/revisor`). Chaves de `PERMISSOES` inalteradas.
+- Teste da v0 `revisor entra: 9.2a` revertido. `VinculoObra` renderizado. Cobertura: obra disponível, `completed=True`, `recusada`. Alterar senha + Sair no menu de todos os papéis.
+- Commit GSI_EBD `a18fcb1`. Suíte local: **172** v1 + **277** v0. Conferência rápida do ARQUITECT (não é nova rodada do EVAL). Sem merge.
+
 ## 2026-10-24
 
 - Branch **nova** `feature/DEM-202610-017-fatia1-painel` a partir da `develop` `0d86a25` (merge do PR #10). Worktree `.worktrees/DEM-017-painel`.
