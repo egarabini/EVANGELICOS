@@ -260,3 +260,15 @@ validação visual do ARQUITECT.**
    sem a obra liberada;
 2. **depois** da validação do **fluxo de liberação** pelo ARQUITECT na homologação, **usar a obra
    criada por ele** para liberar e **re-executar o seed** dos alunos fake.
+### 15-atualizada — o seed **fail-closed** (o PR #10, o `00f844b`) — a (a) FECHOU
+
+- **o fix**: o `_exigir_obra_liberada` no `v1/seed_homolog_estudo.py` — o
+  `select(Obra).where(Obra.versao_liberada_id.is_not(None)).first()`; se `None` → o **`RuntimeError`**
+  com a mensagem clara ("o seed exige ao menos uma Obra com `versao_liberada_id`; libere a obra no
+  fluxo do Admin/Revisor");
+- **a ordem**: o `recusar_producao` → o `DIDASKO_AMBIENTE` → o `DATABASE_URL` → o `SEED_PASSWORD` → **a
+  obra liberada** → os alunos (o `recusar_producao` **primeiro**, como o EVAL exigiu);
+- **o teste**: o `test_popular_recusa_sem_obra_liberada` (o `pytest.raises`); a suíte local **139**;
+  o CI `40061955876` **success**;
+- **a (a) da dívida 15 FECHOU**; as **(b)** (a liberação da obra em homologação) e **(c)** (o login
+  HTTP do `/aluno`) **ficam** — dependem da obra criada/liberada pelo ARQUITECT.
