@@ -203,3 +203,38 @@ deploy em produção, com o `up -d --build` recriando o `app` da v0.
 - **nada das obras vai à produção** (o seed nunca roda em produção);
 - **o 1b (o Zitadel)** continua **depois da validação visual** das obras, e exige a **autorização de
   infraestrutura** do ARQUITECT (o Zitadel em produção) e a **avaliação da licença AGPL**.
+
+### 15. O seed rodou, mas sem obra liberada → sem estudo/assignment (24/10)
+
+- **o quê**: o `subir.sh --v1` do `d927467` (a `develop` pós-merge do #9, fatia 2) subiu limpo
+  (200 em `/`, `/homenagens`, `/login`); o `v1.seed_homolog_estudo` rodou **uma vez**, exit 0, e
+  criou os **2 alunos fake** (`aluno.fake.a`/`b@homolog.didasko.local`, confirmados no `psql`) —
+  mas `studyassignment` ficou com **0 linhas**;
+- **a causa**: `popular()` chama `_estudo_da_obra_liberada()`, que procura uma `Obra` com
+  `versao_liberada_id` preenchido; **não existe nenhuma** em `didasko_v1`
+  (`select count(*), count(versao_liberada_id) from obra` → `0 / 0`). Sem obra liberada, a função
+  retorna `None` e `popular()` **sai silenciosamente** (fail-open) — sem estudo, sem assignment,
+  sem erro, sem aviso no stdout;
+- **a consequência**: o `/aluno` do `aluno.fake.a` mostra a lista **vazia** até existir uma obra
+  liberada em homologação — não é falha do seed nem do deploy, é pré-condição que ninguém havia
+  atendido ainda;
+- **o que NÃO fiz**: não testei o login HTTP do `/aluno` (exige o `SEED_PASSWORD` em texto plano,
+  que não li — ADR-015); não fabriquei uma obra/versão liberada no banco para contornar (decisão de
+  conteúdo, não do DEPLOY);
+- **a decisão do ARQUITECT**: seguir assim, registrar o gap e fechar a tarefa de deploy — a
+  liberação de uma obra em homologação (pela aplicação) e a re-execução do seed (idempotente para
+  os alunos, mas vai preencher o estudo/assignment uma vez liberada) ficam para depois.
+### 15. O seed dos alunos fake é **fail-open** (o `studyassignment` com 0 linhas) — 24/10
+
+- **o quê**: o deploy da homologação (o `d927467`) rodou o seed **uma vez** (exit 0; os **2 alunos
+  fake** no banco), mas o **`studyassignment` ficou com 0 linhas** — o seed é **fail-open**: sem
+  **nenhuma `Obra` com o `versao_liberada_id`** no `didasko_v1` (o **0/0**), ele **cria só os
+  alunos** e **sai em silêncio**, sem o estudo nem o assignment;
+- **a decisão (o ARQUITECT)**: **seguir assim, registrar e fechar** — a **liberação de uma obra em
+  homologação** e a **re-execução do seed** ficam **para depois**;
+- **as dívidas internas**: (a) o seed **deveria falhar** (não sair em silêncio) sem a obra liberada;
+  (b) a obra de homologação precisa ser **liberada** (o fluxo do Admin/Revisor) antes do seed; (c) o
+  **login HTTP do `/aluno` não foi testado** (o `SEED_PASSWORD` em texto plano — o DEPLOY não o leu,
+  corretamente);
+- **a consequência**: a **validação visual** das telas do aluno fake **vê as telas vazias** até a
+  obra ser liberada e o seed re-executado — **o gap é de conteúdo, não de código**.

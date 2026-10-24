@@ -343,3 +343,18 @@ exatamente o que a correção prometia (o problema do #8 não se repete).
 **O próximo**: o **DEPLOY** sobe a **`develop` pós-merge** (o `d927467`) na **homologação** (o
 `subir.sh --v1`) + o **seed dos alunos fake UMA VEZ** (o `DIDASKO_AMBIENTE=homologacao`). **A
 produção NÃO é tocada; o seed nunca roda em produção.**
+## O deploy da homologação (24/10) — a fatia 2 no ar (com o gap do seed)
+
+O DEPLOY subiu a **`develop` pós-merge** (o **`d927467`**) na **homologação**: o **`subir.sh --v1`
+exit 0**; o `/`, o `/homenagens` e o `/login` → **200**.
+
+**O seed**: rodou **uma vez** (exit 0; os **2 alunos fake** no banco). O **`SEED_PASSWORD`** e o
+**`DATABASE_URL`** **nunca passaram pelo terminal do DEPLOY** — leram e substituíram **inteiramente do
+lado do servidor**.
+
+**O GAP**: o **`studyassignment` ficou com 0 linhas** — o seed é **fail-open**: sem **nenhuma `Obra`
+com o `versao_liberada_id`** no `didasko_v1` (o **0/0** confirmado), ele **cria só os alunos e sai em
+silêncio**, sem o estudo nem o assignment.
+
+**Os `StartedAt`**: o **`app-v1`** e o **`landing`** recriados; o **`postgres-v1`** e o **Traefik**
+**intocados**.
