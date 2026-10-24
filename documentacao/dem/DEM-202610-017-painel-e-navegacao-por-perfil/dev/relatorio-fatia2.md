@@ -2,6 +2,7 @@
 
 - **Branch:** `feature/DEM-202610-017-fatia2-estudo`, a partir da `develop` `b5573bd` (merge do PR #11). Commit `3e0e48f`. **Não reusa o #11.**
 - **PR:** https://github.com/egarabini/gsi_ebd/pull/12 → `develop`, sem merge.
+- **CI:** [40106321822](https://github.com/egarabini/gsi_ebd/actions/runs/40106321822) — check `testes (pytest)` verde (277 v0 + 213 v1).
 - **Worktree:** `.worktrees/DEM-017-fatia2` (GSI_EBD).
 - **Alvo:** despacho `dev/despacho-fatia2-estudo.md`. ADR-020. Matriz não vacuosa.
 - **Escopo:** criação do Estudo; avaliações/liberações; fake na lista do painel. Sem UI fina dos demais papéis, sem banco da v0, sem Traefik, sem `subir.sh`.

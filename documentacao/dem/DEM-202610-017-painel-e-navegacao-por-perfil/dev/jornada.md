@@ -12,8 +12,9 @@ Despacho `dev/despacho-fatia2-estudo.md`. Branch nova a partir da `develop` `b55
    `alterar` cria a N+1. Hash LF+NFC.
 3. **Fake.** GET `/admin` lista "Aluno Fake A/B" com `Progress` e `UserResponse`.
 
-Rotas novas na matriz, sem teste vacuoso. Suíte local: 213 v1 + 277 v0. EVAL cego (máximo de 2)
-fica com o ARQUITECT. Sem `subir.sh`, sem merge.
+Rotas novas na matriz, sem teste vacuoso. Suíte: 213 v1 + 277 v0.
+[CI verde](https://github.com/egarabini/gsi_ebd/actions/runs/40106321822) no [PR #12](https://github.com/egarabini/gsi_ebd/pull/12).
+EVAL cego (máximo de 2) fica com o ARQUITECT. Sem `subir.sh`, sem merge.
 
 ## 2026-10-24 — Fix das 4 ressalvas do EVAL (PR #11)
 

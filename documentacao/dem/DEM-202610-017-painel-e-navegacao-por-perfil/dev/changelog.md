@@ -4,7 +4,7 @@
 
 - Branch **nova** `feature/DEM-202610-017-fatia2-estudo` a partir da `develop` `b5573bd` (merge do PR #11). Worktree `.worktrees/DEM-017-fatia2`. **Não reusa o #11.**
 - Criação: `/admin/estudos` + `/admin/estudos/nova` (ADMIN). Avaliações: `/revisor/avaliacoes` (REVISOR). ADR-020: assinatura + liberação; N imutável; hash LF+NFC.
-- Commit GSI_EBD `3e0e48f`. Fake A/B na lista do `/admin` (`Progress`/`UserResponse`). Matriz 15 células + vacuidade. Suíte local: **213** v1 + **277** v0. EVAL cego pendente. Sem `subir.sh`, sem merge.
+- Commit GSI_EBD `3e0e48f`. [PR #12](https://github.com/egarabini/gsi_ebd/pull/12). [CI `pull_request` 40106321822](https://github.com/egarabini/gsi_ebd/actions/runs/40106321822) verde. Suíte: **213** v1 + **277** v0. EVAL cego pendente. Sem `subir.sh`, sem merge.
 
 ## 2026-10-24 — fix das 4 ressalvas do EVAL
 
