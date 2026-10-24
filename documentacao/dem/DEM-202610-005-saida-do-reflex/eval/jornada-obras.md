@@ -47,3 +47,45 @@ O EVAL julgou o **PR #9** (o head **`8ae1a3c`**; os runs `40038005779`/`40038006
 **RESSALVAS** (não bloqueiam sozinhas): o `relatorio-fatia-2.md` ainda descreve o **PR #5/`3b5f56c`/
 157+269** (não o #9/`3f9246e`/130+272); o **briefing está um commit atrasado** (o head `8ae1a3c`) e
 cita o run do `workflow_dispatch` em vez do `pull_request` `40038006423`.
+## A 2ª rodada — o **PASS** (o head `48f97f8`)
+
+O EVAL deu **PASS em todos os 8 critérios**: o **rbac**, a **matriz 15**, a **vacuidade**, o
+**ADR-020**, o **fluxo do aluno fake + o seed**, os **testes**, o **CI** e a **branch/docs**.
+
+### O critério 5 (o FAIL da 1ª rodada) — resolvido
+
+- o **`test_estudo_fake.py`** (3 passed): o **`entrar_como(c, ALUNOS_FAKE[0]["email"])`** (o **login
+  bcrypt real**); o **GET `/aluno` 200**, o **GET `/aluno/licao/{id}` 200**, o **POST 303**;
+- o **assert do `Progress`** (correct=1/total=1) e do **`UserResponse`** (answer=sim/is_correct=True)
+  **gravados pelo HANDLER** — **nenhum `UserResponse()`/`Progress()` no teste** (só leitura; o teste
+  antigo no `8ae1a3c` tinha inserts diretos nas L113/L124);
+- o **`aluno.fake.b`**: o GET `/aluno` 200 com **"Nenhum estudo liberado"** + o título ausente; o GET
+  `/aluno/licao` **403** (o assignment existe, a obra não liberada); o GET `/obras` **403**.
+
+### O seed — resolvido
+
+- o **`recusar_producao`** exige o **`DIDASKO_AMBIENTE=homologacao`**; o **`""`**, o
+  **`"desenvolvimento"`**, o **env ausente** e o **`run()` sem o env** → **`RuntimeError`**;
+- o **`popular()`/`run()`** no **SQLite `didasko_v1.db`** (o `test_popular_e_run_no_sqlite_didasko_v1`
+  PASSED); o **seed de produção sem os fake**.
+
+### O resto
+
+- o **rbac**: as **3 chaves exatas**, e o **`v1/rbac.py` não existe** (a matriz é o
+  `gsi_ebd/utils/rbac.py`);
+- a **matriz 15** (o permitido **e** o negado) + o contrato + o CSRF + a vacuidade = **18 passed**;
+- o **ADR-020**: **7 passed**; juntos **25**;
+- a **v1 138**; a **v0 273**;
+- os **docs**: o `relatorio-fatia-2.md` com o #9/`3f9246e`/130+272 e 138+273; o
+  `briefing-eval-obras-2.md` com o head `48f97f8` e o CI `40043436945`;
+- a **branch**: o `git log 5c0bc3e..HEAD` = `48f97f8`/`8ae1a3c`/`3f9246e`; o `3f9246e^ = 5c0bc3e`;
+- o **CI**: o run `40043436945`, o `head_sha 48f97f8`, o `pull_request`, **success**.
+
+### As ressalvas (não bloqueantes)
+
+- o `relatorio` L3 cita o **#5/`3b5f56c`/157+269** **apenas como negativo explícito**;
+- o L62 diz "20 rotas × 5 (100 casos)" — o `test_rf02` agora tem **27 entradas**;
+- o `changelog` L14 diz **273** para o `8ae1a3c` (o correto é o 272);
+- o **seed ainda não está wired ao `subir.sh`** (0 refs) — **o DoD desta rodada aceita o teste**.
+
+**A 2ª e última rodada do ADR-018: PASS.**
