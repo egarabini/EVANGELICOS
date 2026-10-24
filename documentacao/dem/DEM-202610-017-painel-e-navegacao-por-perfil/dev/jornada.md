@@ -1,4 +1,19 @@
-# Jornada — DEM-202610-017, fatia 1
+# Jornada — DEM-202610-017
+
+## 2026-10-24 — Fatia 2: criação do Estudo e avaliações
+
+Despacho `dev/despacho-fatia2-estudo.md`. Branch nova a partir da `develop` `b5573bd`. Worktree
+`.worktrees/DEM-017-fatia2`. **Não reusa o PR #11.**
+
+1. **Criação.** Admin cria o Estudo (obra aplicada em capítulos) em `/admin/estudos/nova`.
+   `Estudo` + `EstudoCapitulo` + `EstudoVersao` N=1 em `em_revisao`.
+2. **Avaliações/liberações (ADR-020).** Fila em `/revisor/avaliacoes`; parecer `revisar`/`recusar`;
+   liberação só com assinatura do Revisor **e** ato do Admin. A N liberada fica no snapshot;
+   `alterar` cria a N+1. Hash LF+NFC.
+3. **Fake.** GET `/admin` lista "Aluno Fake A/B" com `Progress` e `UserResponse`.
+
+Rotas novas na matriz, sem teste vacuoso. Suíte local: 213 v1 + 277 v0. EVAL cego (máximo de 2)
+fica com o ARQUITECT. Sem `subir.sh`, sem merge.
 
 ## 2026-10-24 — Fix das 4 ressalvas do EVAL (PR #11)
 
