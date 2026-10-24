@@ -272,3 +272,22 @@ validação visual do ARQUITECT.**
   o CI `40061955876` **success**;
 - **a (a) da dívida 15 FECHOU**; as **(b)** (a liberação da obra em homologação) e **(c)** (o login
   HTTP do `/aluno`) **ficam** — dependem da obra criada/liberada pelo ARQUITECT.
+### 17. O defeito "volta à landing" — **A CONFIRMAR** (24/10)
+
+**As hipóteses, e o que aconteceu com cada uma:**
+
+1. **"a v0 retorna ao `/`"** (a hipótese do AUXILIAR) — **REFUTADA pelo código**: o
+   `gsi_ebd/states/auth.py` tem o `redirect_path` (a L62) e o `rx.redirect(self.redirect_path)` (a
+   L148) — a v0 redireciona para a **casa do papel**;
+2. **"a casa do papel não existe"** (a nova hipótese) — **REFUTADA pelo AUXILIAR**: o `HOME_DO_PAPEL`
+   da v0 (o `/admin`, o `/coordenador`, o `/revisao`, o `/aluno`) **existe e responde 200** na
+   produção; **nenhuma é a landing**; o http→https **preserva o caminho**.
+
+**A CAUSA SEGUE DESCONHECIDA** — o ARQUITECT vai informar **o endereço e os passos**; **não levantar
+mais hipóteses sem reprodução**.
+
+### 18. A dívida da v0 (baixa) — o `/admin` responde 307 no http (24/10)
+
+- o `/admin` responde **307** para o `http://didasko.app.br/admin/` (**sem o cabeçalho de proxy**);
+- o **301** para o https **corrige no cliente**;
+- **a dívida é baixa** (o cliente resolve); o registro fica para não parecer um defeito novo.
